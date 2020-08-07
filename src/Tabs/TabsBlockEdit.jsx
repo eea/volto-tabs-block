@@ -5,6 +5,19 @@ import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import schema from './schema';
 import { useFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 import { getBlocks } from '@plone/volto/helpers';
+import { deriveTabsFromState } from './utils';
+
+// there has been changes in the overall layout, we need to sync it to
+// the tabs layout
+
+// unfortunately we don't have events or reducers in Volto's Form.jsx
+// that would make this easier, so we need a way to understand how to
+// divide the tabs. We take advantage that we control where the tabs can
+// appear (the activeTab).
+//
+// A block can only appear or dissapear in the activeTab
+// When it appears, we need to see which other block is before it
+// The same when it dissapears
 
 const EditTabsBlock = (props) => {
   const [activeTab, setActiveTab] = React.useState(0);
@@ -24,53 +37,24 @@ const EditTabsBlock = (props) => {
 
     const { formData } = contextData;
     const blocks = getBlocks(formData);
-    const blockIds = blocks.map(([id]) => id);
+    // console.log('blocks', blocks);
+    const res = deriveTabsFromState({
+      tabsLayout,
+      blocks,
+      tabs,
+      activeTab,
+      currentBlock: props.block, // temporary
+    });
+    console.log('res', res);
 
-    // all available blocks in blocks_layout.items
-    const afterBlocksIds = blockIds.slice(blockIds.indexOf(props.block) + 1);
+    // console.log('blocksLayout', newBlocksLayout);
+    // console.log('tabsLayout', tabsLayout);
 
-    // blocks as defined in the tabs layout
-    const tabsLayoutBlockIds = tabsLayout.flat(1);
-
-    if (tabsLayoutBlockIds !== afterBlocksIds) {
-      // there has been changes in the overall layout, we need to sync it to
-      // the tabs layout
-
-      // unfortunately we don't have events or reducers in Volto's Form.jsx
-      // that would make this easier, so we need a way to understand how to
-      // divide the tabs. We take advantage that we control where the tabs can
-      // appear (the activeTab).
-      //
-      // A block can only appear or dissapear in the activeTab
-      // When it appears, we need to see which other block is before it
-      // The same when it dissapears
-
-      const added = afterBlocksIds
-        .map((b) => !tabsLayoutBlockIds.includes(b) && b)
-        .filter((b) => b);
-      const removed = tabsLayoutBlockIds
-        .map((b) => !afterBlocksIds.includes(b) && b)
-        .filter((b) => b);
-      if (added.length) {
-        // We assume continuos range of blocks
-        // get the previous block in current tab. If this tab doesn't exist,
-        // insert at position 0
-        const prevTab = afterBlocksIds.indexOf(added[0][0]);
-        const upto = Math.max(afterBlocksIds.indexOf(prevTab), 0);
-        const tabs = (tabsLayoutBlockIds[activeTab] || [])
-          .slice(0, upto)
-          .concat(added);
-        tabsLayout[activeTab] = tabs;
-        console.log('new tabs', tabs);
-        props.onChangeBlock(props.block, {
-          ...props.data,
-          tabs: tabsLayout,
-        });
-      }
-      if (removed.length) {
-        console.log('removed', removed);
-      }
-    }
+    // props.onChangeBlock(props.block, {
+    //   ...props.data,
+    //   tabsLayout,
+    // });
+    // currentContextData.current = contextData;
   });
 
   return (

@@ -2,8 +2,8 @@ import codeSVG from '@plone/volto/icons/code.svg';
 import { TabsBlockEdit, TabsBlockView } from './Tabs';
 
 export default (config) => {
-  config.blocks.blocksConfig.tabs = {
-    id: 'tabs',
+  config.blocks.blocksConfig.tabsBlock = {
+    id: 'tabsBlock',
     title: 'Tabs',
     icon: codeSVG,
     group: 'text',

@@ -5,6 +5,7 @@ import './public.less';
 const TabsBlockView = ({ onTabChange, data, activeIndex, ...rest }) => {
   const { tabs = [{ title: 'Default' }], tabsLayout = [] } = data;
   // console.log('activeTab', activeIndex);
+  // console.log('tabsLayout in view', tabsLayout);
   return (
     <div className="children-tabs-view">
       <div id="page-document" className="ui container">
