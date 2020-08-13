@@ -1,22 +1,21 @@
-import { connect } from 'react-redux'; // , useSelector
+import { connect } from 'react-redux';
 import React from 'react';
 import { SidebarPortal } from '@plone/volto/components'; // EditBlock
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-// import { useFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 import { getBlocks } from '@plone/volto/helpers';
 import { TABSBLOCK } from 'volto-tabsblock/constants';
 import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 
 import {
   globalDeriveTabsFromState,
-  deriveTabsFromState,
+  // deriveTabsFromState,
   tabsLayoutToBlocksLayout,
   isEqual,
 } from './utils';
 import TabsBlockView from './TabsBlockView';
 import schema from './schema';
 
-const J = JSON.stringify;
+const J = JSON.stringify; // TODO: should use something from lodash
 
 // there has been changes in the overall layout, we need to sync it to
 // the tabs layout
@@ -106,32 +105,29 @@ class EditTabsBlock extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { tabsLayout, tabs } = this.props.data;
+    // const { tabsLayout = [], tabs = [] } = this.props.data;
 
     const { contextData, setContextData } = this.context;
     const { data, onChangeBlock, block, tabsState } = this.props;
-    const activeTab = tabsState[block] || 0;
+    // const activeTab = tabsState[block] || 0;
     const { formData } = contextData;
-    const blocks = getBlocks(formData);
+    const blocks = getBlocks(formData) || [];
 
     if (!data.initialized) {
       // if the tab has just been dropped, it hasn't been initialized
       // In this case, we initialize the tabsLayout and update as initialized
-      const res = deriveTabsFromState({
-        tabsLayout,
-        blocks,
-        // tabs,
-        activeTab,
-        currentBlock: block, // temporary
-      });
+      const allTabs = globalDeriveTabsFromState({ blocks, tabsState });
+      const res = allTabs[block] || [];
       const blockIndex = blocks
         .filter(([id, value]) => value['@type'] === TABSBLOCK)
         .findIndex(([id]) => id === block);
-      onChangeBlock(block, {
+      const newData = {
         ...data,
         initialized: true,
-        tabsLayout: res[blockIndex],
-      }).then(() => {});
+        tabsLayout: res[blockIndex] || [],
+      };
+      onChangeBlock(block, newData);
+      console.log('data initialized', newData);
       return;
     }
 
@@ -139,51 +135,58 @@ class EditTabsBlock extends React.Component {
 
     const isTabsChanged =
       data.tabsLayout && J(prevProps.tabsState) !== J(tabsState);
+    // && isEqual(blocksLayout, this.state.blocksLayout);
+
     const isBlocksChanged =
       data.tabsLayout &&
       J(prevProps.tabsState) === J(tabsState) &&
       !isEqual(blocksLayout, this.state.blocksLayout);
 
-    // console.log('prevProps.tabsState', prevProps.tabsState);
-    // console.log('this.tabsState', tabsState);
+    console.log(
+      'tabsLayout',
+      J(data.tabsLayout),
+
+      '\n\n\n\nprevPropsTabState',
+      J(prevProps.tabsState),
+
+      '\n\n\n\ntabsState',
+      J(tabsState),
+
+      '\n\n\n\nblocksLayout',
+      J(blocksLayout),
+
+      '\n\n\n\nstate blocksLayout',
+      J(this.state.blocksLayout),
+    );
+
+    let new_layout;
 
     if (isTabsChanged) {
-      console.log('tab has changed');
       // calculate layout based on changing tabs
-      const new_layout = tabsLayoutToBlocksLayout(
-        contextData.formData,
-        tabsState,
-      );
-      this.updateGlobalBlocksLayout(new_layout);
+      new_layout = tabsLayoutToBlocksLayout(contextData.formData, tabsState);
+      this.setState({ blocksLayout: new_layout }, () => {
+        this.updateGlobalBlocksLayout(new_layout);
+        console.log('tab has changed', new_layout);
+      });
+      return;
     }
 
     if (isBlocksChanged) {
-      console.log('blocks have changed');
+      console.log('isBlocksChanged', isBlocksChanged);
       // calculate layout based on mutations in tabs
-      const new_layout = tabsLayoutToBlocksLayout(
+      const flat_layout = tabsLayoutToBlocksLayout(
         contextData.formData,
         tabsState,
       );
-      if (
-        JSON.stringify(new_layout) !==
-        JSON.stringify(contextData.formData.blocks_layout.items)
-      ) {
-        const newTabsLayout = globalDeriveTabsFromState({ blocks, tabsState });
-        console.log('new', newTabsLayout);
-        // const data = {
-        //   ...contextData,
-        //   formData: {
-        //     ...contextData.formData,
-        //     blocks_layout: {
-        //       ...contextData.formData.blocks_layout,
-        //       items: new_layout,
-        //     },
-        //   },
-        // };
-        // console.log('need to change data', data);
-        // setContextData(data);
-        // console.log('need to change layout', new_layout);
-        // console.log('need to change tabsState', tabsState);
+      if (JSON.stringify(flat_layout) !== JSON.stringify(blocksLayout)) {
+        console.log('flat_layout', flat_layout);
+        // new_layout = globalDeriveTabsFromState({ blocks, tabsState });
+        // console.log('new_layout', new_layout);
+        this.setState({ blocksLayout: flat_layout }, () => {
+          this.updateGlobalBlocksLayout(flat_layout);
+        });
+        // console.log('\n\nnew block layout:\n', new_layout);
+        // this.updateGlobalBlocksLayout(new_layout);
       }
     }
   }
