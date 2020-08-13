@@ -17,9 +17,13 @@ export function isEqual(arr1, arr2) {
  * @param {Array} blocks A list of pairs of blockId, blockData
  */
 export function sliceBlocksByTabs(blocks, afterBlock) {
+  // TODO: need to adjust, afterBlock needs to become "tabsBlock"
+  // the index of the "current" block
   const afterBlockIndex = blocks.findIndex(([id]) => id === afterBlock);
+
+  // The index of the first next TabsBlock, used as fallback
   const firstTabsBlockIndex = blocks.findIndex(
-    ([id, block], index) => block['@type'] === TABSBLOCK,
+    ([id, block]) => block['@type'] === TABSBLOCK,
   );
 
   const afterAfterBlockIndex = blocks.findIndex(

@@ -85,26 +85,30 @@ class EditTabsBlock extends React.Component {
   }
 
   componentDidMount() {
+    console.log('didMount');
     // initialize tabsLayout when just created
 
-    const { block, onChangeBlock, data } = this.props;
+    const { block, onChangeBlock, data, tabsState } = this.props;
     const { tabsLayout = [], tabs = [] } = this.props.data;
 
     if (tabs.length !== tabsLayout.length) {
       // TODO: create new placeholder blocks
       tabsLayout.fill([], tabsLayout.length, tabs.length);
+
+      // TODO: write this in state
       return onChangeBlock(block, { ...data, tabs, tabsLayout });
     }
 
     const { formData } = this.context.contextData;
-    const blocks_layout = tabsLayoutToBlocksLayout(
-      formData,
-      this.props.tabsState,
-    );
-    this.updateGlobalBlocksLayout(blocks_layout);
+    const new_layout = tabsLayoutToBlocksLayout(formData, tabsState);
+
+    this.setState({ blocksLayout: new_layout });
+    this.updateGlobalBlocksLayout(new_layout);
+    console.log('update on mount', new_layout);
   }
 
   componentDidUpdate(prevProps) {
+    console.log('didUpdate');
     // const { tabsLayout = [], tabs = [] } = this.props.data;
 
     const { contextData, setContextData } = this.context;
@@ -137,57 +141,40 @@ class EditTabsBlock extends React.Component {
       data.tabsLayout && J(prevProps.tabsState) !== J(tabsState);
     // && isEqual(blocksLayout, this.state.blocksLayout);
 
-    const isBlocksChanged =
-      data.tabsLayout &&
-      J(prevProps.tabsState) === J(tabsState) &&
-      !isEqual(blocksLayout, this.state.blocksLayout);
-
-    console.log(
-      'tabsLayout',
-      J(data.tabsLayout),
-
-      '\n\n\n\nprevPropsTabState',
-      J(prevProps.tabsState),
-
-      '\n\n\n\ntabsState',
-      J(tabsState),
-
-      '\n\n\n\nblocksLayout',
-      J(blocksLayout),
-
-      '\n\n\n\nstate blocksLayout',
-      J(this.state.blocksLayout),
-    );
-
     let new_layout;
 
     if (isTabsChanged) {
       // calculate layout based on changing tabs
       new_layout = tabsLayoutToBlocksLayout(contextData.formData, tabsState);
-      this.setState({ blocksLayout: new_layout }, () => {
-        this.updateGlobalBlocksLayout(new_layout);
-        console.log('tab has changed', new_layout);
-      });
+      this.setState({ blocksLayout: new_layout });
+      this.updateGlobalBlocksLayout(new_layout);
+      console.log('tab has changed', new_layout);
       return;
     }
 
+    const isBlocksChanged =
+      data.tabsLayout &&
+      J(prevProps.tabsState) === J(tabsState) &&
+      !isEqual(blocksLayout, this.state.blocksLayout);
+
     if (isBlocksChanged) {
-      console.log('isBlocksChanged', isBlocksChanged);
+      // console.log('isBlocksChanged', isBlocksChanged);
       // calculate layout based on mutations in tabs
-      const flat_layout = tabsLayoutToBlocksLayout(
-        contextData.formData,
-        tabsState,
-      );
-      if (JSON.stringify(flat_layout) !== JSON.stringify(blocksLayout)) {
-        console.log('flat_layout', flat_layout);
-        // new_layout = globalDeriveTabsFromState({ blocks, tabsState });
-        // console.log('new_layout', new_layout);
-        this.setState({ blocksLayout: flat_layout }, () => {
-          this.updateGlobalBlocksLayout(flat_layout);
-        });
-        // console.log('\n\nnew block layout:\n', new_layout);
-        // this.updateGlobalBlocksLayout(new_layout);
-      }
+      // const flat_layout = tabsLayoutToBlocksLayout(
+      //   contextData.formData,
+      //   tabsState,
+      // );
+
+      new_layout = globalDeriveTabsFromState({ blocks, tabsState });
+      console.log('blockchange flat_layout', new_layout, blocks);
+
+      // if (JSON.stringify(flat_layout) !== JSON.stringify(blocksLayout)) {
+      //   new_layout = globalDeriveTabsFromState({ blocks, tabsState });
+      //   console.log('flat_layout', flat_layout, new_layout);
+      //   this.setState({ blocksLayout: flat_layout }, () => {
+      //     this.updateGlobalBlocksLayout(flat_layout);
+      //   });
+      // }
     }
   }
 }
@@ -202,3 +189,23 @@ export default connect(
     //
   },
 )(EditTabsBlock);
+// console.log(
+//   'tabsLayout',
+//   J(data.tabsLayout),
+//
+//   '\n\n\n\nprevPropsTabState',
+//   J(prevProps.tabsState),
+//
+//   '\n\n\n\ntabsState',
+//   J(tabsState),
+//
+//   '\n\n\n\nblocksLayout',
+//   J(blocksLayout),
+//
+//   '\n\n\n\nstate blocksLayout',
+//   J(this.state.blocksLayout),
+//
+//   '\n\n\n isBlocksChanged',
+//   isBlocksChanged,
+// );
+//
