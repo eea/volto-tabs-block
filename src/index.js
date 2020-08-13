@@ -1,9 +1,11 @@
 import codeSVG from '@plone/volto/icons/code.svg';
 import { TabsBlockEdit, TabsBlockView } from './Tabs';
+import { TABSBLOCK } from './constants';
+import { tabs_block } from './reducers';
 
 export default (config) => {
-  config.blocks.blocksConfig.tabsBlock = {
-    id: 'tabsBlock',
+  config.blocks.blocksConfig[TABSBLOCK] = {
+    id: TABSBLOCK,
     title: 'Tabs',
     icon: codeSVG,
     group: 'text',
@@ -17,5 +19,6 @@ export default (config) => {
       view: [],
     },
   };
+  config.addonReducers.tabs_block = tabs_block;
   return config;
 };
