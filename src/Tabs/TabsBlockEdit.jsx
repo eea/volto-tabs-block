@@ -1,20 +1,22 @@
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux'; // , useSelector
 import React from 'react';
 import { SidebarPortal } from '@plone/volto/components'; // EditBlock
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { useFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
+// import { useFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 import { getBlocks } from '@plone/volto/helpers';
 import { TABSBLOCK } from 'volto-tabsblock/constants';
+import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 
 import {
   globalDeriveTabsFromState,
   deriveTabsFromState,
   tabsLayoutToBlocksLayout,
+  isEqual,
 } from './utils';
 import TabsBlockView from './TabsBlockView';
 import schema from './schema';
 
-const s = JSON.stringify;
+const J = JSON.stringify;
 
 // there has been changes in the overall layout, we need to sync it to
 // the tabs layout
@@ -28,31 +30,87 @@ const s = JSON.stringify;
 // When it appears, we need to see which other block is before it
 // The same when it dissapears
 
-const EditTabsBlock = (props) => {
-  const { block, data, onChangeBlock } = props;
-  const activeTab = useSelector(
-    (state) => state.tabs_block[block]?.selection || 0,
-  );
-  const tabsState = useSelector((state) => state.tabs_block);
-  const currentTabsState = React.useRef(tabsState);
+class EditTabsBlock extends React.Component {
+  constructor(props, context) {
+    super(props);
+    this.state = {
+      blocksLayout: context.contextData.formData.blocks_layout.items,
+    };
 
-  const { contextData, setContextData } = useFormStateContext();
-  const currentContextData = React.useRef(null);
-
-  const { tabsLayout = [], tabs = [] } = props.data;
-
-  if (tabs.length !== tabsLayout.length) {
-    tabsLayout.fill([], tabsLayout.length, tabs.length);
+    this.updateGlobalBlocksLayout = this.updateGlobalBlocksLayout.bind(this);
   }
 
-  React.useEffect(() => {
-    if (!currentContextData.current) {
-      currentContextData.current = contextData;
+  static contextType = FormStateContext;
+
+  handleChangeBlock(id, value) {
+    const { data } = this.props;
+    this.props.onChangeBlock(this.props.block, {
+      ...data,
+      [id]: value,
+    });
+  }
+
+  render() {
+    const { data } = this.props;
+    return (
+      <div className="block selected">
+        <div className="block-inner-wrapper">
+          <TabsBlockView {...this.props} />
+        </div>
+        <SidebarPortal selected={this.props.selected}>
+          <InlineForm
+            schema={schema}
+            title={schema.title}
+            onChangeField={this.handleChangeBlock.bind(this)}
+            formData={data}
+            block={this.props.block}
+          />
+        </SidebarPortal>
+      </div>
+    );
+  }
+
+  updateGlobalBlocksLayout(new_layout) {
+    const { contextData, setContextData } = this.context;
+    const data = {
+      ...contextData,
+      formData: {
+        ...contextData.formData,
+        blocks_layout: {
+          ...contextData.formData.blocks_layout,
+          items: new_layout,
+        },
+      },
+    };
+    setContextData(data);
+  }
+
+  componentDidMount() {
+    // initialize tabsLayout when just created
+
+    const { block, onChangeBlock, data } = this.props;
+    const { tabsLayout = [], tabs = [] } = this.props.data;
+
+    if (tabs.length !== tabsLayout.length) {
+      // TODO: create new placeholder blocks
+      tabsLayout.fill([], tabsLayout.length, tabs.length);
+      return onChangeBlock(block, { ...data, tabs, tabsLayout });
     }
 
-    // on anything block change: update the tabsLayout based on blocks_layout.
-    // on tabs switch: update blocks_layout based on tabsLayout
+    const { formData } = this.context.contextData;
+    const blocks_layout = tabsLayoutToBlocksLayout(
+      formData,
+      this.props.tabsState,
+    );
+    this.updateGlobalBlocksLayout(blocks_layout);
+  }
 
+  componentDidUpdate(prevProps) {
+    const { tabsLayout, tabs } = this.props.data;
+
+    const { contextData, setContextData } = this.context;
+    const { data, onChangeBlock, block, tabsState } = this.props;
+    const activeTab = tabsState[block] || 0;
     const { formData } = contextData;
     const blocks = getBlocks(formData);
 
@@ -74,35 +132,33 @@ const EditTabsBlock = (props) => {
         initialized: true,
         tabsLayout: res[blockIndex],
       }).then(() => {});
+      return;
     }
 
-    const isTabsChanged =
-      data.tabsLayout && s(currentTabsState.current) !== s(tabsState);
-    const isBlocksChanged =
-      data.tabsLayout && s(currentTabsState.current) === s(tabsState);
+    const blocksLayout = formData.blocks_layout.items;
 
-    currentTabsState.current = tabsState;
+    const isTabsChanged =
+      data.tabsLayout && J(prevProps.tabsState) !== J(tabsState);
+    const isBlocksChanged =
+      data.tabsLayout &&
+      J(prevProps.tabsState) === J(tabsState) &&
+      !isEqual(blocksLayout, this.state.blocksLayout);
+
+    // console.log('prevProps.tabsState', prevProps.tabsState);
+    // console.log('this.tabsState', tabsState);
 
     if (isTabsChanged) {
+      console.log('tab has changed');
       // calculate layout based on changing tabs
       const new_layout = tabsLayoutToBlocksLayout(
         contextData.formData,
         tabsState,
       );
-      const data = {
-        ...contextData,
-        formData: {
-          ...contextData.formData,
-          blocks_layout: {
-            ...contextData.formData.blocks_layout,
-            items: new_layout,
-          },
-        },
-      };
-      setContextData(data);
+      this.updateGlobalBlocksLayout(new_layout);
     }
 
     if (isBlocksChanged) {
+      console.log('blocks have changed');
       // calculate layout based on mutations in tabs
       const new_layout = tabsLayoutToBlocksLayout(
         contextData.formData,
@@ -130,52 +186,16 @@ const EditTabsBlock = (props) => {
         // console.log('need to change tabsState', tabsState);
       }
     }
-  }); // [activeTab, tabsLayout, block, contextData]
+  }
+}
 
-  return (
-    <div className="block selected">
-      <div className="block-inner-wrapper">
-        <TabsBlockView {...props} />
-      </div>
-
-      <SidebarPortal selected={props.selected}>
-        <InlineForm
-          schema={schema}
-          title={schema.title}
-          onChangeField={(id, value) => {
-            props.onChangeBlock(props.block, {
-              ...data,
-              [id]: value,
-            });
-          }}
-          formData={data}
-          block={props.block}
-        />
-      </SidebarPortal>
-    </div>
-  );
-};
-
-export default EditTabsBlock;
-
-// console.log('data', data);
-
-// console.log('blocksLayout', newBlocksLayout);
-// console.log('tabsLayout', tabsLayout);
-
-// props.onChangeBlock(props.block, {
-//   ...props.data,
-//   tabsLayout,
-// });
-// currentContextData.current = contextData;
-// console.log('activeTab', activeTab);
-// onTabChange={(index) => {
-//   setTimeout(() => {
-//     const blocks_layout = tabsLayoutToBlocksLayout(
-//       contextData.formData,
-//       tabsState,
-//     );
-
-//     console.log('new blocks', blocks_layout);
-//   }, 0);
-// }}
+export default connect(
+  (state) => {
+    return {
+      tabsState: state.tabs_block,
+    };
+  },
+  {
+    //
+  },
+)(EditTabsBlock);

@@ -1,7 +1,7 @@
 import { TABSBLOCK } from 'volto-tabsblock/constants';
 import { getBlocks } from '@plone/volto/helpers';
 
-function isEqual(arr1, arr2) {
+export function isEqual(arr1, arr2) {
   return (
     arr1.length === arr2.length &&
     arr1.every(function (value, index) {
