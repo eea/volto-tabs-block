@@ -86,6 +86,27 @@ class EditTabsBlock extends React.Component {
     }
 
     const { formData } = this.context.contextData;
+    const blocks = getBlocks(formData);
+    // debugger;
+
+    if (!data.initialized) {
+      // if the tab has just been dropped, it hasn't been initialized
+      // In this case, we initialize the tabsLayout and update as initialized
+      const allTabs = globalDeriveTabsFromState({ blocks, tabsState });
+      const res = allTabs[block] || [];
+      const blockIndex = blocks
+        .filter(([id, value]) => value['@type'] === TABSBLOCK)
+        .findIndex(([id]) => id === block);
+      const newData = {
+        ...data,
+        initialized: true,
+        tabsLayout: res[blockIndex] || [],
+      };
+      onChangeBlock(block, newData);
+      console.log('data initialized', newData);
+      return;
+    }
+
     const new_layout = tabsLayoutToBlocksLayout(getBlocks(formData), tabsState);
 
     this.setState({ blocksLayout: new_layout });
@@ -112,7 +133,7 @@ class EditTabsBlock extends React.Component {
       new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
       this.setState({ blocksLayout: new_layout });
       this.updateGlobalBlocksLayout(new_layout);
-      console.log('tab has changed', new_layout);
+      // console.log('tab has changed', new_layout);
       return;
     }
 
