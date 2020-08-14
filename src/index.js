@@ -22,7 +22,7 @@ export default (config) => {
   config.addonReducers = {
     ...config.addonReducers,
     tabs_block,
-    content,
+    content, // We're overwriting the default content reducer
   };
   return config;
 };

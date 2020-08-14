@@ -13,9 +13,7 @@ const TabsBlockView = ({ id, onTabChange, data, mode = 'view', ...rest }) => {
   const mounted = React.useRef();
 
   React.useEffect(() => {
-    // console.log('mounted', mounted.current);
     if (!mounted.current && mode === 'view') {
-      // console.log('remount');
       const newTabsState = {};
       Object.keys(tabsState).forEach((blockid) => {
         newTabsState[blockid] = 0;

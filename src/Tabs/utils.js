@@ -53,20 +53,7 @@ export function tabsLayoutToBlocksLayout(blocks, tabsState) {
 /**
  * globalDeriveTabsFromState.
  *
-  Derives the new tabsLayout state from the current snapshot of the state
-  We presume there has been a new Volto Form.jsx operation
-  A new block (or more) has been inserted in the formData
-  A block (or more) have been removed from the formData
-
-  Returns a mapping of <TabsBlock id> : tabsLayout
-  This allows updating all the tabs
-
-  In principle we can assume that operations happen in a single tabs block
-  (or before one) and changed tabs are continuous
-
-  This is not real blocks data, it has been already tweaked.
-  We want to understand what blocks have been added and what blocks have
-  been removed;
+ * Derives the new tabsLayout state from the current snapshot of the state
  *
  * @param {}
  */
@@ -76,12 +63,9 @@ export function globalDeriveTabsFromState({ blocks, tabsState }) {
   blocks.forEach(([blockId, blockData]) => {
     const type = blockData['@type'];
     if (type === TABSBLOCK) {
-      // TODO: get them to the next Tabs Block
-      // const afterBlocksIds = blockIds.slice(blockIds.indexOf(blockId) + 1);
       const afterBlocksIds = sliceBlocksByTabs(blocks, blockId).map(
         ([id]) => id,
       );
-      console.log('slice', afterBlocksIds);
       const activeTab = tabsState[blockId] || 0;
 
       const { tabsLayout = [] } = blockData;

@@ -5,7 +5,6 @@ import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { getBlocks } from '@plone/volto/helpers';
 import { TABSBLOCK } from 'volto-tabsblock/constants';
 import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
-
 import {
   globalDeriveTabsFromState,
   tabsLayoutToBlocksLayout,
@@ -87,23 +86,18 @@ class EditTabsBlock extends React.Component {
 
     const { formData } = this.context.contextData;
     const blocks = getBlocks(formData);
-    // debugger;
 
     if (!data.initialized) {
       // if the tab has just been dropped, it hasn't been initialized
       // In this case, we initialize the tabsLayout and update as initialized
       const allTabs = globalDeriveTabsFromState({ blocks, tabsState });
-      const res = allTabs[block] || [];
-      const blockIndex = blocks
-        .filter(([id, value]) => value['@type'] === TABSBLOCK)
-        .findIndex(([id]) => id === block);
+      const tabsLayout = allTabs[block] || [];
       const newData = {
         ...data,
         initialized: true,
-        tabsLayout: res[blockIndex] || [],
+        tabsLayout,
       };
       onChangeBlock(block, newData);
-      console.log('data initialized', newData);
       return;
     }
 
@@ -111,7 +105,6 @@ class EditTabsBlock extends React.Component {
 
     this.setState({ blocksLayout: new_layout });
     this.updateGlobalBlocksLayout(new_layout);
-    console.log('update on mount', new_layout);
   }
 
   componentDidUpdate(prevProps) {
@@ -133,7 +126,6 @@ class EditTabsBlock extends React.Component {
       new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
       this.setState({ blocksLayout: new_layout });
       this.updateGlobalBlocksLayout(new_layout);
-      // console.log('tab has changed', new_layout);
       return;
     }
 
@@ -171,8 +163,6 @@ class EditTabsBlock extends React.Component {
           },
         },
       });
-
-      console.log('blockchange flat_layout', new_layout);
     }
   }
 }

@@ -6,6 +6,6 @@ export function setActiveTab(blockid, selection, mode, currentTabsState) {
     blockid,
     selection,
     mode,
-    currentTabsState,
+    currentTabsState, // This is needed in the reducer
   };
 }
