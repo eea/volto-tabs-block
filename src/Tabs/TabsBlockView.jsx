@@ -7,10 +7,24 @@ import './public.less';
 
 const TabsBlockView = ({ id, onTabChange, data, mode = 'view', ...rest }) => {
   const dispatch = useDispatch();
-  const { tabs = [], tabsLayout = [] } = data;
-  const activeTab = useSelector((state) => {
-    return state.tabs_block[id] || 0;
+  const { tabs = [] } = data;
+  const tabsState = useSelector((state) => state.tabs_block);
+  const activeTab = tabsState[id] || 0;
+  const mounted = React.useRef();
+
+  React.useEffect(() => {
+    console.log('mounted', mounted.current);
+    if (!mounted.current && mode === 'view') {
+      console.log('remount');
+      const newTabsState = {};
+      Object.keys(tabsState).forEach((blockid) => {
+        newTabsState[blockid] = 0;
+      });
+      dispatch(setActiveTab(id, 0, mode, newTabsState));
+      mounted.current = true;
+    }
   });
+
   return (
     <div className="children-tabs-view">
       <div id="page-document" className="ui container">
@@ -19,28 +33,9 @@ const TabsBlockView = ({ id, onTabChange, data, mode = 'view', ...rest }) => {
             menu={{ attached: false, tabular: false }}
             panes={tabs.map((child, index) => ({
               menuItem: child.title,
-              render: () => (
-                <Tab.Pane>
-                  <ol>
-                    {(tabsLayout[index] || []).map((id, i) => (
-                      <li key={i}>{id}</li>
-                    ))}
-                  </ol>
-                  <h5>All blocks</h5>
-                  <ol>
-                    {Object.entries(rest.properties.blocks).map(
-                      ([id, block]) => (
-                        <li key={id}>
-                          {block['@type']} - {id}
-                        </li>
-                      ),
-                    )}
-                  </ol>
-                </Tab.Pane>
-              ),
             }))}
             onTabChange={(event, { activeIndex }) => {
-              dispatch(setActiveTab(id, activeIndex, mode));
+              dispatch(setActiveTab(id, activeIndex, mode, tabsState));
             }}
             activeIndex={activeTab}
           />
