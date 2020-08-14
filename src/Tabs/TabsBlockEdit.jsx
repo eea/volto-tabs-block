@@ -85,7 +85,6 @@ class EditTabsBlock extends React.Component {
   }
 
   componentDidMount() {
-    console.log('didMount');
     // initialize tabsLayout when just created
 
     const { block, onChangeBlock, data, tabsState } = this.props;
@@ -100,7 +99,7 @@ class EditTabsBlock extends React.Component {
     }
 
     const { formData } = this.context.contextData;
-    const new_layout = tabsLayoutToBlocksLayout(formData, tabsState);
+    const new_layout = tabsLayoutToBlocksLayout(getBlocks(formData), tabsState);
 
     this.setState({ blocksLayout: new_layout });
     this.updateGlobalBlocksLayout(new_layout);
@@ -108,12 +107,8 @@ class EditTabsBlock extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('didUpdate');
-    // const { tabsLayout = [], tabs = [] } = this.props.data;
-
     const { contextData, setContextData } = this.context;
     const { data, onChangeBlock, block, tabsState } = this.props;
-    // const activeTab = tabsState[block] || 0;
     const { formData } = contextData;
     const blocks = getBlocks(formData) || [];
 
@@ -145,7 +140,7 @@ class EditTabsBlock extends React.Component {
 
     if (isTabsChanged) {
       // calculate layout based on changing tabs
-      new_layout = tabsLayoutToBlocksLayout(contextData.formData, tabsState);
+      new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
       this.setState({ blocksLayout: new_layout });
       this.updateGlobalBlocksLayout(new_layout);
       console.log('tab has changed', new_layout);
@@ -157,24 +152,40 @@ class EditTabsBlock extends React.Component {
       J(prevProps.tabsState) === J(tabsState) &&
       !isEqual(blocksLayout, this.state.blocksLayout);
 
+    // console.log('tick', isBlocksChanged);
+
     if (isBlocksChanged) {
-      // console.log('isBlocksChanged', isBlocksChanged);
-      // calculate layout based on mutations in tabs
-      // const flat_layout = tabsLayoutToBlocksLayout(
-      //   contextData.formData,
-      //   tabsState,
-      // );
+      // debugger;
+      const globalState = globalDeriveTabsFromState({ blocks, tabsState });
+      // update all tabs blocks based on new_layout
+      blocks.forEach(([id, block]) => {
+        if (block['@type'] === TABSBLOCK) {
+          const activeTab = tabsState[id] || 0;
+          if (!Array.isArray(block['tabsLayout'])) {
+            block['tabsLayout'] = Array(activeTab + 1).fill([]);
+          }
+          block['tabsLayout'] = globalState[id]; // [activeTab]
+        }
+      });
 
-      new_layout = globalDeriveTabsFromState({ blocks, tabsState });
-      console.log('blockchange flat_layout', new_layout, blocks);
+      new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
+      this.setState({ blocksLayout: new_layout });
+      setContextData({
+        ...contextData,
+        formData: {
+          ...formData,
+          blocks: {
+            ...formData.blocks,
+            ...Object.fromEntries(blocks),
+          },
+          blocks_layout: {
+            ...formData.blocks_layout,
+            items: new_layout,
+          },
+        },
+      });
 
-      // if (JSON.stringify(flat_layout) !== JSON.stringify(blocksLayout)) {
-      //   new_layout = globalDeriveTabsFromState({ blocks, tabsState });
-      //   console.log('flat_layout', flat_layout, new_layout);
-      //   this.setState({ blocksLayout: flat_layout }, () => {
-      //     this.updateGlobalBlocksLayout(flat_layout);
-      //   });
-      // }
+      console.log('blockchange flat_layout', new_layout);
     }
   }
 }
@@ -209,3 +220,18 @@ export default connect(
 //   isBlocksChanged,
 // );
 //
+// console.log('isBlocksChanged', isBlocksChanged);
+// calculate layout based on mutations in tabs
+// const flat_layout = tabsLayoutToBlocksLayout(
+//   contextData.formData,
+//   tabsState,
+// );
+// if (JSON.stringify(flat_layout) !== JSON.stringify(blocksLayout)) {
+//   new_layout = globalDeriveTabsFromState({ blocks, tabsState });
+//   console.log('flat_layout', flat_layout, new_layout);
+//   this.setState({ blocksLayout: flat_layout }, () => {
+//     this.updateGlobalBlocksLayout(flat_layout);
+//   });
+// }
+// const { tabsLayout = [], tabs = [] } = this.props.data;
+// const activeTab = tabsState[block] || 0;

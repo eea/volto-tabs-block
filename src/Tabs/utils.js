@@ -16,37 +16,46 @@ export function isEqual(arr1, arr2) {
  * @param {String} afterBlock Slice starts after Block id. Optional
  * @param {Array} blocks A list of pairs of blockId, blockData
  */
-export function sliceBlocksByTabs(blocks, afterBlock) {
-  // TODO: need to adjust, afterBlock needs to become "tabsBlock"
-  // the index of the "current" block
-  const afterBlockIndex = blocks.findIndex(([id]) => id === afterBlock);
-
-  // The index of the first next TabsBlock, used as fallback
-  const firstTabsBlockIndex = blocks.findIndex(
-    ([id, block]) => block['@type'] === TABSBLOCK,
-  );
-
-  const afterAfterBlockIndex = blocks.findIndex(
-    ([id, block], index) =>
-      block['@type'] === TABSBLOCK && index > afterBlockIndex,
-  );
-
-  const start = afterBlock
-    ? afterAfterBlockIndex > -1
-      ? afterAfterBlockIndex + 1
-      : blocks.length
-    : firstTabsBlockIndex > -1
-    ? firstTabsBlockIndex + 1
-    : 0;
-
-  let end = blocks.findIndex(
+export function sliceBlocksByTabs(blocks, startTabsBlock) {
+  const start = blocks.findIndex(([id]) => id === startTabsBlock);
+  const nextTabsBlockIndex = blocks.findIndex(
     ([id, block], index) => block['@type'] === TABSBLOCK && index > start,
   );
-  end = end !== -1 ? end : blocks.length;
-
-  // console.log(start, end);
-  return blocks.slice(start, end);
+  const end = nextTabsBlockIndex > -1 ? nextTabsBlockIndex : blocks.length;
+  return blocks.slice(start + 1, end);
 }
+
+// export function _sliceBlocksByTabs(blocks, afterBlock) {
+//   // TODO: need to adjust, afterBlock needs to become "tabsBlock"
+//   // the index of the "current" block
+//   const afterBlockIndex = blocks.findIndex(([id]) => id === afterBlock);
+//
+//   // The index of the first next TabsBlock, used as fallback
+//   const firstTabsBlockIndex = blocks.findIndex(
+//     ([id, block]) => block['@type'] === TABSBLOCK,
+//   );
+//
+//   const afterAfterBlockIndex = blocks.findIndex(
+//     ([id, block], index) =>
+//       block['@type'] === TABSBLOCK && index > afterBlockIndex,
+//   );
+//
+//   const start = afterBlock
+//     ? afterAfterBlockIndex > -1
+//       ? afterAfterBlockIndex + 1
+//       : blocks.length
+//     : firstTabsBlockIndex > -1
+//     ? firstTabsBlockIndex + 1
+//     : 0;
+//
+//   let end = blocks.findIndex(
+//     ([id, block], index) => block['@type'] === TABSBLOCK && index > start,
+//   );
+//   end = end !== -1 ? end : blocks.length;
+//
+//   // console.log(start, end);
+//   return blocks.slice(start, end);
+// }
 
 /**
  * Expands a tab layout to blocksLayout
@@ -134,8 +143,8 @@ export function deriveTabsFromState({
  *
  * @param {Object} formData
  */
-export function tabsLayoutToBlocksLayout(formData, tabsState) {
-  const blocks = getBlocks(formData);
+export function tabsLayoutToBlocksLayout(blocks, tabsState) {
+  // const blocks = getBlocks(formData);
   let blocks_layout = [];
   let foundTabsBlock = false;
 
@@ -178,7 +187,9 @@ export function globalDeriveTabsFromState({ blocks, tabsState }) {
     if (type === TABSBLOCK) {
       // TODO: get them to the next Tabs Block
       // const afterBlocksIds = blockIds.slice(blockIds.indexOf(blockId) + 1);
-      const afterBlocksIds = sliceBlocksByTabs(blocks, blockId);
+      const afterBlocksIds = sliceBlocksByTabs(blocks, blockId).map(
+        ([id]) => id,
+      );
       console.log('slice', afterBlocksIds);
       const activeTab = tabsState[blockId] || 0;
 
