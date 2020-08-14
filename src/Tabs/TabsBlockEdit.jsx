@@ -8,7 +8,6 @@ import { FormStateContext } from '@plone/volto/components/manage/Form/FormContex
 
 import {
   globalDeriveTabsFromState,
-  // deriveTabsFromState,
   tabsLayoutToBlocksLayout,
   isEqual,
 } from './utils';
@@ -16,18 +15,6 @@ import TabsBlockView from './TabsBlockView';
 import schema from './schema';
 
 const J = JSON.stringify; // TODO: should use something from lodash
-
-// there has been changes in the overall layout, we need to sync it to
-// the tabs layout
-
-// unfortunately we don't have events or reducers in Volto's Form.jsx
-// that would make this easier, so we need a way to understand how to
-// divide the tabs. We take advantage that we control where the tabs can
-// appear (the activeTab).
-//
-// A block can only appear or dissapear in the activeTab
-// When it appears, we need to see which other block is before it
-// The same when it dissapears
 
 class EditTabsBlock extends React.Component {
   constructor(props, context) {
@@ -54,7 +41,7 @@ class EditTabsBlock extends React.Component {
     return (
       <div className="block selected">
         <div className="block-inner-wrapper">
-          <TabsBlockView {...this.props} />
+          <TabsBlockView {...this.props} mode="edit" />
         </div>
         <SidebarPortal selected={this.props.selected}>
           <InlineForm
@@ -108,27 +95,9 @@ class EditTabsBlock extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { contextData, setContextData } = this.context;
-    const { data, onChangeBlock, block, tabsState } = this.props;
+    const { data, tabsState } = this.props;
     const { formData } = contextData;
     const blocks = getBlocks(formData) || [];
-
-    if (!data.initialized) {
-      // if the tab has just been dropped, it hasn't been initialized
-      // In this case, we initialize the tabsLayout and update as initialized
-      const allTabs = globalDeriveTabsFromState({ blocks, tabsState });
-      const res = allTabs[block] || [];
-      const blockIndex = blocks
-        .filter(([id, value]) => value['@type'] === TABSBLOCK)
-        .findIndex(([id]) => id === block);
-      const newData = {
-        ...data,
-        initialized: true,
-        tabsLayout: res[blockIndex] || [],
-      };
-      onChangeBlock(block, newData);
-      console.log('data initialized', newData);
-      return;
-    }
 
     const blocksLayout = formData.blocks_layout.items;
 
@@ -152,10 +121,7 @@ class EditTabsBlock extends React.Component {
       J(prevProps.tabsState) === J(tabsState) &&
       !isEqual(blocksLayout, this.state.blocksLayout);
 
-    // console.log('tick', isBlocksChanged);
-
     if (isBlocksChanged) {
-      // debugger;
       const globalState = globalDeriveTabsFromState({ blocks, tabsState });
       // update all tabs blocks based on new_layout
       blocks.forEach(([id, block]) => {
@@ -200,38 +166,3 @@ export default connect(
     //
   },
 )(EditTabsBlock);
-// console.log(
-//   'tabsLayout',
-//   J(data.tabsLayout),
-//
-//   '\n\n\n\nprevPropsTabState',
-//   J(prevProps.tabsState),
-//
-//   '\n\n\n\ntabsState',
-//   J(tabsState),
-//
-//   '\n\n\n\nblocksLayout',
-//   J(blocksLayout),
-//
-//   '\n\n\n\nstate blocksLayout',
-//   J(this.state.blocksLayout),
-//
-//   '\n\n\n isBlocksChanged',
-//   isBlocksChanged,
-// );
-//
-// console.log('isBlocksChanged', isBlocksChanged);
-// calculate layout based on mutations in tabs
-// const flat_layout = tabsLayoutToBlocksLayout(
-//   contextData.formData,
-//   tabsState,
-// );
-// if (JSON.stringify(flat_layout) !== JSON.stringify(blocksLayout)) {
-//   new_layout = globalDeriveTabsFromState({ blocks, tabsState });
-//   console.log('flat_layout', flat_layout, new_layout);
-//   this.setState({ blocksLayout: flat_layout }, () => {
-//     this.updateGlobalBlocksLayout(flat_layout);
-//   });
-// }
-// const { tabsLayout = [], tabs = [] } = this.props.data;
-// const activeTab = tabsState[block] || 0;

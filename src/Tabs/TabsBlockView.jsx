@@ -5,7 +5,7 @@ import { setActiveTab } from 'volto-tabsblock/actions';
 
 import './public.less';
 
-const TabsBlockView = ({ id, onTabChange, data, ...rest }) => {
+const TabsBlockView = ({ id, onTabChange, data, mode = 'view', ...rest }) => {
   const dispatch = useDispatch();
   const { tabs = [], tabsLayout = [] } = data;
   const activeTab = useSelector((state) => {
@@ -26,12 +26,21 @@ const TabsBlockView = ({ id, onTabChange, data, ...rest }) => {
                       <li key={i}>{id}</li>
                     ))}
                   </ol>
+                  <h5>All blocks</h5>
+                  <ol>
+                    {Object.entries(rest.properties.blocks).map(
+                      ([id, block]) => (
+                        <li key={id}>
+                          {block['@type']} - {id}
+                        </li>
+                      ),
+                    )}
+                  </ol>
                 </Tab.Pane>
               ),
             }))}
             onTabChange={(event, { activeIndex }) => {
-              dispatch(setActiveTab(id, activeIndex));
-              // onTabChange && onTabChange(activeIndex);
+              dispatch(setActiveTab(id, activeIndex, mode));
             }}
             activeIndex={activeTab}
           />
