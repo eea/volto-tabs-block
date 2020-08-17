@@ -1,4 +1,4 @@
-import { SET_TABSBLOCK } from './constants';
+import { SET_TABSBLOCK, REFLOW_BLOCKS_LAYOUT } from './constants';
 
 export function setActiveTab(blockid, selection, mode, currentTabsState) {
   return {
@@ -7,5 +7,12 @@ export function setActiveTab(blockid, selection, mode, currentTabsState) {
     selection,
     mode,
     currentTabsState, // This is needed in the reducer
+  };
+}
+
+export function reflowBlocksLayout(layout) {
+  return {
+    type: REFLOW_BLOCKS_LAYOUT,
+    layout,
   };
 }

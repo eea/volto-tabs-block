@@ -3,6 +3,7 @@ import React from 'react';
 import { SidebarPortal } from '@plone/volto/components'; // EditBlock
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { getBlocks } from '@plone/volto/helpers';
+import { reflowBlocksLayout } from 'volto-tabsblock/actions';
 import { TABSBLOCK } from 'volto-tabsblock/constants';
 import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 import {
@@ -29,39 +30,72 @@ class EditTabsBlock extends React.Component {
   }
 
   componentDidMount() {
-    // initialize tabsLayout when just created
-
     const { block, onChangeBlock, data, tabsState } = this.props;
     const { tabsLayout = [], tabs = [] } = this.props.data;
 
+    // // Edge case, initialize tabsLayout when just created
     if (tabs.length !== tabsLayout.length) {
+      return;
       // TODO: create new placeholder blocks
-      tabsLayout.fill([], tabsLayout.length, tabs.length);
-
-      // TODO: write this in state
-      return onChangeBlock(block, { ...data, tabs, tabsLayout });
+      // tabsLayout.fill([], tabsLayout.length, tabs.length);
+      //
+      // // TODO: write this in state
+      // return onChangeBlock(block, { ...data, tabs, tabsLayout });
     }
 
     const { formData } = this.context.contextData;
-    const blocks = getBlocks(formData);
+    const blocks = getBlocks({
+      ...formData,
+      blocks_layout: {
+        ...formData.blocks_layout,
+        items:
+          formData.blocks_layout?.original_items ||
+          formData.blocks_layout?.items ||
+          [],
+      },
+    });
 
-    if (!data.initialized) {
-      // if the tab has just been dropped, it hasn't been initialized
-      // In this case, we initialize the tabsLayout and update as initialized
-      const allTabs = globalDeriveTabsFromState({ blocks, tabsState });
-      const tabsLayout = allTabs[block] || [];
-      const newData = {
-        ...data,
-        initialized: true,
-        tabsLayout,
-      };
-      onChangeBlock(block, newData);
-      return;
-    }
+    // if (!data.initialized) {
+    //   // if the tab has just been dropped, it hasn't been initialized
+    //   // In this case, we initialize the tabsLayout and update as initialized
+    //   const allTabs = globalDeriveTabsFromState({
+    //     blocks, // TODO: beware, there's a bug here.
+    //     tabsState,
+    //   });
+    //   const tabsLayout = allTabs[block] || [];
+    //   const newData = {
+    //     ...data,
+    //     initialized: true,
+    //     tabsLayout,
+    //   };
+    //   return onChangeBlock(block, newData);
+    // }
 
-    const new_layout = tabsLayoutToBlocksLayout(getBlocks(formData), tabsState);
+    // TODO: the global blocks_layout has been potentially changed by the view,
+    // so we need to set it back, for the new view algorithm.
+
+    // Case: "mature" block, but in case we come from edit, we use the blocks
+    // defined there because the view layout has been changed by the view
+    // component
+
+    const new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
 
     this.setState({ blocksLayout: new_layout });
+
+    console.log('reflow', new_layout);
+    this.props.reflowBlocksLayout(new_layout);
+    // const { contextData, setContextData } = this.context;
+    // const newData = {
+    //   ...contextData,
+    //   formData: {
+    //     ...contextData.formData,
+    //     blocks_layout: {
+    //       ...contextData.formData.blocks_layout,
+    //       items: new_layout,
+    //     },
+    //   },
+    // };
+    // setContextData(newData);
     this.updateGlobalBlocksLayout(new_layout);
   }
 
@@ -147,7 +181,7 @@ class EditTabsBlock extends React.Component {
         },
       },
     };
-    setContextData(data);
+    return setContextData(data);
   }
 
   render() {
@@ -182,6 +216,6 @@ export default connect(
     };
   },
   {
-    //
+    reflowBlocksLayout,
   },
 )(EditTabsBlock);

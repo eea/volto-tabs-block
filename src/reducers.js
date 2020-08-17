@@ -6,7 +6,7 @@ import {
   GET_CONTENT,
 } from '@plone/volto/constants/ActionTypes';
 
-import { TABSBLOCK, SET_TABSBLOCK } from './constants';
+import { TABSBLOCK, SET_TABSBLOCK, REFLOW_BLOCKS_LAYOUT } from './constants';
 import { tabsLayoutToEmbeddedBlocksLayout } from './Tabs/utils';
 // import { settings } from '~/config';
 
@@ -75,13 +75,16 @@ export function content(state = initialContentState, action = {}) {
                   ...newState.data,
                   blocks_layout: {
                     ...newState.data.blocks_layout,
+                    // This will be used by the edit form because we can't
+                    // trust items, as it will be mangled
                     original_items: [
                       ...(newState.data?.blocks_layout?.items || []),
                     ],
-                    // items: tabsLayoutToEmbeddedBlocksLayout(
-                    //   blocks,
-                    //   currentTabsState,
-                    // ),
+                    // This is needed to avoid duplication of blocks in SSR
+                    items: tabsLayoutToEmbeddedBlocksLayout(
+                      blocks,
+                      currentTabsState,
+                    ),
                   },
                 },
               }
@@ -89,8 +92,21 @@ export function content(state = initialContentState, action = {}) {
         return res;
       }
       return newState;
+    case REFLOW_BLOCKS_LAYOUT:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          blocks_layout: {
+            ...state.data.blocks_layout,
+            items: action.layout,
+          },
+        },
+      };
     case SET_TABSBLOCK:
-      if (mode !== 'view') return state;
+      // In edit form, No need to tweak the blocks_layout from here
+      if (mode === 'edit') return state;
+
       const blocks = getBlocks(state.data);
       currentTabsState[blockid] = selection;
       return {
