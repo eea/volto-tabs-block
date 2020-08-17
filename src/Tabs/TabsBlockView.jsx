@@ -6,13 +6,14 @@ import { blocks } from '~/config';
 import { defineMessages, injectIntl } from 'react-intl';
 import {
   getBlocksFieldname,
-  getBlocksLayoutFieldname,
-  hasBlocksData,
+  // getBlocksLayoutFieldname,
+  // hasBlocksData,
   getBaseUrl,
 } from '@plone/volto/helpers';
+import { isEqual } from './utils';
 
 import './public.less';
-// import { connect } from 'react-redux';
+
 const messages = defineMessages({
   unknownBlock: {
     id: 'Unknown Block',
@@ -33,10 +34,18 @@ const TabsBlockView = ({
   const dispatch = useDispatch();
   const tabsState = useSelector((state) => state.tabs_block);
   const mounted = React.useRef();
+  const saved_blocks_layout = React.useRef([]);
+  const blocks_layout = properties.blocks_layout?.items;
 
   const { tabs = [], tabsLayout = [] } = data;
   const globalActiveTab = tabsState[id] || 0;
 
+  // We have the following "racing" condition:
+  // The tabsblockview is mounted sometime before the GET_CONTENT_SUCCESS
+  // action is triggered, so even if we "fix" the display,
+  // the global state.data.blocks_layout will be overwritten with the "wrong"
+  // content. So we need to watch if the blocks_layout is rewritten, to trigger
+  // the tab change again
   React.useEffect(() => {
     if (!mounted.current && mode === 'view') {
       const newTabsState = {};
@@ -46,7 +55,18 @@ const TabsBlockView = ({
       dispatch(setActiveTab(id, 0, mode, newTabsState));
       mounted.current = true;
     }
-  }, [dispatch, id, mode, tabsState]);
+    if (
+      mode === 'view' &&
+      !isEqual(blocks_layout, saved_blocks_layout.current)
+    ) {
+      const newTabsState = {};
+      saved_blocks_layout.current = blocks_layout;
+      Object.keys(tabsState).forEach((blockid) => {
+        newTabsState[blockid] = 0;
+      });
+      dispatch(setActiveTab(id, 0, mode, newTabsState));
+    }
+  }, [dispatch, id, mode, tabsState, blocks_layout]);
 
   const blocksFieldname = getBlocksFieldname(properties);
 
@@ -87,6 +107,7 @@ const TabsBlockView = ({
       <div id="page-document" className="ui container">
         {tabs.length ? (
           <Tab
+            style={{ border: '1px solid black' }}
             menu={
               mode === 'view'
                 ? {

@@ -61,28 +61,29 @@ const initialContentState = {
 export function content(state = initialContentState, action = {}) {
   const { mode, currentTabsState, blockid, selection } = action;
   switch (action.type) {
-    case `${CREATE_CONTENT}_SUCCESS`:
-    case `${GET_CONTENT}_SUCCESS`:
-      const newState = defaultContentReducer(state, action);
-      if (hasBlocksData(newState.data)) {
-        const blocks = getBlocks(newState.data);
-        if (blocks.find(([, value]) => value['@type'] === 'TABSBLOCK') > -1) {
-          return {
-            ...newState,
-            data: {
-              ...newState.data,
-              blocks_layout: {
-                ...newState.data.blocks_layout,
-                items: tabsLayoutToEmbeddedBlocksLayout(
-                  blocks,
-                  currentTabsState,
-                ),
-              },
-            },
-          };
-        }
-      }
-      return newState;
+    // case `${CREATE_CONTENT}_SUCCESS`:
+    // case `${GET_CONTENT}_SUCCESS`:
+    //   const newState = defaultContentReducer(state, action);
+    //   if (mode !== 'view') return newState;
+    //   if (hasBlocksData(newState.data)) {
+    //     const blocks = getBlocks(newState.data);
+    //     return blocks.find(([, value]) => value['@type'] === 'TABSBLOCK') > -1
+    //       ? {
+    //           ...newState,
+    //           data: {
+    //             ...newState.data,
+    //             blocks_layout: {
+    //               ...newState.data.blocks_layout,
+    //               items: tabsLayoutToEmbeddedBlocksLayout(
+    //                 blocks,
+    //                 currentTabsState,
+    //               ),
+    //             },
+    //           },
+    //         }
+    //       : newState;
+    //   }
+    //   return newState;
     case SET_TABSBLOCK:
       if (mode !== 'view') return state;
       const blocks = getBlocks(state.data);
