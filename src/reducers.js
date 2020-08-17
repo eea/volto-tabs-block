@@ -1,7 +1,14 @@
-import { SET_TABSBLOCK } from './constants';
-import { getBlocks } from '@plone/volto/helpers';
-import { tabsLayoutToBlocksLayout } from './Tabs/utils';
+import { omit, map, mapKeys } from 'lodash';
+import { getBlocks, hasBlocksData } from '@plone/volto/helpers';
 import defaultContentReducer from '@plone/volto/reducers/content/content';
+import {
+  CREATE_CONTENT,
+  GET_CONTENT,
+} from '@plone/volto/constants/ActionTypes';
+
+import { SET_TABSBLOCK } from './constants';
+import { tabsLayoutToEmbeddedBlocksLayout } from './Tabs/utils';
+import { settings } from '~/config';
 
 const initialState = {};
 
@@ -15,6 +22,10 @@ export function tabs_block(state = initialState, action = {}) {
     default:
       return state;
   }
+}
+
+function getRequestKey(actionType) {
+  return actionType.split('_')[0].toLowerCase();
 }
 
 const initialContentState = {
@@ -48,9 +59,31 @@ const initialContentState = {
 };
 
 export function content(state = initialContentState, action = {}) {
+  const { mode, currentTabsState, blockid, selection } = action;
   switch (action.type) {
+    case `${CREATE_CONTENT}_SUCCESS`:
+    case `${GET_CONTENT}_SUCCESS`:
+      const newState = defaultContentReducer(state, action);
+      if (hasBlocksData(newState.data)) {
+        const blocks = getBlocks(newState.data);
+        if (blocks.find(([, value]) => value['@type'] === 'TABSBLOCK') > -1) {
+          return {
+            ...newState,
+            data: {
+              ...newState.data,
+              blocks_layout: {
+                ...newState.data.blocks_layout,
+                items: tabsLayoutToEmbeddedBlocksLayout(
+                  blocks,
+                  currentTabsState,
+                ),
+              },
+            },
+          };
+        }
+      }
+      return newState;
     case SET_TABSBLOCK:
-      const { mode, currentTabsState, blockid, selection } = action;
       if (mode !== 'view') return state;
       const blocks = getBlocks(state.data);
       currentTabsState[blockid] = selection;
@@ -60,7 +93,7 @@ export function content(state = initialContentState, action = {}) {
           ...state.data,
           blocks_layout: {
             ...state.data.blocks_layout,
-            items: tabsLayoutToBlocksLayout(blocks, currentTabsState),
+            items: tabsLayoutToEmbeddedBlocksLayout(blocks, currentTabsState),
           },
         },
       };

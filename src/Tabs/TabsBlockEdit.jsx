@@ -16,6 +16,8 @@ import schema from './schema';
 const J = JSON.stringify; // TODO: should use something from lodash
 
 class EditTabsBlock extends React.Component {
+  static contextType = FormStateContext;
+
   constructor(props, context) {
     super(props);
     this.state = {
@@ -23,51 +25,7 @@ class EditTabsBlock extends React.Component {
     };
 
     this.updateGlobalBlocksLayout = this.updateGlobalBlocksLayout.bind(this);
-  }
-
-  static contextType = FormStateContext;
-
-  handleChangeBlock(id, value) {
-    const { data } = this.props;
-    this.props.onChangeBlock(this.props.block, {
-      ...data,
-      [id]: value,
-    });
-  }
-
-  render() {
-    const { data } = this.props;
-    return (
-      <div className="block selected">
-        <div className="block-inner-wrapper">
-          <TabsBlockView {...this.props} mode="edit" />
-        </div>
-        <SidebarPortal selected={this.props.selected}>
-          <InlineForm
-            schema={schema}
-            title={schema.title}
-            onChangeField={this.handleChangeBlock.bind(this)}
-            formData={data}
-            block={this.props.block}
-          />
-        </SidebarPortal>
-      </div>
-    );
-  }
-
-  updateGlobalBlocksLayout(new_layout) {
-    const { contextData, setContextData } = this.context;
-    const data = {
-      ...contextData,
-      formData: {
-        ...contextData.formData,
-        blocks_layout: {
-          ...contextData.formData.blocks_layout,
-          items: new_layout,
-        },
-      },
-    };
-    setContextData(data);
+    this.handleChangeBlock = this.handleChangeBlock.bind(this);
   }
 
   componentDidMount() {
@@ -148,6 +106,9 @@ class EditTabsBlock extends React.Component {
       });
 
       new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
+
+      // Note: these two setState updates are optimized by React in a single
+      // component update. This is cool.
       this.setState({ blocksLayout: new_layout });
       setContextData({
         ...contextData,
@@ -164,6 +125,53 @@ class EditTabsBlock extends React.Component {
         },
       });
     }
+  }
+
+  handleChangeBlock(id, value) {
+    const { data } = this.props;
+    this.props.onChangeBlock(this.props.block, {
+      ...data,
+      [id]: value,
+    });
+  }
+
+  updateGlobalBlocksLayout(new_layout) {
+    const { contextData, setContextData } = this.context;
+    const data = {
+      ...contextData,
+      formData: {
+        ...contextData.formData,
+        blocks_layout: {
+          ...contextData.formData.blocks_layout,
+          items: new_layout,
+        },
+      },
+    };
+    setContextData(data);
+  }
+
+  render() {
+    const { data } = this.props;
+    return (
+      <div className="block selected">
+        <div className="block-inner-wrapper">
+          <TabsBlockView
+            {...this.props}
+            properties={this.context?.contextData?.formData}
+            mode="edit"
+          />
+        </div>
+        <SidebarPortal selected={this.props.selected}>
+          <InlineForm
+            schema={schema}
+            title={schema.title}
+            onChangeField={this.handleChangeBlock}
+            formData={data}
+            block={this.props.block}
+          />
+        </SidebarPortal>
+      </div>
+    );
   }
 }
 

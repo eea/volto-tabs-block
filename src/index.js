@@ -6,7 +6,7 @@ import { tabs_block, content } from './reducers';
 export default (config) => {
   config.blocks.blocksConfig[TABSBLOCK] = {
     id: TABSBLOCK,
-    title: 'Tabs',
+    title: 'Section',
     icon: codeSVG,
     group: 'text',
     view: TabsBlockView,

@@ -51,6 +51,36 @@ export function tabsLayoutToBlocksLayout(blocks, tabsState) {
 }
 
 /**
+ * tabsLayoutToEmbeddedBlocksLayout.
+ *
+ * Intended for final view rendering, eliminates the "embedded" blocks from the
+ * block layout
+ *
+ * @param {} blocks
+ * @param {} tabsState
+ */
+export function tabsLayoutToEmbeddedBlocksLayout(blocks, tabsState) {
+  let blocks_layout = [];
+  let foundTabsBlock = false;
+
+  blocks.forEach(([id, blockData]) => {
+    if (!foundTabsBlock) blocks_layout.push(id);
+
+    const type = blockData['@type'];
+
+    if (type === TABSBLOCK) {
+      if (foundTabsBlock) blocks_layout.push(id);
+      // const activeTab = tabsState[id] || 0;
+      // const tabs = blockData.tabsLayout?.[activeTab] || [];
+      // blocks_layout = blocks_layout.concat(tabs);
+      foundTabsBlock = true;
+    }
+  });
+
+  return blocks_layout;
+}
+
+/**
  * globalDeriveTabsFromState.
  *
  * Derives the new tabsLayout state from the current snapshot of the state
