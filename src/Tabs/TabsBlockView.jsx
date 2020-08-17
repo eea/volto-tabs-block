@@ -53,37 +53,49 @@ const TabsBlockView = ({
   const renderTab = React.useCallback(
     (index, tab) => {
       const blockIds = tabsLayout[index] || [];
-      return blockIds.map((block) => {
-        const Block =
-          blocks.blocksConfig[
-            properties[blocksFieldname]?.[block]?.['@type']
-          ]?.['view'] || null;
-        return Block !== null ? (
-          <Block
-            key={block}
-            id={block}
-            properties={properties}
-            data={properties[blocksFieldname][block]}
-            path={getBaseUrl(location?.pathname || '')}
-          />
-        ) : (
-          <div key={block}>
-            {intl.formatMessage(messages.unknownBlock, {
-              block: properties[blocksFieldname]?.[block]?.['@type'],
-            })}
-          </div>
-        );
-      });
+      return (
+        <Tab.Pane>
+          {blockIds.map((block) => {
+            const Block =
+              blocks.blocksConfig[
+                properties[blocksFieldname]?.[block]?.['@type']
+              ]?.['view'] || null;
+            return Block !== null ? (
+              <Block
+                key={block}
+                id={block}
+                properties={properties}
+                data={properties[blocksFieldname][block]}
+                path={getBaseUrl(location?.pathname || '')}
+              />
+            ) : (
+              <div key={block}>
+                {intl.formatMessage(messages.unknownBlock, {
+                  block: properties[blocksFieldname]?.[block]?.['@type'],
+                })}
+              </div>
+            );
+          })}
+        </Tab.Pane>
+      );
     },
     [tabsLayout],
   );
-
+  //
   return (
     <div className="children-tabs-view">
       <div id="page-document" className="ui container">
         {tabs.length ? (
           <Tab
-            menu={{ attached: false, tabular: false }}
+            menu={
+              mode === 'view'
+                ? {
+                    fluid: true,
+                    vertical: true,
+                    tabular: true,
+                  }
+                : { attached: false, tabular: false }
+            }
             onTabChange={(event, { activeIndex }) => {
               dispatch(setActiveTab(id, activeIndex, mode, tabsState));
             }}
