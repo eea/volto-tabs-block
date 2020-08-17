@@ -27,6 +27,11 @@ export const Tabs = {
       title: 'Default',
       fields: ['tabs'],
     },
+    {
+      id: 'settings',
+      title: 'Settings',
+      fields: ['position'],
+    },
   ],
 
   properties: {
@@ -35,6 +40,18 @@ export const Tabs = {
       title: 'Tabs',
       // this is an invention, should confront with dexterity serializer
       schema: Tab,
+    },
+    position: {
+      title: 'Position',
+      description: 'Position of the tabs, content related',
+      factory: 'Choice',
+      type: 'string',
+      choices: [
+        ['top', 'Top'],
+        ['bottom', 'Bottom'],
+        ['left', 'Left'],
+        ['right', 'Right'],
+      ],
     },
   },
 

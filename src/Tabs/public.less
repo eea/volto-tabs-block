@@ -1,15 +1,41 @@
 @import "~volto-tabsblock/less/globals.less";
 
 .content-area {
+  .ui.bottom.attached {
+    margin-bottom: 0;
+  }
+
   .ui.menu {
     border: none;
     border-radius: 0;
-    margin-bottom: 1rem;
     box-shadow: none;
     border-bottom: 1px solid @highlightBackground;
 
-    &:last-child {
-      margin-bottom: 1rem;
+    &.bottom.attached {
+      border: none;
+      border-top: 1px solid @highlightBackground !important;
+    }
+
+    &.vertical.tabular {
+      border: none !important;
+      border-right: 1px solid @highlightBackground !important;
+
+      .item {
+        border: none !important;
+
+        &.active {
+          border-radius: 0 !important;
+        }
+      }
+
+      &.right {
+        border-right: none !important;
+        border-left: 1px solid @highlightBackground !important;
+
+        .item.active {
+          border-radius: 0 !important;
+        }
+      }
     }
 
     .item {
@@ -24,6 +50,7 @@
       &.active {
         background-color: @highlightBackground !important;
         color: @highlightColor !important;
+        border: none;
       }
     }
   }

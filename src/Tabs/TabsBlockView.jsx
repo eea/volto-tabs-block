@@ -102,21 +102,38 @@ const TabsBlockView = ({
     [tabsLayout],
   );
   //
+  const menu = {};
+  const grid = { paneWidth: 9, tabWidth: 3, stackable: true };
+  const position = data?.position || 'top';
+  if (mode === 'edit') {
+    menu.attached = false;
+    menu.tabular = false;
+  } else {
+    switch (position) {
+      case 'bottom':
+        menu.attached = 'bottom';
+        break;
+      case 'left':
+        menu.fluid = true;
+        menu.vertical = true;
+        menu.tabular = true;
+        break;
+      case 'right':
+        menu.fluid = true;
+        menu.vertical = true;
+        menu.tabular = 'right';
+        break;
+      default:
+    }
+  }
+
   return (
     <div className="children-tabs-view">
       <div id="page-document" className="ui container">
         {tabs.length ? (
           <Tab
-            grid={{ paneWidth: 8, tabWidth: 4, stackable: true }}
-            menu={
-              mode === 'view'
-                ? {
-                    fluid: true,
-                    vertical: true,
-                    tabular: true,
-                  }
-                : { attached: false, tabular: false }
-            }
+            grid={grid}
+            menu={menu}
             onTabChange={(event, { activeIndex }) => {
               dispatch(setActiveTab(id, activeIndex, mode, tabsState));
             }}
