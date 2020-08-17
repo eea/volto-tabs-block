@@ -107,7 +107,7 @@ const TabsBlockView = ({
       <div id="page-document" className="ui container">
         {tabs.length ? (
           <Tab
-            grid={{ paneWidth: 8, tabWidth: 4 }}
+            grid={{ paneWidth: 8, tabWidth: 4, stackable: true }}
             menu={
               mode === 'view'
                 ? {
@@ -127,7 +127,10 @@ const TabsBlockView = ({
             }))}
           />
         ) : (
-          <hr />
+          <>
+            <hr />
+            {mode === 'view' ? renderTab(0, {}) : ''}
+          </>
         )}
       </div>
     </div>
