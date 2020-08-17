@@ -102,7 +102,7 @@ const TabsBlockView = ({
     [tabsLayout],
   );
   //
-  const menu = {};
+  const menu = { pointing: true };
   const grid = { paneWidth: 9, tabWidth: 3, stackable: true };
   const position = data?.position || 'top';
   if (mode === 'edit') {
@@ -111,7 +111,6 @@ const TabsBlockView = ({
   } else {
     switch (position) {
       case 'top':
-        menu.pointing = true;
         break;
       case 'bottom':
         menu.attached = 'bottom';
@@ -120,7 +119,6 @@ const TabsBlockView = ({
         menu.fluid = true;
         menu.vertical = true;
         menu.tabular = true;
-        menu.pointing = true;
         break;
       case 'right':
         menu.fluid = true;
