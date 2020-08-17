@@ -107,7 +107,7 @@ const TabsBlockView = ({
       <div id="page-document" className="ui container">
         {tabs.length ? (
           <Tab
-            style={{ border: '1px solid black' }}
+            grid={{ paneWidth: 8, tabWidth: 4 }}
             menu={
               mode === 'view'
                 ? {
