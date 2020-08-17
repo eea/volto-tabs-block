@@ -17,6 +17,22 @@
       }
     }
 
+    &.pointing.right {
+      .item.active::after {
+        right: auto;
+        left: 0%;
+        margin-left: -.5em;
+      }
+    }
+
+    &.pointing.bottom {
+      .item.active::after {
+        top: auto;
+        bottom: 100%;
+        margin-bottom: -.5em;
+      }
+    }
+
     &.bottom.attached {
       border: none;
       border-top: 1px solid @tealBackground !important;
