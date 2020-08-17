@@ -110,6 +110,9 @@ const TabsBlockView = ({
     menu.tabular = false;
   } else {
     switch (position) {
+      case 'top':
+        menu.pointing = true;
+        break;
       case 'bottom':
         menu.attached = 'bottom';
         break;
@@ -117,6 +120,7 @@ const TabsBlockView = ({
         menu.fluid = true;
         menu.vertical = true;
         menu.tabular = true;
+        menu.pointing = true;
         break;
       case 'right':
         menu.fluid = true;
@@ -145,7 +149,7 @@ const TabsBlockView = ({
           />
         ) : (
           <>
-            <hr />
+            <hr className="block section" />
             {mode === 'view' ? renderTab(0, {}) : ''}
           </>
         )}

@@ -9,16 +9,22 @@
     border: none;
     border-radius: 0;
     box-shadow: none;
-    border-bottom: 1px solid @highlightBackground;
+    border-bottom: 1px solid @tealBackground;
+
+    &.pointing {
+      .item.active::after {
+        border: none;
+      }
+    }
 
     &.bottom.attached {
       border: none;
-      border-top: 1px solid @highlightBackground !important;
+      border-top: 1px solid @tealBackground !important;
     }
 
     &.vertical.tabular {
       border: none !important;
-      border-right: 1px solid @highlightBackground !important;
+      border-right: 1px solid @tealBackground !important;
 
       .item {
         border: none !important;
@@ -30,7 +36,7 @@
 
       &.right {
         border-right: none !important;
-        border-left: 1px solid @highlightBackground !important;
+        border-left: 1px solid @tealBackground !important;
 
         .item.active {
           border-radius: 0 !important;
@@ -48,10 +54,17 @@
       }
 
       &.active {
-        background-color: @highlightBackground !important;
+        background-color: @tealBackground !important;
         color: @highlightColor !important;
         border: none;
       }
     }
+  }
+}
+
+.block {
+  &.section {
+    border: none;
+    border-top: 1px solid @tealBackground;
   }
 }
