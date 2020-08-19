@@ -70,9 +70,6 @@ export function tabsLayoutToEmbeddedBlocksLayout(blocks, tabsState) {
 
     if (type === TABSBLOCK) {
       if (foundTabsBlock) blocks_layout.push(id);
-      // const activeTab = tabsState[id] || 0;
-      // const tabs = blockData.tabsLayout?.[activeTab] || [];
-      // blocks_layout = blocks_layout.concat(tabs);
       foundTabsBlock = true;
     }
   });

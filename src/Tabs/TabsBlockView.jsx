@@ -28,11 +28,11 @@ const TabsBlockView = ({
   mode = 'view',
   properties,
   intl,
-  location,
   ...rest
 }) => {
   const dispatch = useDispatch();
-  const tabsState = useSelector((state) => state.tabs_block);
+  const pathname = useSelector((state) => state.router.location.pathname);
+  const tabsState = useSelector((state) => state.tabs_block[pathname] || {});
   const mounted = React.useRef();
   const saved_blocks_layout = React.useRef([]);
   const blocks_layout = properties.blocks_layout?.items;
@@ -52,7 +52,7 @@ const TabsBlockView = ({
       Object.keys(tabsState).forEach((blockid) => {
         newTabsState[blockid] = 0;
       });
-      dispatch(setActiveTab(id, 0, mode, newTabsState));
+      dispatch(setActiveTab(id, 0, mode, newTabsState, pathname));
       mounted.current = true;
     }
     if (
@@ -64,9 +64,9 @@ const TabsBlockView = ({
       Object.keys(tabsState).forEach((blockid) => {
         newTabsState[blockid] = 0;
       });
-      dispatch(setActiveTab(id, 0, mode, newTabsState));
+      dispatch(setActiveTab(id, 0, mode, newTabsState, pathname));
     }
-  }, [dispatch, id, mode, tabsState, blocks_layout]);
+  }, [dispatch, id, mode, tabsState, blocks_layout, pathname]);
 
   const blocksFieldname = getBlocksFieldname(properties);
 
@@ -87,7 +87,7 @@ const TabsBlockView = ({
                   id={block}
                   properties={properties}
                   data={properties[blocksFieldname][block]}
-                  path={getBaseUrl(location?.pathname || '')}
+                  path={getBaseUrl(pathname || '')}
                 />
               </>
             ) : (
@@ -139,7 +139,9 @@ const TabsBlockView = ({
             grid={grid}
             menu={menu}
             onTabChange={(event, { activeIndex }) => {
-              dispatch(setActiveTab(id, activeIndex, mode, tabsState));
+              dispatch(
+                setActiveTab(id, activeIndex, mode, tabsState, pathname),
+              );
             }}
             activeIndex={globalActiveTab}
             panes={tabs.map((child, index) => ({
