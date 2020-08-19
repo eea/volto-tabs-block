@@ -37,7 +37,6 @@ class EditTabsBlock extends React.Component {
   }
 
   componentDidMount() {
-    console.log('props', this.props);
     const { contextData } = this.context;
     let formData = this.context.contextData.formData;
     if (
@@ -234,7 +233,7 @@ class EditTabsBlock extends React.Component {
 export default connect(
   (state) => {
     return {
-      tabsState: state.tabs_block[state.router.location.pathname] || {},
+      tabsState: state.tabs_block[state.router.location.key] || {},
       content: state.content,
     };
   },

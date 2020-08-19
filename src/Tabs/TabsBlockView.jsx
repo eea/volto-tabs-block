@@ -28,11 +28,12 @@ const TabsBlockView = ({
   mode = 'view',
   properties,
   intl,
+  location,
   ...rest
 }) => {
   const dispatch = useDispatch();
-  const pathname = useSelector((state) => state.router.location.pathname);
-  const tabsState = useSelector((state) => state.tabs_block[pathname] || {});
+  const pathKey = useSelector((state) => state.router.location.key);
+  const tabsState = useSelector((state) => state.tabs_block[pathKey] || {});
   const mounted = React.useRef();
   const saved_blocks_layout = React.useRef([]);
   const blocks_layout = properties.blocks_layout?.items;
@@ -52,7 +53,7 @@ const TabsBlockView = ({
       Object.keys(tabsState).forEach((blockid) => {
         newTabsState[blockid] = 0;
       });
-      dispatch(setActiveTab(id, 0, mode, newTabsState, pathname));
+      dispatch(setActiveTab(id, 0, mode, newTabsState, pathKey));
       mounted.current = true;
     }
     if (
@@ -64,9 +65,9 @@ const TabsBlockView = ({
       Object.keys(tabsState).forEach((blockid) => {
         newTabsState[blockid] = 0;
       });
-      dispatch(setActiveTab(id, 0, mode, newTabsState, pathname));
+      dispatch(setActiveTab(id, 0, mode, newTabsState, pathKey));
     }
-  }, [dispatch, id, mode, tabsState, blocks_layout, pathname]);
+  }, [dispatch, id, mode, tabsState, blocks_layout, pathKey]);
 
   const blocksFieldname = getBlocksFieldname(properties);
 
@@ -87,7 +88,7 @@ const TabsBlockView = ({
                   id={block}
                   properties={properties}
                   data={properties[blocksFieldname][block]}
-                  path={getBaseUrl(pathname || '')}
+                  path={getBaseUrl(location?.pathname || '')}
                 />
               </>
             ) : (
@@ -140,7 +141,7 @@ const TabsBlockView = ({
             menu={menu}
             onTabChange={(event, { activeIndex }) => {
               dispatch(
-                setActiveTab(id, activeIndex, mode, tabsState, pathname),
+                setActiveTab(id, activeIndex, mode, tabsState, pathKey),
               );
             }}
             activeIndex={globalActiveTab}
