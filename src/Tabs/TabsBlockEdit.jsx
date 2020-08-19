@@ -43,6 +43,7 @@ class EditTabsBlock extends React.Component {
     //   'initial formData',
     //   JSON.stringify(formData.blocks_layout.items),
     // );
+    // debugger;
     if (
       Object.keys(formData || {}).includes('_original_items') &&
       !contextData.fixed_for_edit
@@ -69,13 +70,16 @@ class EditTabsBlock extends React.Component {
       // the component did not exist in the edit value, it is new
       // so we should use the contextData instead
       this.props.resetContentForEdit(true, formData);
-      this.globalRelayout({ defaultFormData: formData });
+      this.globalRelayout({ defaultFormData: formData, fixed_for_edit: true });
     } else {
       // if this is the first tabs block, relayout the whole form
       const [id] = res;
       if (id === this.props.id) {
         this.props.resetContentForEdit(true, formData);
-        this.globalRelayout({ defaultFormData: formData });
+        this.globalRelayout({
+          defaultFormData: formData,
+          fixed_for_edit: true,
+        });
       }
     }
   }
@@ -179,6 +183,13 @@ class EditTabsBlock extends React.Component {
     blocks.forEach(([id, block]) => {
       if (block['@type'] === TABSBLOCK) {
         block['tabsLayout'] = globalState[id]; // [activeTab]
+        const { tabs = [], tabsLayout = [] } = block;
+        if (tabs.length < tabsLayout.length) {
+          const start = tabs.length - 1;
+          tabs.length = tabsLayout.length;
+          block.tabs = [...tabs].fill({}, start);
+          console.log('tabs', block);
+        }
       }
     });
 
