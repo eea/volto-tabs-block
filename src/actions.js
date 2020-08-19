@@ -11,7 +11,6 @@ export function setActiveTab(blockid, selection, mode, currentTabsState) {
 }
 
 export function resetContentForEdit(isEditView, content) {
-  // console.log('reset content', content);
   return {
     type: 'GET_CONTENT_SUCCESS',
     isEditView,

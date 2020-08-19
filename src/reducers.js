@@ -63,13 +63,11 @@ export function content(state = initialContentState, action = {}) {
       // if (mode !== 'view') return newState;
       if (hasBlocksData(newState.data)) {
         const blocks = getBlocks(newState.data);
-        // debugger;
         const _original_items = action.isEditView
           ? newState.data?._original_items ||
             action.result.blocks_layout?.items ||
             []
           : action.result.blocks_layout?.items || [];
-        // console.log('original items', _original_items);
         const res =
           blocks.findIndex(([, value]) => value['@type'] === TABSBLOCK) > -1
             ? {
@@ -94,7 +92,6 @@ export function content(state = initialContentState, action = {}) {
                 },
               }
             : newState;
-        console.log(action.type, 'res', res);
         return res;
       }
       return newState;

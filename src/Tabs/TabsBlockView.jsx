@@ -82,7 +82,6 @@ const TabsBlockView = ({
               ]?.['view'] || null;
             return Block !== null ? (
               <>
-                <em>ID: {block}</em>
                 <Block
                   key={block}
                   id={block}
@@ -102,9 +101,9 @@ const TabsBlockView = ({
         </Tab.Pane>
       );
     },
-    [tabsLayout],
+    [tabsLayout], // TODO: fill in the rest of the array
   );
-  //
+
   const menu = { pointing: true };
   const grid = { paneWidth: 9, tabWidth: 3, stackable: true };
   const position = data?.position || 'top';
@@ -154,17 +153,9 @@ const TabsBlockView = ({
             {mode === 'view' ? renderTab(0, {}) : ''}
           </>
         )}
-        <div>
-          <b>Block data:</b> {JSON.stringify(data)}
-        </div>
-        <div>
-          <b>properties.blocks_layout:</b>{' '}
-          {JSON.stringify(properties.blocks_layout)}
-        </div>
       </div>
     </div>
   );
 };
 
 export default injectIntl(TabsBlockView);
-// export default connect( (state, props) => { })(TabsBlockView);

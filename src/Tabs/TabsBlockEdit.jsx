@@ -39,24 +39,12 @@ class EditTabsBlock extends React.Component {
   componentDidMount() {
     const { contextData } = this.context;
     let formData = this.context.contextData.formData;
-    // console.log(
-    //   'initial formData',
-    //   JSON.stringify(formData.blocks_layout.items),
-    // );
-    // debugger;
     if (
       Object.keys(formData || {}).includes('_original_items') &&
       !contextData.fixed_for_edit
     ) {
       // We're coming from the View page with a layout that already has tabs,
       // so it was changed. In this case restore the original_items as items
-      // formData = {
-      //   ...formData,
-      //   blocks_layout: {
-      //     ...formData.blocks_layout,
-      //     items: formData._original_items,
-      //   },
-      // };
       formData = {
         ...formData,
         blocks_layout: {
@@ -94,33 +82,22 @@ class EditTabsBlock extends React.Component {
     const index = blocks.findIndex(([, value]) => value['@type'] === TABSBLOCK);
     if (index === -1) {
       // this.props.setToEditMode(false);
+      // TODO: might need to do some stuff here
     }
   }
 
   componentDidUpdate(prevProps) {
-    const { contextData, setContextData } = this.context;
+    const { contextData } = this.context;
     const { data, tabsState } = this.props;
     const { formData } = contextData;
-    const blocks = getBlocks(formData) || [];
 
     const blocksLayout = formData.blocks_layout.items;
 
-    let new_layout;
-
-    const { tabsLayout = [], tabs = [] } = this.props.data;
     // if (
     //   tabs.length &&
     //   tabs.length !== tabsLayout.length
     //   // || (tabs.length === 0 && tabsLayout.length === 0) // Might cause problems when section is last block
     // ) {
-    //   // console.log(
-    //   //   'relayout',
-    //   //   this.props.id,
-    //   //   tabs.length,
-    //   //   tabsLayout.length,
-    //   //   JSON.stringify(tabs),
-    //   //   JSON.stringify(tabsLayout),
-    //   // );
     //   console.log('Tabs have been edited');
     //   return this.globalRelayout();
     // }
@@ -131,20 +108,7 @@ class EditTabsBlock extends React.Component {
     // console.log(data.tabsLayout, prevProps.tabsState, tabsState);
 
     if (isTabsChanged) {
-      // console.log('tabs schanged');
-      // // calculate layout based on changing tabs
-      // new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
-      // // console.log('tabsChanged', new_layout, tabsState, blocks);
-      // this.setState({ blocksLayout: new_layout });
-      // this.saveGlobalLayout(new_layout);
-      // return;
       if (this.isFirstTabsBlock()) {
-        console.log(
-          'tabs changed',
-          blocksLayout.length,
-          this.state.blocksLayout.length,
-          tabsState,
-        );
         return this.globalRelayout({ tabChanged: true });
       }
     }
@@ -156,12 +120,6 @@ class EditTabsBlock extends React.Component {
 
     if (isBlocksChanged) {
       if (this.isFirstTabsBlock()) {
-        console.log(
-          'block changed',
-          blocksLayout.length,
-          this.state.blocksLayout.length,
-          tabsState,
-        );
         return this.globalRelayout({});
       }
     }
@@ -193,17 +151,11 @@ class EditTabsBlock extends React.Component {
           const start = tabs.length - 1;
           tabs.length = tabsLayout.length;
           block.tabs = [...tabs].fill({}, start);
-          console.log('tabs', block);
         }
       }
     });
 
     new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
-    console.log(
-      'global relayout end',
-      new_layout,
-      contextData.formData.blocks_layout.items,
-    );
 
     this.setState({ blocksLayout: new_layout });
     setContextData({
@@ -213,6 +165,7 @@ class EditTabsBlock extends React.Component {
         ...formData,
         blocks: {
           ...formData.blocks,
+          // We need to create new objects because we mutate in place some arrays
           ...Object.fromEntries(JSON.parse(JSON.stringify(blocks))),
         },
         blocks_layout: {
@@ -257,10 +210,6 @@ class EditTabsBlock extends React.Component {
         }}
       >
         <div className="block-inner-wrapper">
-          <div>
-            <strong>Saved edit data:</strong> {JSON.stringify(this.props.data)}
-          </div>
-          {this.context.contextData.formData.blocks_layout.items.length}
           <TabsBlockView
             {...this.props}
             properties={this.context?.contextData?.formData}
@@ -289,14 +238,6 @@ export default connect(
     };
   },
   {
-    // setToEditMode,
     resetContentForEdit,
   },
-  // (dispatch) => {
-  //   return {
-  //     // reflowBlocksLayout: () => dispatch(reflowBlocksLayout()),
-  //     setToEditMode: (mode, content) => dispatch(setToEditMode(mode, content)),
-  //     dispatch,
-  //   };
-  // },
 )(EditTabsBlock);

@@ -94,10 +94,8 @@ export function globalDeriveTabsFromState({
 }) {
   const result = {};
 
-  // debugger;
   blocks.forEach(([blockId, blockData]) => {
     const type = blockData['@type'];
-    // }
     if (type === TABSBLOCK) {
       const afterBlocksIds = sliceBlocksByTabs(blocks, blockId).map(
         ([id]) => id,
@@ -122,7 +120,6 @@ export function globalDeriveTabsFromState({
     }
   });
 
-  const res = JSON.parse(JSON.stringify(result));
-  // console.log('global state', res);
-  return res;
+  // We need to create new objects because we mutate in place some arrays
+  return JSON.parse(JSON.stringify(result));
 }
