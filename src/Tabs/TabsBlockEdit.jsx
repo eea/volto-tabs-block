@@ -50,15 +50,20 @@ class EditTabsBlock extends React.Component {
     ) {
       // We're coming from the View page with a layout that already has tabs,
       // so it was changed. In this case restore the original_items as items
+      // formData = {
+      //   ...formData,
+      //   blocks_layout: {
+      //     ...formData.blocks_layout,
+      //     items: formData._original_items,
+      //   },
+      // };
       formData = {
         ...formData,
         blocks_layout: {
           ...formData.blocks_layout,
-          items: formData._original_items,
+          items: tabsLayoutToBlocksLayout(getBlocks(formData), {}),
         },
       };
-      // console.log('mount', formData.blocks_layout);
-      // console.log('tab state on mount', this.props.tabsState);
       this.props.resetContentForEdit(true, formData); // isEditView = true
       this.globalRelayout({ defaultFormData: formData, fixed_for_edit: true });
     }
@@ -208,7 +213,7 @@ class EditTabsBlock extends React.Component {
         ...formData,
         blocks: {
           ...formData.blocks,
-          ...Object.fromEntries(blocks),
+          ...Object.fromEntries(JSON.parse(JSON.stringify(blocks))),
         },
         blocks_layout: {
           ...formData.blocks_layout,

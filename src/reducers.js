@@ -5,12 +5,7 @@ import {
   GET_CONTENT,
 } from '@plone/volto/constants/ActionTypes';
 
-import {
-  TABSBLOCK,
-  SET_TO_EDIT_MODE,
-  SET_TABSBLOCK,
-  REFLOW_BLOCKS_LAYOUT,
-} from './constants';
+import { TABSBLOCK, SET_TABSBLOCK } from './constants';
 import { tabsLayoutToEmbeddedBlocksLayout } from './Tabs/utils';
 
 const initialState = {};
