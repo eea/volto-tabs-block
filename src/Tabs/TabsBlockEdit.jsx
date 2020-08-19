@@ -3,7 +3,7 @@ import React from 'react';
 import { SidebarPortal } from '@plone/volto/components'; // EditBlock
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { getBlocks } from '@plone/volto/helpers';
-import { reflowBlocksLayout } from 'volto-tabsblock/actions';
+import { resetContentForEdit } from 'volto-tabsblock/actions'; //  reflowBlocksLayout, setToEditMode
 import { TABSBLOCK } from 'volto-tabsblock/constants';
 import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 import {
@@ -25,78 +25,67 @@ class EditTabsBlock extends React.Component {
       blocksLayout: context.contextData.formData.blocks_layout.items,
     };
 
-    this.updateGlobalBlocksLayout = this.updateGlobalBlocksLayout.bind(this);
+    this.saveGlobalLayout = this.saveGlobalLayout.bind(this);
     this.handleChangeBlock = this.handleChangeBlock.bind(this);
+    this.isFirstTabsBlock = this.isFirstTabsBlock.bind(this);
+  }
+
+  isFirstTabsBlock() {
+    const blocks = getBlocks(this.context.contextData?.formData || {});
+    const [id] = blocks.find(([, value]) => value['@type'] === TABSBLOCK);
+    return id === this.props.id;
   }
 
   componentDidMount() {
-    const { block, onChangeBlock, data, tabsState } = this.props;
-    const { tabsLayout = [], tabs = [] } = this.props.data;
-
-    // // Edge case, initialize tabsLayout when just created
-    if (tabs.length !== tabsLayout.length) {
-      return;
-      // TODO: create new placeholder blocks
-      // tabsLayout.fill([], tabsLayout.length, tabs.length);
-      //
-      // // TODO: write this in state
-      // return onChangeBlock(block, { ...data, tabs, tabsLayout });
+    const { contextData } = this.context;
+    let formData = this.context.contextData.formData;
+    // console.log(
+    //   'initial formData',
+    //   JSON.stringify(formData.blocks_layout.items),
+    // );
+    if (
+      Object.keys(formData || {}).includes('_original_items') &&
+      !contextData.fixed_for_edit
+    ) {
+      // We're coming from the View page with a layout that already has tabs,
+      // so it was changed. In this case restore the original_items as items
+      formData = {
+        ...formData,
+        blocks_layout: {
+          ...formData.blocks_layout,
+          items: formData._original_items,
+        },
+      };
+      // console.log('mount', formData.blocks_layout);
+      // console.log('tab state on mount', this.props.tabsState);
+      this.props.resetContentForEdit(true, formData); // isEditView = true
+      this.globalRelayout({ defaultFormData: formData, fixed_for_edit: true });
     }
 
-    const { formData } = this.context.contextData;
-    const blocks = getBlocks({
-      ...formData,
-      blocks_layout: {
-        ...formData.blocks_layout,
-        items:
-          formData.blocks_layout?.original_items ||
-          formData.blocks_layout?.items ||
-          [],
-      },
-    });
+    const blocks = getBlocks(formData);
+    const res = blocks.find(([, value]) => value['@type'] === TABSBLOCK);
 
-    // if (!data.initialized) {
-    //   // if the tab has just been dropped, it hasn't been initialized
-    //   // In this case, we initialize the tabsLayout and update as initialized
-    //   const allTabs = globalDeriveTabsFromState({
-    //     blocks, // TODO: beware, there's a bug here.
-    //     tabsState,
-    //   });
-    //   const tabsLayout = allTabs[block] || [];
-    //   const newData = {
-    //     ...data,
-    //     initialized: true,
-    //     tabsLayout,
-    //   };
-    //   return onChangeBlock(block, newData);
-    // }
+    if (!res) {
+      // the component did not exist in the edit value, it is new
+      // so we should use the contextData instead
+      this.props.resetContentForEdit(true, formData);
+      this.globalRelayout({ defaultFormData: formData });
+    } else {
+      // if this is the first tabs block, relayout the whole form
+      const [id] = res;
+      if (id === this.props.id) {
+        this.props.resetContentForEdit(true, formData);
+        this.globalRelayout({ defaultFormData: formData });
+      }
+    }
+  }
 
-    // TODO: the global blocks_layout has been potentially changed by the view,
-    // so we need to set it back, for the new view algorithm.
-
-    // Case: "mature" block, but in case we come from edit, we use the blocks
-    // defined there because the view layout has been changed by the view
-    // component
-
-    const new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
-
-    this.setState({ blocksLayout: new_layout });
-
-    console.log('reflow', new_layout);
-    this.props.reflowBlocksLayout(new_layout);
-    // const { contextData, setContextData } = this.context;
-    // const newData = {
-    //   ...contextData,
-    //   formData: {
-    //     ...contextData.formData,
-    //     blocks_layout: {
-    //       ...contextData.formData.blocks_layout,
-    //       items: new_layout,
-    //     },
-    //   },
-    // };
-    // setContextData(newData);
-    this.updateGlobalBlocksLayout(new_layout);
+  componentWillUnmount() {
+    const blocks = getBlocks(this.context.contextData?.formData || {});
+    const index = blocks.findIndex(([, value]) => value['@type'] === TABSBLOCK);
+    if (index === -1) {
+      // this.props.setToEditMode(false);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -107,18 +96,48 @@ class EditTabsBlock extends React.Component {
 
     const blocksLayout = formData.blocks_layout.items;
 
+    let new_layout;
+
+    const { tabsLayout = [], tabs = [] } = this.props.data;
+    // if (
+    //   tabs.length &&
+    //   tabs.length !== tabsLayout.length
+    //   // || (tabs.length === 0 && tabsLayout.length === 0) // Might cause problems when section is last block
+    // ) {
+    //   // console.log(
+    //   //   'relayout',
+    //   //   this.props.id,
+    //   //   tabs.length,
+    //   //   tabsLayout.length,
+    //   //   JSON.stringify(tabs),
+    //   //   JSON.stringify(tabsLayout),
+    //   // );
+    //   console.log('Tabs have been edited');
+    //   return this.globalRelayout();
+    // }
+
     const isTabsChanged =
       data.tabsLayout && J(prevProps.tabsState) !== J(tabsState);
     // && isEqual(blocksLayout, this.state.blocksLayout);
-
-    let new_layout;
+    // console.log(data.tabsLayout, prevProps.tabsState, tabsState);
 
     if (isTabsChanged) {
-      // calculate layout based on changing tabs
-      new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
-      this.setState({ blocksLayout: new_layout });
-      this.updateGlobalBlocksLayout(new_layout);
-      return;
+      // console.log('tabs schanged');
+      // // calculate layout based on changing tabs
+      // new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
+      // // console.log('tabsChanged', new_layout, tabsState, blocks);
+      // this.setState({ blocksLayout: new_layout });
+      // this.saveGlobalLayout(new_layout);
+      // return;
+      if (this.isFirstTabsBlock()) {
+        console.log(
+          'tabs changed',
+          blocksLayout.length,
+          this.state.blocksLayout.length,
+          tabsState,
+        );
+        return this.globalRelayout({ tabChanged: true });
+      }
     }
 
     const isBlocksChanged =
@@ -127,38 +146,65 @@ class EditTabsBlock extends React.Component {
       !isEqual(blocksLayout, this.state.blocksLayout);
 
     if (isBlocksChanged) {
-      const globalState = globalDeriveTabsFromState({ blocks, tabsState });
-      // update all tabs blocks based on new_layout
-      blocks.forEach(([id, block]) => {
-        if (block['@type'] === TABSBLOCK) {
-          const activeTab = tabsState[id] || 0;
-          if (!Array.isArray(block['tabsLayout'])) {
-            block['tabsLayout'] = Array(activeTab + 1).fill([]);
-          }
-          block['tabsLayout'] = globalState[id]; // [activeTab]
-        }
-      });
-
-      new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
-
-      // Note: these two setState updates are optimized by React in a single
-      // component update. This is cool.
-      this.setState({ blocksLayout: new_layout });
-      setContextData({
-        ...contextData,
-        formData: {
-          ...formData,
-          blocks: {
-            ...formData.blocks,
-            ...Object.fromEntries(blocks),
-          },
-          blocks_layout: {
-            ...formData.blocks_layout,
-            items: new_layout,
-          },
-        },
-      });
+      if (this.isFirstTabsBlock()) {
+        console.log(
+          'block changed',
+          blocksLayout.length,
+          this.state.blocksLayout.length,
+          tabsState,
+        );
+        return this.globalRelayout({});
+      }
     }
+  }
+
+  globalRelayout({
+    defaultFormData,
+    tabChanged = false,
+    fixed_for_edit = false,
+  }) {
+    // TODO: create new placeholder blocks
+    const { contextData, setContextData } = this.context;
+    const { tabsState } = this.props;
+    const formData = defaultFormData || contextData.formData;
+
+    const blocks = getBlocks(formData) || [];
+    let new_layout;
+    const globalState = globalDeriveTabsFromState({
+      blocks,
+      tabsState,
+      tabChanged,
+    });
+
+    blocks.forEach(([id, block]) => {
+      if (block['@type'] === TABSBLOCK) {
+        block['tabsLayout'] = globalState[id]; // [activeTab]
+      }
+    });
+
+    new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
+    console.log(
+      'global relayout end',
+      new_layout,
+      contextData.formData.blocks_layout.items,
+    );
+
+    this.setState({ blocksLayout: new_layout });
+    setContextData({
+      ...contextData,
+      fixed_for_edit: fixed_for_edit || contextData.fixed_for_edit, // keep true
+      formData: {
+        ...formData,
+        blocks: {
+          ...formData.blocks,
+          ...Object.fromEntries(blocks),
+        },
+        blocks_layout: {
+          ...formData.blocks_layout,
+          items: new_layout,
+        },
+      },
+    });
   }
 
   handleChangeBlock(id, value) {
@@ -169,7 +215,7 @@ class EditTabsBlock extends React.Component {
     });
   }
 
-  updateGlobalBlocksLayout(new_layout) {
+  saveGlobalLayout(new_layout) {
     const { contextData, setContextData } = this.context;
     const data = {
       ...contextData,
@@ -187,8 +233,18 @@ class EditTabsBlock extends React.Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="block selected">
+      <div
+        role="presentation"
+        className="block selected"
+        onClick={() => {
+          this.props.onSelectBlock(this.props.block);
+        }}
+      >
         <div className="block-inner-wrapper">
+          <div>
+            <strong>Saved edit data:</strong> {JSON.stringify(this.props.data)}
+          </div>
+          {this.context.contextData.formData.blocks_layout.items.length}
           <TabsBlockView
             {...this.props}
             properties={this.context?.contextData?.formData}
@@ -213,9 +269,18 @@ export default connect(
   (state) => {
     return {
       tabsState: state.tabs_block,
+      content: state.content,
     };
   },
   {
-    reflowBlocksLayout,
+    // setToEditMode,
+    resetContentForEdit,
   },
+  // (dispatch) => {
+  //   return {
+  //     // reflowBlocksLayout: () => dispatch(reflowBlocksLayout()),
+  //     setToEditMode: (mode, content) => dispatch(setToEditMode(mode, content)),
+  //     dispatch,
+  //   };
+  // },
 )(EditTabsBlock);

@@ -81,13 +81,16 @@ const TabsBlockView = ({
                 properties[blocksFieldname]?.[block]?.['@type']
               ]?.['view'] || null;
             return Block !== null ? (
-              <Block
-                key={block}
-                id={block}
-                properties={properties}
-                data={properties[blocksFieldname][block]}
-                path={getBaseUrl(location?.pathname || '')}
-              />
+              <>
+                <em>ID: {block}</em>
+                <Block
+                  key={block}
+                  id={block}
+                  properties={properties}
+                  data={properties[blocksFieldname][block]}
+                  path={getBaseUrl(location?.pathname || '')}
+                />
+              </>
             ) : (
               <div key={block}>
                 {intl.formatMessage(messages.unknownBlock, {
@@ -151,6 +154,13 @@ const TabsBlockView = ({
             {mode === 'view' ? renderTab(0, {}) : ''}
           </>
         )}
+        <div>
+          <b>Block data:</b> {JSON.stringify(data)}
+        </div>
+        <div>
+          <b>properties.blocks_layout:</b>{' '}
+          {JSON.stringify(properties.blocks_layout)}
+        </div>
       </div>
     </div>
   );

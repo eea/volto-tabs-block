@@ -1,4 +1,3 @@
-// import { omit, map, mapKeys } from 'lodash';
 import { getBlocks, hasBlocksData } from '@plone/volto/helpers';
 import defaultContentReducer from '@plone/volto/reducers/content/content';
 import {
@@ -6,9 +5,13 @@ import {
   GET_CONTENT,
 } from '@plone/volto/constants/ActionTypes';
 
-import { TABSBLOCK, SET_TABSBLOCK, REFLOW_BLOCKS_LAYOUT } from './constants';
+import {
+  TABSBLOCK,
+  SET_TO_EDIT_MODE,
+  SET_TABSBLOCK,
+  REFLOW_BLOCKS_LAYOUT,
+} from './constants';
 import { tabsLayoutToEmbeddedBlocksLayout } from './Tabs/utils';
-// import { settings } from '~/config';
 
 const initialState = {};
 
@@ -23,10 +26,6 @@ export function tabs_block(state = initialState, action = {}) {
       return state;
   }
 }
-
-// function getRequestKey(actionType) {
-//   return actionType.split('_')[0].toLowerCase();
-// }
 
 const initialContentState = {
   create: {
@@ -56,6 +55,7 @@ const initialContentState = {
   },
   data: null,
   subrequests: {},
+  isEditView: false,
 };
 
 export function content(state = initialContentState, action = {}) {
@@ -63,46 +63,46 @@ export function content(state = initialContentState, action = {}) {
   switch (action.type) {
     case `${CREATE_CONTENT}_SUCCESS`:
     case `${GET_CONTENT}_SUCCESS`:
-      const newState = defaultContentReducer(state, action);
+      let newState;
+      newState = defaultContentReducer(state, action);
       // if (mode !== 'view') return newState;
       if (hasBlocksData(newState.data)) {
         const blocks = getBlocks(newState.data);
+        // debugger;
+        const _original_items = action.isEditView
+          ? newState.data?._original_items ||
+            action.result.blocks_layout?.items ||
+            []
+          : action.result.blocks_layout?.items || [];
+        // console.log('original items', _original_items);
         const res =
           blocks.findIndex(([, value]) => value['@type'] === TABSBLOCK) > -1
             ? {
                 ...newState,
                 data: {
                   ...newState.data,
+                  _original_items,
                   blocks_layout: {
                     ...newState.data.blocks_layout,
                     // This will be used by the edit form because we can't
                     // trust items, as it will be mangled
-                    original_items: [
-                      ...(newState.data?.blocks_layout?.items || []),
-                    ],
-                    // This is needed to avoid duplication of blocks in SSR
-                    items: tabsLayoutToEmbeddedBlocksLayout(
-                      blocks,
-                      currentTabsState,
-                    ),
+                    // tabsLayoutToEmbeddedBlocksLayout is needed to avoid
+                    // duplication of blocks in SSR view
+                    items: action.isEditView
+                      ? newState.data?._original_items ||
+                        newState.data?.blocks_layout?.items
+                      : tabsLayoutToEmbeddedBlocksLayout(
+                          blocks,
+                          currentTabsState,
+                        ),
                   },
                 },
               }
             : newState;
+        console.log(action.type, 'res', res);
         return res;
       }
       return newState;
-    case REFLOW_BLOCKS_LAYOUT:
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          blocks_layout: {
-            ...state.data.blocks_layout,
-            items: action.layout,
-          },
-        },
-      };
     case SET_TABSBLOCK:
       // In edit form, No need to tweak the blocks_layout from here
       if (mode === 'edit') return state;

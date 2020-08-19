@@ -87,28 +87,42 @@ export function tabsLayoutToEmbeddedBlocksLayout(blocks, tabsState) {
  *
  * @param {}
  */
-export function globalDeriveTabsFromState({ blocks, tabsState }) {
+export function globalDeriveTabsFromState({
+  blocks,
+  tabsState,
+  tabChanged = false,
+}) {
   const result = {};
 
+  // debugger;
   blocks.forEach(([blockId, blockData]) => {
     const type = blockData['@type'];
+    // }
     if (type === TABSBLOCK) {
       const afterBlocksIds = sliceBlocksByTabs(blocks, blockId).map(
         ([id]) => id,
       );
       const activeTab = tabsState[blockId] || 0;
 
-      const { tabsLayout = [] } = blockData;
-      const tabs = tabsLayout[activeTab] || [];
+      const { tabsLayout = [], tabs = [] } = blockData;
+      const tabsOnPage = tabsLayout[activeTab] || [];
+      if (tabsLayout.length !== tabs.length) {
+        tabsLayout.length = Math.max(tabs.length, 1); // in case block has no tabs
+        tabsLayout.fill([], tabsLayout.length - 1);
+      }
 
-      if (!isEqual(afterBlocksIds, tabs)) {
-        // Update the blocks for this tab and TabsBlock.
-        tabsLayout[activeTab] = afterBlocksIds;
+      if (!tabChanged) {
+        if (!isEqual(afterBlocksIds, tabsOnPage)) {
+          // Update the blocks for this tab and TabsBlock.
+          tabsLayout[activeTab] = afterBlocksIds;
+        }
       }
 
       result[blockId] = tabsLayout;
     }
   });
 
-  return result;
+  const res = JSON.parse(JSON.stringify(result));
+  // console.log('global state', res);
+  return res;
 }

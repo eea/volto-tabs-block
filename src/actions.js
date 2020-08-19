@@ -1,4 +1,4 @@
-import { SET_TABSBLOCK, REFLOW_BLOCKS_LAYOUT } from './constants';
+import { SET_TABSBLOCK } from './constants';
 
 export function setActiveTab(blockid, selection, mode, currentTabsState) {
   return {
@@ -10,9 +10,11 @@ export function setActiveTab(blockid, selection, mode, currentTabsState) {
   };
 }
 
-export function reflowBlocksLayout(layout) {
+export function resetContentForEdit(isEditView, content) {
+  // console.log('reset content', content);
   return {
-    type: REFLOW_BLOCKS_LAYOUT,
-    layout,
+    type: 'GET_CONTENT_SUCCESS',
+    isEditView,
+    result: content,
   };
 }
