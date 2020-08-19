@@ -5,18 +5,21 @@ import {
   GET_CONTENT,
 } from '@plone/volto/constants/ActionTypes';
 
-import { TABSBLOCK, SET_TABSBLOCK } from './constants';
+import { TABSBLOCK, SET_TABSBLOCK, RESET_ALL_TABSBLOCK } from './constants';
 import { tabsLayoutToEmbeddedBlocksLayout } from './Tabs/utils';
 
-const initialState = {};
-
-export function tabs_block(state = initialState, action = {}) {
+export function tabs_block(state = {}, action = {}) {
   switch (action.type) {
     case SET_TABSBLOCK:
       return {
         ...state,
-        [action.blockid]: action.selection,
+        [action.path]: {
+          ...state[action.path],
+          [action.blockid]: action.selection,
+        },
       };
+    case RESET_ALL_TABSBLOCK:
+      return {};
     default:
       return state;
   }

@@ -3,7 +3,7 @@ import React from 'react';
 import { SidebarPortal } from '@plone/volto/components'; // EditBlock
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { getBlocks } from '@plone/volto/helpers';
-import { resetContentForEdit } from 'volto-tabsblock/actions'; //  reflowBlocksLayout, setToEditMode
+import { resetContentForEdit, resetTabs } from 'volto-tabsblock/actions'; //  reflowBlocksLayout, setToEditMode
 import { TABSBLOCK } from 'volto-tabsblock/constants';
 import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 import {
@@ -37,6 +37,7 @@ class EditTabsBlock extends React.Component {
   }
 
   componentDidMount() {
+    console.log('props', this.props);
     const { contextData } = this.context;
     let formData = this.context.contextData.formData;
     if (
@@ -54,6 +55,7 @@ class EditTabsBlock extends React.Component {
       };
       this.props.resetContentForEdit(true, formData); // isEditView = true
       this.globalRelayout({ defaultFormData: formData, fixed_for_edit: true });
+      // this.props.resetTabs();
     }
 
     const blocks = getBlocks(formData);
@@ -105,7 +107,6 @@ class EditTabsBlock extends React.Component {
     const isTabsChanged =
       data.tabsLayout && J(prevProps.tabsState) !== J(tabsState);
     // && isEqual(blocksLayout, this.state.blocksLayout);
-    // console.log(data.tabsLayout, prevProps.tabsState, tabsState);
 
     if (isTabsChanged) {
       if (this.isFirstTabsBlock()) {
@@ -233,11 +234,12 @@ class EditTabsBlock extends React.Component {
 export default connect(
   (state) => {
     return {
-      tabsState: state.tabs_block,
+      tabsState: state.tabs_block[state.router.location.pathname] || {},
       content: state.content,
     };
   },
   {
     resetContentForEdit,
+    resetTabs,
   },
 )(EditTabsBlock);
