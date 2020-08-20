@@ -1,4 +1,4 @@
-import { TABSBLOCK } from 'volto-tabsblock/constants';
+import { TABSBLOCK } from '@eeacms/volto-tabs-block/constants';
 
 export function isEqual(arr1, arr2) {
   return (

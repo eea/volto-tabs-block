@@ -3,8 +3,8 @@ import React from 'react';
 import { SidebarPortal } from '@plone/volto/components'; // EditBlock
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { getBlocks } from '@plone/volto/helpers';
-import { resetContentForEdit, resetTabs } from 'volto-tabsblock/actions'; //  reflowBlocksLayout, setToEditMode
-import { TABSBLOCK } from 'volto-tabsblock/constants';
+import { resetContentForEdit, resetTabs } from '@eeacms/volto-tabs-block/actions'; //  reflowBlocksLayout, setToEditMode
+import { TABSBLOCK } from '@eeacms/volto-tabs-block/constants';
 import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 import {
   globalDeriveTabsFromState,

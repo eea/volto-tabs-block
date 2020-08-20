@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tab } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveTab } from 'volto-tabsblock/actions';
+import { setActiveTab } from '@eeacms/volto-tabs-block/actions';
 import { blocks } from '~/config';
 import { defineMessages, injectIntl } from 'react-intl';
 import cx from 'classnames';
