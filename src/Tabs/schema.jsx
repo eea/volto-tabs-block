@@ -30,11 +30,16 @@ export const Tabs = {
     {
       id: 'settings',
       title: 'Settings',
-      fields: ['position'],
+      fields: ['position', 'css_class'],
     },
   ],
 
   properties: {
+    css_class: {
+      title: 'CSS Class',
+      default: 'default-tabsblock',
+      widget: 'string',
+    },
     tabs: {
       widget: 'object_list',
       title: 'Tabs',

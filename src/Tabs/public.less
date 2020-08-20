@@ -1,4 +1,10 @@
-@import "~volto-tabsblock/less/globals.less";
+@import '../less/globals.less';
+
+@addon: 'volto-tabsblock';
+@addontype: 'block';
+@addonelement: 'tabs';
+
+.loadAddonVariables();
 
 .content-area {
   .ui.bottom.attached {
@@ -7,9 +13,9 @@
 
   .ui.menu {
     border: none;
+    border-bottom: 1px solid @tealBackground;
     border-radius: 0;
     box-shadow: none;
-    border-bottom: 1px solid @tealBackground;
 
     &.pointing {
       .item.active::after {
@@ -21,7 +27,7 @@
       .item.active::after {
         right: auto;
         left: 0%;
-        margin-left: -.5em;
+        margin-left: -0.5em;
       }
     }
 
@@ -29,7 +35,7 @@
       .item.active::after {
         top: auto;
         bottom: 100%;
-        margin-bottom: -.5em;
+        margin-bottom: -0.5em;
       }
     }
 
@@ -66,21 +72,27 @@
       }
 
       &.active {
+        border: none;
         background-color: @tealBackground !important;
         color: @highlightColor !important;
-        border: none;
       }
     }
   }
 
   .tab.active > * {
-    animation-name: fadeIn;
     animation-duration: 300ms;
+    animation-name: fadeIn;
     animation-timing-function: linear;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; } to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 
   .block {
@@ -90,3 +102,5 @@
     }
   }
 }
+
+.loadAddonOverrides();

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActiveTab } from 'volto-tabsblock/actions';
 import { blocks } from '~/config';
 import { defineMessages, injectIntl } from 'react-intl';
+import cx from 'classnames';
 import {
   getBlocksFieldname,
   // getBlocksLayoutFieldname,
@@ -102,7 +103,7 @@ const TabsBlockView = ({
         </Tab.Pane>
       );
     },
-    [tabsLayout], // TODO: fill in the rest of the array
+    [tabsLayout, blocksFieldname, intl, location?.pathname, properties], // TODO: fill in the rest of the array
   );
 
   const menu = { pointing: true };
@@ -133,16 +134,14 @@ const TabsBlockView = ({
   }
 
   return (
-    <div className="children-tabs-view">
-      <div id="page-document" className="ui container">
+    <div className={cx('tabsblock', data.css_class)}>
+      <div className="ui container">
         {tabs.length ? (
           <Tab
             grid={grid}
             menu={menu}
             onTabChange={(event, { activeIndex }) => {
-              dispatch(
-                setActiveTab(id, activeIndex, mode, tabsState, pathKey),
-              );
+              dispatch(setActiveTab(id, activeIndex, mode, tabsState, pathKey));
             }}
             activeIndex={globalActiveTab}
             panes={tabs.map((child, index) => ({
