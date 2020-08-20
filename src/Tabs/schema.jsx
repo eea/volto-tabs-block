@@ -25,7 +25,7 @@ export const Tabs = {
     {
       id: 'default',
       title: 'Default',
-      fields: ['tabs'],
+      fields: ['tabs', 'css_class'],
     },
     {
       id: 'settings',
@@ -35,6 +35,11 @@ export const Tabs = {
   ],
 
   properties: {
+    css_class: {
+      title: 'CSS Class',
+      default: 'default-tabsblock',
+      widget: 'string',
+    },
     tabs: {
       widget: 'object_list',
       title: 'Tabs',

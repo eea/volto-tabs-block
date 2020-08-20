@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActiveTab } from 'volto-tabsblock/actions';
 import { blocks } from '~/config';
 import { defineMessages, injectIntl } from 'react-intl';
+import cx from 'classnames';
 import {
   getBlocksFieldname,
   // getBlocksLayoutFieldname,
@@ -133,8 +134,8 @@ const TabsBlockView = ({
   }
 
   return (
-    <div className="children-tabs-view">
-      <div id="page-document" className="ui container">
+    <div className={cx('tabsblock', data.css_class)}>
+      <div className="ui container">
         {tabs.length ? (
           <Tab
             grid={grid}
