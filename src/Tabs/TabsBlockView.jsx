@@ -102,7 +102,7 @@ const TabsBlockView = ({
         </Tab.Pane>
       );
     },
-    [tabsLayout], // TODO: fill in the rest of the array
+    [tabsLayout, blocksFieldname, intl, location?.pathname, properties], // TODO: fill in the rest of the array
   );
 
   const menu = { pointing: true };
@@ -140,9 +140,7 @@ const TabsBlockView = ({
             grid={grid}
             menu={menu}
             onTabChange={(event, { activeIndex }) => {
-              dispatch(
-                setActiveTab(id, activeIndex, mode, tabsState, pathKey),
-              );
+              dispatch(setActiveTab(id, activeIndex, mode, tabsState, pathKey));
             }}
             activeIndex={globalActiveTab}
             panes={tabs.map((child, index) => ({
