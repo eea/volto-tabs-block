@@ -25,12 +25,12 @@ export const Tabs = {
     {
       id: 'default',
       title: 'Default',
-      fields: ['tabs', 'css_class'],
+      fields: ['tabs'],
     },
     {
       id: 'settings',
       title: 'Settings',
-      fields: ['position'],
+      fields: ['position', 'css_class'],
     },
   ],
 
