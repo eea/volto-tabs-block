@@ -191,7 +191,7 @@ class EditTabsBlock extends React.Component {
     fixed_for_edit = false,
   }) {
     const { contextData, setContextData } = this.context;
-    const { tabsState } = this.props.tabsState;
+    const { tabsState } = this.props;
     const formData = defaultFormData || contextData.formData;
 
     const blocks = getBlocks(formData) || [];
