@@ -99,27 +99,57 @@ class EditTabsBlock extends React.Component {
 
     const blocksLayout = formData.blocks_layout.items;
 
+    //   TODO: this needs to be finished
     const { tabs, tabsLayout } = this.props.data;
-
     if (
       tabs.length &&
       tabs.length < tabsLayout.length
       // || (tabs.length === 0 && tabsLayout.length === 0) // Might cause problems when section is last block
     ) {
-      // TODO: this needs to be finished
+      // TODO: handle the case when all tabs are deleted;
       const index = prevProps.data.tabs.findIndex((v, i) => tabs[i] !== v);
-      const blockIds = tabsLayout.pop(index);
+      const blockIds = tabsLayout[index];
       const next = index > 0 ? index - 1 : 0;
-      tabsLayout[next] = tabsLayout[next].concat(blockIds);
-      // console.log(
-      //   'Tabs have been removed',
-      //   index,
-      //   next,
-      //   tabsLayout.length,
-      //   blockIds,
-      //   JSON.stringify(tabsLayout),
-      // );
-      // return this.globalRelayout({});
+      tabsLayout.splice(index, 1);
+      tabsLayout[next] = [...tabsLayout[next].concat(blockIds)];
+
+      // Did the change involve the current tab?
+      if (index === tabsState[this.props.block]) {
+        tabsState[this.props.block] = next;
+      }
+
+      const defaultFormData = {
+        ...formData,
+        blocks: {
+          ...formData.blocks,
+          [this.props.block]: {
+            ...formData.blocks[this.props.block],
+            tabs,
+            tabsLayout,
+          },
+        },
+      };
+
+      const blocks = getBlocks(defaultFormData) || [];
+      const new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
+      const { contextData, setContextData } = this.context;
+      this.setState({ blocksLayout: new_layout });
+      setContextData({
+        ...contextData,
+        formData: {
+          ...formData,
+          blocks: {
+            ...formData.blocks,
+            // We need to create new objects because we mutate in place some arrays
+            ...Object.fromEntries(JSON.parse(JSON.stringify(blocks))),
+          },
+          blocks_layout: {
+            ...formData.blocks_layout,
+            items: new_layout,
+          },
+        },
+      });
+      return;
     }
 
     const isTabsChanged =
@@ -160,13 +190,11 @@ class EditTabsBlock extends React.Component {
     tabChanged = false,
     fixed_for_edit = false,
   }) {
-    // TODO: create new placeholder blocks
     const { contextData, setContextData } = this.context;
-    const { tabsState } = this.props;
+    const { tabsState } = this.props.tabsState;
     const formData = defaultFormData || contextData.formData;
 
     const blocks = getBlocks(formData) || [];
-    let new_layout;
     const globalState = globalDeriveTabsFromState({
       blocks,
       tabsState,
@@ -193,7 +221,7 @@ class EditTabsBlock extends React.Component {
       }
     });
 
-    new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
+    const new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
 
     this.setState({ blocksLayout: new_layout });
     setContextData({
