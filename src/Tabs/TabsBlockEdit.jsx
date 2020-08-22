@@ -99,14 +99,28 @@ class EditTabsBlock extends React.Component {
 
     const blocksLayout = formData.blocks_layout.items;
 
-    // if (
-    //   tabs.length &&
-    //   tabs.length !== tabsLayout.length
-    //   // || (tabs.length === 0 && tabsLayout.length === 0) // Might cause problems when section is last block
-    // ) {
-    //   console.log('Tabs have been edited');
-    //   return this.globalRelayout();
-    // }
+    const { tabs, tabsLayout } = this.props.data;
+
+    if (
+      tabs.length &&
+      tabs.length < tabsLayout.length
+      // || (tabs.length === 0 && tabsLayout.length === 0) // Might cause problems when section is last block
+    ) {
+      // TODO: this needs to be finished
+      const index = prevProps.data.tabs.findIndex((v, i) => tabs[i] !== v);
+      const blockIds = tabsLayout.pop(index);
+      const next = index > 0 ? index - 1 : 0;
+      tabsLayout[next] = tabsLayout[next].concat(blockIds);
+      // console.log(
+      //   'Tabs have been removed',
+      //   index,
+      //   next,
+      //   tabsLayout.length,
+      //   blockIds,
+      //   JSON.stringify(tabsLayout),
+      // );
+      // return this.globalRelayout({});
+    }
 
     const isTabsChanged =
       data.tabsLayout && J(prevProps.tabsState) !== J(tabsState);
