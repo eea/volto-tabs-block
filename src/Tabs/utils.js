@@ -66,6 +66,7 @@ export function tabsLayoutToEmbeddedBlocksLayout(blocks, tabsState) {
   blocks.forEach(([id, blockData]) => {
     if (!foundTabsBlock) blocks_layout.push(id);
 
+    if (!blockData) return;
     const type = blockData['@type'];
 
     if (type === TABSBLOCK) {

@@ -1,9 +1,13 @@
+import { v4 as uuid } from 'uuid';
 import { connect } from 'react-redux';
 import React from 'react';
 import { SidebarPortal } from '@plone/volto/components'; // EditBlock
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { getBlocks } from '@plone/volto/helpers';
-import { resetContentForEdit, resetTabs } from '@eeacms/volto-tabs-block/actions'; //  reflowBlocksLayout, setToEditMode
+import {
+  resetContentForEdit,
+  resetTabs,
+} from '@eeacms/volto-tabs-block/actions'; //  reflowBlocksLayout, setToEditMode
 import { TABSBLOCK } from '@eeacms/volto-tabs-block/constants';
 import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 import {
@@ -13,6 +17,7 @@ import {
 } from './utils';
 import TabsBlockView from './TabsBlockView';
 import schema from './schema';
+import { settings } from '~/config';
 
 const J = JSON.stringify; // TODO: should use something from lodash
 
@@ -125,6 +130,17 @@ class EditTabsBlock extends React.Component {
     }
   }
 
+  createDefaultBlock() {
+    const idTrailingBlock = uuid();
+    const res = [
+      idTrailingBlock,
+      {
+        '@type': settings.defaultBlockType,
+      },
+    ];
+    return res;
+  }
+
   globalRelayout({
     defaultFormData,
     tabChanged = false,
@@ -145,7 +161,15 @@ class EditTabsBlock extends React.Component {
 
     blocks.forEach(([id, block]) => {
       if (block['@type'] === TABSBLOCK) {
-        block['tabsLayout'] = globalState[id]; // [activeTab]
+        block.tabsLayout = globalState[id]; // [activeTab]
+        // Create placeholder tabs for "empty" pages in the tabs
+        block.tabsLayout.forEach((page, index) => {
+          if (page.length === 0) {
+            const extra = this.createDefaultBlock();
+            formData.blocks[extra[0]] = extra[1];
+            block.tabsLayout[index] = [extra[0]];
+          }
+        });
         const { tabs = [], tabsLayout = [] } = block;
         if (tabs.length < tabsLayout.length) {
           const start = tabs.length - 1;

@@ -5,12 +5,7 @@ import { setActiveTab } from '@eeacms/volto-tabs-block/actions';
 import { blocks } from '~/config';
 import { defineMessages, injectIntl } from 'react-intl';
 import cx from 'classnames';
-import {
-  getBlocksFieldname,
-  // getBlocksLayoutFieldname,
-  // hasBlocksData,
-  getBaseUrl,
-} from '@plone/volto/helpers';
+import { getBlocksFieldname, getBaseUrl } from '@plone/volto/helpers';
 import { isEqual } from './utils';
 
 import './public.less';
