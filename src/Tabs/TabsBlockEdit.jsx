@@ -206,7 +206,7 @@ class EditTabsBlock extends React.Component {
         block.tabsLayout = globalState[id]; // [activeTab]
         // Create placeholder tabs for "empty" pages in the tabs
         block.tabsLayout.forEach((page, index) => {
-          if (page.length === 0) {
+          if (!page?.length) {
             const extra = this.createDefaultBlock();
             formData.blocks[extra[0]] = extra[1];
             block.tabsLayout[index] = [extra[0]];
