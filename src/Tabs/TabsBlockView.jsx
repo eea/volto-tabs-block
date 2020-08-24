@@ -34,6 +34,30 @@ const flattenArray = (array, depth = 0) => {
   return flattenedArray;
 };
 
+const hasChildActive = (tabs, tab, activeTabIndex) => {
+  const activeTab = tabs[activeTabIndex];
+  if (activeTab?.parentTitle === tab?.title) return true;
+  if (tab.children) {
+    let active = false;
+    tab.children.forEach((child) => {
+      active = hasChildActive(tabs, child, activeTabIndex);
+    });
+    return active;
+  }
+  return false;
+};
+
+const isHidden = (tabs, tab, activeTabIndex) => {
+  if (!hasChildActive(tabs, tab, activeTabIndex)) {
+    const activeTab = tabs[activeTabIndex];
+    if (tab.title === activeTab?.title) return false;
+    if (tab.parentTitle === activeTab?.title) return false;
+    if (tab.depth > 0) return true;
+    return false;
+  }
+  return false;
+};
+
 const TabsBlockView = ({
   id,
   onTabChange,
@@ -54,13 +78,17 @@ const TabsBlockView = ({
   const { tabsLayout = [] } = data;
   const globalActiveTab = tabsState[id] || 0;
   const tabs = data.tabs
-    ? data.tabs.map((tab, index) => ({
-        ...tab,
-        index,
-        id: tab.title,
-        parentId: tab.parent || null,
-      }))
+    ? [
+        ...data.tabs.map((tab, index) => ({
+          ...tab,
+          index,
+          id: tab.title,
+          parentId:
+            tab.parentTitle !== tab.title ? tab.parentTitle || null : null,
+        })),
+      ]
     : [];
+
   const orderedTabs = flattenArray(arrayToTree(tabs, { dataField: null }));
   // We have the following "racing" condition:
   // The tabsblockview is mounted sometime before the GET_CONTENT_SUCCESS
@@ -152,7 +180,6 @@ const TabsBlockView = ({
       default:
     }
   }
-
   return (
     <div className={cx('tabsblock', data.css_class)}>
       <div className="ui container">
@@ -164,20 +191,29 @@ const TabsBlockView = ({
               dispatch(setActiveTab(id, activeIndex, mode, tabsState, pathKey));
             }}
             activeIndex={globalActiveTab}
-            panes={orderedTabs.map((child, menuIndex) => ({
-              render: () => mode === 'view' && renderTab(child.index, child),
-              menuItem: (
-                <Menu.Item
-                  key={`menu-item-${child.index}-${child.title}`}
-                  className={`item depth_${child.depth || 0} ${
-                    globalActiveTab === menuIndex ? 'active' : ''
-                  }`}
-                  index={menuIndex}
-                >
-                  {child.title}
-                </Menu.Item>
-              ),
-            }))}
+            panes={orderedTabs.map((child, index) => {
+              return {
+                render: () => mode === 'view' && renderTab(child.index, child),
+                menuItem: (
+                  <Menu.Item
+                    key={`menu-item-${child.index}-${child.title}`}
+                    className={`${position} ${mode} ${
+                      hasChildActive(orderedTabs, child, globalActiveTab)
+                        ? 'active by-child'
+                        : ''
+                    } ${
+                      isHidden(orderedTabs, child, globalActiveTab)
+                        ? 'hidden'
+                        : ''
+                    } depth_${child.depth || 0} `}
+                    active={globalActiveTab === index}
+                    index={index}
+                  >
+                    {child.title}
+                  </Menu.Item>
+                ),
+              };
+            })}
           />
         ) : (
           <>

@@ -4,7 +4,7 @@ export const Tab = {
     {
       id: 'default',
       title: 'Default',
-      fields: ['title', 'parent'],
+      fields: ['title', 'parentTitle'],
     },
   ],
 
@@ -13,7 +13,7 @@ export const Tab = {
       type: 'string',
       title: 'Title',
     },
-    parent: {
+    parentTitle: {
       type: 'string',
       title: 'Parent',
     },
