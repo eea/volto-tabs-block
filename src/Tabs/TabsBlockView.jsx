@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tab } from 'semantic-ui-react';
+import { Tab, Menu } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveTab } from '@eeacms/volto-tabs-block/actions';
 import { blocks } from '~/config';
@@ -7,6 +7,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import cx from 'classnames';
 import { getBlocksFieldname, getBaseUrl } from '@plone/volto/helpers';
 import { isEqual } from './utils';
+import { arrayToTree } from 'performant-array-to-tree';
 
 import './public.less';
 
@@ -16,6 +17,22 @@ const messages = defineMessages({
     defaultMessage: 'Unknown Block {block}',
   },
 });
+
+const flattenArray = (array, depth = 0) => {
+  let flattenedArray = [];
+  array.forEach((item) => {
+    if (item.children?.length > 0) {
+      flattenedArray.push({ ...item, depth });
+      flattenedArray = [
+        ...flattenedArray,
+        ...flattenArray(item.children, depth + 1),
+      ];
+    } else {
+      flattenedArray.push({ ...item, depth });
+    }
+  });
+  return flattenedArray;
+};
 
 const TabsBlockView = ({
   id,
@@ -34,9 +51,17 @@ const TabsBlockView = ({
   const saved_blocks_layout = React.useRef([]);
   const blocks_layout = properties.blocks_layout?.items;
 
-  const { tabs = [], tabsLayout = [] } = data;
+  const { tabsLayout = [] } = data;
   const globalActiveTab = tabsState[id] || 0;
-
+  const tabs = data.tabs
+    ? data.tabs.map((tab, index) => ({
+        ...tab,
+        index,
+        id: tab.title,
+        parentId: tab.parent || null,
+      }))
+    : [];
+  const orderedTabs = flattenArray(arrayToTree(tabs, { dataField: null }));
   // We have the following "racing" condition:
   // The tabsblockview is mounted sometime before the GET_CONTENT_SUCCESS
   // action is triggered, so even if we "fix" the display,
@@ -139,9 +164,19 @@ const TabsBlockView = ({
               dispatch(setActiveTab(id, activeIndex, mode, tabsState, pathKey));
             }}
             activeIndex={globalActiveTab}
-            panes={tabs.map((child, index) => ({
-              render: () => mode === 'view' && renderTab(index, child),
-              menuItem: child.title,
+            panes={orderedTabs.map((child, menuIndex) => ({
+              render: () => mode === 'view' && renderTab(child.index, child),
+              menuItem: (
+                <Menu.Item
+                  key={`menu-item-${child.index}-${child.title}`}
+                  className={`item depth_${child.depth || 0} ${
+                    globalActiveTab === menuIndex ? 'active' : ''
+                  }`}
+                  index={menuIndex}
+                >
+                  {child.title}
+                </Menu.Item>
+              ),
             }))}
           />
         ) : (
