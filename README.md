@@ -20,12 +20,14 @@ See demo video below:
 1. Update `package.json`:
     ``` JSON
     "addons": [
+        "@eeacms/volto-object-widget",
         "@eeacms/volto-tabs-block"
     ],
 
     "dependencies": {
-        "@plone/volto": "github:eea/volto#7.8.2-beta.2",
-        "@eeacms/volto-tabs-block": "github:eea/volto-tabs-block#0.2.0"
+        "@plone/volto": "github:eea/volto#7.12.0-beta.1",
+        "@eeacms/volto-object-widget": "github:eea/volto-object-widget#0.1.1",
+        "@eeacms/volto-tabs-block": "github:eea/volto-tabs-block#0.2.2"
     }
     ```
 

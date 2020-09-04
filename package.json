@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-tabs-block",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "A Volto block that provides tabs for regular composite pages",
   "main": "src/index.js",
   "scripts": {
