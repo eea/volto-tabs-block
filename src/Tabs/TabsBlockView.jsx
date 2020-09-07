@@ -1,32 +1,16 @@
 import React from 'react';
-import { Tab } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveTab } from '@eeacms/volto-tabs-block/actions';
-import { blocks } from '~/config';
-import { defineMessages, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import cx from 'classnames';
-import { getBlocksFieldname, getBaseUrl } from '@plone/volto/helpers';
 import { isEqual } from './utils';
+import withBlockExtension from './withBlockExtension';
 
 import './public.less';
 
-const messages = defineMessages({
-  unknownBlock: {
-    id: 'Unknown Block',
-    defaultMessage: 'Unknown Block {block}',
-  },
-});
+const TabsBlockView = (props) => {
+  const { id, data, mode = 'view', properties, extension } = props;
 
-const TabsBlockView = ({
-  id,
-  onTabChange,
-  data,
-  mode = 'view',
-  properties,
-  intl,
-  location,
-  ...rest
-}) => {
   const dispatch = useDispatch();
   const pathKey = useSelector((state) => state.router.location.key);
   const tabsState = useSelector((state) => state.tabs_block[pathKey] || {});
@@ -65,94 +49,34 @@ const TabsBlockView = ({
     }
   }, [dispatch, id, mode, tabsState, blocks_layout, pathKey]);
 
-  const blocksFieldname = getBlocksFieldname(properties);
+  const Renderer = extension?.view;
 
-  const renderTab = React.useCallback(
-    (index, tab) => {
-      const blockIds = tabsLayout[index] || [];
-      return (
-        <Tab.Pane>
-          {blockIds.map((block) => {
-            const Block =
-              blocks.blocksConfig[
-                properties[blocksFieldname]?.[block]?.['@type']
-              ]?.['view'] || null;
-            return Block !== null ? (
-              <>
-                <Block
-                  key={block}
-                  id={block}
-                  properties={properties}
-                  data={properties[blocksFieldname][block]}
-                  path={getBaseUrl(location?.pathname || '')}
-                />
-              </>
-            ) : (
-              <div key={block}>
-                {intl.formatMessage(messages.unknownBlock, {
-                  block: properties[blocksFieldname]?.[block]?.['@type'],
-                })}
-              </div>
-            );
-          })}
-        </Tab.Pane>
-      );
+  const onTabChange = React.useCallback(
+    (event, { activeIndex }) => {
+      dispatch(setActiveTab(id, activeIndex, mode, tabsState, pathKey));
     },
-    [tabsLayout, blocksFieldname, intl, location?.pathname, properties], // TODO: fill in the rest of the array
+    [dispatch, id, mode, pathKey, tabsState],
   );
-
-  const menu = { pointing: true };
-  const grid = { paneWidth: 9, tabWidth: 3, stackable: true };
-  const position = data?.position || 'top';
-  if (mode === 'edit') {
-    menu.attached = false;
-    menu.tabular = false;
-  } else {
-    switch (position) {
-      case 'top':
-        break;
-      case 'bottom':
-        menu.attached = 'bottom';
-        break;
-      case 'left':
-        menu.fluid = true;
-        menu.vertical = true;
-        menu.tabular = true;
-        break;
-      case 'right':
-        menu.fluid = true;
-        menu.vertical = true;
-        menu.tabular = 'right';
-        break;
-      default:
-    }
-  }
 
   return (
     <div className={cx('tabsblock', data.css_class)}>
       <div className="ui container">
-        {tabs.length ? (
-          <Tab
-            grid={grid}
-            menu={menu}
-            onTabChange={(event, { activeIndex }) => {
-              dispatch(setActiveTab(id, activeIndex, mode, tabsState, pathKey));
-            }}
-            activeIndex={globalActiveTab}
-            panes={tabs.map((child, index) => ({
-              render: () => mode === 'view' && renderTab(index, child),
-              menuItem: child.title,
-            }))}
+        {Renderer ? (
+          <Renderer
+            tabs={tabs}
+            tabsLayout={tabsLayout}
+            globalActiveTab={globalActiveTab}
+            properties={properties}
+            onTabChange={onTabChange}
+            mode={mode}
+            {...props}
           />
         ) : (
-          <>
-            <hr className="block section" />
-            {mode === 'view' ? renderTab(0, {}) : ''}
-          </>
+          <div>View extension not found</div>
         )}
       </div>
     </div>
   );
 };
 
-export default injectIntl(TabsBlockView);
+export default injectIntl(withBlockExtension(TabsBlockView));
