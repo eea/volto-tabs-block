@@ -59,7 +59,15 @@ const DefaultTabsRenderer = (props) => {
   const blocksFieldname = getBlocksFieldname(properties);
 
   const renderTab = React.useCallback(
-    (index, tab) => {
+    ({
+      index,
+      tab,
+      tabsLayout,
+      properties,
+      intl,
+      blocksFieldname,
+      pathname,
+    }) => {
       const blockIds = tabsLayout[index] || [];
       const blocklist = blockIds.map((blockId) => {
         return [blockId, properties[blocksFieldname]?.[blockId]];
@@ -89,9 +97,10 @@ const DefaultTabsRenderer = (props) => {
         </Tab.Pane>
       );
     },
-    [tabsLayout, intl, blocksFieldname, pathname, properties], // TODO: fill in the rest of the array
+    [],
   );
   const menu = getMenu(props);
+  const tabRenderer = props.renderTab || renderTab;
 
   return tabs.length ? (
     <Tab
@@ -99,15 +108,36 @@ const DefaultTabsRenderer = (props) => {
       menu={menu}
       onTabChange={onTabChange}
       activeIndex={globalActiveTab}
-      panes={tabs.map((child, index) => ({
-        render: () => mode === 'view' && renderTab(index, child),
-        menuItem: child.title,
+      panes={tabs.map((tab, index) => ({
+        // render: () => mode === 'view' && renderTab(index, child),
+        render: () =>
+          mode === 'view' &&
+          tabRenderer({
+            index,
+            tab,
+            tabsLayout,
+            properties,
+            intl,
+            blocksFieldname,
+            pathname,
+          }),
+        menuItem: tab.title,
       }))}
     />
   ) : (
     <>
       <hr className="block section" />
-      {mode === 'view' ? renderTab(0, {}) : ''}
+      {mode === 'view'
+        ? tabRenderer({
+            index: 0,
+            tab: {},
+            tabsLayout,
+            properties,
+            intl,
+            blocksFieldname,
+            pathname,
+          })
+        : ''}
     </>
   );
 };
