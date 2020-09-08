@@ -1,5 +1,5 @@
 /**
- * A hoc to inject a block extension by resolving the configured extension
+ * A HOC to inject a block extension by resolving the configured extension
  */
 
 import React from 'react';
@@ -16,10 +16,18 @@ export default (WrappedComponent) => (props) => {
   );
 
   if (index === -1) {
-    throw new Error('You need to register the default extension');
+    throw new Error(
+      `You need to register the default extension for block types: ${type}`,
+    );
   }
 
-  const extConfig = extensions[index];
+  const selectedExtension = extensions[index];
 
-  return <WrappedComponent {...props} extension={extConfig} />;
+  return (
+    <WrappedComponent
+      {...props}
+      extension={selectedExtension}
+      extensions={extensions}
+    />
+  );
 };
