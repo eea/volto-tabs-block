@@ -5,7 +5,7 @@ import { getBaseUrl } from '@plone/volto/helpers';
 import { useIntl, defineMessages } from 'react-intl';
 import { getBlocksFieldname } from '@plone/volto/helpers';
 
-const messages = defineMessages({
+export const messages = defineMessages({
   unknownBlock: {
     id: 'Unknown Block',
     defaultMessage: 'Unknown Block {block}',
