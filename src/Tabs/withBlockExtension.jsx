@@ -7,12 +7,12 @@ import { blocks } from '~/config';
 
 export default (WrappedComponent) => (props) => {
   const { data } = props;
-  const { extension } = data;
+  const { block_extension } = data;
   const type = data['@type'];
   const extensions = blocks.blocksConfig[type].extensions || [];
 
   const index = extensions.findIndex(
-    (conf) => conf.id === (extension || 'default'),
+    (conf) => conf.id === (block_extension || 'default'),
   );
 
   if (index === -1) {
