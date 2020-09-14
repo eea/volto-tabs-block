@@ -4,7 +4,10 @@ export const Tab = {
     {
       id: 'default',
       title: 'Default',
-      fields: ['title'],
+      fields: [
+        'title',
+        'tocnav_view',
+      ],
     },
   ],
 
@@ -12,6 +15,10 @@ export const Tab = {
     title: {
       type: 'string',
       title: 'Title',
+    },
+    tocnav_view: {
+      title: 'Enable/Disable TOC navigation view',
+      type: 'boolean',
     },
   },
 
