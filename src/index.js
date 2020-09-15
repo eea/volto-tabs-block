@@ -13,7 +13,7 @@ export default (config) => {
     view: TabsBlockView,
     edit: TabsBlockEdit,
     restricted: false,
-    mostUsed: true,
+    mostUsed: false,
     sidebarTab: 1,
     security: {
       addPermission: [],
