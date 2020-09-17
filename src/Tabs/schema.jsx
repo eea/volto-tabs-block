@@ -4,7 +4,10 @@ export const Tab = {
     {
       id: 'default',
       title: 'Default',
-      fields: ['title'],
+      fields: [
+        'title',
+        'tocnav_view',
+      ],
     },
   ],
 
@@ -12,6 +15,10 @@ export const Tab = {
     title: {
       type: 'string',
       title: 'Title',
+    },
+    tocnav_view: {
+      title: 'Enable/Disable TOC navigation view',
+      type: 'boolean',
     },
   },
 
@@ -25,7 +32,7 @@ export const Tabs = {
     {
       id: 'default',
       title: 'Default',
-      fields: ['tabs'],
+      fields: ['tabs', 'block_extension'],
     },
     {
       id: 'settings',
@@ -37,8 +44,13 @@ export const Tabs = {
   properties: {
     css_class: {
       title: 'CSS Class',
-      default: 'default-tabsblock',
+      defaultValue: 'default-tabsblock',
       widget: 'string',
+    },
+    block_extension: {
+      title: 'Extension',
+      widget: 'block_extension',
+      defaultValue: 'default',
     },
     tabs: {
       widget: 'object_list',

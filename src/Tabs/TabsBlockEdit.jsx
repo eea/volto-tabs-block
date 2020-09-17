@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { SidebarPortal } from '@plone/volto/components'; // EditBlock
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { getBlocks } from '@plone/volto/helpers';
-import {
-  resetContentForEdit,
-  resetTabs,
-} from '@eeacms/volto-tabs-block/actions'; //  reflowBlocksLayout, setToEditMode
-import { TABSBLOCK } from '@eeacms/volto-tabs-block/constants';
 import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
+import { getBlocks } from '@plone/volto/helpers';
+import { settings } from '~/config';
+
+import { resetContentForEdit, resetTabs } from '../actions';
+import { TABSBLOCK } from '../constants';
 import {
   globalDeriveTabsFromState,
   tabsLayoutToBlocksLayout,
@@ -17,7 +16,7 @@ import {
 } from './utils';
 import TabsBlockView from './TabsBlockView';
 import schema from './schema';
-import { settings } from '~/config';
+import withBlockExtension from './withBlockExtension';
 
 const J = JSON.stringify; // TODO: should use something from lodash
 
@@ -266,7 +265,9 @@ class EditTabsBlock extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, extension } = this.props;
+    const { onChangeFieldWrapper, schemaExtender } = extension;
+
     return (
       <div
         role="presentation"
@@ -284,9 +285,13 @@ class EditTabsBlock extends React.Component {
         </div>
         <SidebarPortal selected={this.props.selected}>
           <InlineForm
-            schema={schema}
+            schema={schemaExtender ? schemaExtender(schema) : schema}
             title={schema.title}
-            onChangeField={this.handleChangeBlock}
+            onChangeField={
+              onChangeFieldWrapper
+                ? onChangeFieldWrapper(this.handleChangeBlock)
+                : this.handleChangeBlock
+            }
             formData={data}
             block={this.props.block}
           />
@@ -307,4 +312,4 @@ export default connect(
     resetContentForEdit,
     resetTabs,
   },
-)(EditTabsBlock);
+)(withBlockExtension(EditTabsBlock));
