@@ -36,7 +36,6 @@ class EditTabsBlock extends React.Component {
       blocksLayout: properties.blocks_layout.items, // TODO: use Volto getBlocksFieldname api
     };
 
-    this.saveGlobalLayout = this.saveGlobalLayout.bind(this);
     this.handleChangeBlock = this.handleChangeBlock.bind(this);
     this.isFirstTabsBlock = this.isFirstTabsBlock.bind(this);
   }
