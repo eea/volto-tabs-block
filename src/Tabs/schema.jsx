@@ -4,10 +4,7 @@ export const Tab = {
     {
       id: 'default',
       title: 'Default',
-      fields: [
-        'title',
-        'tocnav_view',
-      ],
+      fields: ['title'], // , 'tocnav_view'
     },
   ],
 
@@ -16,16 +13,16 @@ export const Tab = {
       type: 'string',
       title: 'Title',
     },
-    tocnav_view: {
-      title: 'Enable/Disable TOC navigation view',
-      type: 'boolean',
-    },
+    // tocnav_view: {
+    //   title: 'Enable/Disable TOC navigation view',
+    //   type: 'boolean',
+    // },
   },
 
   required: ['title'],
 };
 
-export const Tabs = {
+export const Tabs = () => ({
   title: 'Tabs',
 
   fieldsets: [
@@ -73,6 +70,6 @@ export const Tabs = {
   },
 
   required: ['display', 'cards'],
-};
+});
 
 export default Tabs;

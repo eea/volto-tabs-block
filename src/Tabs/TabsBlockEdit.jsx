@@ -1,13 +1,17 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { v4 as uuid } from 'uuid';
 import { connect } from 'react-redux';
-import React from 'react';
 import { SidebarPortal } from '@plone/volto/components'; // EditBlock
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 import { getBlocks } from '@plone/volto/helpers';
 import { settings } from '~/config';
+import {
+  getBlocksFieldname,
+  getBlocksLayoutFieldname,
+} from '@plone/volto/helpers';
 
-import { resetContentForEdit, resetTabs } from '../actions';
+import { resetContentForEdit, resetTabs, setFixEditStatus } from '../actions';
 import { TABSBLOCK } from '../constants';
 import {
   globalDeriveTabsFromState,
@@ -15,18 +19,17 @@ import {
   isEqual,
 } from './utils';
 import TabsBlockView from './TabsBlockView';
-import schema from './schema';
+import TabsSchema from './schema';
 import withBlockExtension from './withBlockExtension';
 
 const J = JSON.stringify; // TODO: should use something from lodash
 
 class EditTabsBlock extends React.Component {
-  static contextType = FormStateContext;
-
-  constructor(props, context) {
+  constructor(props) {
     super(props);
+    const { properties } = props;
     this.state = {
-      blocksLayout: context.contextData.formData.blocks_layout.items,
+      blocksLayout: properties.blocks_layout.items, // TODO: use Volto getBlocksFieldname api
     };
 
     this.saveGlobalLayout = this.saveGlobalLayout.bind(this);
@@ -35,16 +38,16 @@ class EditTabsBlock extends React.Component {
   }
 
   isFirstTabsBlock() {
-    const blocks = getBlocks(this.context.contextData?.formData || {});
+    const blocks = getBlocks(this.props.properties);
     const [id] = blocks.find(([, value]) => value['@type'] === TABSBLOCK);
     return id === this.props.id;
   }
 
   componentDidMount() {
-    const { contextData } = this.context;
-    let formData = this.context.contextData.formData;
+    let formData = this.props.properties;
     if (
       Object.keys(formData || {}).includes('_original_items') &&
+      // TODO: use recoil atom for shared state?
       !contextData.fixed_for_edit
     ) {
       // We're coming from the View page with a layout that already has tabs,
@@ -83,7 +86,8 @@ class EditTabsBlock extends React.Component {
   }
 
   componentWillUnmount() {
-    const blocks = getBlocks(this.context.contextData?.formData || {});
+    const { properties } = this.props;
+    const blocks = getBlocks(properties);
     const index = blocks.findIndex(([, value]) => value['@type'] === TABSBLOCK);
     if (index === -1) {
       // this.props.setToEditMode(false);
@@ -92,11 +96,12 @@ class EditTabsBlock extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { contextData } = this.context;
-    const { data, tabsState } = this.props;
-    const { formData } = contextData;
+    const { properties, data, tabsState, onChangeField } = this.props;
 
-    const blocksLayout = formData.blocks_layout.items;
+    const blocksFieldname = getBlocksFieldname(properties);
+    const blocksLayoutFieldname = getBlocksLayoutFieldname(properties);
+
+    const blocksLayout = properties[blocksLayoutFieldname].items;
 
     //   TODO: this needs to be finished
     const { tabs, tabsLayout } = this.props.data;
@@ -118,11 +123,11 @@ class EditTabsBlock extends React.Component {
       }
 
       const defaultFormData = {
-        ...formData,
+        ...properties,
         blocks: {
-          ...formData.blocks,
+          ...properties.blocks,
           [this.props.block]: {
-            ...formData.blocks[this.props.block],
+            ...properties.blocks[this.props.block],
             tabs,
             tabsLayout,
           },
@@ -131,23 +136,20 @@ class EditTabsBlock extends React.Component {
 
       const blocks = getBlocks(defaultFormData) || [];
       const new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
-      const { contextData, setContextData } = this.context;
-      this.setState({ blocksLayout: new_layout });
-      setContextData({
-        ...contextData,
-        formData: {
-          ...formData,
-          blocks: {
-            ...formData.blocks,
-            // We need to create new objects because we mutate in place some arrays
-            ...Object.fromEntries(JSON.parse(JSON.stringify(blocks))),
-          },
-          blocks_layout: {
-            ...formData.blocks_layout,
-            items: new_layout,
-          },
-        },
+
+      ReactDOM.unstable_batchedUpdates(() => {
+        this.setState({ blocksLayout: new_layout });
+        onChangeField(blocksFieldname, {
+          ...properties.blocks,
+          // We need to create new objects because we mutate in place some arrays
+          ...Object.fromEntries(JSON.parse(JSON.stringify(blocks))),
+        });
+        onChangeField(blocksLayoutFieldname, {
+          ...properties.blocks_layout,
+          items: new_layout,
+        });
       });
+
       return;
     }
 
@@ -189,9 +191,8 @@ class EditTabsBlock extends React.Component {
     tabChanged = false,
     fixed_for_edit = false,
   }) {
-    const { contextData, setContextData } = this.context;
-    const { tabsState } = this.props;
-    const formData = defaultFormData || contextData.formData;
+    const { tabsState, properties, onChangeField } = this.props;
+    const formData = defaultFormData || properties;
 
     const blocks = getBlocks(formData) || [];
     const globalState = globalDeriveTabsFromState({
@@ -222,22 +223,21 @@ class EditTabsBlock extends React.Component {
 
     const new_layout = tabsLayoutToBlocksLayout(blocks, tabsState);
 
-    this.setState({ blocksLayout: new_layout });
-    setContextData({
-      ...contextData,
-      fixed_for_edit: fixed_for_edit || contextData.fixed_for_edit, // keep true
-      formData: {
-        ...formData,
-        blocks: {
-          ...formData.blocks,
-          // We need to create new objects because we mutate in place some arrays
-          ...Object.fromEntries(JSON.parse(JSON.stringify(blocks))),
-        },
-        blocks_layout: {
-          ...formData.blocks_layout,
-          items: new_layout,
-        },
-      },
+    const blocksFieldname = getBlocksFieldname(properties);
+    const blocksLayoutFieldname = getBlocksLayoutFieldname(properties);
+
+    ReactDOM.unstable_batchedUpdates(() => {
+      //   fixed_for_edit: fixed_for_edit || contextData.fixed_for_edit, // keep true
+      this.setState({ blocksLayout: new_layout });
+      onChangeField(blocksFieldname, {
+        ...formData.blocks,
+        // We need to create new objects because we mutate in place some arrays
+        ...Object.fromEntries(JSON.parse(JSON.stringify(blocks))),
+      });
+      onChangeField(blocksLayoutFieldname, {
+        ...formData.blocks_layout,
+        items: new_layout,
+      });
     });
   }
 
@@ -249,24 +249,17 @@ class EditTabsBlock extends React.Component {
     });
   }
 
-  saveGlobalLayout(new_layout) {
-    const { contextData, setContextData } = this.context;
-    const data = {
-      ...contextData,
-      formData: {
-        ...contextData.formData,
-        blocks_layout: {
-          ...contextData.formData.blocks_layout,
-          items: new_layout,
-        },
-      },
-    };
-    return setContextData(data);
+  getSchema() {
+    const schema = TabsSchema();
+    schema.properties.block_extension.blockProps = this.props;
+    return schema;
   }
 
   render() {
     const { data, extension } = this.props;
     const { onChangeFieldWrapper, schemaExtender } = extension;
+
+    const schema = this.getSchema();
 
     return (
       <div
@@ -277,11 +270,7 @@ class EditTabsBlock extends React.Component {
         }}
       >
         <div className="block-inner-wrapper">
-          <TabsBlockView
-            {...this.props}
-            properties={this.context?.contextData?.formData}
-            mode="edit"
-          />
+          <TabsBlockView {...this.props} mode="edit" />
         </div>
         <SidebarPortal selected={this.props.selected}>
           <InlineForm

@@ -1,17 +1,11 @@
 import React from 'react';
 import { SelectWidget } from '@plone/volto/components';
-import { getBlocksFieldname } from '@plone/volto/helpers';
-import { useFormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 import { blocks } from '~/config';
 
 const BlockExtensionWidget = (props) => {
-  const { block } = props;
-  const { contextData } = useFormStateContext();
-  const { formData } = contextData;
-
-  const blocksFieldname = getBlocksFieldname(formData);
-  const blockData = formData[blocksFieldname][block];
-  const type = blockData['@type'];
+  // get the block data from monkey-patched blockProps in getSchema()
+  const { blockProps } = props;
+  const type = blockProps.data['@type'];
   const extensions = blocks.blocksConfig[type].extensions || [];
 
   return (
