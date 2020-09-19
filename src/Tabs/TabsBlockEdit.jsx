@@ -11,7 +11,11 @@ import {
   getBlocksLayoutFieldname,
 } from '@plone/volto/helpers';
 
-import { resetContentForEdit, resetTabs, setFixEditStatus } from '../actions';
+import {
+  resetContentForEdit,
+  resetTabs,
+  setTabsLayoutFixedForEdit,
+} from '../actions';
 import { TABSBLOCK } from '../constants';
 import {
   globalDeriveTabsFromState,
@@ -47,8 +51,7 @@ class EditTabsBlock extends React.Component {
     let formData = this.props.properties;
     if (
       Object.keys(formData || {}).includes('_original_items') &&
-      // TODO: use recoil atom for shared state?
-      !contextData.fixed_for_edit
+      !this.props.fixed_for_edit
     ) {
       // We're coming from the View page with a layout that already has tabs,
       // so it was changed. In this case restore the original_items as items
@@ -227,7 +230,9 @@ class EditTabsBlock extends React.Component {
     const blocksLayoutFieldname = getBlocksLayoutFieldname(properties);
 
     ReactDOM.unstable_batchedUpdates(() => {
-      //   fixed_for_edit: fixed_for_edit || contextData.fixed_for_edit, // keep true
+      this.props.setTabsLayoutFixedForEdit(
+        fixed_for_edit || this.props.fixed_for_edit, // keep true
+      );
       this.setState({ blocksLayout: new_layout });
       onChangeField(blocksFieldname, {
         ...formData.blocks,
@@ -292,13 +297,17 @@ class EditTabsBlock extends React.Component {
 
 export default connect(
   (state) => {
+    const { key } = state.router.location;
     return {
-      tabsState: state.tabs_block[state.router.location.key] || {},
+      tabsState: state.tabs_block[key] || {},
       content: state.content,
+      fixed_for_edit: state.tabs_layout_fix?.[key],
+      router_key: key,
     };
   },
   {
     resetContentForEdit,
     resetTabs,
+    setTabsLayoutFixedForEdit,
   },
 )(withBlockExtension(EditTabsBlock));
