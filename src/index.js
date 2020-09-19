@@ -3,13 +3,14 @@ import { TabsBlockEdit, TabsBlockView, DefaultTabsRenderer } from './Tabs';
 import { TABSBLOCK } from './constants';
 import { tabs_block, content, tabs_layout_fix } from './reducers';
 import BlockExtensionWidget from './Tabs/BlockExtensionWidget';
+import installVoltoObjectWidget from '@eeacms/volto-object-widget';
 
 export default (config) => {
   config.blocks.blocksConfig[TABSBLOCK] = {
     id: TABSBLOCK,
     title: 'Section',
     icon: codeSVG,
-    group: 'text',
+    group: 'common',
     view: TabsBlockView,
     edit: TabsBlockEdit,
     restricted: false,
@@ -34,6 +35,13 @@ export default (config) => {
     content, // We're overwriting the default content reducer
     tabs_layout_fix,
   };
+
   config.widgets.widget.block_extension = BlockExtensionWidget;
+
+  if (Object.keys(config.widgets.widget).indexOf('object') === -1) {
+    // depends on volto-object-widget
+    config = installVoltoObjectWidget(config);
+  }
+
   return config;
 };
