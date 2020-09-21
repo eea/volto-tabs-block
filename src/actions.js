@@ -24,3 +24,11 @@ export function resetContentForEdit(isEditView, content) {
     result: content,
   };
 }
+
+export function setTabsLayoutFixedForEdit(key, status) {
+  return {
+    type: 'SET_TABS_LAYOUT_FIXED',
+    key,
+    status,
+  };
+}

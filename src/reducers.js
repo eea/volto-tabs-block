@@ -118,3 +118,15 @@ export function content(state = initialContentState, action = {}) {
       return defaultContentReducer(state, action);
   }
 }
+
+export function tabs_layout_fix(state = {}, action = {}) {
+  switch (action.type) {
+    case 'SET_TABS_LAYOUT_FIXED':
+      return {
+        ...state,
+        [action.key]: action.status,
+      };
+    default:
+      return state;
+  }
+}
