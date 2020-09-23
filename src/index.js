@@ -8,7 +8,7 @@ import installVoltoObjectWidget from '@eeacms/volto-object-widget';
 export default (config) => {
   config.blocks.blocksConfig[TABSBLOCK] = {
     id: TABSBLOCK,
-    title: 'Section',
+    title: 'Tabs section',
     icon: codeSVG,
     group: 'common',
     view: TabsBlockView,
