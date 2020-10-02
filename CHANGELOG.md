@@ -3,6 +3,7 @@
 ## unreleased
 
 - Minor code cleanup
+- Export GRID; rename default extension
 
 ## 0.2.1
 
