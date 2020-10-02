@@ -23,7 +23,7 @@ export default (config) => {
     extensions: [
       {
         id: 'default',
-        title: 'Default',
+        title: 'Tabs (default)',
         view: DefaultTabsRenderer,
         schemaExtender: null,
       },

@@ -12,7 +12,7 @@ export const messages = defineMessages({
   },
 });
 
-const GRID = { paneWidth: 9, tabWidth: 3, stackable: true };
+export const GRID = { paneWidth: 9, tabWidth: 3, stackable: true };
 
 export const getMenu = (props) => {
   const { data, mode } = props;
