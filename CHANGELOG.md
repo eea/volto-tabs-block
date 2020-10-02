@@ -1,5 +1,9 @@
 # Changelog
 
+## unreleased
+
+- Minor code cleanup
+
 ## 0.2.1
 
 - Handle blocks for deleted tabs
