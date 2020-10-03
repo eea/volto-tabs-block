@@ -72,7 +72,7 @@ export function content(state = initialContentState, action = {}) {
             []
           : action.result.blocks_layout?.items || [];
         const res =
-          blocks.findIndex(([, value]) => value['@type'] === TABSBLOCK) > -1
+          blocks.findIndex(([, value]) => value?.['@type'] === TABSBLOCK) > -1
             ? {
                 ...newState,
                 data: {
