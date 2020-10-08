@@ -72,30 +72,33 @@ const DefaultTabsRenderer = (props) => {
       const blocklist = blockIds.map((blockId) => {
         return [blockId, properties[blocksFieldname]?.[blockId]];
       });
-      return (
-        <Tab.Pane>
-          {blocklist.map(([blockId, blockData]) => {
-            const Block = blocks.blocksConfig[blockData['@type']]?.view;
-            return Block !== null ? (
-              <>
-                <Block
-                  key={blockId}
-                  id={blockId}
-                  properties={properties}
-                  data={blockData}
-                  path={getBaseUrl(pathname || '')}
-                />
-              </>
-            ) : (
-              <div key={blockId}>
+
+      blocklist.map(([blockId, blockData]) => {
+        const Block = blocks.blocksConfig[blockData['@type']]?.view;
+
+        if (Block !== null) {
+          return (
+            <Tab.Pane key={blockId}>
+              <Block
+                id={blockId}
+                properties={properties}
+                data={blockData}
+                path={getBaseUrl(pathname || '')}
+              />
+            </Tab.Pane>
+          );
+        } else {
+          return (
+            <Tab.Pane key={blockId}>
+              <div>
                 {intl.formatMessage(messages.unknownBlock, {
                   block: blockData?.['@type'],
                 })}
               </div>
-            );
-          })}
-        </Tab.Pane>
-      );
+            </Tab.Pane>
+          );
+        }
+      });
     },
     [],
   );
