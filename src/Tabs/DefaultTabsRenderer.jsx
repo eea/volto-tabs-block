@@ -73,7 +73,7 @@ const DefaultTabsRenderer = (props) => {
         return [blockId, properties[blocksFieldname]?.[blockId]];
       });
 
-      blocklist.map(([blockId, blockData]) => {
+      return blocklist.map(([blockId, blockData]) => {
         const Block = blocks.blocksConfig[blockData['@type']]?.view;
 
         if (Block !== null) {
