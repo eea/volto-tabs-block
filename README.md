@@ -2,7 +2,7 @@
 
 [![Releases](https://img.shields.io/github/v/release/eea/volto-tabs-block)](https://github.com/eea/volto-tabs-block/releases)
 
-This addon enables ad-hoc grouping of Volto blocks under sections and tabs. It needs to volto-object-widget as its only dependency.
+This addon enables ad-hoc grouping of Volto blocks under sections and tabs. It uses volto-object-widget as its only dependency.
 
 See demo video below:
 
