@@ -1,0 +1,132 @@
+.inner.tabs_block {
+  margin-bottom: 0;
+
+  .tabs_block {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-bottom: 0;
+  }
+}
+
+div#view .tabs-block {
+  .ui.container > * {
+    margin-bottom: 0;
+  }
+
+  &.default {
+    .ui.segment.tab {
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+.tabs-block {
+  [data-rbd-draggable-context-id] {
+    margin-bottom: 0;
+  }
+
+  .blocks-form {
+    padding-bottom: .1rem;
+  }
+
+  .block-wrapper {
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .block {
+    .block-add-button,
+    .delete-button {
+      display: none;
+    }
+  }
+
+
+  .block .block:not(.inner)::before {
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .block.wrapper.multiSelected {
+    .block .block::before {
+      z-index: 1;
+      background-color: rgba(120, 192, 215, 0.375);
+    }
+  }
+
+  .ui.segment.tab {
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .block-toolbar {
+    background-color: #8dd7ef;
+    border-radius: 6px;
+    box-shadow: 0px 0px 4px -1px rgb(0 0 0 / 50%);
+
+    .ui.basic.button {
+      padding: 3px;
+      padding-right: 0;
+    }
+
+    .wrapper-column-block {
+      > .ui.basic.button {
+        &:hover {
+          background-color: transparent !important;
+        }
+      }
+    }
+
+    > .ui.basic.button {
+      &:hover {
+        background-color: transparent !important;
+      }
+
+      svg {
+        color: #134448;
+      }
+    }
+
+    .drag.handle.wrapper-column-block {
+      position: initial;
+      left: initial;
+      min-height: 1em;
+      margin-left: initial !important;
+      font-size: 1rem;
+      line-height: 1em;
+      vertical-align: baseline;
+    }
+  }
+}
+
+.drag-drop-list-widget {
+  .tabs-area {
+    padding: 1em 0em;
+
+    [data-rbd-draggable-context-id] {
+      margin-bottom: 0.3em;
+    }
+
+    .drag.handle.wrapper {
+      min-height: auto;
+    }
+
+    .tab-area {
+      display: flex;
+
+      .label {
+        flex-grow: 2;
+        padding-left: 1em;
+      }
+
+      button {
+        flex-grow: 0;
+      }
+    }
+
+    button {
+      cursor: pointer;
+    }
+  }
+}
