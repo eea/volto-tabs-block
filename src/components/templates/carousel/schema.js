@@ -4,14 +4,10 @@ export default () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['scrollIcon', 'theme'],
+      fields: ['theme'],
     },
   ],
   properties: {
-    scrollIcon: {
-      title: 'Scroll icon',
-      type: 'boolean',
-    },
     theme: {
       title: 'Theme',
       type: 'array',

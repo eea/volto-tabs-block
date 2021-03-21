@@ -15,7 +15,6 @@ const View = (props) => {
     data = {},
     tabsList = [],
     tabs = {},
-    tabData = {},
     activeTab = null,
     activeTabIndex = 0,
     hashlink = {},
@@ -74,7 +73,7 @@ const View = (props) => {
         return (
           <Tab.Pane>
             {' '}
-            <RenderBlocks {...props} metadata={metadata} content={tabData} />
+            <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
           </Tab.Pane>
         );
       },

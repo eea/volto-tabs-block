@@ -6,6 +6,7 @@ import cx from 'classnames';
 import config from '@plone/volto/registry';
 
 const View = (props) => {
+  const view = React.useRef(null);
   const { data = {}, uiContainer = '' } = props;
   const metadata = props.metadata || props.properties;
   const template = data.template || 'default';
@@ -21,7 +22,7 @@ const View = (props) => {
     DefaultView;
 
   return (
-    <div className={cx('tabs-block', template)}>
+    <div className={cx('tabs-block', template)} ref={view}>
       <TabsView
         {...props}
         metadata={metadata}
@@ -34,6 +35,7 @@ const View = (props) => {
         tabs={tabs}
         tabData={tabData}
         setActiveTab={setActiveTab}
+        parentRef={view}
       />
     </div>
   );

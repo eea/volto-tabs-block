@@ -193,7 +193,6 @@ const Edit = (props) => {
       ) : (
         ''
       )}
-
       {!data?.readOnlySettings ? (
         <SidebarPortal selected={props.selected}>
           {activeBlock ? (

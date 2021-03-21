@@ -1,0 +1,11 @@
+@dotsSize: 8px;
+@dotsActiveOpacity: .75;
+@dotsInactiveOpacity: .25;
+@dotsHoverOpacity: 1;
+
+@arrowsOpacity: .75;
+@arrowsHoverOpacity: 1;
+
+@lightColor: #fff;
+@darkColor: #000;
+@greyColor: #ccc;

@@ -65,7 +65,9 @@ const Edit = (props) => {
               active={tab === activeTab}
               onClick={() => {
                 setActiveTab(tab);
-                setActiveBlock(null);
+                if (activeBlock) {
+                  setActiveBlock(null);
+                }
               }}
             >
               {name}
@@ -91,8 +93,9 @@ const Edit = (props) => {
               manage={manage}
               allowedBlocks={data?.allowedBlocks}
               metadata={metadata}
-              properties={isEmpty(tabData) ? emptyBlocksForm() : tabData}
-              selectedBlock={selected ? activeBlock : null}
+              properties={isEmpty(tabs[tab]) ? emptyBlocksForm() : tabs[tab]}
+              selectedBlock={selected && activeBlock ? activeBlock : null}
+              selected={activeBlock === tab}
               onSelectBlock={(id, selected, e) => {
                 const isMultipleSelection = e
                   ? e.shiftKey || e.ctrlKey || e.metaKey

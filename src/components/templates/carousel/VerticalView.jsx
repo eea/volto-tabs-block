@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
-import { Menu } from 'semantic-ui-react';
-import { RenderBlocks, Icon } from '@plone/volto/components';
+import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import cx from 'classnames';
 
-import scrollSVG from '@eeacms/volto-tabs-block/icons/scroll.svg';
-
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
 
 const Slider = loadable(() => import('react-slick'));
@@ -21,32 +20,22 @@ const View = (props) => {
     metadata = {},
     data = {},
     tabsList = [],
-    // tabs = {},
-    tabData = {},
-    // activeTab = null,
-    activeTabIndex = 0,
+    tabs = {},
     hashlink = {},
-    setActiveTab = () => {},
   } = props;
   const theme = data.theme || 'light';
-  const hasScrollIcon = data.hasScrollIcon || false;
   const uiContainer = data.align === 'full' ? 'ui container' : false;
 
   const settings = {
-    speed: 400,
-    arrows: false,
-    swipe: false,
-    touchMove: false,
+    adaptiveHeight: true,
     autoplay: false,
+    speed: 500,
+    initialSlide: 1,
+    lazyLoad: 'ondemand',
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 0,
     vertical: true,
-    lazyLoad: 'ondemand',
-    adaptiveHeight: true,
-    beforeChange: (oldIndex, index) => {
-      setActiveTab(tabsList[index]);
-    },
+    verticalSwiping: true,
   };
 
   React.useEffect(() => {
@@ -57,12 +46,13 @@ const View = (props) => {
     ) {
       const id = hashlink.hash || urlHash || '';
       const index = tabsList.indexOf(id);
+      const currentIndex = slider.current?.innerSlider?.state?.currentSlide;
       const parentId = data.id || props.id;
       const parent = document.getElementById(parentId);
       const headerWrapper = document.querySelector('.header-wrapper');
       const offsetHeight = headerWrapper?.offsetHeight || 0;
       if (id !== parentId && index > -1 && parent) {
-        if (activeTabIndex !== index) {
+        if (currentIndex !== index) {
           slider.current.slickGoTo(index);
         }
         props.scrollToTarget(parent, offsetHeight);
@@ -80,44 +70,16 @@ const View = (props) => {
     return {
       id: tab,
       renderItem: (
-        <RenderBlocks {...props} metadata={metadata} content={tabData} />
+        <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
       ),
     };
   });
 
   return (
     <>
-      <Slider {...settings} ref={slider} className={cx(uiContainer)}>
+      <Slider {...settings} ref={slider} className={cx(uiContainer, theme)}>
         {panes.length ? panes.map((pane) => pane.renderItem) : ''}
       </Slider>
-
-      <div className={cx('carousel-menu', theme)}>
-        <Menu attached>
-          {panes.map((pane, index) => (
-            <Menu.Item
-              active={activeTabIndex === index}
-              onClick={() => {
-                if (slider.current && activeTabIndex !== index) {
-                  slider.current.slickGoTo(index);
-                }
-              }}
-            >
-              {hasScrollIcon &&
-              panes.length % 2 > 0 &&
-              index + 1 === Math.round(panes.length / 2) ? (
-                <Icon
-                  className="scroll"
-                  name={scrollSVG}
-                  size="30px"
-                  color="white"
-                />
-              ) : (
-                ''
-              )}
-            </Menu.Item>
-          ))}
-        </Menu>
-      </div>
     </>
   );
 };

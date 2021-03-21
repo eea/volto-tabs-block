@@ -1,188 +1,136 @@
 @import './globals.less';
 
 @addon: 'volto-addons';
-@addontype: 'columnstabsblock';
+@addontype: 'tabsblock';
 @addonelement: 'carousel';
 
 .loadAddonVariables();
 
 .tabs-block {
-  .carousel-menu {
-    position: relative;
-    padding: 1rem 0;
+  .slick-slider {
+    &:not(.slick-vertical) {
+      .slick-slide {
+        padding-top: 1rem;
+      }
+    }
+  
+    .slick-arrow {
+      display: block !important;
+      z-index: 1;
+    }
 
-    .ui.menu {
-      width: 100% !important;
-      align-items: center;
-      justify-content: space-evenly;
-      border: none !important;
-      margin: 0 !important;
-      background-color: transparent;
+    .slick-prev:before, .slick-next:before {
+      opacity: @arrowsOpacity;
+    }
+    
+    .slick-prev:hover:before, .slick-prev:focus:before,
+    .slick-next:hover:before, .slick-next:focus:before {
+      opacity: @arrowsHoverOpacity;
+    }
+  
+    .slick-dots {
+      display: block;
+      position: relative;
+      top: 0;
+      bottom: 0;
+      padding: 1rem 0;
+      margin: 0;
 
-      &::after {
-        display: none;
+      li button:hover:before, li button:focus:before {
+        opacity: @dotsHoverOpacity;
       }
 
-      &::before {
-        position: absolute;
-        width: 100%;
-        height: 1px;
-        content: '';
+      li button:before {
+        font-size: @dotsSize;
+        opacity: @dotsInactiveOpacity;
       }
 
-      .active.item,
-      .item {
-        position: relative;
-        width: 9px;
-        height: 9px;
-        padding: 0;
-        border: none;
-        border-radius: 100% !important;
-
-        &::before,
-        &::after {
-          display: none;
-        }
-      }
-
-      .active.item {
-        &::before {
-          position: absolute;
-          top: -5px;
-          left: -5px;
-          display: block;
-          width: 19px;
-          height: 19px;
-          border-radius: 100%;
-          content: '';
-        }
-      }
-
-      .item .scroll {
-        position: absolute;
-        top: -40px;
-        left: -11px;
-        width: auto;
-        height: 30px;
-        pointer-events: none;
+      li.slick-active button:before {
+        opacity: @dotsActiveOpacity;
       }
     }
 
     &.light {
-      .ui.menu {
-        &::before {
-          background-color: #fff;
+      .slick-prev:before, .slick-next:before {
+        color: @lightColor;
+      }
+
+      .slick-dots {
+        li button:before {
+          color: @lightColor;
         }
 
-        .active.item,
-        .item {
-          background-color: #fff;
-
-          &:hover {
-            background-color: #fff;
-          }
-        }
-
-        .active.item::before {
-          border: 1px solid #fff;
-        }
-
-        .item .scroll {
-          fill: #fff !important;
+        li.slick-active button:before {
+          color: @lightColor;
         }
       }
     }
 
     &.dark {
-      .ui.menu {
-        &::before {
-          background-color: #000;
+      .slick-prev:before, .slick-next:before {
+        color: @darkColor;
+      }
+
+      .slick-dots {
+        li button:before {
+          color: @darkColor;
         }
 
-        .active.item,
-        .item {
-          background-color: #000;
-
-          &:hover {
-            background-color: #000;
-          }
-        }
-
-        .active.item::before {
-          border: 1px solid #000;
-        }
-
-        .item .scroll {
-          fill: #000 !important;
+        li.slick-active button:before {
+          color: @darkColor;
         }
       }
     }
 
     &.grey {
-      .ui.menu {
-        &::before {
-          background-color: #ccc;
+      .slick-prev:before, .slick-next:before {
+        color: @greyColor;
+      }
+
+      .slick-dots {
+        li button:before {
+          color: @greyColor;
         }
 
-        .active.item,
-        .item {
-          background-color: #ccc;
-
-          &:hover {
-            background-color: #ccc;
-          }
+        li.slick-active button:before {
+          color: @greyColor;
         }
+      }
+    }
 
-        .active.item::before {
-          border: 1px solid #ccc;
-        }
+    &.slick-vertical {
+      margin-bottom: 40px;
 
-        .item .scroll {
-          fill: #ccc !important;
-        }
+      .slick-prev {
+        display: none !important;
+      }
+
+      .slick-prev, .slick-next {
+        left: 50%;
+        transform: translate(-50%, 0) rotate(90deg);
+      }
+      .slick-next {
+        top: unset;
+        bottom: -30px;
+      }
+      .slick-prev {
+        top: -30px;
       }
     }
   }
+}
 
-  .carousel-slider {
-    position: absolute;
-    top: 50%;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    pointer-events: none;
-    transform: translateY(-50%);
-
-    .icon {
-      cursor: pointer;
-      pointer-events: all;
-    }
-
-    .left-arrow {
-      position: relative;
-      left: 20px;
-    }
-
-    .right-arrow {
-      position: relative;
-      right: 20px;
-    }
-
-    &.light {
-      .icon {
-        fill: #fff !important;
-      }
-    }
-
-    &.dark {
-      .icon {
-        fill: #000 !important;
-      }
-    }
-
-    &.grey {
-      .icon {
-        fill: #ccc !important;
+@media only screen and (max-width: @largestMobileScreen) {
+  body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed),
+  body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed) {
+    .tabs-block {
+      .slick-slider {
+        &:not(.slick-vertical) {
+          &.ui.container {
+            margin-left: 2.4em !important;
+            margin-right: 2.4rem !important;
+          }
+        }
       }
     }
   }
