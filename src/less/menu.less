@@ -1,0 +1,125 @@
+@import './globals.less';
+
+@addon: 'volto-addons';
+@addontype: 'tabsblock';
+@addonelement: 'menu';
+
+.loadAddonVariables();
+
+.tabs-block {
+  &.edit {
+    .ui.menu {
+      margin: @menuMarginEdit;
+    }
+  }
+
+  .ui.menu {
+    flex-wrap: wrap;
+    border: @menuBorder;
+    margin: @menuMargin;
+    background-color: @menuBackgroundColor;
+    border-radius: @menuBorderRadius;
+    box-shadow: @menuBoxShadow;
+
+    &.in-full-width {
+      padding: 0 1rem;
+    }
+
+    &.ui.container > * {
+      margin-bottom: initial !important;
+    }
+
+    &.menu-hidden {
+      display: none;
+    }
+
+    &:after {
+      display: none;
+    }
+
+    .item {
+      padding: @menuItemPadding;
+      background: @menuItemBackground;
+      color: @menuItemColor;
+      font-family: @menuItemFontFamily;
+      font-size: @menuItemFontSize;
+      font-weight: @menuItemFontWeight;
+
+      .tab-title-input {
+        color: @menuActiveItemColor;
+        border: none;
+        align-self: center;
+        min-width: 80px;
+        max-width: 500px;
+      }
+
+      &:hover {
+        background: @menuItemHoverBackground;
+        color: @menuItemHoverColor;
+
+        &.menu-title {
+          background: @menuTitleHoverBackground;
+          color: @menuTitleHoverColor;
+        }
+      }
+
+      &.active {
+        background: @menuActiveItemBackground;
+        color: @menuActiveItemColor;
+        font-family: @menuItemFontFamily;
+        font-weight: @menuActiveItemFontWeight;
+
+        &:hover {
+          background: @menuActiveItemHoverBackground;
+          color: @menuActiveItemHoverColor;
+        }
+      }
+
+      &.menu-title {
+        background: @menuTitleBackgrounnd;
+        color: @menuTitleColor;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        > * {
+          color: inherit;
+          margin: 0;
+        }
+      }
+
+      &::before {
+        width: @menuItemDividerWidth;
+        background: @menuItemDividerBackground;
+      }
+
+      &:first-child {
+        padding: @menuFirstItemPadding;
+      }
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &.left {
+      justify-content: flex-start;
+    }
+
+    &.right {
+      justify-content: flex-end;
+    }
+
+    &.center {
+      justify-content: center;
+    }
+
+    &.space-between {
+      .menu-title {
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+.loadAddonOverrides();

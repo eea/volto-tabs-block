@@ -1,40 +1,46 @@
 # volto-tabs-block
-
 [![Releases](https://img.shields.io/github/v/release/eea/volto-tabs-block)](https://github.com/eea/volto-tabs-block/releases)
+[![Pipeline](https://ci.eionet.europa.eu/buildStatus/icon?job=volto-addons/volto-tabs-block/master&subject=master)](https://ci.eionet.europa.eu/view/Github/job/volto-addons/job/volto-tabs-block/job/master/display/redirect)
+[![Pipeline](https://ci.eionet.europa.eu/buildStatus/icon?job=volto-addons/volto-tabs-block/develop&subject=develop)](https://ci.eionet.europa.eu/view/Github/job/volto-addons/job/volto-tabs-block/job/develop/display/redirect)
 
-This addon enables ad-hoc grouping of Volto blocks under sections and tabs. It uses volto-object-widget as its only dependency.
+[Volto](https://github.com/plone/volto) add-on
 
-See demo video below:
+## Features
 
-[![Short demo](https://img.youtube.com/vi/iTaPsWLGTSQ/0.jpg)](https://www.youtube.com/watch?v=iTaPsWLGTSQ)
+###
+
+Demo GIF
 
 ## Getting started
 
 1. Create new volto project if you don't already have one:
-    ```
-    $ npm install -g @plone/create-volto-app
-    $ create-volto-app my-volto-project
-    $ cd my-volto-project
-    ```
 
-1. Update `package.json`:
-    ``` JSON
-    "addons": [
-        "@eeacms/volto-object-widget",
-        "@eeacms/volto-tabs-block"
-    ],
+   ```
+   $ npm install -g yo @plone/generator-volto
+   $ yo @plone/volto my-volto-project --addon @eeacms/volto-tabs-block
 
-    "dependencies": {
-        "@eeacms/volto-object-widget": "github:eea/volto-object-widget#0.1.1",
-        "@eeacms/volto-tabs-block": "github:eea/volto-tabs-block#0.2.2"
-    }
-    ```
+   $ cd my-volto-project
+   $ yarn add -W @eeacms/volto-tabs-block        // Not yet available
+   ```
+
+1. If you already have a volto project, just update `package.json`:
+
+   ```JSON
+   "addons": [
+      "@eeacms/volto-tabs-block"
+   ],
+
+   "dependencies": {
+      "@eeacms/volto-tabs-block": "^1.2.0"
+   }
+   ```
 
 1. Install new add-ons and restart Volto:
-    ```
-    $ yarn
-    $ yarn start
-    ```
+
+   ```
+   $ yarn
+   $ yarn start
+   ```
 
 1. Go to http://localhost:3000
 
@@ -42,14 +48,14 @@ See demo video below:
 
 ## How to contribute
 
-See [DEVELOP.md](DEVELOP.md).
+See [DEVELOP.md](https://github.com/eea/volto-tabs-block/blob/master/DEVELOP.md).
 
 ## Copyright and license
 
 The Initial Owner of the Original Code is European Environment Agency (EEA).
 All Rights Reserved.
 
-See [LICENSE.md](LICENSE.md) for details.
+See [LICENSE.md](https://github.com/eea/volto-tabs-block/blob/master/LICENSE.md) for details.
 
 ## Funding
 

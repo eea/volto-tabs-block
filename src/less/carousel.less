@@ -1,0 +1,196 @@
+@import './globals.less';
+
+@addon: 'volto-addons';
+@addontype: 'tabsblock';
+@addonelement: 'carousel';
+
+.loadAddonVariables();
+
+.tabs-block {
+  .slick-slider {
+    min-height: inherit;
+    display: flex !important;
+    flex-flow: column;
+    justify-content: space-between;
+    flex: 1;
+    
+    &:not(.slick-vertical) {
+      .slick-slide {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
+    }
+
+    .slick-list {
+      display: flex;
+      flex-flow: column;
+      flex-grow: 1;
+    }
+
+    &.flex-start {
+      .slick-list {
+        justify-content: flex-start;
+      }
+    }
+
+    &.center {
+      .slick-list {
+        justify-content: center;
+      }
+    }
+
+    &.flex-end {
+      .slick-list {
+        justify-content: flex-end;
+      }
+    }
+
+    .slick-arrows {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+  
+    .slick-arrow {
+      display: block !important;
+      z-index: 1;
+    }
+
+    .slick-prev:before, .slick-next:before {
+      opacity: @arrowsOpacity;
+    }
+    
+    .slick-prev:hover:before, .slick-prev:focus:before,
+    .slick-next:hover:before, .slick-next:focus:before {
+      opacity: @arrowsHoverOpacity;
+    }
+  
+    .slick-dots {
+      display: block;
+      position: relative;
+      top: 0;
+      bottom: 0;
+      padding: 1rem 0;
+      margin: 0;
+
+      li button:hover:before, li button:focus:before {
+        opacity: @dotsHoverOpacity;
+      }
+
+      li button:before {
+        font-size: @dotsSize;
+        opacity: @dotsInactiveOpacity;
+      }
+
+      li.slick-active button:before {
+        opacity: @dotsActiveOpacity;
+      }
+    }
+
+    &.light {
+      .slick-prev:before, .slick-next:before {
+        color: @lightColor;
+      }
+
+      .slick-dots {
+        li button:before {
+          color: @lightColor;
+        }
+
+        li.slick-active button:before {
+          color: @lightColor;
+        }
+      }
+    }
+
+    &.dark {
+      .slick-prev:before, .slick-next:before {
+        color: @darkColor;
+      }
+
+      .slick-dots {
+        li button:before {
+          color: @darkColor;
+        }
+
+        li.slick-active button:before {
+          color: @darkColor;
+        }
+      }
+    }
+
+    &.grey {
+      .slick-prev:before, .slick-next:before {
+        color: @greyColor;
+      }
+
+      .slick-dots {
+        li button:before {
+          color: @greyColor;
+        }
+
+        li.slick-active button:before {
+          color: @greyColor;
+        }
+      }
+    }
+
+    &.slick-vertical {
+      margin-bottom: 40px;
+
+      .slick-prev {
+        display: none !important;
+      }
+
+      .slick-prev, .slick-next {
+        left: 50%;
+        transform: translate(-50%, 0) rotate(90deg);
+      }
+      .slick-next {
+        top: unset;
+        bottom: -30px;
+      }
+      .slick-prev {
+        top: -30px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @largestMobileScreen) {
+  body:not(.has-toolbar):not(.has-sidebar):not(.has-toolbar-collapsed):not(.has-sidebar-collapsed),
+  body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed),
+  body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed) {
+    .tabs-block {
+      .slick-slider {
+        &:not(.slick-vertical) {
+          &.ui.container {
+            margin-left: 1.5em !important;
+            margin-right: 1.5rem !important;
+          }
+        }
+        .slick-arrows {
+          .slick-arrow {
+            position: relative;
+            top: 0;
+            bottom: 0;
+
+            &.slick-prev {
+              left: -20px;
+            }
+
+            &.slick-next {
+              right: -20px;
+            }
+          }
+        }
+        
+        .slick-dots {
+          padding: 0 0 1rem 0;
+        }
+      }
+    }
+  }
+}
+
+.loadAddonOverrides();

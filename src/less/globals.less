@@ -1,6 +1,3 @@
-@type: 'extra';
-@element: 'custom';
-
 @import (multiple, reference, optional) '../../theme.config';
 
 /* Enables customization of addons */
@@ -15,3 +12,5 @@
   @import (optional)
     '@{siteFolder}/../addons/@{addon}/@{addontype}s/@{addonelement}.variables';
 }
+
+@import './variables.less';

@@ -1,18 +1,26 @@
-import codeSVG from '@plone/volto/icons/code.svg';
-import { TabsBlockEdit, TabsBlockView, DefaultTabsRenderer } from './Tabs';
-import { TABSBLOCK } from './constants';
-import { tabs_block, content, tabs_layout_fix } from './reducers';
-import BlockExtensionWidget from './Tabs/BlockExtensionWidget';
-import installVoltoObjectWidget from '@eeacms/volto-object-widget';
+import { TabsEdit, TabsView } from '@eeacms/volto-tabs-block/components';
+import {
+  DefaultEdit,
+  DefaultView,
+  HorizontalCarouselView,
+  VerticalCarouselView,
+  defaultSchema,
+  carouselSchema,
+} from '@eeacms/volto-tabs-block/components';
+import { layoutSchema } from '@eeacms/volto-tabs-block/components';
+import { TABS_BLOCK } from './constants';
+import { TabsWidget } from './widgets';
+
+import tabsSVG from '@eeacms/volto-tabs-block//icons/tabs.svg';
 
 export default (config) => {
-  config.blocks.blocksConfig[TABSBLOCK] = {
-    id: TABSBLOCK,
-    title: 'Tabs section',
-    icon: codeSVG,
+  config.blocks.blocksConfig[TABS_BLOCK] = {
+    id: TABS_BLOCK,
+    title: 'Tabs block',
+    icon: tabsSVG,
     group: 'common',
-    view: TabsBlockView,
-    edit: TabsBlockEdit,
+    edit: TabsEdit,
+    view: TabsView,
     restricted: false,
     mostUsed: false,
     sidebarTab: 1,
@@ -20,28 +28,46 @@ export default (config) => {
       addPermission: [],
       view: [],
     },
-    extensions: [
-      {
-        id: 'default',
-        title: 'Tabs (default)',
-        view: DefaultTabsRenderer,
-        schemaExtender: null,
+    blockHasOwnFocusManagement: true,
+    schema: layoutSchema(config),
+    templates: {
+      default: {
+        edit: DefaultEdit,
+        view: DefaultView,
+        schema: defaultSchema,
       },
-    ],
-  };
-  config.addonReducers = {
-    ...config.addonReducers,
-    tabs_block,
-    content, // We're overwriting the default content reducer
-    tabs_layout_fix,
+      carousel: {
+        edit: DefaultEdit,
+        view: HorizontalCarouselView,
+        schema: carouselSchema,
+      },
+      carousel_vertical: {
+        edit: DefaultEdit,
+        view: VerticalCarouselView,
+        schema: carouselSchema,
+      },
+    },
+    getBlocks: (data) => {
+      const { blocks = {}, blocks_layout = {} } = data?.data;
+      if (blocks_layout?.items?.length) {
+        return {
+          blocks: blocks_layout.items.map((block, index) => ({
+            title: blocks[block]['title'] || `Tab ${index + 1}`,
+            id: block,
+            type: TABS_BLOCK,
+          })),
+        };
+      }
+      return {};
+    },
   };
 
-  config.widgets.widget.block_extension = BlockExtensionWidget;
+  config.widgets.type.tabs = TabsWidget;
 
-  if (Object.keys(config.widgets.widget).indexOf('object') === -1) {
-    // depends on volto-object-widget
-    config = installVoltoObjectWidget(config);
-  }
+  config.settings.hashlinkBlacklist = [
+    ...(config.settings.hashlinkBlacklist || []),
+    TABS_BLOCK,
+  ];
 
   return config;
 };
