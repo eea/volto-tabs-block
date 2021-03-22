@@ -8,12 +8,12 @@
 
 .tabs-block {
   .slick-slider {
-    min-height: inherit;
     display: flex !important;
+    min-height: inherit;
+    flex: 1;
     flex-flow: column;
     justify-content: space-between;
-    flex: 1;
-    
+
     &:not(.slick-vertical) {
       .slick-slide {
         padding-top: 5rem;
@@ -50,30 +50,34 @@
       flex-direction: row;
       justify-content: center;
     }
-  
+
     .slick-arrow {
-      display: block !important;
       z-index: 1;
+      display: block !important;
     }
 
-    .slick-prev:before, .slick-next:before {
+    .slick-prev:before,
+    .slick-next:before {
       opacity: @arrowsOpacity;
     }
-    
-    .slick-prev:hover:before, .slick-prev:focus:before,
-    .slick-next:hover:before, .slick-next:focus:before {
+
+    .slick-prev:hover:before,
+    .slick-prev:focus:before,
+    .slick-next:hover:before,
+    .slick-next:focus:before {
       opacity: @arrowsHoverOpacity;
     }
-  
+
     .slick-dots {
-      display: block;
       position: relative;
       top: 0;
       bottom: 0;
+      display: block;
       padding: 1rem 0;
       margin: 0;
 
-      li button:hover:before, li button:focus:before {
+      li button:hover:before,
+      li button:focus:before {
         opacity: @dotsHoverOpacity;
       }
 
@@ -88,7 +92,8 @@
     }
 
     &.light {
-      .slick-prev:before, .slick-next:before {
+      .slick-prev:before,
+      .slick-next:before {
         color: @lightColor;
       }
 
@@ -104,7 +109,8 @@
     }
 
     &.dark {
-      .slick-prev:before, .slick-next:before {
+      .slick-prev:before,
+      .slick-next:before {
         color: @darkColor;
       }
 
@@ -120,7 +126,8 @@
     }
 
     &.grey {
-      .slick-prev:before, .slick-next:before {
+      .slick-prev:before,
+      .slick-next:before {
         color: @greyColor;
       }
 
@@ -142,14 +149,17 @@
         display: none !important;
       }
 
-      .slick-prev, .slick-next {
+      .slick-prev,
+      .slick-next {
         left: 50%;
         transform: translate(-50%, 0) rotate(90deg);
       }
+
       .slick-next {
         top: unset;
         bottom: -30px;
       }
+
       .slick-prev {
         top: -30px;
       }
@@ -165,10 +175,11 @@
       .slick-slider {
         &:not(.slick-vertical) {
           &.ui.container {
-            margin-left: 1.5em !important;
             margin-right: 1.5rem !important;
+            margin-left: 1.5em !important;
           }
         }
+
         .slick-arrows {
           .slick-arrow {
             position: relative;
@@ -184,7 +195,7 @@
             }
           }
         }
-        
+
         .slick-dots {
           padding: 0 0 1rem 0;
         }

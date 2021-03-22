@@ -24,23 +24,22 @@ div#view {
   }
 }
 
-
 .inner.tabs_block {
   margin-bottom: 0;
 
   .tabs_block {
-    padding-left: 0.5rem;
     padding-right: 0.5rem;
+    padding-left: 0.5rem;
     margin-bottom: 0;
   }
 }
 
 .styled.screen-height {
   .tabs-block {
-    min-height: inherit;
     display: flex;
-    flex-direction: column;
+    min-height: inherit;
     flex: 1;
+    flex-direction: column;
   }
 }
 
@@ -50,7 +49,7 @@ div#view {
   }
 
   .blocks-form {
-    padding-bottom: .1rem;
+    padding-bottom: 0.1rem;
   }
 
   .block-wrapper {
@@ -69,7 +68,6 @@ div#view {
       border-top-right-radius: 0;
     }
   }
-
 
   .block .block:not(.inner)::before {
     z-index: 0;
@@ -99,12 +97,12 @@ div#view {
     border-bottom: 1px solid #fff;
     margin-top: -45px;
     background-color: #fff;
-  
+
     .ui.basic.button {
       padding: 3px;
       padding-right: 0;
     }
-  
+
     .wrapper-column-block {
       > .ui.basic.button {
         &:hover {
@@ -112,17 +110,17 @@ div#view {
         }
       }
     }
-  
+
     > .ui.basic.button {
       &:hover {
         background-color: transparent !important;
       }
-  
+
       svg {
         color: #134448;
       }
     }
-  
+
     .drag.handle.wrapper-column-block {
       position: initial;
       left: initial;
@@ -133,27 +131,27 @@ div#view {
       vertical-align: baseline;
     }
   }
-  
+
   .drag-drop-list-widget {
     .columns-area {
       padding: 1em 0em;
-  
+
       [data-rbd-draggable-context-id] {
         margin-bottom: 0.3em;
       }
-  
+
       .drag.handle.wrapper {
         min-height: auto;
       }
-  
+
       .column-area {
         display: flex;
-  
+
         .label {
           flex-grow: 2;
           padding-left: 1em;
         }
-  
+
         button {
           flex-grow: 0;
         }
@@ -167,8 +165,8 @@ div#view {
   }
 
   .blocks-chooser {
-    left: unset;
     right: 0;
+    left: unset;
     margin-top: 50px;
   }
 }

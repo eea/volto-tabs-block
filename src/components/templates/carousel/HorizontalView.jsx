@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
-import { RenderBlocks, Icon } from '@plone/volto/components';
+import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import cx from 'classnames';
-
-import scrollSVG from '@eeacms/volto-tabs-block/icons/scroll.svg';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
