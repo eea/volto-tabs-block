@@ -18,6 +18,13 @@ div#view .tabs-block {
   }
 }
 
+div#view {
+  .display-none {
+    display: none;
+  }
+}
+
+
 .inner.tabs_block {
   margin-bottom: 0;
 
@@ -25,6 +32,15 @@ div#view .tabs-block {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     margin-bottom: 0;
+  }
+}
+
+.styled.screen-height {
+  .tabs-block {
+    min-height: inherit;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 }
 
@@ -48,6 +64,10 @@ div#view .tabs-block {
     .delete-button {
       display: none;
     }
+
+    .block.selected::before {
+      border-top-right-radius: 0;
+    }
   }
 
 
@@ -69,15 +89,22 @@ div#view .tabs-block {
   }
 
   .block-toolbar {
-    background-color: #8dd7ef;
-    border-radius: 6px;
-    box-shadow: 0px 0px 4px -1px rgb(0 0 0 / 50%);
-
+    position: absolute;
+    z-index: 3;
+    right: -9px;
+    display: flex;
+    padding: 5px;
+    border: none;
+    border: 1px solid #78c0d7bf;
+    border-bottom: 1px solid #fff;
+    margin-top: -45px;
+    background-color: #fff;
+  
     .ui.basic.button {
       padding: 3px;
       padding-right: 0;
     }
-
+  
     .wrapper-column-block {
       > .ui.basic.button {
         &:hover {
@@ -85,17 +112,17 @@ div#view .tabs-block {
         }
       }
     }
-
+  
     > .ui.basic.button {
       &:hover {
         background-color: transparent !important;
       }
-
+  
       svg {
         color: #134448;
       }
     }
-
+  
     .drag.handle.wrapper-column-block {
       position: initial;
       left: initial;
@@ -106,10 +133,43 @@ div#view .tabs-block {
       vertical-align: baseline;
     }
   }
+  
+  .drag-drop-list-widget {
+    .columns-area {
+      padding: 1em 0em;
+  
+      [data-rbd-draggable-context-id] {
+        margin-bottom: 0.3em;
+      }
+  
+      .drag.handle.wrapper {
+        min-height: auto;
+      }
+  
+      .column-area {
+        display: flex;
+  
+        .label {
+          flex-grow: 2;
+          padding-left: 1em;
+        }
+  
+        button {
+          flex-grow: 0;
+        }
+      }
+    }
+  }
 
   .ui.grid.column-grid {
     margin-top: 0;
     margin-bottom: 0;
+  }
+
+  .blocks-chooser {
+    left: unset;
+    right: 0;
+    margin-top: 50px;
   }
 }
 

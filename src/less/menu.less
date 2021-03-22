@@ -45,6 +45,14 @@
       font-size: @menuItemFontSize;
       font-weight: @menuItemFontWeight;
 
+      .tab-title-input {
+        color: @menuActiveItemColor;
+        border: none;
+        align-self: center;
+        min-width: 80px;
+        max-width: 500px;
+      }
+
       &:hover {
         background: @menuItemHoverBackground;
         color: @menuItemHoverColor;
@@ -70,8 +78,14 @@
       &.menu-title {
         background: @menuTitleBackgrounnd;
         color: @menuTitleColor;
-        font-size: @menuTitleFontSize;
-        font-weight: @menuTitleFontWeight;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        > * {
+          color: inherit;
+          margin: 0;
+        }
       }
 
       &::before {

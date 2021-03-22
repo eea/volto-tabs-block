@@ -15,6 +15,27 @@ import '@eeacms/volto-tabs-block/less/carousel.less';
 
 const Slider = loadable(() => import('react-slick'));
 
+const ArrowsGroup = (props) => {
+  return (
+    <div className="slick-arrows">
+      <button
+        data-role="none"
+        className="slick-arrow slick-prev"
+        onClick={props.onPrev}
+      >
+        Previous
+      </button>
+      <button
+        data-role="none"
+        className="slick-arrow slick-next"
+        onClick={props.onNext}
+      >
+        Next
+      </button>
+    </div>
+  );
+};
+
 const View = (props) => {
   const slider = React.useRef(null);
   const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
@@ -28,12 +49,22 @@ const View = (props) => {
   const theme = data.theme || 'light';
   const uiContainer = data.align === 'full' ? 'ui container' : false;
 
+  const onPrev = () => {
+    slider.current.slickPrev();
+  };
+
+  const onNext = () => {
+    slider.current.slickNext();
+  };
+
   const settings = {
     autoplay: false,
     dots: true,
     speed: 500,
     initialSlide: 0,
     lazyLoad: 'ondemand',
+    prevArrow: <React.Fragment />,
+    nextArrow: <ArrowsGroup {...props} onPrev={onPrev} onNext={onNext} />,
     swipe: true,
     slidesToShow: 1,
     slidesToScroll: 1,

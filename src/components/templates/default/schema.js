@@ -4,9 +4,20 @@ export default () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: [],
+      fields: ['align'],
     },
   ],
-  properties: {},
+  properties: {
+    align: {
+      title: 'Menu alignment',
+      type: 'array',
+      choices: [
+        ['left', 'Left'],
+        ['center', 'Center'],
+        ['right', 'Right'],
+        ['space-between', 'Space between'],
+      ],
+    },
+  },
   required: [],
 });

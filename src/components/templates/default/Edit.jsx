@@ -5,32 +5,41 @@ import { Menu, Tab } from 'semantic-ui-react';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
+import SlateEditor from 'volto-slate/editor/SlateEditor';
+import { serializeNodes } from 'volto-slate/editor/render';
+import cx from 'classnames';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
-const Edit = (props) => {
+const createParagraph = (text) => {
+  return {
+    children: [{ text }],
+  };
+};
+
+const MenuItem = (props) => {
   const {
-    selected = false,
-    manage = false,
-    metadata = null,
+    editingTab = null,
     block = null,
+    selected = false,
     data = {},
+    tabs = {},
     tabsData = {},
     tabsList = [],
-    tabs = {},
     tabData = {},
-    multiSelected = [],
-    activeBlock = null,
     activeTab = null,
-    activeTabIndex = 0,
+    activeBlock = null,
     onChangeBlock = () => {},
     setActiveBlock = () => {},
     setActiveTab = () => {},
+    setEditingTab = () => {},
     emptyTab = () => {},
-    onChangeTabData = () => {},
-    onSelectBlock = () => {},
   } = props;
-  const uiContainer = data.align === 'full' ? 'ui container' : false;
+  const { tab, index, name } = props;
+  const title = tabs[tab].title;
+  const defaultTitle = `Tab ${index + 1}`;
+  const titleUndefined =
+    typeof title === 'undefined' || typeof title.data !== 'undefined';
 
   const addNewTab = () => {
     const tabId = uuid();
@@ -52,35 +61,121 @@ const Edit = (props) => {
     });
   };
 
-  const panes = tabsList.map((tab, index) => {
-    const name = tabs[tab].title || `Tab ${index + 1}`;
+  return (
+    <>
+      <Menu.Item
+        name={name}
+        active={tab === activeTab}
+        onClick={() => {
+          setActiveTab(tab);
+          if (activeBlock) {
+            setActiveBlock(null);
+          }
+          if (editingTab !== tab) {
+            setEditingTab(null);
+          }
+        }}
+        onDoubleClick={() => {
+          setEditingTab(tab);
+        }}
+      >
+        {editingTab === tab && selected ? (
+          <SlateEditor
+            className="tab-title"
+            id={tab}
+            name={tab}
+            value={titleUndefined ? [createParagraph(name)] : title}
+            onChange={(newTitle) => {
+              onChangeBlock(block, {
+                ...data,
+                data: {
+                  ...tabsData,
+                  blocks: {
+                    ...tabsData.blocks,
+                    [tab]: {
+                      ...(tabData || {}),
+                      title: newTitle,
+                    },
+                  },
+                },
+              });
+            }}
+            block={block}
+            renderExtensions={[]}
+            selected={editingTab === tab && selected}
+            properties={props.metadata}
+            placeholder={defaultTitle}
+          />
+        ) : titleUndefined ? (
+          <p>{defaultTitle}</p>
+        ) : (
+          serializeNodes(title)
+        )}
+      </Menu.Item>
+      {index === tabsList.length - 1 ? (
+        <>
+          <Menu.Item
+            name="addition"
+            onClick={() => {
+              addNewTab();
+              setEditingTab(null);
+            }}
+          >
+            +
+          </Menu.Item>
+        </>
+      ) : (
+        ''
+      )}
+    </>
+  );
+};
 
+const Edit = (props) => {
+  const [editingTab, setEditingTab] = React.useState(null);
+  const {
+    selected = false,
+    manage = false,
+    metadata = null,
+    block = null,
+    data = {},
+    tabsData = {},
+    tabsList = [],
+    tabs = {},
+    multiSelected = [],
+    activeBlock = null,
+    activeTab = null,
+    activeTabIndex = 0,
+    onChangeBlock = () => {},
+    emptyTab = () => {},
+    onChangeTabData = () => {},
+    onSelectBlock = () => {},
+  } = props;
+  const uiContainer = data.align === 'full' ? 'ui container' : false;
+  const tabsTitle = data.title;
+  const tabsTitleUndefined =
+    typeof tabsTitle === 'undefined' || typeof tabsTitle.data !== 'undefined';
+
+  const panes = tabsList.map((tab, index) => {
     return {
       id: tab,
       menuItem: () => {
         return (
           <>
-            <Menu.Item
-              name={name}
-              active={tab === activeTab}
-              onClick={() => {
-                setActiveTab(tab);
-                if (activeBlock) {
-                  setActiveBlock(null);
-                }
-              }}
-            >
-              {name}
-            </Menu.Item>
-            {index === tabsList.length - 1 ? (
-              <>
-                <Menu.Item name="addition" onClick={addNewTab}>
-                  +
-                </Menu.Item>
-              </>
+            {index === 0 && !tabsTitleUndefined ? (
+              <Menu.Item className="menu-title">
+                {serializeNodes(tabsTitle)}
+              </Menu.Item>
             ) : (
               ''
             )}
+            <MenuItem
+              {...props}
+              tab={tab}
+              index={index}
+              editingTab={editingTab}
+              setEditingTab={setEditingTab}
+            />
           </>
         );
       },
@@ -105,6 +200,7 @@ const Edit = (props) => {
                   activeBlock === id ? false : isMultipleSelection,
                   e,
                 );
+                setEditingTab(null);
               }}
               onChangeFormData={(newFormData) => {
                 onChangeBlock(block, {
@@ -146,10 +242,12 @@ const Edit = (props) => {
   return (
     <>
       <Tab
-        menu={{}}
+        menu={{
+          className: cx(data.align || 'left'),
+        }}
         panes={panes}
         activeIndex={activeTabIndex}
-        className={uiContainer}
+        className={cx(uiContainer, data.align || 'left')}
       />
     </>
   );
