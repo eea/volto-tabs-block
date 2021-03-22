@@ -16,9 +16,13 @@
     "type": "git",
     "url": "git@github.com:eea/volto-tabs-block.git"
   },
+  "addons": [
+    "volto-slate:asDefault"
+  ],
   "dependencies": {
     "react-slick": "^0.24.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "volto-slate": "2.2.0"
   },
   "scripts": {
     "release": "release-it",
