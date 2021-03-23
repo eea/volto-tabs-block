@@ -25,17 +25,17 @@ const View = (props) => {
     <div className={cx('tabs-block', template)} ref={view}>
       <TabsView
         {...props}
-        metadata={metadata}
-        uiContainer={uiContainer}
-        template={template}
         activeTab={activeTab}
         activeTabIndex={activeTabIndex}
-        tabsData={tabsData}
-        tabsList={tabsList}
+        metadata={metadata}
+        parentRef={view}
         tabs={tabs}
         tabData={tabData}
+        tabsData={tabsData}
+        tabsList={tabsList}
+        template={template}
+        uiContainer={uiContainer}
         setActiveTab={setActiveTab}
-        parentRef={view}
       />
     </div>
   );

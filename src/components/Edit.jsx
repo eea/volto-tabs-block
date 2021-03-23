@@ -21,6 +21,7 @@ const Edit = (props) => {
   const tabs = tabsData.blocks || {};
   const [activeTab, setActiveTab] = React.useState(tabsList?.[0]);
   const [activeBlock, setActiveBlock] = React.useState(null);
+  const [editingTab, setEditingTab] = React.useState(null);
   const [multiSelected, setMultiSelected] = React.useState([]);
   const blocksState = React.useRef({});
   const activeTabIndex = tabsList.indexOf(activeTab);
@@ -68,8 +69,12 @@ const Edit = (props) => {
       props.onFocusNextBlock(block, node);
       e.preventDefault();
     }
-    if (e.key === 'Enter' && !disableEnter && !activeBlock) {
+    if (e.key === 'Enter' && !disableEnter && !activeBlock && !editingTab) {
       props.onAddBlock(config.settings.defaultBlockType, index + 1);
+      e.preventDefault();
+    }
+    if (e.key === 'Enter' && editingTab) {
+      setEditingTab(null);
       e.preventDefault();
     }
   };
@@ -147,22 +152,24 @@ const Edit = (props) => {
     >
       <TabsEdit
         {...props}
-        metadata={props.metadata || props.properties}
-        template={template}
-        multiSelected={multiSelected}
         activeBlock={activeBlock}
         activeTab={activeTab}
         activeTabIndex={activeTabIndex}
-        tabsData={tabsData}
-        tabsList={tabsList}
-        tabs={tabs}
-        tabData={tabData}
-        setActiveBlock={setActiveBlock}
-        setActiveTab={setActiveTab}
+        editingTab={editingTab}
         empty={empty}
         emptyTab={emptyTab}
+        metadata={props.metadata || props.properties}
+        multiSelected={multiSelected}
+        tabs={tabs}
+        tabData={tabData}
+        tabsData={tabsData}
+        tabsList={tabsList}
+        template={template}
         onChangeTabData={onChangeTabData}
         onSelectBlock={onSelectBlock}
+        setActiveBlock={setActiveBlock}
+        setActiveTab={setActiveTab}
+        setEditingTab={setEditingTab}
       />
 
       {props.selected ? (

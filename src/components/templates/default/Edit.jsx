@@ -1,45 +1,36 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
-import { Menu, Tab } from 'semantic-ui-react';
+import { Menu, Tab, Input } from 'semantic-ui-react';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
-import SlateEditor from 'volto-slate/editor/SlateEditor';
-import { serializeNodes } from 'volto-slate/editor/render';
-import { Editor } from 'volto-slate/utils';
+import { SimpleMarkdown } from '@eeacms/volto-tabs-block/utils';
 import cx from 'classnames';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
-const createParagraph = (text) => {
-  return {
-    children: [{ text }],
-  };
-};
-
 const MenuItem = (props) => {
+  const inputRef = React.useRef(null);
   const {
-    editingTab = null,
-    block = null,
-    selected = false,
-    data = {},
-    tabs = {},
-    tabsData = {},
-    tabsList = [],
-    tabData = {},
     activeTab = null,
     activeBlock = null,
-    onChangeBlock = () => {},
+    block = null,
+    data = {},
+    editingTab = null,
+    selected = false,
+    tabs = {},
+    tabData = {},
+    tabsData = {},
+    tabsList = [],
+    emptyTab = () => {},
     setActiveBlock = () => {},
     setActiveTab = () => {},
     setEditingTab = () => {},
-    emptyTab = () => {},
+    onChangeBlock = () => {},
   } = props;
   const { tab, index } = props;
-  const title = { children: tabs[tab].title || [], isVoid: Editor.isVoid };
-  const titleUndefined =
-    !title.children.length || Editor.string(title, []) === '';
+  const title = tabs[tab].title;
   const defaultTitle = `Tab ${index + 1}`;
 
   const addNewTab = () => {
@@ -62,13 +53,22 @@ const MenuItem = (props) => {
     });
   };
 
+  React.useEffect(() => {
+    if (editingTab === tab && inputRef.current) {
+      inputRef.current.focus();
+    }
+    /* eslint-disable-next-line */
+  }, [editingTab]);
+
   return (
     <>
       <Menu.Item
         name={defaultTitle}
         active={tab === activeTab}
         onClick={() => {
-          setActiveTab(tab);
+          if (activeTab !== tab) {
+            setActiveTab(tab);
+          }
           if (activeBlock) {
             setActiveBlock(null);
           }
@@ -81,14 +81,13 @@ const MenuItem = (props) => {
         }}
       >
         {editingTab === tab && selected ? (
-          <SlateEditor
-            className="tab-title"
-            id={tab}
-            name={tab}
-            value={
-              titleUndefined ? [createParagraph(defaultTitle)] : title.children
-            }
-            onChange={(newTitle) => {
+          <Input
+            fluid
+            placeholder={defaultTitle}
+            ref={inputRef}
+            transparent
+            value={title}
+            onChange={(e) => {
               onChangeBlock(block, {
                 ...data,
                 data: {
@@ -97,22 +96,17 @@ const MenuItem = (props) => {
                     ...tabsData.blocks,
                     [tab]: {
                       ...(tabData || {}),
-                      title: newTitle,
+                      title: e.target.value,
                     },
                   },
                 },
               });
             }}
-            block={block}
-            renderExtensions={[]}
-            selected={editingTab === tab && selected}
-            properties={props.metadata}
-            placeholder={defaultTitle}
           />
-        ) : titleUndefined ? (
-          <p>{defaultTitle}</p>
+        ) : title ? (
+          <p>{title}</p>
         ) : (
-          serializeNodes(title)
+          <p>{defaultTitle}</p>
         )}
       </Menu.Item>
       {index === tabsList.length - 1 ? (
@@ -135,29 +129,29 @@ const MenuItem = (props) => {
 };
 
 const Edit = (props) => {
-  const [editingTab, setEditingTab] = React.useState(null);
   const {
-    selected = false,
-    manage = false,
-    metadata = null,
-    block = null,
-    data = {},
-    tabsData = {},
-    tabsList = [],
-    tabs = {},
-    multiSelected = [],
     activeBlock = null,
     activeTab = null,
     activeTabIndex = 0,
-    onChangeBlock = () => {},
+    block = null,
+    data = {},
+    selected = false,
+    editingTab = null,
+    manage = false,
+    metadata = null,
+    multiSelected = [],
+    tabs = {},
+    tabsData = {},
+    tabsList = [],
     emptyTab = () => {},
+    onChangeBlock = () => {},
     onChangeTabData = () => {},
     onSelectBlock = () => {},
+    setEditingTab = () => {},
   } = props;
   const uiContainer = data.align === 'full' ? 'ui container' : false;
-  const tabsTitle = { children: data.title || [], isVoid: Editor.isVoid };
-  const tabsTitleUndefined =
-    !tabsTitle.children.length || Editor.string(tabsTitle, []) === '';
+  const tabsTitle = data.title;
+  const tabsDescription = data.description;
 
   const panes = tabsList.map((tab, index) => {
     return {
@@ -165,19 +159,20 @@ const Edit = (props) => {
       menuItem: () => {
         return (
           <>
-            {index === 0 && !tabsTitleUndefined ? (
+            {index === 0 && (tabsTitle || tabsDescription) ? (
               <Menu.Item className="menu-title">
-                {serializeNodes(tabsTitle.children)}
+                <SimpleMarkdown md={tabsTitle} defaultTag="##" />
+                <SimpleMarkdown md={tabsDescription} />
               </Menu.Item>
             ) : (
               ''
             )}
             <MenuItem
               {...props}
-              tab={tab}
-              index={index}
               editingTab={editingTab}
+              index={index}
               setEditingTab={setEditingTab}
+              tab={tab}
             />
           </>
         );
@@ -186,25 +181,16 @@ const Edit = (props) => {
         return (
           <Tab.Pane>
             <BlocksForm
-              title={data?.placeholder}
+              allowedBlocks={data?.allowedBlocks}
               description={data?.instrunctions?.data}
               manage={manage}
-              allowedBlocks={data?.allowedBlocks}
               metadata={metadata}
+              pathname={props.pathname}
               properties={isEmpty(tabs[tab]) ? emptyBlocksForm() : tabs[tab]}
-              selectedBlock={selected && activeBlock ? activeBlock : null}
               selected={activeBlock === tab}
-              onSelectBlock={(id, selected, e) => {
-                const isMultipleSelection = e
-                  ? e.shiftKey || e.ctrlKey || e.metaKey
-                  : false;
-                onSelectBlock(
-                  id,
-                  activeBlock === id ? false : isMultipleSelection,
-                  e,
-                );
-                setEditingTab(null);
-              }}
+              selectedBlock={selected && activeBlock ? activeBlock : null}
+              title={data?.placeholder}
+              onChangeField={onChangeTabData}
               onChangeFormData={(newFormData) => {
                 onChangeBlock(block, {
                   ...data,
@@ -221,14 +207,23 @@ const Edit = (props) => {
                   },
                 });
               }}
-              onChangeField={onChangeTabData}
-              pathname={props.pathname}
+              onSelectBlock={(id, selected, e) => {
+                const isMultipleSelection = e
+                  ? e.shiftKey || e.ctrlKey || e.metaKey
+                  : false;
+                onSelectBlock(
+                  id,
+                  activeBlock === id ? false : isMultipleSelection,
+                  e,
+                );
+                setEditingTab(null);
+              }}
             >
               {({ draginfo }, editBlock, blockProps) => {
                 return (
                   <EditBlockWrapper
-                    draginfo={draginfo}
                     blockProps={blockProps}
+                    draginfo={draginfo}
                     multiSelected={multiSelected.includes(blockProps.block)}
                   >
                     {editBlock}
@@ -245,12 +240,12 @@ const Edit = (props) => {
   return (
     <>
       <Tab
+        activeIndex={activeTabIndex}
+        className={cx(uiContainer, data.align || 'left')}
         menu={{
           className: cx(data.align || 'left'),
         }}
         panes={panes}
-        activeIndex={activeTabIndex}
-        className={cx(uiContainer, data.align || 'left')}
       />
     </>
   );

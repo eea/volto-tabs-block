@@ -39,7 +39,6 @@ export const schema = (config, templateSchema = {}) => {
       },
       title: {
         title: 'Title',
-        widget: 'slate_richtext',
       },
       ...(templateSchema.properties || {}),
     },

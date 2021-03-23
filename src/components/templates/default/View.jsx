@@ -5,8 +5,7 @@ import { withRouter } from 'react-router';
 import { Menu, Tab } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import { serializeNodes } from 'volto-slate/editor/render';
-import { Editor } from 'volto-slate/utils';
+import { SimpleMarkdown } from '@eeacms/volto-tabs-block/utils';
 
 import cx from 'classnames';
 
@@ -15,9 +14,8 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 const MenuItem = (props) => {
   const { activeTab = null, tabs = {}, setActiveTab = () => {} } = props;
   const { tab, index } = props;
-  const title = { children: tabs[tab].title || [], isVoid: Editor.isVoid };
-  const titleUndefined =
-    !title.children.length || Editor.string(title, []) === '';
+  const title = tabs[tab].title;
+
   const defaultTitle = `Tab ${index + 1}`;
 
   return (
@@ -25,10 +23,12 @@ const MenuItem = (props) => {
       name={defaultTitle}
       active={tab === activeTab}
       onClick={() => {
-        setActiveTab(tab);
+        if (activeTab !== tab) {
+          setActiveTab(tab);
+        }
       }}
     >
-      {titleUndefined ? <p>{defaultTitle}</p> : serializeNodes(title)}
+      {title ? <p>{title}</p> : <p>{defaultTitle}</p>}
     </Menu.Item>
   );
 };
@@ -45,9 +45,8 @@ const View = (props) => {
     setActiveTab = () => {},
   } = props;
   const uiContainer = data.align === 'full' ? 'ui container' : '';
-  const tabsTitle = { children: data.title || [], isVoid: Editor.isVoid };
-  const tabsTitleUndefined =
-    !tabsTitle.children.length || Editor.string(tabsTitle, []) === '';
+  const tabsTitle = data.title;
+  const tabsDescription = data.description;
 
   React.useEffect(() => {
     const urlHash = props.location.hash.substring(1) || '';
@@ -82,9 +81,10 @@ const View = (props) => {
       menuItem: () => {
         return (
           <>
-            {index === 0 && !tabsTitleUndefined ? (
+            {index === 0 && (tabsTitle || tabsDescription) ? (
               <Menu.Item className="menu-title">
-                {serializeNodes(tabsTitle)}
+                <SimpleMarkdown md={tabsTitle} defaultTag="##" />
+                <SimpleMarkdown md={tabsDescription} />
               </Menu.Item>
             ) : (
               ''

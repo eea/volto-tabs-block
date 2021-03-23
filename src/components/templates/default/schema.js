@@ -4,10 +4,13 @@ export default () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['align'],
+      fields: ['description', 'align'],
     },
   ],
   properties: {
+    description: {
+      title: 'Description',
+    },
     align: {
       title: 'Menu alignment',
       type: 'array',
