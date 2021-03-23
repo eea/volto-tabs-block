@@ -7,6 +7,7 @@ import { emptyBlocksForm } from '@plone/volto/helpers';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
 import SlateEditor from 'volto-slate/editor/SlateEditor';
 import { serializeNodes } from 'volto-slate/editor/render';
+import { Editor } from 'volto-slate/utils';
 import cx from 'classnames';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
@@ -35,11 +36,11 @@ const MenuItem = (props) => {
     setEditingTab = () => {},
     emptyTab = () => {},
   } = props;
-  const { tab, index, name } = props;
-  const title = tabs[tab].title;
-  const defaultTitle = `Tab ${index + 1}`;
+  const { tab, index } = props;
+  const title = { children: tabs[tab].title || [], isVoid: Editor.isVoid };
   const titleUndefined =
-    typeof title === 'undefined' || typeof title.data !== 'undefined';
+    !title.children.length || Editor.string(title, []) === '';
+  const defaultTitle = `Tab ${index + 1}`;
 
   const addNewTab = () => {
     const tabId = uuid();
@@ -64,7 +65,7 @@ const MenuItem = (props) => {
   return (
     <>
       <Menu.Item
-        name={name}
+        name={defaultTitle}
         active={tab === activeTab}
         onClick={() => {
           setActiveTab(tab);
@@ -84,7 +85,9 @@ const MenuItem = (props) => {
             className="tab-title"
             id={tab}
             name={tab}
-            value={titleUndefined ? [createParagraph(name)] : title}
+            value={
+              titleUndefined ? [createParagraph(defaultTitle)] : title.children
+            }
             onChange={(newTitle) => {
               onChangeBlock(block, {
                 ...data,
@@ -152,9 +155,9 @@ const Edit = (props) => {
     onSelectBlock = () => {},
   } = props;
   const uiContainer = data.align === 'full' ? 'ui container' : false;
-  const tabsTitle = data.title;
+  const tabsTitle = { children: data.title || [], isVoid: Editor.isVoid };
   const tabsTitleUndefined =
-    typeof tabsTitle === 'undefined' || typeof tabsTitle.data !== 'undefined';
+    !tabsTitle.children.length || Editor.string(tabsTitle, []) === '';
 
   const panes = tabsList.map((tab, index) => {
     return {
@@ -164,7 +167,7 @@ const Edit = (props) => {
           <>
             {index === 0 && !tabsTitleUndefined ? (
               <Menu.Item className="menu-title">
-                {serializeNodes(tabsTitle)}
+                {serializeNodes(tabsTitle.children)}
               </Menu.Item>
             ) : (
               ''

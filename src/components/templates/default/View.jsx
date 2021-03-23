@@ -6,6 +6,7 @@ import { Menu, Tab } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { serializeNodes } from 'volto-slate/editor/render';
+import { Editor } from 'volto-slate/utils';
 
 import cx from 'classnames';
 
@@ -14,10 +15,10 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 const MenuItem = (props) => {
   const { activeTab = null, tabs = {}, setActiveTab = () => {} } = props;
   const { tab, index } = props;
-  const title = tabs[tab].title;
-  const defaultTitle = `Tab ${index + 1}`;
+  const title = { children: tabs[tab].title || [], isVoid: Editor.isVoid };
   const titleUndefined =
-    typeof title === 'undefined' || typeof title.data !== 'undefined';
+    !title.children.length || Editor.string(title, []) === '';
+  const defaultTitle = `Tab ${index + 1}`;
 
   return (
     <Menu.Item
@@ -44,9 +45,9 @@ const View = (props) => {
     setActiveTab = () => {},
   } = props;
   const uiContainer = data.align === 'full' ? 'ui container' : '';
-  const tabsTitle = data.title;
+  const tabsTitle = { children: data.title || [], isVoid: Editor.isVoid };
   const tabsTitleUndefined =
-    typeof tabsTitle === 'undefined' || typeof tabsTitle.data !== 'undefined';
+    !tabsTitle.children.length || Editor.string(tabsTitle, []) === '';
 
   React.useEffect(() => {
     const urlHash = props.location.hash.substring(1) || '';
