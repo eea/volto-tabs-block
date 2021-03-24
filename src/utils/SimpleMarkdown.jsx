@@ -22,6 +22,10 @@ const SimpleMarkdown = (props) => {
 
   if (!md) return <React.Fragment />;
   if (!text.length) return TAGS[defaultTag]?.(TAG, attrs);
+  if (!(TAG in TAGS)) {
+    text.unshift(TAG);
+    return TAGS[defaultTag]?.(text.join(' '), attrs);
+  }
   return TAGS[TAG]?.(text.join(' '), attrs);
 };
 

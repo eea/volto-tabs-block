@@ -80,8 +80,11 @@ const View = (props) => {
       const currentIndex = slider.current?.innerSlider?.state?.currentSlide;
       const parentId = data.id || props.id;
       const parent = document.getElementById(parentId);
-      const headerWrapper = document.querySelector('.header-wrapper');
-      const offsetHeight = headerWrapper?.offsetHeight || 0;
+      // TODO: Find the best way to add offset relative to header
+      //       The header can be static on mobile and relative on > mobile
+      // const headerWrapper = document.querySelector('.header-wrapper');
+      // const offsetHeight = headerWrapper?.offsetHeight || 0;
+      const offsetHeight = 0;
       if (id !== parentId && index > -1 && parent) {
         if (currentIndex !== index) {
           slider.current.slickGoTo(index);
