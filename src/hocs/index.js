@@ -1,3 +1,4 @@
+import waitForNodes from './waitForNodes';
 import withScrollToTarget from './withScrollToTarget';
 
-export { withScrollToTarget };
+export { waitForNodes, withScrollToTarget };

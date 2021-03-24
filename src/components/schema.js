@@ -1,9 +1,11 @@
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 
 export const schema = (config, templateSchema = {}) => {
-  const templates = Object.keys(
-    config.blocks.blocksConfig[TABS_BLOCK].templates,
-  ).map((template) => [template, template]);
+  const templatesConfig = config.blocks.blocksConfig[TABS_BLOCK].templates;
+  const templates = Object.keys(templatesConfig).map((template) => [
+    template,
+    templatesConfig[template].title || template,
+  ]);
 
   const defaultFieldset = templateSchema.fieldsets.filter(
     (fieldset) => fieldset.id === 'default',
@@ -17,8 +19,9 @@ export const schema = (config, templateSchema = {}) => {
         title: 'Default',
         fields: [
           'data',
-          'template',
           'title',
+          'template',
+          'verticalAlign',
           ...(defaultFieldset?.fields || {}),
         ],
       },
@@ -31,14 +34,24 @@ export const schema = (config, templateSchema = {}) => {
         title: 'Tabs',
         type: 'tabs',
       },
+      title: {
+        title: 'Title',
+      },
       template: {
         title: 'Template',
         type: 'array',
         choices: [...templates],
         default: 'default',
       },
-      title: {
-        title: 'Title',
+      verticalAlign: {
+        title: 'Vertical align',
+        type: 'array',
+        choices: [
+          ['flex-start', 'Top'],
+          ['center', 'Middle'],
+          ['flex-end', 'Bottom'],
+        ],
+        default: 'flex-start',
       },
       ...(templateSchema.properties || {}),
     },

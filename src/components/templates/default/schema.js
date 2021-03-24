@@ -4,14 +4,11 @@ export default () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['description', 'align'],
+      fields: ['menuAlign', 'description'],
     },
   ],
   properties: {
-    description: {
-      title: 'Description',
-    },
-    align: {
+    menuAlign: {
       title: 'Menu alignment',
       type: 'array',
       choices: [
@@ -20,6 +17,10 @@ export default () => ({
         ['right', 'Right'],
         ['space-between', 'Space between'],
       ],
+      default: 'left',
+    },
+    description: {
+      title: 'Description',
     },
   },
   required: [],

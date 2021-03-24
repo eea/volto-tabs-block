@@ -7,6 +7,7 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { empty, emptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { DefaultEdit } from './templates/default';
 import { schema } from './schema';
+import cx from 'classnames';
 
 import config from '@plone/volto/registry';
 
@@ -26,6 +27,8 @@ const Edit = (props) => {
   const blocksState = React.useRef({});
   const activeTabIndex = tabsList.indexOf(activeTab);
   const tabData = tabs[activeTab] || {};
+  const theme = data.theme || 'light';
+  const verticalAlign = data.verticalAlign || 'flex-start';
 
   const TabsEdit =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.edit ||
@@ -141,7 +144,7 @@ const Edit = (props) => {
 
   return (
     <div
-      className="tabs-block edit"
+      className={cx('tabs-block edit', theme, verticalAlign)}
       role="presentation"
       onKeyDown={(e) => {
         handleKeyDown(e, props.index, props.block, props.blockNode.current);

@@ -2,9 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
+import { Portal } from 'react-portal';
 import loadable from '@loadable/component';
 import { RenderBlocks } from '@plone/volto/components';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import {
+  waitForNodes,
+  withScrollToTarget,
+} from '@eeacms/volto-tabs-block/hocs';
 import cx from 'classnames';
 
 import 'slick-carousel/slick/slick.css';
@@ -13,26 +17,56 @@ import '@eeacms/volto-tabs-block/less/carousel.less';
 
 const Slider = loadable(() => import('react-slick'));
 
-const ArrowsGroup = (props) => {
+const Dots = waitForNodes((props) => {
+  const node = props.node.current;
+
   return (
-    <div className="slick-arrows">
-      <button
-        data-role="none"
-        className="slick-arrow slick-prev"
-        onClick={props.onPrev}
-      >
-        Previous
-      </button>
-      <button
-        data-role="none"
-        className="slick-arrow slick-next"
-        onClick={props.onNext}
-      >
-        Next
-      </button>
-    </div>
+    <Portal node={node}>
+      <div className="slick-dots-wrapper">
+        <ul className={cx('slick-dots', props.uiContainer)}>{props.dots}</ul>
+      </div>
+    </Portal>
   );
-};
+});
+
+const ArrowsGroup = waitForNodes((props) => {
+  const { currentSlide, slideCount } = props;
+  const node = props.node.current;
+
+  return (
+    <Portal node={node}>
+      <div
+        className={cx({
+          'slick-arrows': true,
+          'one-arrow': currentSlide === 0 || currentSlide === slideCount - 1,
+        })}
+      >
+        {currentSlide > 0 ? (
+          <button
+            data-role="none"
+            className="slick-arrow slick-prev"
+            onClick={props.onPrev}
+          >
+            Previous
+          </button>
+        ) : (
+          ''
+        )}
+        {currentSlide < slideCount - 1 ? (
+          <button
+            data-role="none"
+            className="slick-arrow slick-next"
+            onClick={props.onNext}
+          >
+            Next
+          </button>
+        ) : (
+          ''
+        )}
+      </div>
+    </Portal>
+  );
+});
 
 const View = (props) => {
   const slider = React.useRef(null);
@@ -44,7 +78,6 @@ const View = (props) => {
     tabs = {},
     hashlink = {},
   } = props;
-  const theme = data.theme || 'light';
   const uiContainer = data.align === 'full' ? 'ui container' : false;
 
   const onPrev = () => {
@@ -57,12 +90,30 @@ const View = (props) => {
 
   const settings = {
     autoplay: false,
+    arrows: true,
     dots: true,
     speed: 500,
     initialSlide: 0,
     lazyLoad: 'ondemand',
     prevArrow: <React.Fragment />,
-    nextArrow: <ArrowsGroup {...props} onPrev={onPrev} onNext={onNext} />,
+    nextArrow: (
+      <ArrowsGroup
+        nodes={[props.node, slider]}
+        node={props.node}
+        slider={slider}
+        onPrev={onPrev}
+        onNext={onNext}
+      />
+    ),
+    appendDots: (dots) => (
+      <Dots
+        nodes={[props.node, slider]}
+        node={props.node}
+        slider={slider}
+        dots={dots}
+        uiContainer={uiContainer}
+      />
+    ),
     swipe: true,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -111,7 +162,7 @@ const View = (props) => {
 
   return (
     <>
-      <Slider {...settings} ref={slider} className={cx(uiContainer, theme)}>
+      <Slider {...settings} ref={slider} className={cx(uiContainer)}>
         {panes.length ? panes.map((pane) => pane.renderItem) : ''}
       </Slider>
     </>

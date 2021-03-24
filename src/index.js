@@ -32,16 +32,19 @@ export default (config) => {
     schema: layoutSchema(config),
     templates: {
       default: {
+        title: 'Default',
         edit: DefaultEdit,
         view: DefaultView,
         schema: defaultSchema,
       },
       carousel: {
+        title: 'Carousel horizontal',
         edit: DefaultEdit,
         view: HorizontalCarouselView,
         schema: carouselSchema,
       },
       carousel_vertical: {
+        title: 'Carousel vertical',
         edit: DefaultEdit,
         view: VerticalCarouselView,
         schema: carouselSchema,

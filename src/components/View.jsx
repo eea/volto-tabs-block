@@ -16,17 +16,23 @@ const View = (props) => {
   const [activeTab, setActiveTab] = React.useState(tabsList?.[0]);
   const activeTabIndex = tabsList.indexOf(activeTab);
   const tabData = tabs[activeTab] || {};
+  const theme = data.theme || 'light';
+  const verticalAlign = data.verticalAlign || 'flex-start';
 
   const TabsView =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.view ||
     DefaultView;
 
   return (
-    <div className={cx('tabs-block', template)} ref={view}>
+    <div
+      className={cx('tabs-block', template, theme, verticalAlign)}
+      ref={view}
+    >
       <TabsView
         {...props}
         activeTab={activeTab}
         activeTabIndex={activeTabIndex}
+        node={view}
         metadata={metadata}
         parentRef={view}
         tabs={tabs}

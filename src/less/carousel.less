@@ -27,121 +27,6 @@
       flex-grow: 1;
     }
 
-    &.flex-start {
-      .slick-list {
-        justify-content: flex-start;
-      }
-    }
-
-    &.center {
-      .slick-list {
-        justify-content: center;
-      }
-    }
-
-    &.flex-end {
-      .slick-list {
-        justify-content: flex-end;
-      }
-    }
-
-    .slick-arrows {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-    }
-
-    .slick-arrow {
-      z-index: 1;
-      display: block !important;
-    }
-
-    .slick-prev:before,
-    .slick-next:before {
-      opacity: @arrowsOpacity;
-    }
-
-    .slick-prev:hover:before,
-    .slick-prev:focus:before,
-    .slick-next:hover:before,
-    .slick-next:focus:before {
-      opacity: @arrowsHoverOpacity;
-    }
-
-    .slick-dots {
-      position: relative;
-      top: 0;
-      bottom: 0;
-      display: block;
-      padding: 1rem 0;
-      margin: 0;
-
-      li button:hover:before,
-      li button:focus:before {
-        opacity: @dotsHoverOpacity;
-      }
-
-      li button:before {
-        font-size: @dotsSize;
-        opacity: @dotsInactiveOpacity;
-      }
-
-      li.slick-active button:before {
-        opacity: @dotsActiveOpacity;
-      }
-    }
-
-    &.light {
-      .slick-prev:before,
-      .slick-next:before {
-        color: @lightColor;
-      }
-
-      .slick-dots {
-        li button:before {
-          color: @lightColor;
-        }
-
-        li.slick-active button:before {
-          color: @lightColor;
-        }
-      }
-    }
-
-    &.dark {
-      .slick-prev:before,
-      .slick-next:before {
-        color: @darkColor;
-      }
-
-      .slick-dots {
-        li button:before {
-          color: @darkColor;
-        }
-
-        li.slick-active button:before {
-          color: @darkColor;
-        }
-      }
-    }
-
-    &.grey {
-      .slick-prev:before,
-      .slick-next:before {
-        color: @greyColor;
-      }
-
-      .slick-dots {
-        li button:before {
-          color: @greyColor;
-        }
-
-        li.slick-active button:before {
-          color: @greyColor;
-        }
-      }
-    }
-
     &.slick-vertical {
       margin-bottom: 40px;
 
@@ -165,9 +50,140 @@
       }
     }
   }
+
+  &.flex-start {
+    > .slick-slider {
+      .slick-list {
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  &.center {
+    > .slick-slider {
+      .slick-list {
+        justify-content: center;
+      }
+    }
+  }
+
+  &.flex-end {
+    > .slick-slider {
+      .slick-list {
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  .slick-arrows {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .slick-arrow {
+      z-index: 1;
+      display: block !important;
+    }
+
+    .slick-prev {
+      left: 0;
+      transform: translate(100%, -50%);
+    }
+
+    .slick-next {
+      right: 0;
+      transform: translate(-100%, -50%);
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+      opacity: @arrowsOpacity;
+    }
+
+    .slick-prev:hover:before,
+    .slick-prev:focus:before,
+    .slick-next:hover:before,
+    .slick-next:focus:before {
+      opacity: @arrowsHoverOpacity;
+    }
+  }
+
+  .slick-dots {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    display: block;
+    padding: 1rem 0;
+    margin: 0;
+
+    li button:hover:before,
+    li button:focus:before {
+      opacity: @dotsHoverOpacity;
+    }
+
+    li button:before {
+      font-size: @dotsSize;
+      opacity: @dotsInactiveOpacity;
+    }
+
+    li.slick-active button:before {
+      opacity: @dotsActiveOpacity;
+    }
+  }
+
+  &.light {
+    .slick-prev:before,
+    .slick-next:before {
+      color: @lightColor;
+    }
+
+    .slick-dots {
+      li button:before {
+        color: @lightColor;
+      }
+
+      li.slick-active button:before {
+        color: @lightColor;
+      }
+    }
+  }
+
+  &.dark {
+    .slick-prev:before,
+    .slick-next:before {
+      color: @darkColor;
+    }
+
+    .slick-dots {
+      li button:before {
+        color: @darkColor;
+      }
+
+      li.slick-active button:before {
+        color: @darkColor;
+      }
+    }
+  }
+
+  &.grey {
+    .slick-prev:before,
+    .slick-next:before {
+      color: @greyColor;
+    }
+
+    .slick-dots {
+      li button:before {
+        color: @greyColor;
+      }
+
+      li.slick-active button:before {
+        color: @greyColor;
+      }
+    }
+  }
 }
 
-@media only screen and (max-width: @largestMobileScreen) {
+@media only screen and (max-width: @largestMobileScreen + @largestMobileScreenOffset) {
   body:not(.has-toolbar):not(.has-sidebar):not(.has-toolbar-collapsed):not(.has-sidebar-collapsed),
   body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed),
   body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed) {
@@ -179,26 +195,67 @@
             margin-left: 1.5em !important;
           }
         }
+      }
 
-        .slick-arrows {
+      .slick-arrows {
+        .slick-arrow {
+          position: relative;
+          top: 0;
+          bottom: 0;
+          transform: translate(0, 0);
+
+          &.slick-prev {
+            left: -20px;
+          }
+
+          &.slick-next {
+            right: -20px;
+          }
+        }
+        &.one-arrow {
           .slick-arrow {
-            position: relative;
-            top: 0;
-            bottom: 0;
-
             &.slick-prev {
-              left: -20px;
+              left: unset;
             }
 
             &.slick-next {
-              right: -20px;
+              right: unset;
             }
           }
         }
+      }
 
-        .slick-dots {
-          padding: 0 0 1rem 0;
-        }
+      .slick-dots {
+        padding: 0 0 1rem 0;
+      }
+    }
+  }
+}
+
+
+body.has-toolbar:not(.has-sidebar) {
+  .tabs-block {
+    .slick-arrows {
+      .slick-prev {
+        left: 40px;
+      }
+
+      .slick-next {
+        right: 40px;
+      }
+    }
+  }
+}
+
+body.has-toolbar-collapsed:not(.has-sidebar) {
+  .tabs-block {
+    .slick-arrows {
+      .slick-prev {
+        left: 10px;
+      }
+
+      .slick-next {
+        right: 10px;
       }
     }
   }

@@ -9,3 +9,5 @@
 @lightColor: #fff;
 @darkColor: #000;
 @greyColor: #ccc;
+
+@largestMobileScreenOffset: 53px;

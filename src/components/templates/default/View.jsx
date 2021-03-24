@@ -45,6 +45,7 @@ const View = (props) => {
     setActiveTab = () => {},
   } = props;
   const uiContainer = data.align === 'full' ? 'ui container' : '';
+  const menuAlign = data.menuAlign || 'left';
   const tabsTitle = data.title;
   const tabsDescription = data.description;
 
@@ -108,11 +109,11 @@ const View = (props) => {
     <>
       <Tab
         menu={{
-          className: cx(data.align || 'left'),
+          className: cx(menuAlign),
         }}
         panes={panes}
         activeIndex={activeTabIndex}
-        className={uiContainer}
+        className={cx('default tabs', uiContainer)}
       />
     </>
   );
