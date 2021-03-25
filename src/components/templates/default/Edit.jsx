@@ -159,7 +159,7 @@ const Edit = (props) => {
       id: tab,
       menuItem: () => {
         return (
-          <>
+          <React.Fragment key={`tab-${tab}`}>
             {index === 0 && (tabsTitle || tabsDescription) ? (
               <Menu.Item className="menu-title">
                 <SimpleMarkdown md={tabsTitle} defaultTag="##" />
@@ -175,7 +175,7 @@ const Edit = (props) => {
               setEditingTab={setEditingTab}
               tab={tab}
             />
-          </>
+          </React.Fragment>
         );
       },
       render: () => {

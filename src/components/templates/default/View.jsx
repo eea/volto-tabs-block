@@ -81,7 +81,7 @@ const View = (props) => {
       id: tab,
       menuItem: () => {
         return (
-          <>
+          <React.Fragment key={`tab-${tab}`}>
             {index === 0 && (tabsTitle || tabsDescription) ? (
               <Menu.Item className="menu-title">
                 <SimpleMarkdown md={tabsTitle} defaultTag="##" />
@@ -91,7 +91,7 @@ const View = (props) => {
               ''
             )}
             <MenuItem {...props} tab={tab} index={index} />
-          </>
+          </React.Fragment>
         );
       },
       render: () => {

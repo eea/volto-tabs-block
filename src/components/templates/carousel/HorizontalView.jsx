@@ -155,7 +155,12 @@ const View = (props) => {
     return {
       id: tab,
       renderItem: (
-        <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
+        <RenderBlocks
+          key={`slide-${tab}`}
+          {...props}
+          metadata={metadata}
+          content={tabs[tab]}
+        />
       ),
     };
   });
