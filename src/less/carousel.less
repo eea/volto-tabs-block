@@ -9,17 +9,16 @@
 .tabs-block {
   .slick-slider {
     display: flex !important;
-    min-height: inherit;
     flex: 1;
     flex-flow: column;
     justify-content: space-between;
 
-    &:not(.slick-vertical) {
-      .slick-slide {
-        padding-top: 5rem;
-        padding-bottom: 5rem;
-      }
-    }
+    // &:not(.slick-vertical) {
+    //   .slick-slide {
+    //     padding-top: 5rem;
+    //     padding-bottom: 5rem;
+    //   }
+    // }
 
     .slick-list {
       display: flex;
@@ -212,6 +211,7 @@
             right: -20px;
           }
         }
+
         &.one-arrow {
           .slick-arrow {
             &.slick-prev {
@@ -231,7 +231,6 @@
     }
   }
 }
-
 
 body.has-toolbar:not(.has-sidebar) {
   .tabs-block {
