@@ -1,6 +1,7 @@
 import React from 'react';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { DefaultView } from './templates/default';
+import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import cx from 'classnames';
 
 import config from '@plone/volto/registry';
@@ -24,26 +25,38 @@ const View = (props) => {
     DefaultView;
 
   return (
-    <div
-      className={cx('tabs-block', template, theme, verticalAlign)}
-      ref={view}
+    <StyleWrapperView
+      {...props}
+      data={data}
+      styleData={data.styles || { customClass: 'styled' }}
     >
-      <TabsView
-        {...props}
-        activeTab={activeTab}
-        activeTabIndex={activeTabIndex}
-        node={view}
-        metadata={metadata}
-        parentRef={view}
-        tabs={tabs}
-        tabData={tabData}
-        tabsData={tabsData}
-        tabsList={tabsList}
-        template={template}
-        uiContainer={uiContainer}
-        setActiveTab={setActiveTab}
-      />
-    </div>
+      <div
+        className={cx('tabs-block', template, theme, verticalAlign)}
+        ref={view}
+      >
+        <StyleWrapperView
+          {...props}
+          data={tabData}
+          styleData={tabData.styles || { customClass: 'styled' }}
+        >
+          <TabsView
+            {...props}
+            activeTab={activeTab}
+            activeTabIndex={activeTabIndex}
+            node={view}
+            metadata={metadata}
+            parentRef={view}
+            tabs={tabs}
+            tabData={tabData}
+            tabsData={tabsData}
+            tabsList={tabsList}
+            template={template}
+            uiContainer={uiContainer}
+            setActiveTab={setActiveTab}
+          />
+        </StyleWrapperView>
+      </div>
+    </StyleWrapperView>
   );
 };
 

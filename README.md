@@ -7,6 +7,8 @@
 
 ## Features
 
+#### IMPORTANT! Because this depends on @eeacms/volto-block-style, you should always load this addon as the last addon in Volto project configuration or after @eeacms/volto-block-style.
+
 ###
 
 Demo GIF

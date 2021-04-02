@@ -5,6 +5,8 @@ import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { getBlocksLayoutFieldname } from '@plone/volto/helpers';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { empty, emptyTab } from '@eeacms/volto-tabs-block/helpers';
+import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
+import { BlockStyleWrapperEdit } from '@eeacms/volto-block-style/BlockStyleWrapper';
 import { DefaultEdit } from './templates/default';
 import { schema } from './schema';
 import cx from 'classnames';
@@ -143,88 +145,96 @@ const Edit = (props) => {
   };
 
   return (
-    <div
-      className={cx('tabs-block edit', theme, verticalAlign)}
-      role="presentation"
-      onKeyDown={(e) => {
-        handleKeyDown(e, props.index, props.block, props.blockNode.current);
-      }}
-      // The tabIndex is required for the keyboard navigation
-      /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-      tabIndex={-1}
-    >
-      <TabsEdit
-        {...props}
-        activeBlock={activeBlock}
-        activeTab={activeTab}
-        activeTabIndex={activeTabIndex}
-        editingTab={editingTab}
-        empty={empty}
-        emptyTab={emptyTab}
-        metadata={props.metadata || props.properties}
-        multiSelected={multiSelected}
-        tabs={tabs}
-        tabData={tabData}
-        tabsData={tabsData}
-        tabsList={tabsList}
-        template={template}
-        onChangeTabData={onChangeTabData}
-        onSelectBlock={onSelectBlock}
-        setActiveBlock={setActiveBlock}
-        setActiveTab={setActiveTab}
-        setEditingTab={setEditingTab}
-      />
+    <BlockStyleWrapperEdit {...props}>
+      <div
+        className={cx('tabs-block edit', theme, verticalAlign)}
+        role="presentation"
+        onKeyDown={(e) => {
+          handleKeyDown(e, props.index, props.block, props.blockNode.current);
+        }}
+        // The tabIndex is required for the keyboard navigation
+        /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+        tabIndex={-1}
+      >
+        <StyleWrapperView
+          {...props}
+          data={tabData}
+          styleData={tabData.styles || { customClass: 'styled' }}
+        >
+          <TabsEdit
+            {...props}
+            activeBlock={activeBlock}
+            activeTab={activeTab}
+            activeTabIndex={activeTabIndex}
+            editingTab={editingTab}
+            empty={empty}
+            emptyTab={emptyTab}
+            metadata={props.metadata || props.properties}
+            multiSelected={multiSelected}
+            tabs={tabs}
+            tabData={tabData}
+            tabsData={tabsData}
+            tabsList={tabsList}
+            template={template}
+            onChangeTabData={onChangeTabData}
+            onSelectBlock={onSelectBlock}
+            setActiveBlock={setActiveBlock}
+            setActiveTab={setActiveTab}
+            setEditingTab={setEditingTab}
+          />
+        </StyleWrapperView>
 
-      {props.selected ? (
-        <BlocksToolbar
-          formData={tabData}
-          selectedBlock={activeTab}
-          selectedBlocks={multiSelected}
-          onChangeBlocks={(newBlockData) => {
-            onChangeBlock(block, {
-              ...data,
-              data: {
-                ...tabsData,
-                blocks: {
-                  ...tabsData.blocks,
-                  [activeTab]: {
-                    ...tabData,
-                    ...newBlockData,
+        {props.selected ? (
+          <BlocksToolbar
+            formData={tabData}
+            selectedBlock={activeTab}
+            selectedBlocks={multiSelected}
+            onChangeBlocks={(newBlockData) => {
+              onChangeBlock(block, {
+                ...data,
+                data: {
+                  ...tabsData,
+                  blocks: {
+                    ...tabsData.blocks,
+                    [activeTab]: {
+                      ...tabData,
+                      ...newBlockData,
+                    },
                   },
                 },
-              },
-            });
-          }}
-          onSetSelectedBlocks={(blockIds) => {
-            setMultiSelected(blockIds);
-          }}
-          onSelectBlock={onSelectBlock}
-        />
-      ) : (
-        ''
-      )}
-      {!data?.readOnlySettings ? (
-        <SidebarPortal selected={props.selected}>
-          {activeBlock ? (
-            ''
-          ) : (
-            <InlineForm
-              schema={schemaObject}
-              title={schemaObject.title}
-              onChangeField={(id, value) => {
-                onChangeBlock(block, {
-                  ...data,
-                  [id]: value,
-                });
-              }}
-              formData={data}
-            />
-          )}
-        </SidebarPortal>
-      ) : (
-        ''
-      )}
-    </div>
+              });
+            }}
+            onSetSelectedBlocks={(blockIds) => {
+              setMultiSelected(blockIds);
+            }}
+            onSelectBlock={onSelectBlock}
+          />
+        ) : (
+          ''
+        )}
+        {!data?.readOnlySettings ? (
+          <SidebarPortal selected={props.selected}>
+            {activeBlock ? (
+              ''
+            ) : (
+              <InlineForm
+                schema={schemaObject}
+                title={schemaObject.title}
+                onChangeField={(id, value) => {
+                  onChangeBlock(block, {
+                    ...data,
+                    [id]: value,
+                  });
+                }}
+                formData={data}
+              />
+            )}
+          </SidebarPortal>
+        ) : (
+          ''
+        )}
+      </div>
+    </BlockStyleWrapperEdit>
   );
 };
 

@@ -49,6 +49,7 @@ export default (config) => {
         view: VerticalCarouselView,
         schema: carouselSchema,
       },
+      ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
     },
     getBlocks: (data) => {
       const { blocks = {}, blocks_layout = {} } = data?.data;

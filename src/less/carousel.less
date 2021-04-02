@@ -7,18 +7,24 @@
 .loadAddonVariables();
 
 .tabs-block {
+  > .styled {
+    display: flex !important;
+    flex: 1;
+    flex-flow: column;
+  }
+
   .slick-slider {
     display: flex !important;
     flex: 1;
     flex-flow: column;
     justify-content: space-between;
 
-    // &:not(.slick-vertical) {
-    //   .slick-slide {
-    //     padding-top: 5rem;
-    //     padding-bottom: 5rem;
-    //   }
-    // }
+    &:not(.slick-vertical) {
+      .slick-slide {
+        padding-top: 2rem;
+        // padding-bottom: 5rem;
+      }
+    }
 
     .slick-list {
       display: flex;
