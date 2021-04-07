@@ -14,6 +14,7 @@
 @menuTitleHoverColor: #013C60;
 @menuTitleHoverBackground: none;
 
+@menuItemCountDisplay: none;
 @menuItemDividerWidth: 0;
 @menuItemDividerBackground: rgba(34, 36, 38, 0.1);
 @menuItemFontFamily: 'Raleway', sans-serif;

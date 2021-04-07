@@ -31,7 +31,8 @@ const MenuItem = (props) => {
   } = props;
   const { tab, index } = props;
   const title = tabs[tab].title;
-  const defaultTitle = `Tab ${index + 1}`;
+  const tabIndex = index + 1;
+  const defaultTitle = `Tab ${tabIndex}`;
 
   const addNewTab = () => {
     const tabId = uuid();
@@ -103,10 +104,11 @@ const MenuItem = (props) => {
               });
             }}
           />
-        ) : title ? (
-          <p>{title}</p>
         ) : (
-          <p>{defaultTitle}</p>
+          <>
+            <span className={'menu-item-count'}>{tabIndex}</span>
+            <p className={'menu-item-text'}>{title || defaultTitle}</p>
+          </>
         )}
       </Menu.Item>
       {index === tabsList.length - 1 ? (
