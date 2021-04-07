@@ -151,6 +151,7 @@ const Edit = (props) => {
   } = props;
   const uiContainer = data.align === 'full' ? 'ui container' : false;
   const menuAlign = data.menuAlign || 'left';
+  const menuPosition = data.menuPosition || 'inline';
   const tabsTitle = data.title;
   const tabsDescription = data.description;
 
@@ -242,7 +243,7 @@ const Edit = (props) => {
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className={cx('default tabs', uiContainer)}
+        className={cx(`default ${menuPosition} tabs`, uiContainer)}
         menu={{
           className: cx(menuAlign),
         }}

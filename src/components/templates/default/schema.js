@@ -4,7 +4,7 @@ export default () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['menuAlign', 'description'],
+      fields: ['menuAlign', 'menuPosition', 'description'],
     },
   ],
   properties: {
@@ -18,6 +18,16 @@ export default () => ({
         ['space-between', 'Space between'],
       ],
       default: 'left',
+    },
+    menuPosition: {
+      title: 'Menu position',
+      type: 'array',
+      choices: [
+        ['inline', 'Inline'],
+        ['left', 'Left side'],
+        ['right', 'Right side'],
+      ],
+      default: 'inline',
     },
     description: {
       title: 'Description',
