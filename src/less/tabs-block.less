@@ -132,8 +132,8 @@ div#view {
   .block-toolbar {
     position: absolute;
     z-index: 3;
-    left: -9px;
     right: unset;
+    left: -9px;
     display: flex;
     padding: 5px;
     border: 1px solid #78c0d7bf;
@@ -213,17 +213,21 @@ div#view {
       flex-direction: column;
     }
   }
+
   > .styled > .side.tabs {
     flex-direction: row;
+
     .menu {
-      flex-basis: 20%;
       display: flex;
+      flex-basis: 20%;
       flex-direction: column;
     }
   }
+
   > .styled > .left .menu {
-   order: 0;
+    order: 0;
   }
+
   > .styled > .right .menu {
     order: 1;
   }
