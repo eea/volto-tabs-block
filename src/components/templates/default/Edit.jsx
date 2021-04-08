@@ -191,8 +191,8 @@ const Edit = (props) => {
               metadata={metadata}
               pathname={props.pathname}
               properties={isEmpty(tabs[tab]) ? emptyBlocksForm() : tabs[tab]}
-              selected={activeBlock === tab}
-              selectedBlock={selected && activeBlock ? activeBlock : null}
+              selected={selected && activeTab === tab && activeBlock}
+              selectedBlock={activeBlock ? activeBlock : null}
               title={data?.placeholder}
               onChangeField={onChangeTabData}
               onChangeFormData={(newFormData) => {
@@ -217,6 +217,7 @@ const Edit = (props) => {
                   : false;
                 onSelectBlock(
                   id,
+                  activeTab,
                   activeBlock === id ? false : isMultipleSelection,
                   e,
                 );

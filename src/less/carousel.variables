@@ -1,13 +1,11 @@
-@dotsSize: 8px;
-@dotsActiveOpacity: .75;
-@dotsInactiveOpacity: .25;
-@dotsHoverOpacity: 1;
+@dotsSize: 10px;
+@dotsActiveBorderOffset: 7px;
 
 @arrowsOpacity: .75;
 @arrowsHoverOpacity: 1;
 
 @lightColor: #fff;
 @darkColor: #000;
-@greyColor: #ccc;
+@greyColor: #B3B3B3;
 
 @largestMobileScreenOffset: 53px;

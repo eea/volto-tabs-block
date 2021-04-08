@@ -28,7 +28,8 @@ const View = (props) => {
     <StyleWrapperView
       {...props}
       data={data}
-      styleData={data.styles || { customClass: 'styled' }}
+      styleData={data.styles || {}}
+      styled={true}
     >
       <div
         className={cx('tabs-block', template, theme, verticalAlign)}
@@ -37,7 +38,8 @@ const View = (props) => {
         <StyleWrapperView
           {...props}
           data={tabData}
-          styleData={tabData.styles || { customClass: 'styled' }}
+          styleData={tabData.styles || {}}
+          styled={true}
         >
           <TabsView
             {...props}

@@ -104,7 +104,7 @@ const Edit = (props) => {
     }
   };
 
-  const onSelectBlock = (id, isMultipleSelection, event) => {
+  const onSelectBlock = (id, tabId, isMultipleSelection, event) => {
     let newMultiSelected = [];
     let selected = id;
 

@@ -18,6 +18,7 @@
     flex: 1;
     flex-flow: column;
     justify-content: space-between;
+    z-index: 2;
 
     &:not(.slick-vertical) {
       .slick-slide {
@@ -60,6 +61,10 @@
     .slick-slider {
       .slick-list {
         justify-content: flex-start;
+        .slick-track {
+          display: flex;
+          align-items: flex-start;
+        }
       }
     }
   }
@@ -68,6 +73,10 @@
     .slick-slider {
       .slick-list {
         justify-content: center;
+        .slick-track {
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }
@@ -76,6 +85,10 @@
     .slick-slider {
       .slick-list {
         justify-content: flex-end;
+        .slick-track {
+          display: flex;
+          align-items: flex-end;
+        }
       }
     }
   }
@@ -84,6 +97,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-top: 1rem;
 
     .slick-arrow {
       z-index: 1;
@@ -113,26 +127,67 @@
     }
   }
 
-  .slick-dots {
+  .slick-dots-wrapper {
     position: relative;
-    top: 0;
-    bottom: 0;
-    display: block;
     padding: 1rem 0;
-    margin: 0;
+    margin-bottom: 2rem;
 
-    li button:hover:before,
-    li button:focus:before {
-      opacity: @dotsHoverOpacity;
+    .slick-line {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 2px;
+      left: 0;
+      background-color: @lightColor;
+      z-index: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 1;
     }
 
-    li button:before {
-      font-size: @dotsSize;
-      opacity: @dotsInactiveOpacity;
-    }
-
-    li.slick-active button:before {
-      opacity: @dotsActiveOpacity;
+    .slick-dots {
+      position: relative;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      top: 0;
+      bottom: 0;
+      padding: 0;
+      margin: 0;
+  
+      li {
+        z-index: 1;
+        width: @dotsSize;
+        height: @dotsSize;
+        margin: 0 1rem;
+  
+        button {
+          color: @lightColor;
+          background-color: @lightColor;
+          border-radius: 100%;
+          width: @dotsSize;
+          height: @dotsSize;
+          padding: 0;
+  
+          &::before {
+            display: none;
+          }
+        }
+  
+        &.slick-active {
+          &::before {
+            content: '';
+            position: absolute;
+            display: block;
+            top: -@dotsActiveBorderOffset;
+            left: -@dotsActiveBorderOffset;
+            width: calc(@dotsSize + 2 * @dotsActiveBorderOffset);
+            height: calc(@dotsSize + 2 * @dotsActiveBorderOffset);
+            border: 1px solid @lightColor;
+            border-radius: 100%;
+          }
+        }
+      }
     }
   }
 
@@ -141,14 +196,20 @@
     .slick-next:before {
       color: @lightColor;
     }
-
-    .slick-dots {
-      li button:before {
-        color: @lightColor;
+    .slick-dots-wrapper {
+      .slick-line {
+        background-color: @lightColor;
       }
 
-      li.slick-active button:before {
-        color: @lightColor;
+      .slick-dots {
+        li.slick-active::before {
+          border: 1px solid @lightColor;
+        }
+
+        li button {
+          color: @lightColor;
+          background-color: @lightColor;
+        }
       }
     }
   }
@@ -159,13 +220,20 @@
       color: @darkColor;
     }
 
-    .slick-dots {
-      li button:before {
-        color: @darkColor;
+    .slick-dots-wrapper {
+      .slick-line {
+        background-color: @darkColor;
       }
 
-      li.slick-active button:before {
-        color: @darkColor;
+      .slick-dots {
+        li.slick-active::before {
+          border: 1px solid @darkColor;
+        }
+
+        li button {
+          color: @darkColor;
+          background-color: @darkColor;
+        }
       }
     }
   }
@@ -176,13 +244,20 @@
       color: @greyColor;
     }
 
-    .slick-dots {
-      li button:before {
-        color: @greyColor;
+    .slick-dots-wrapper {
+      .slick-line {
+        background-color: @greyColor;
       }
 
-      li.slick-active button:before {
-        color: @greyColor;
+      .slick-dots {
+        li.slick-active::before {
+          border: 1px solid @greyColor;
+        }
+
+        li button {
+          color: @greyColor;
+          background-color: @greyColor;
+        }
       }
     }
   }
@@ -229,10 +304,6 @@
             }
           }
         }
-      }
-
-      .slick-dots {
-        padding: 0 0 1rem 0;
       }
     }
   }

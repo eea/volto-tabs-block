@@ -6,7 +6,6 @@ import loadable from '@loadable/component';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import cx from 'classnames';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
@@ -15,9 +14,10 @@ const Slider = loadable(() => import('react-slick'));
 
 const Dots = (props) => {
   const { activeTab = null, tabsList = [], slider = {} } = props;
-  return slider.current ? (
+  return slider.current && tabsList.length > 1 ? (
     <div className="slick-dots-wrapper">
-      <ul className={cx('slick-dots', props.uiContainer)}>
+      <div className="slick-line" />
+      <ul className={cx('slick-dots ui container', props.uiContainer)}>
         {tabsList.map((tab, index) => (
           <li
             key={`dot-${tab}`}
