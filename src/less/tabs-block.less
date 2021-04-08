@@ -1,8 +1,6 @@
 div#view .ui.container {
   .no-margin {
     margin: 0;
-    margin-top: 0;
-    margin-bottom: 0;
   }
 }
 
@@ -100,7 +98,7 @@ div#view {
 
   .drag-drop-list-widget {
     .columns-area {
-      padding: 1em 0em;
+      padding: 1em 0;
 
       [data-rbd-draggable-context-id] {
         margin-bottom: 0.3em;
@@ -137,7 +135,6 @@ div#view {
     left: -9px;
     display: flex;
     padding: 5px;
-    border: none;
     border: 1px solid #78c0d7bf;
     border-bottom: 1px solid #fff;
     margin-top: -45px;
@@ -215,16 +212,32 @@ div#view {
       flex-direction: column;
     }
   }
+  > .styled > .side.tabs {
+    flex-direction: row;
+    .menu {
+      flex-basis: 20%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  > .styled > .left .menu {
+   order: 0;
+  }
+  > .styled > .right .menu {
+    order: 1;
+  }
 
   &.flex-start {
     > .default.tabs {
       > .ui.tab {
+        align-items: flex-start;
         justify-content: flex-start;
       }
     }
 
     .styled > .default.tabs {
       > .ui.tab {
+        align-items: flex-start;
         justify-content: flex-start;
       }
     }
@@ -233,12 +246,14 @@ div#view {
   &.flex-end {
     > .default.tabs {
       > .ui.tab {
+        align-items: flex-end;
         justify-content: flex-end;
       }
     }
 
     .styled > .default.tabs {
       > .ui.tab {
+        align-items: flex-end;
         justify-content: flex-end;
       }
     }
@@ -247,12 +262,14 @@ div#view {
   &.center {
     > .default.tabs {
       > .ui.tab {
+        align-items: center;
         justify-content: center;
       }
     }
 
     .styled > .default.tabs {
       > .ui.tab {
+        align-items: center;
         justify-content: center;
       }
     }
@@ -261,7 +278,7 @@ div#view {
 
 .drag-drop-list-widget {
   .tabs-area {
-    padding: 1em 0em;
+    padding: 1em 0;
 
     [data-rbd-draggable-context-id] {
       margin-bottom: 0.3em;

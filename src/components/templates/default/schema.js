@@ -24,8 +24,8 @@ export default () => ({
       type: 'array',
       choices: [
         ['inline', 'Inline'],
-        ['left', 'Left side'],
-        ['right', 'Right side'],
+        ['left side', 'Left side'],
+        ['right side', 'Right side'],
       ],
       default: 'inline',
     },
