@@ -50,8 +50,14 @@
       background: @menuItemBackground;
       color: @menuItemColor;
       font-family: @menuItemFontFamily;
-      font-size: @menuItemFontSize;
       font-weight: @menuItemFontWeight;
+
+      &:not(.menu-title) {
+        font-size: @menuItemFontSize;
+        p {
+          font-size: @menuItemFontSize;
+        }
+      }
 
       .tab-title-input {
         min-width: 80px;

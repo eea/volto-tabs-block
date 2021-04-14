@@ -16,11 +16,11 @@
 @menuItemDividerWidth: 0;
 @menuItemDividerBackground: rgba(34, 36, 38, 0.1);
 @menuItemFontFamily: 'Raleway', sans-serif;
-@menuItemPadding: 1.4rem;
+@menuItemPadding: 1rem;
 
 @menuFirstItemPadding: @menuItemPadding;
 
-@menuItemFontSize: 18px;
+@menuItemFontSize: 16px;
 @menuItemFontWeight: normal;
 @menuItemColor: #636363;
 @menuItemBackground: none;
@@ -28,7 +28,7 @@
 @menuItemHoverBackground: none;
 
 @menuActiveItemFontWeight: normal;
-@menuActiveItemColor: #04A87D;
+@menuActiveItemColor: #04A77D;
 @menuActiveItemBackground: none;
 @menuActiveItemHoverColor: #04c290;
 @menuActiveItemHoverBackground: none;
