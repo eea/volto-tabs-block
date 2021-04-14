@@ -9,11 +9,11 @@ div#view .tabs-block {
     margin-bottom: 0;
   }
 
-  &.default {
-    .ui.segment.tab {
-      padding-bottom: 1rem;
-    }
-  }
+  // &.default {
+  //   .ui.segment.tab {
+  //     padding-bottom: 1rem;
+  //   }
+  // }
 }
 
 div#view {
@@ -35,18 +35,15 @@ div#view {
 .styled.screen-height {
   .tabs-block {
     display: flex;
-    min-height: inherit;
     flex: 1;
     flex-direction: column;
 
     > .default.tabs {
-      min-height: inherit;
       flex: 1;
     }
 
     > .styled {
       > .default.tabs {
-        min-height: inherit;
         flex: 1;
       }
     }
@@ -218,33 +215,19 @@ div#view {
   > .styled > .side.tabs {
     flex-direction: row;
     flex-wrap: wrap;
-
-    .menu {
-      display: flex;
-      flex-basis: 20%;
-      flex-direction: column;
-    }
-  }
-
-  > .styled > .left .menu {
-    order: 0;
-  }
-
-  > .styled > .right .menu {
-    order: 1;
   }
 
   &.flex-start {
     > .default.tabs {
       > .ui.tab {
-        align-items: flex-start;
+        // align-items: flex-start;
         justify-content: flex-start;
       }
     }
 
     .styled > .default.tabs {
       > .ui.tab {
-        align-items: flex-start;
+        // align-items: flex-start;
         justify-content: flex-start;
       }
     }
@@ -253,14 +236,14 @@ div#view {
   &.flex-end {
     > .default.tabs {
       > .ui.tab {
-        align-items: flex-end;
+        // align-items: flex-end;
         justify-content: flex-end;
       }
     }
 
     .styled > .default.tabs {
       > .ui.tab {
-        align-items: flex-end;
+        // align-items: flex-end;
         justify-content: flex-end;
       }
     }
@@ -269,14 +252,14 @@ div#view {
   &.center {
     > .default.tabs {
       > .ui.tab {
-        align-items: center;
+        // align-items: center;
         justify-content: center;
       }
     }
 
     .styled > .default.tabs {
       > .ui.tab {
-        align-items: center;
+        // align-items: center;
         justify-content: center;
       }
     }

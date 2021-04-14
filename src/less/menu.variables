@@ -5,8 +5,6 @@
 @menuBorder: none;
 @menuBorderRadius: 0.28571429rem;
 
-@menuFirstItemPadding: 1rem 1rem 1rem 0;
-
 @menuTitleFontSize: 24px;
 @menuTitleFontWeight: normal;
 @menuTitleColor: #013C60;
@@ -20,6 +18,8 @@
 @menuItemFontFamily: 'Raleway', sans-serif;
 @menuItemPadding: 1.4rem;
 
+@menuFirstItemPadding: @menuItemPadding;
+
 @menuItemFontSize: 18px;
 @menuItemFontWeight: normal;
 @menuItemColor: #636363;
@@ -32,3 +32,5 @@
 @menuActiveItemBackground: none;
 @menuActiveItemHoverColor: #04c290;
 @menuActiveItemHoverBackground: none;
+
+@menuLargestMobileScreen: 767px;

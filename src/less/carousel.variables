@@ -3,6 +3,7 @@
 
 @arrowsOpacity: .75;
 @arrowsHoverOpacity: 1;
+@arrowsSize: 50px;
 
 @lightColor: #fff;
 @darkColor: #000;

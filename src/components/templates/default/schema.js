@@ -4,12 +4,17 @@ export default () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['menuAlign', 'menuPosition', 'description'],
+      fields: ['description'],
+    },
+    {
+      id: 'menu',
+      title: 'Menu',
+      fields: ['menuAlign', 'menuPosition'],
     },
   ],
   properties: {
     menuAlign: {
-      title: 'Menu alignment',
+      title: 'Alignment',
       type: 'array',
       choices: [
         ['left', 'Left'],
@@ -20,7 +25,7 @@ export default () => ({
       default: 'left',
     },
     menuPosition: {
-      title: 'Menu position',
+      title: 'Position',
       type: 'array',
       choices: [
         ['inline', 'Inline'],

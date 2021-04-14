@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
-import { RenderBlocks } from '@plone/volto/components';
+import { Icon, RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
+import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
 import cx from 'classnames';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -14,7 +16,7 @@ const Slider = loadable(() => import('react-slick'));
 
 const Dots = (props) => {
   const { activeTab = null, tabsList = [], slider = {} } = props;
-  return slider.current && tabsList.length > 1 ? (
+  return tabsList.length > 1 ? (
     <div className="slick-dots-wrapper">
       <div className="slick-line" />
       <ul className={cx('slick-dots ui container', props.uiContainer)}>
@@ -25,7 +27,9 @@ const Dots = (props) => {
           >
             <button
               onClick={() => {
-                slider.current.slickGoTo(index);
+                if (slider.current) {
+                  slider.current.slickGoTo(index);
+                }
               }}
             />
           </li>
@@ -42,7 +46,7 @@ const ArrowsGroup = (props) => {
   const currentSlide = tabsList.indexOf(activeTab);
   const slideCount = tabsList.length;
 
-  return slider.current ? (
+  return (
     <div
       className={cx({
         'slick-arrows': true,
@@ -53,9 +57,13 @@ const ArrowsGroup = (props) => {
         <button
           data-role="none"
           className="slick-arrow slick-prev"
-          onClick={slider.current.slickPrev}
+          onClick={() => {
+            if (slider.current) {
+              slider.current.slickPrev();
+            }
+          }}
         >
-          Previous
+          <Icon name={leftArrowSVG} size="50px" />
         </button>
       ) : (
         ''
@@ -64,16 +72,18 @@ const ArrowsGroup = (props) => {
         <button
           data-role="none"
           className="slick-arrow slick-next"
-          onClick={slider.current.slickNext}
+          onClick={() => {
+            if (slider.current) {
+              slider.current.slickNext();
+            }
+          }}
         >
-          Next
+          <Icon name={rightArrowSVG} size="50px" />
         </button>
       ) : (
         ''
       )}
     </div>
-  ) : (
-    ''
   );
 };
 

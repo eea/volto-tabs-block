@@ -246,7 +246,7 @@ const Edit = (props) => {
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className={cx(`default ${menuPosition} tabs`, uiContainer)}
+        className={cx('default tabs', menuPosition, uiContainer)}
         menu={{
           className: cx(menuAlign),
         }}
