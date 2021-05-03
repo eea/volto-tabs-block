@@ -44,7 +44,7 @@ export default (config) => {
         schema: carouselSchema,
       },
       carousel_vertical: {
-        title: 'Carousel vertical',
+        title: 'Carousel vertical (prototype)',
         edit: DefaultEdit,
         view: VerticalCarouselView,
         schema: carouselSchema,

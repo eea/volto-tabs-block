@@ -111,12 +111,12 @@ const View = (props) => {
   return (
     <>
       <Tab
+        activeIndex={activeTabIndex}
+        className={cx('default tabs', menuPosition, uiContainer)}
         menu={{
           className: cx(menuAlign),
         }}
         panes={panes}
-        activeIndex={activeTabIndex}
-        className={cx(`default ${menuPosition} tabs`, uiContainer)}
       />
     </>
   );

@@ -159,7 +159,8 @@ const Edit = (props) => {
         <StyleWrapperView
           {...props}
           data={tabData}
-          styleData={tabData.styles || { customClass: 'styled' }}
+          styleData={tabData.styles || {}}
+          styled={true}
         >
           <TabsEdit
             {...props}

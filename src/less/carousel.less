@@ -102,9 +102,15 @@
     justify-content: center;
     margin-top: 1rem;
 
-    .slick-arrow {
+    button.slick-arrow {
       z-index: 1;
       display: block !important;
+      width: @arrowsSize;
+      height: @arrowsSize;
+
+      svg {
+        fill: @lightColor;
+      }
     }
 
     .slick-prev {
@@ -119,6 +125,8 @@
 
     .slick-prev:before,
     .slick-next:before {
+      display: none;
+      font-size: @arrowsSize;
       opacity: @arrowsOpacity;
     }
 
@@ -195,6 +203,13 @@
   }
 
   &.light {
+    .slick-prev,
+    .slick-next {
+      svg {
+        fill: @lightColor !important;
+      }
+    }
+
     .slick-prev:before,
     .slick-next:before {
       color: @lightColor;
@@ -219,6 +234,13 @@
   }
 
   &.dark {
+    .slick-prev,
+    .slick-next {
+      svg {
+        fill: @darkColor !important;
+      }
+    }
+
     .slick-prev:before,
     .slick-next:before {
       color: @darkColor;
@@ -243,6 +265,13 @@
   }
 
   &.grey {
+    .slick-prev,
+    .slick-next {
+      svg {
+        fill: @greyColor !important;
+      }
+    }
+
     .slick-prev:before,
     .slick-next:before {
       color: @greyColor;
