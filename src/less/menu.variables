@@ -12,6 +12,8 @@
 @menuTitleHoverColor: #013C60;
 @menuTitleHoverBackground: none;
 
+@menuDescriptionColor: #636363;
+
 @menuItemCountDisplay: none;
 @menuItemDividerWidth: 0;
 @menuItemDividerBackground: rgba(34, 36, 38, 0.1);

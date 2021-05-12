@@ -87,8 +87,12 @@ const View = (props) => {
           <React.Fragment key={`tab-${tab}`}>
             {index === 0 && (tabsTitle || tabsDescription) ? (
               <Menu.Item className="menu-title">
-                <SimpleMarkdown md={tabsTitle} defaultTag="##" />
-                <SimpleMarkdown md={tabsDescription} />
+                <SimpleMarkdown
+                  md={tabsTitle}
+                  defaultTag="##"
+                  className="title"
+                />
+                <SimpleMarkdown md={tabsDescription} className="description" />
               </Menu.Item>
             ) : (
               ''
