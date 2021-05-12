@@ -54,6 +54,7 @@
 
       &:not(.menu-title) {
         font-size: @menuItemFontSize;
+
         p {
           font-size: @menuItemFontSize;
         }
@@ -94,7 +95,14 @@
         flex-direction: column;
         align-items: flex-start;
         background: @menuTitleBackgrounnd;
-        color: @menuTitleColor;
+
+        .title {
+          color: @menuTitleColor;
+        }
+
+        .description {
+          color: @menuDescriptionColor;
+        }
 
         > * {
           margin: 0;
