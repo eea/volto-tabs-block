@@ -196,7 +196,11 @@ const Edit = (props) => {
               pathname={props.pathname}
               properties={isEmpty(tabs[tab]) ? emptyBlocksForm() : tabs[tab]}
               selected={selected && activeTab === tab && activeBlock}
-              selectedBlock={activeBlock ? activeBlock : null}
+              selectedBlock={
+                selected && activeTab === tab && activeBlock
+                  ? activeBlock
+                  : null
+              }
               title={data?.placeholder}
               onChangeField={onChangeTabData}
               onChangeFormData={(newFormData) => {
