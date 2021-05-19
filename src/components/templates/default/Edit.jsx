@@ -83,7 +83,6 @@ const MenuItem = (props) => {
       >
         {editingTab === tab && selected ? (
           <Input
-            fluid
             placeholder={defaultTitle}
             ref={inputRef}
             transparent
