@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-tabs-block",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "volto-tabs-block: Volto add-on",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.5",
     "babel-plugin-transform-class-properties": "^6.24.1"
-   },
+  },
   "scripts": {
     "release": "release-it",
     "pre-commit": "yarn stylelint:fix && yarn prettier:fix && yarn lint:fix",
