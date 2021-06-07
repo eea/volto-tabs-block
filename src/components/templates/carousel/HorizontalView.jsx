@@ -26,6 +26,7 @@ const Dots = (props) => {
             className={cx({ 'slick-active': activeTab === tab })}
           >
             <button
+              aria-label={`Select slide ${index + 1}`}
               onClick={() => {
                 if (slider.current) {
                   slider.current.slickGoTo(index);
@@ -55,7 +56,7 @@ const ArrowsGroup = (props) => {
     >
       {currentSlide > 0 ? (
         <button
-          data-role="none"
+          aria-label="Previous slide"
           className="slick-arrow slick-prev"
           onClick={() => {
             if (slider.current) {
@@ -70,7 +71,7 @@ const ArrowsGroup = (props) => {
       )}
       {currentSlide < slideCount - 1 ? (
         <button
-          data-role="none"
+          aria-label="Next slide"
           className="slick-arrow slick-next"
           onClick={() => {
             if (slider.current) {
