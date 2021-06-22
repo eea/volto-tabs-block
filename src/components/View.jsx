@@ -33,6 +33,7 @@ const View = (props) => {
     >
       <div
         className={cx('tabs-block', template, theme, verticalAlign)}
+        id={props.id}
         ref={view}
       >
         <StyleWrapperView
