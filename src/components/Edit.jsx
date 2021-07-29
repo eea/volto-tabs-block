@@ -13,8 +13,6 @@ import cx from 'classnames';
 
 import config from '@plone/volto/registry';
 
-import '@eeacms/volto-tabs-block/less/tabs-block.less';
-
 const Edit = (props) => {
   const { onChangeBlock } = props;
   const { data = {}, block = null } = props;

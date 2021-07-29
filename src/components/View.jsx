@@ -6,6 +6,8 @@ import cx from 'classnames';
 
 import config from '@plone/volto/registry';
 
+import '@eeacms/volto-tabs-block/less/tabs-block.less';
+
 const View = (props) => {
   const view = React.useRef(null);
   const { data = {}, uiContainer = '' } = props;
