@@ -103,7 +103,7 @@ const View = (props) => {
       },
       render: () => {
         return (
-          <Tab.Pane>
+          <Tab.Pane className={uiContainer}>
             {' '}
             <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
           </Tab.Pane>
@@ -116,7 +116,7 @@ const View = (props) => {
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className={cx('default tabs', menuPosition, uiContainer)}
+        className={cx('default tabs', menuPosition)}
         menu={{
           className: cx(menuAlign),
         }}

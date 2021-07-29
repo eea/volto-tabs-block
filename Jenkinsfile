@@ -4,8 +4,8 @@ pipeline {
   environment {
         GIT_NAME = "volto-tabs-block"
         NAMESPACE = "@eeacms"
-        SONARQUBE_TAGS = "volto.eea.europa.eu"
-        DEPENDENCIES = ""
+        SONARQUBE_TAGS = "volto.eea.europa.eu,climate-energy.eea.europa.eu,biodiversity.europa.eu"
+        DEPENDENCIES = "@eeacms/volto-block-style"
     }
 
   stages {

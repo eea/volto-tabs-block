@@ -58,6 +58,7 @@ export default (config) => {
           blocks: blocks_layout.items.map((block, index) => ({
             title: blocks[block]['title'] || `Tab ${index + 1}`,
             id: block,
+            parentId: data.parentId,
             type: TABS_BLOCK,
           })),
         };
