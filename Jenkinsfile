@@ -4,7 +4,7 @@ pipeline {
   environment {
         GIT_NAME = "volto-tabs-block"
         NAMESPACE = "@eeacms"
-        SONARQUBE_TAGS = "volto.eea.europa.eu,climate-energy.eea.europa.eu,biodiversity.europa.eu"
+        SONARQUBE_TAGS = "volto.eea.europa.eu,climate-energy.eea.europa.eu,biodiversity.europa.eu,www.eea.europa.eu-ims"
         DEPENDENCIES = "@eeacms/volto-block-style"
     }
 
