@@ -38,18 +38,17 @@ describe('Blocks Tests', () => {
     cy.get('.field-wrapper-menuPosition #field-menuPosition').first().click();
     cy.get('.react-select__menu').contains('Inline').click();
 
-    cy.get('.tabs-block.edit .block.text').first().type("Hydrogen");
+    cy.get('[contenteditable=true]').first().focus().click();
+    cy.get('.tabs-block [contenteditable=true]').first().type("Hydrogen");
     cy.get('.tabs-block .ui.left.menu .item').last().click();
     cy.get('.tabs-block').contains('Tab 2').click();
-    cy.get('.tabs-block.edit .block.text').first().type("Oxygen");
-
+    cy.get('.tabs-block.edit [contenteditable=true]').first().type("Oxygen");
 
 
     cy.get('[contenteditable=true]').first().type('{enter}');
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
     cy.get('.blocks-chooser .title').contains('Common').click();
     cy.get('.tabs_block').first().click();
-
 
     cy.get('.field-wrapper-template #field-template').click();
     cy.get('.react-select__menu').contains('Carousel horizontal').click();
