@@ -14,7 +14,7 @@ import cx from 'classnames';
 import config from '@plone/volto/registry';
 
 const Edit = (props) => {
-  const { onChangeBlock } = props;
+  const { onChangeBlock, onChangeField } = props;
   const { data = {}, block = null } = props;
   const template = data.template || 'default';
   const tabsData = data.data || {};
@@ -99,6 +99,8 @@ const Edit = (props) => {
           },
         },
       });
+    } else {
+      onChangeField(id, value);
     }
   };
 
