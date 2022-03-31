@@ -1,5 +1,7 @@
 import React from 'react';
 import { without } from 'lodash';
+import cx from 'classnames';
+import config from '@plone/volto/registry';
 import { SidebarPortal, BlocksToolbar } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { getBlocksLayoutFieldname } from '@plone/volto/helpers';
@@ -9,9 +11,9 @@ import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { BlockStyleWrapperEdit } from '@eeacms/volto-block-style/BlockStyleWrapper';
 import { DefaultEdit } from './templates/default';
 import { schema } from './schema';
-import cx from 'classnames';
 
-import config from '@plone/volto/registry';
+import '@eeacms/volto-tabs-block/less/edit.less';
+import '@eeacms/volto-tabs-block/less/tabs.less';
 
 const Edit = (props) => {
   const { onChangeBlock, onChangeField } = props;
@@ -36,7 +38,7 @@ const Edit = (props) => {
   const templateSchema =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.schema || {};
 
-  const schemaObject = schema(config, templateSchema(config));
+  const schemaObject = schema(config, templateSchema(config, props));
 
   React.useEffect(() => {
     if (!Object.keys(data.data || {}).length) {

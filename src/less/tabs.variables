@@ -1,0 +1,9 @@
+/*******************************
+            Tabs block
+*******************************/
+
+@verticalPadding: 1em;
+@horizontalPadding: 0;
+
+/* Tab pane */
+@tabPanePadding: @verticalPadding @horizontalPadding;

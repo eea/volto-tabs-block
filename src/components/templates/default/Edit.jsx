@@ -5,8 +5,10 @@ import { Menu, Tab, Input } from 'semantic-ui-react';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
-import { SimpleMarkdown } from '@eeacms/volto-tabs-block/utils';
-import cx from 'classnames';
+import {
+  SimpleMarkdown,
+  getMenuPosition,
+} from '@eeacms/volto-tabs-block/utils';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
@@ -150,9 +152,8 @@ const Edit = (props) => {
     onSelectBlock = () => {},
     setEditingTab = () => {},
   } = props;
+  const menuPosition = getMenuPosition(data);
   const uiContainer = data.align === 'full' ? 'ui container' : false;
-  const menuAlign = data.menuAlign || 'left';
-  const menuPosition = data.menuPosition || 'inline';
   const tabsTitle = data.title;
   const tabsDescription = data.description;
 
@@ -253,11 +254,26 @@ const Edit = (props) => {
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className={cx('default tabs', menuPosition, uiContainer)}
+        className="default tabs"
         menu={{
-          className: cx(menuAlign),
+          attached: menuPosition.attached,
+          borderless: data.menuBorderless,
+          color: data.menuColor,
+          compact: data.menuCompact ?? true,
+          fluid: data.menuFluid ?? true,
+          inverted: data.menuInverted,
+          pointing: data.menuPointing,
+          secondary: data.menuSecondary,
+          size: data.menuSize,
+          stackable: data.menuStackable,
+          tabular: data.menuTabular,
+          text: data.menuText ?? true,
+          vertical: menuPosition.vertical,
+          className: data.menuAlign,
         }}
+        menuPosition={menuPosition.direction}
         panes={panes}
+        grid={{ paneWidth: 9, tabWidth: 3 }}
       />
     </>
   );

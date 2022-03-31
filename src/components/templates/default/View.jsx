@@ -5,9 +5,10 @@ import { withRouter } from 'react-router';
 import { Menu, Tab } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import { SimpleMarkdown } from '@eeacms/volto-tabs-block/utils';
-
-import cx from 'classnames';
+import {
+  SimpleMarkdown,
+  getMenuPosition,
+} from '@eeacms/volto-tabs-block/utils';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
@@ -46,9 +47,8 @@ const View = (props) => {
     hashlink = {},
     setActiveTab = () => {},
   } = props;
+  const menuPosition = getMenuPosition(data);
   const uiContainer = data.align === 'full' ? 'ui container' : '';
-  const menuAlign = data.menuAlign || 'left';
-  const menuPosition = data.menuPosition || 'inline';
   const tabsTitle = data.title;
   const tabsDescription = data.description;
 
@@ -104,7 +104,6 @@ const View = (props) => {
       render: () => {
         return (
           <Tab.Pane className={uiContainer}>
-            {' '}
             <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
           </Tab.Pane>
         );
@@ -116,11 +115,26 @@ const View = (props) => {
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className={cx('default tabs', menuPosition)}
+        className="default tabs"
         menu={{
-          className: cx(menuAlign),
+          attached: menuPosition.attached,
+          borderless: data.menuBorderless,
+          color: data.menuColor,
+          compact: data.menuCompact ?? true,
+          fluid: data.menuFluid ?? true,
+          inverted: data.menuInverted,
+          pointing: data.menuPointing,
+          secondary: data.menuSecondary,
+          size: data.menuSize,
+          stackable: data.menuStackable,
+          tabular: data.menuTabular,
+          text: data.menuText ?? true,
+          vertical: menuPosition.vertical,
+          className: data.menuAlign,
         }}
+        menuPosition={menuPosition.direction}
         panes={panes}
+        grid={{ paneWidth: 9, tabWidth: 3 }}
       />
     </>
   );

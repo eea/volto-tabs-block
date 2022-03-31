@@ -36,6 +36,7 @@ export default (config) => {
         edit: DefaultEdit,
         view: DefaultView,
         schema: defaultSchema,
+        // gridVariations: {},
       },
       carousel: {
         title: 'Carousel horizontal',
