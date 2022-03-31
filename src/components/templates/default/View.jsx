@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
-import { Menu, Tab } from 'semantic-ui-react';
+import cx from 'classnames';
+import { Menu, Tab, Container } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
@@ -48,7 +49,7 @@ const View = (props) => {
     setActiveTab = () => {},
   } = props;
   const menuPosition = getMenuPosition(data);
-  const uiContainer = data.align === 'full' ? 'ui container' : '';
+  const isContainer = data.align === 'full';
   const tabsTitle = data.title;
   const tabsDescription = data.description;
 
@@ -103,7 +104,7 @@ const View = (props) => {
       },
       render: () => {
         return (
-          <Tab.Pane className={uiContainer}>
+          <Tab.Pane as={isContainer ? Container : undefined}>
             <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
           </Tab.Pane>
         );
@@ -130,7 +131,7 @@ const View = (props) => {
           tabular: data.menuTabular,
           text: data.menuText ?? true,
           vertical: menuPosition.vertical,
-          className: data.menuAlign,
+          className: cx(data.menuAlign, { container: isContainer }),
         }}
         menuPosition={menuPosition.direction}
         panes={panes}

@@ -1,7 +1,8 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
-import { Menu, Tab, Input } from 'semantic-ui-react';
+import cx from 'classnames';
+import { Menu, Tab, Input, Container } from 'semantic-ui-react';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
@@ -153,7 +154,7 @@ const Edit = (props) => {
     setEditingTab = () => {},
   } = props;
   const menuPosition = getMenuPosition(data);
-  const uiContainer = data.align === 'full' ? 'ui container' : false;
+  const isContainer = data.align === 'full';
   const tabsTitle = data.title;
   const tabsDescription = data.description;
 
@@ -187,7 +188,7 @@ const Edit = (props) => {
       },
       render: () => {
         return (
-          <Tab.Pane>
+          <Tab.Pane as={isContainer ? Container : undefined}>
             <BlocksForm
               allowedBlocks={data?.allowedBlocks}
               description={data?.instrunctions?.data}
@@ -269,7 +270,7 @@ const Edit = (props) => {
           tabular: data.menuTabular,
           text: data.menuText ?? true,
           vertical: menuPosition.vertical,
-          className: data.menuAlign,
+          className: cx(data.menuAlign, { container: isContainer }),
         }}
         menuPosition={menuPosition.direction}
         panes={panes}
