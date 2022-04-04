@@ -67,7 +67,7 @@ const MenuWrapper = (props) => {
     const items = node.current.querySelectorAll(
       '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
     );
-    const underlineMenu = node.current.querySelector('.ui.underline-menu');
+    const underlineMenu = node.current.querySelector('.ui.dropdown');
     if (!underlineMenu) return;
     const overflowOffset = positionedOffset(underlineMenu, node.current);
     if (!overflowOffset) {
@@ -96,11 +96,7 @@ const MenuWrapper = (props) => {
         ))}
       </div>
       {true && (
-        <Dropdown
-          icon="ellipsis horizontal"
-          className="ui underline-menu item"
-          pointing="top-right"
-        >
+        <Dropdown icon="ellipsis horizontal" pointing>
           <Dropdown.Menu>
             {tabsList.map((underlineTab, underlineIndex) => {
               const title = tabs[underlineTab].title;
@@ -245,6 +241,7 @@ const View = (props) => {
           text: getDataValue('menuText'),
           vertical: menuPosition.vertical,
           className: cx(data.menuAlign, { container: isContainer }),
+          items: undefined,
           children: (
             <MenuWrapper
               {...props}
