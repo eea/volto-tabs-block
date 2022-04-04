@@ -18,14 +18,8 @@ import {
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 const MenuItem = (props) => {
-  const {
-    activeTab = null,
-    data = {},
-    tabs = {},
-    tabsList = [],
-    setActiveTab = () => {},
-  } = props;
-  const { tabsTitle, tabsDescription, tab, index, lastIndex } = props;
+  const { activeTab = null, tabs = {}, setActiveTab = () => {} } = props;
+  const { tabsTitle, tabsDescription, tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
 
@@ -39,19 +33,6 @@ const MenuItem = (props) => {
           <SimpleMarkdown md={tabsDescription} className="description" />
         </Menu.Item>
       )}
-      {/* <Menu.Item
-        name={defaultTitle}
-        item-data={tab}
-        active={tab === activeTab}
-        onClick={() => {
-          if (activeTab !== tab) {
-            setActiveTab(tab);
-          }
-        }}
-      >
-        <span className={'menu-item-count'}>{tabIndex}</span>
-        <p className={'menu-item-text'}>{title || defaultTitle}</p>
-      </Menu.Item> */}
       <Button
         as="a"
         className={cx('item', { active: tab === activeTab })}
@@ -248,7 +229,7 @@ const View = (props) => {
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className="default tabs"
+        className="horizontal-responsive tabs"
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),

@@ -80,16 +80,22 @@
     }
   }
 
-  .menu-wrapper {
-    overflow: hidden;
-    display: inherit;
-    font-family: inherit;
-    background: inherit;
-    font-weight: inherit;
-  }
+  &.horizontal-responsive {
+    .horizontal-responsive.tabs > .ui.menu {
+      justify-content: space-between;
 
-  .ui.underline-menu {
-    margin-left: auto;
+      .menu-wrapper {
+        overflow: hidden;
+        display: inherit;
+        font-family: inherit;
+        background: inherit;
+        font-weight: inherit;
+      }
+
+      .ui.underline-menu {
+        margin-left: auto;
+      }
+    }
   }
 
   > .styled > .side.tabs {

@@ -38,7 +38,12 @@ const Edit = (props) => {
   const templateSchema =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.schema || {};
 
-  const schemaObject = schema(config, templateSchema(config, props));
+  const schemaObject = schema(
+    config,
+    typeof templateSchema === 'function'
+      ? templateSchema(config, props)
+      : templateSchema,
+  );
 
   React.useEffect(() => {
     if (!Object.keys(data.data || {}).length) {
