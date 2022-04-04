@@ -3,8 +3,10 @@ import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import cx from 'classnames';
 import { Menu, Tab, Input, Container } from 'semantic-ui-react';
+import config from '@plone/volto/registry';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
+import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
 import {
   SimpleMarkdown,
@@ -22,10 +24,12 @@ const MenuItem = (props) => {
     data = {},
     editingTab = null,
     selected = false,
-    tabs = {},
     tabData = {},
+    tabs = {},
     tabsData = {},
+    tabsDescription,
     tabsList = [],
+    tabsTitle,
     emptyTab = () => {},
     setActiveBlock = () => {},
     setActiveTab = () => {},
@@ -66,6 +70,12 @@ const MenuItem = (props) => {
 
   return (
     <>
+      {index === 0 && (tabsTitle || tabsDescription) && (
+        <Menu.Item className="menu-title">
+          <SimpleMarkdown md={tabsTitle} className="title" defaultTag="##" />
+          <SimpleMarkdown md={tabsDescription} className="description" />
+        </Menu.Item>
+      )}
       <Menu.Item
         name={defaultTitle}
         active={tab === activeTab}
@@ -158,34 +168,39 @@ const Edit = (props) => {
   const tabsTitle = data.title;
   const tabsDescription = data.description;
 
+  const schema = React.useMemo(
+    () =>
+      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
+        config,
+        props,
+      ) || {},
+    [props],
+  );
+
+  const getDataValue = React.useCallback(
+    (key) => {
+      return (
+        (schema.properties[key]?.value || data[key]) ??
+        schema.properties[key]?.defaultValue
+      );
+    },
+    [schema, data],
+  );
+
   const panes = tabsList.map((tab, index) => {
     return {
       id: tab,
-      menuItem: () => {
-        return (
-          <React.Fragment key={`tab-${tab}`}>
-            {index === 0 && (tabsTitle || tabsDescription) ? (
-              <Menu.Item className="menu-title">
-                <SimpleMarkdown
-                  md={tabsTitle}
-                  className="title"
-                  defaultTag="##"
-                />
-                <SimpleMarkdown md={tabsDescription} className="description" />
-              </Menu.Item>
-            ) : (
-              ''
-            )}
-            <MenuItem
-              {...props}
-              editingTab={editingTab}
-              index={index}
-              setEditingTab={setEditingTab}
-              tab={tab}
-            />
-          </React.Fragment>
-        );
-      },
+      menuItem: (
+        <MenuItem
+          {...props}
+          editingTab={editingTab}
+          index={index}
+          setEditingTab={setEditingTab}
+          tab={tab}
+          tabsTitle={tabsTitle}
+          tabsDescription={tabsDescription}
+        />
+      ),
       render: () => {
         return (
           <Tab.Pane as={isContainer ? Container : undefined}>
@@ -258,17 +273,17 @@ const Edit = (props) => {
         className="default tabs"
         menu={{
           attached: menuPosition.attached,
-          borderless: data.menuBorderless,
-          color: data.menuColor,
-          compact: data.menuCompact ?? true,
-          fluid: data.menuFluid ?? true,
-          inverted: data.menuInverted,
-          pointing: data.menuPointing,
-          secondary: data.menuSecondary,
-          size: data.menuSize,
-          stackable: data.menuStackable,
-          tabular: data.menuTabular,
-          text: data.menuText ?? true,
+          borderless: getDataValue('menuBorderless'),
+          color: getDataValue('menuColor'),
+          compact: getDataValue('menuCompact'),
+          fluid: getDataValue('menuFluid'),
+          inverted: getDataValue('menuInverted'),
+          pointing: getDataValue('menuPointing'),
+          secondary: getDataValue('menuSecondary'),
+          size: getDataValue('menuSize'),
+          stackable: getDataValue('menuStackable'),
+          tabular: getDataValue('menuTabular'),
+          text: getDataValue('menuText'),
           vertical: menuPosition.vertical,
           className: cx(data.menuAlign, { container: isContainer }),
         }}
