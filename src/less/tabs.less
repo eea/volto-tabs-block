@@ -1,0 +1,65 @@
+@import './globals.less';
+
+@addon: 'volto-addons';
+@addontype: 'tabsblock';
+@addonelement: 'tabs';
+
+.loadAddonVariables();
+
+.tabs-block {
+  > .styled {
+    display: flex !important;
+    flex: 1;
+    flex-flow: column;
+  }
+
+  .ui.segment.tab {
+    padding: @tabPanePadding;
+  }
+
+  .ui.container.tab {
+    padding-top: @verticalPadding;
+    padding-bottom: @verticalPadding;
+  }
+
+  > .styled > .default.tabs,
+  > .default.tabs {
+    display: flex;
+    flex-direction: column;
+
+    > .ui.tab {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+  }
+
+  &.flex-start {
+    > .styled > .default.tabs,
+    > .default.tabs {
+      > .ui.tab {
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  &.flex-end {
+    > .styled > .default.tabs,
+    > .default.tabs {
+      > .ui.tab {
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  &.center {
+    > .styled > .default.tabs,
+    > .default.tabs {
+      > .ui.tab {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.loadAddonOverrides();

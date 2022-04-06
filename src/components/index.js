@@ -7,4 +7,5 @@ export { TabsEdit, TabsView };
 export { layoutSchema };
 
 export * from './templates/default';
+export * from './templates/horizontal-responsive';
 export * from './templates/carousel';

@@ -7,94 +7,58 @@
 .loadAddonVariables();
 
 .tabs-block {
-  &.edit {
-    > .styled > .tabs > .ui.menu {
-      margin: @menuMarginEdit;
-    }
+  [hidden] {
+    display: none !important;
   }
 
-  .menu-item-count {
-    display: @menuItemCountDisplay;
-  }
-
-  > .styled > .tabs > .ui.menu {
-    border: @menuBorder;
-    margin: @menuMargin;
-    background-color: @menuBackgroundColor;
-    border-radius: @menuBorderRadius;
-    box-shadow: @menuBoxShadow;
-    overflow-x: auto;
-
-    &.in-full-width {
-      padding: 0 1rem;
-    }
-
-    &.ui.container > * {
-      margin-bottom: initial !important;
-    }
-
+  > .styled > .tabs > .ui.menu,
+  > .styled > .tabs > .ui.grid > .column > .ui.menu,
+  > .tabs > .ui.menu,
+  > .tabs > .ui.grid > .column > .ui.menu {
     &.menu-hidden {
       display: none;
     }
 
-    &:after {
-      display: none;
+    &.left {
+      justify-content: flex-start;
     }
 
-    .ui.fluid.input {
-      min-width: 80px;
+    &.right {
+      justify-content: flex-end;
+    }
+
+    &.center {
+      justify-content: center;
+    }
+
+    &.space-between {
+      .item.menu-title {
+        margin-right: auto;
+      }
+    }
+
+    &.text:not(.vertical) {
+      .item {
+        &:first-child {
+          padding-left: 0;
+        }
+      }
     }
 
     .item {
-      padding: @menuItemPadding;
-      background: @menuItemBackground;
-      color: @menuItemColor;
-      font-family: @menuItemFontFamily;
-      font-weight: @menuItemFontWeight;
-
-      &:not(.menu-title) {
-        font-size: @menuItemFontSize;
-
-        p {
-          font-size: @menuItemFontSize;
-        }
-      }
-
-      .tab-title-input {
-        min-width: 80px;
-        max-width: 500px;
-        align-self: center;
-        border: none;
-        color: @menuActiveItemColor;
-      }
-
-      &:hover {
-        background: @menuItemHoverBackground;
-        color: @menuItemHoverColor;
-
-        &.menu-title {
-          background: @menuTitleHoverBackground;
-          color: @menuTitleHoverColor;
-        }
-      }
-
-      &.active {
-        background: @menuActiveItemBackground;
-        color: @menuActiveItemColor;
-        font-family: @menuItemFontFamily;
-        font-weight: @menuActiveItemFontWeight;
-
-        &:hover {
-          background: @menuActiveItemHoverBackground;
-          color: @menuActiveItemHoverColor;
-        }
-      }
-
       &.menu-title {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        justify-content: center;
         background: @menuTitleBackgrounnd;
+        font-size: @menuTitleFontSize;
+        font-weight: @menuTitleFontWeight;
+
+        &:hover {
+          background: @menuTitleHoverBackground;
+          color: @menuTitleHoverColor;
+        }
 
         .title {
           color: @menuTitleColor;
@@ -110,9 +74,26 @@
         }
       }
 
-      &::before {
-        width: @menuItemDividerWidth;
-        background: @menuItemDividerBackground;
+      .menu-item-count {
+        display: @menuItemCountDisplay;
+      }
+    }
+
+    .ui.fluid.input {
+      min-width: 80px;
+    }
+  }
+
+  &.horizontal-responsive {
+    .horizontal-responsive.tabs > .ui.menu {
+      justify-content: space-between;
+
+      .menu-wrapper {
+        display: inherit;
+        overflow: hidden;
+        background: inherit;
+        font-family: inherit;
+        font-weight: inherit;
       }
     }
   }
@@ -133,109 +114,6 @@
     &.right {
       > .ui.menu {
         order: 1;
-      }
-    }
-  }
-
-  /* MENU POSITION */
-
-  > .styled > .tabs.inline {
-    .menu {
-      &.left {
-        justify-content: flex-start;
-      }
-
-      &.right {
-        justify-content: flex-end;
-      }
-
-      &.center {
-        justify-content: center;
-      }
-
-      &.space-between {
-        .menu-title {
-          margin-right: auto;
-        }
-      }
-
-      .item {
-        &:first-child {
-          padding-left: 0;
-        }
-      }
-    }
-  }
-
-  > .styled > .tabs.side {
-    &.left {
-      .menu {
-        .item {
-          padding-top: 0;
-          padding-left: 0;
-        }
-      }
-    }
-
-    &.right {
-      .menu {
-        .item {
-          padding-top: 0;
-          padding-right: 0;
-
-          &.menu-title {
-            padding-left: @menuItemPadding;
-          }
-        }
-      }
-    }
-
-    .menu {
-      &.left {
-        align-items: flex-start;
-      }
-
-      &.right {
-        align-items: flex-end;
-      }
-
-      &.center {
-        align-items: center;
-      }
-
-      &.space-between {
-        .menu-title {
-          margin-bottom: auto;
-        }
-      }
-    }
-  }
-
-  &.flex-start {
-    > .tabs.side > .ui.menu {
-      justify-content: flex-start;
-    }
-  }
-
-  &.center {
-    > .tabs.side > .ui.menu {
-      justify-content: center;
-    }
-  }
-
-  &.flex-end {
-    > .tabs.side > .ui.menu {
-      justify-content: flex-end;
-    }
-  }
-
-  @media only screen and (max-width: @menuLargestMobileScreen) {
-    > .styled > .side.default.tabs {
-      flex-direction: column;
-
-      > .ui.menu {
-        flex-basis: 100%;
-        order: 0;
       }
     }
   }
