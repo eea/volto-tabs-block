@@ -2,9 +2,11 @@ import { TabsEdit, TabsView } from '@eeacms/volto-tabs-block/components';
 import {
   DefaultEdit,
   DefaultView,
+  HorizontalResponsiveView,
   HorizontalCarouselView,
   VerticalCarouselView,
   defaultSchema,
+  horizontalResponsiveSchema,
   carouselSchema,
 } from '@eeacms/volto-tabs-block/components';
 import { layoutSchema } from '@eeacms/volto-tabs-block/components';
@@ -36,6 +38,12 @@ export default (config) => {
         edit: DefaultEdit,
         view: DefaultView,
         schema: defaultSchema,
+      },
+      'horizontal-responsive': {
+        title: 'Horizontal responsive',
+        edit: DefaultEdit,
+        view: HorizontalResponsiveView,
+        schema: horizontalResponsiveSchema,
       },
       carousel: {
         title: 'Carousel horizontal',

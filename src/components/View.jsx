@@ -1,12 +1,13 @@
 import React from 'react';
+import cx from 'classnames';
+import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { DefaultView } from './templates/default';
-import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
-import cx from 'classnames';
 
 import config from '@plone/volto/registry';
 
-import '@eeacms/volto-tabs-block/less/tabs-block.less';
+import '@eeacms/volto-tabs-block/less/edit.less';
+import '@eeacms/volto-tabs-block/less/tabs.less';
 
 const View = (props) => {
   const view = React.useRef(null);

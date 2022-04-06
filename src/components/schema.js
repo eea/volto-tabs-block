@@ -7,12 +7,12 @@ export const schema = (config, templateSchema = {}) => {
     templatesConfig[template].title || template,
   ]);
 
-  const defaultFieldset = templateSchema.fieldsets.filter(
+  const defaultFieldset = templateSchema?.fieldsets?.filter(
     (fieldset) => fieldset.id === 'default',
   )[0];
 
   return {
-    title: templateSchema.title || 'Tabs block',
+    title: templateSchema?.title || 'Tabs block',
     fieldsets: [
       {
         id: 'default',
@@ -22,10 +22,10 @@ export const schema = (config, templateSchema = {}) => {
           'title',
           'template',
           'verticalAlign',
-          ...(defaultFieldset?.fields || {}),
+          ...(defaultFieldset?.fields || []),
         ],
       },
-      ...(templateSchema.fieldsets.filter(
+      ...(templateSchema?.fieldsets?.filter(
         (fieldset) => fieldset.id !== 'default',
       ) || []),
     ],
@@ -53,8 +53,8 @@ export const schema = (config, templateSchema = {}) => {
         ],
         default: 'flex-start',
       },
-      ...(templateSchema.properties || {}),
+      ...(templateSchema?.properties || {}),
     },
-    required: [...(templateSchema.required || [])],
+    required: [...(templateSchema?.required || [])],
   };
 };

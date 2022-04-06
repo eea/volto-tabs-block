@@ -1,10 +1,8 @@
-@menuMargin: 0;
-@menuMarginEdit: 1rem 0;
-@menuBoxShadow: none;
-@menuBackgroundColor: transparent;
-@menuBorder: none;
-@menuBorderRadius: 0.28571429rem;
+/*******************************
+            Tabs menu
+*******************************/
 
+/* Menu title */
 @menuTitleFontSize: 24px;
 @menuTitleFontWeight: normal;
 @menuTitleColor: #013C60;
@@ -12,27 +10,8 @@
 @menuTitleHoverColor: #013C60;
 @menuTitleHoverBackground: none;
 
+/* Menu description */
 @menuDescriptionColor: #636363;
 
+/* Menu item */
 @menuItemCountDisplay: none;
-@menuItemDividerWidth: 0;
-@menuItemDividerBackground: rgba(34, 36, 38, 0.1);
-@menuItemFontFamily: 'Raleway', sans-serif;
-@menuItemPadding: 1rem;
-
-@menuFirstItemPadding: @menuItemPadding;
-
-@menuItemFontSize: 16px;
-@menuItemFontWeight: normal;
-@menuItemColor: #636363;
-@menuItemBackground: none;
-@menuItemHoverColor: #878F93;
-@menuItemHoverBackground: none;
-
-@menuActiveItemFontWeight: normal;
-@menuActiveItemColor: #04A77D;
-@menuActiveItemBackground: none;
-@menuActiveItemHoverColor: #04c290;
-@menuActiveItemHoverBackground: none;
-
-@menuLargestMobileScreen: 767px;
