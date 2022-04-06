@@ -96,7 +96,11 @@ const MenuWrapper = (props) => {
         ))}
       </div>
       {true && (
-        <Dropdown icon="ellipsis horizontal" pointing>
+        <Dropdown
+          icon="ellipsis horizontal"
+          className="item"
+          pointing="top right"
+        >
           <Dropdown.Menu>
             {tabsList.map((underlineTab, underlineIndex) => {
               const title = tabs[underlineTab].title;

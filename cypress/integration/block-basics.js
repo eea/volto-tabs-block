@@ -36,14 +36,13 @@ describe('Blocks Tests', () => {
     cy.get('.field-wrapper-menuAlign #field-menuAlign').click();
     cy.get('.react-select__menu').contains('Left').click();
     cy.get('.field-wrapper-menuPosition #field-menuPosition').first().click();
-    cy.get('.react-select__menu').contains('Inline').click();
+    cy.get('.react-select__menu').contains('Top').click();
 
     cy.get('[contenteditable=true]').first().focus().click();
-    cy.get('.tabs-block [contenteditable=true]').first().type("Hydrogen");
+    cy.get('.tabs-block [contenteditable=true]').first().type('Hydrogen');
     cy.get('.tabs-block .ui.left.menu .item').last().click();
     cy.get('.tabs-block').contains('Tab 2').click();
-    cy.get('.tabs-block.edit [contenteditable=true]').first().type("Oxygen");
-
+    cy.get('.tabs-block.edit [contenteditable=true]').first().type('Oxygen');
 
     cy.get('[contenteditable=true]').first().type('{enter}');
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
@@ -57,7 +56,6 @@ describe('Blocks Tests', () => {
     cy.get('.field-wrapper-theme #field-theme').click();
     cy.get('.react-select__menu').contains('Dark').click();
     cy.get('.tabs-block .ui.left.menu .item').eq(1).click();
-
 
     // Save
     cy.get('#toolbar-save').click();
