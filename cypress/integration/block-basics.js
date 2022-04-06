@@ -55,7 +55,8 @@ describe('Blocks Tests', () => {
     cy.get('.react-select__menu').contains('Bottom').click();
     cy.get('.field-wrapper-theme #field-theme').click();
     cy.get('.react-select__menu').contains('Dark').click();
-    cy.get('.tabs-block .ui.left.menu .item').eq(1).click();
+    cy.get('.tabs-block .ui.menu .item').last().click();
+    cy.get('.tabs-block .ui.menu .item').eq(1).click();
 
     // Save
     cy.get('#toolbar-save').click();
