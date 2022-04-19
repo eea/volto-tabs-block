@@ -193,7 +193,7 @@ const View = (props) => {
                     {hiddenSections.map((tab, i) => (
                       <Dropdown.Item
                         key={tab}
-                        active={false}
+                        active={tab === activeTab}
                         onClick={() => {
                           setActiveTab(tab);
                         }}
