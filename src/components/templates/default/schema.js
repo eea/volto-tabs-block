@@ -23,10 +23,17 @@ export default () => ({
         'menuStackable',
         'menuTabular',
         'menuText',
+        'responsive',
       ],
     },
   ],
   properties: {
+    responsive: {
+      title: 'Responsive?',
+      description: 'Renders a dropdown menu for overflow tabs',
+      type: 'boolean',
+      defaultValue: false,
+    },
     description: {
       title: 'Description',
     },
