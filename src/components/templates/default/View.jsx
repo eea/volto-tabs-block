@@ -170,23 +170,18 @@ const View = (props) => {
             id: 'moreDropdown',
 
             menuItem: (
-              <Menu.Item
-                className="menu-title"
-                active={activeTabIds.indexOf(activeTab) === -1}
-              >
+              <Menu.Item active={activeTabIds.indexOf(activeTab) === -1}>
                 <Popup
                   menu={true}
                   position="bottom left"
                   flowing={true}
                   basic={true}
                   popper={{ className: 'dropdown-popup' }}
+                  on="click"
                   trigger={
-                    <Icon
-                      name={moreSVG}
-                      size="24px"
-                      color="#826a6a"
-                      className="dropdown-popup-trigger configuration-svg"
-                    />
+                    <p className="menu-item-text dropdown-popup-trigger">
+                      {`${hiddenSections.length} more`}&nbsp;&hellip;
+                    </p>
                   }
                 >
                   <Dropdown.Menu>
