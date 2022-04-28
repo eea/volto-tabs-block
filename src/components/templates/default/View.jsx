@@ -207,33 +207,31 @@ const View = (props) => {
   ];
 
   return (
-    <>
-      <Ref innerRef={tabsRef}>
-        <Tab
-          activeIndex={activeTabIndex}
-          className="default tabs"
-          menu={{
-            attached: menuPosition.attached,
-            borderless: getDataValue('menuBorderless'),
-            color: getDataValue('menuColor'),
-            compact: getDataValue('menuCompact'),
-            fluid: getDataValue('menuFluid'),
-            inverted: getDataValue('menuInverted'),
-            pointing: getDataValue('menuPointing'),
-            secondary: getDataValue('menuSecondary'),
-            size: getDataValue('menuSize'),
-            stackable: getDataValue('menuStackable'),
-            tabular: getDataValue('menuTabular'),
-            text: getDataValue('menuText'),
-            vertical: menuPosition.vertical,
-            className: cx(data.menuAlign, { container: isContainer }),
-          }}
-          menuPosition={menuPosition.direction}
-          panes={panes}
-          grid={{ paneWidth: 9, tabWidth: 3 }}
-        />
-      </Ref>
-    </>
+    <Ref innerRef={tabsRef}>
+      <Tab
+        activeIndex={activeTabIndex}
+        className="default tabs"
+        menu={{
+          attached: menuPosition.attached,
+          borderless: getDataValue('menuBorderless'),
+          color: getDataValue('menuColor'),
+          compact: getDataValue('menuCompact'),
+          fluid: getDataValue('menuFluid'),
+          inverted: getDataValue('menuInverted'),
+          pointing: getDataValue('menuPointing'),
+          secondary: getDataValue('menuSecondary'),
+          size: getDataValue('menuSize'),
+          stackable: getDataValue('menuStackable'),
+          tabular: getDataValue('menuTabular'),
+          text: getDataValue('menuText'),
+          vertical: menuPosition.vertical,
+          className: cx(data.menuAlign, { container: isContainer }),
+        }}
+        menuPosition={menuPosition.direction}
+        panes={panes}
+        grid={{ paneWidth: 9, tabWidth: 3 }}
+      />
+    </Ref>
   );
 };
 
