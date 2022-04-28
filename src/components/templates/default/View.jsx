@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import cx from 'classnames';
 import { Ref, Menu, Tab, Container, Dropdown } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
-import { RenderBlocks, Popup, Icon } from '@plone/volto/components';
+import { RenderBlocks, Popup } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
@@ -13,8 +13,6 @@ import {
   getMenuPosition,
 } from '@eeacms/volto-tabs-block/utils';
 import { useWindowDimmension } from '@eeacms/volto-tabs-block/hocs';
-
-import moreSVG from '@plone/volto/icons/more.svg';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
@@ -180,7 +178,7 @@ const View = (props) => {
                   on="click"
                   trigger={
                     <p className="menu-item-text dropdown-popup-trigger">
-                      {`${hiddenSections.length} more`}&nbsp;&hellip;
+                      {`${hiddenSections.length} more`}&hellip;
                     </p>
                   }
                 >
@@ -217,7 +215,7 @@ const View = (props) => {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [maxCount]);
+  }, [maxCount, responsive]);
 
   React.useLayoutEffect(() => {
     if (!responsive) return;
@@ -233,7 +231,7 @@ const View = (props) => {
     );
     let ref = setTimeout(() => setVisibleCount(inViewCount), 100);
     return () => clearTimeout(ref);
-  }, [width]);
+  }, [width, responsive]);
 
   return (
     <>
