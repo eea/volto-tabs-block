@@ -61,15 +61,16 @@ const MenuWrapper = (props) => {
     tabsList = [],
     setActiveTab = () => {},
   } = props;
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     if (!true || !node?.current) return;
     const items = node.current.querySelectorAll(
       '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
     );
-    const underlineMenu = node.current.querySelector('.ui.dropdown');
-    if (!underlineMenu) return;
-    const overflowOffset = positionedOffset(underlineMenu, node.current);
+    const underlineDropdown = node.current.querySelector('.ui.dropdown');
+    if (!underlineDropdown) return;
+    const overflowOffset = positionedOffset(underlineDropdown, node.current);
     if (!overflowOffset) {
       return;
     }
@@ -83,8 +84,11 @@ const MenuWrapper = (props) => {
         anyHidden = anyHidden || hidden;
       }
     }
-    underlineMenu.style.visibility = anyHidden ? '' : 'hidden';
-  }, [screen, node, data.isResponsive]);
+    underlineDropdown.style.visibility = anyHidden ? '' : 'hidden';
+    if (!anyHidden && open) {
+      setOpen(false);
+    }
+  }, [screen, node, open, data.isResponsive]);
 
   return (
     <React.Fragment>
@@ -95,39 +99,38 @@ const MenuWrapper = (props) => {
           </React.Fragment>
         ))}
       </div>
-      {true && (
-        <Dropdown
-          icon="ellipsis horizontal"
-          className="item"
-          pointing="top right"
-        >
-          <Dropdown.Menu>
-            {tabsList.map((underlineTab, underlineIndex) => {
-              const title = tabs[underlineTab].title;
-              const defaultTitle = `Tab ${underlineIndex + 1}`;
+      <Dropdown
+        icon="ellipsis horizontal"
+        className="item"
+        pointing="top right"
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+      >
+        <Dropdown.Menu>
+          {tabsList.map((underlineTab, underlineIndex) => {
+            const title = tabs[underlineTab].title;
+            const defaultTitle = `Tab ${underlineIndex + 1}`;
 
-              return (
-                <Dropdown.Item
-                  hidden
-                  key={`underline-tab-${underlineIndex}-${underlineTab}`}
-                  underline-item-data={underlineTab}
-                  active={underlineTab === activeTab}
-                  onClick={() => {
-                    if (activeTab !== underlineTab) {
-                      setActiveTab(underlineTab);
-                    }
-                  }}
-                >
-                  <span className={'menu-item-count'}>
-                    {underlineIndex + 1}
-                  </span>
-                  <p className={'menu-item-text'}>{title || defaultTitle}</p>
-                </Dropdown.Item>
-              );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
-      )}
+            return (
+              <Dropdown.Item
+                hidden
+                key={`underline-tab-${underlineIndex}-${underlineTab}`}
+                underline-item-data={underlineTab}
+                active={underlineTab === activeTab}
+                onClick={() => {
+                  if (activeTab !== underlineTab) {
+                    setActiveTab(underlineTab);
+                  }
+                }}
+              >
+                <span className={'menu-item-count'}>{underlineIndex + 1}</span>
+                <p className={'menu-item-text'}>{title || defaultTitle}</p>
+              </Dropdown.Item>
+            );
+          })}
+        </Dropdown.Menu>
+      </Dropdown>
     </React.Fragment>
   );
 };
@@ -201,6 +204,7 @@ const View = (props) => {
       menuItem: (
         <MenuItem
           {...props}
+          key={tab}
           tab={tab}
           tabsList={tabsList}
           index={index}
@@ -245,7 +249,6 @@ const View = (props) => {
           text: getDataValue('menuText'),
           vertical: menuPosition.vertical,
           className: cx(data.menuAlign, { container: isContainer }),
-          items: undefined,
           children: (
             <MenuWrapper
               {...props}
