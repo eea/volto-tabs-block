@@ -29,10 +29,11 @@ export default () => ({
   ],
   properties: {
     responsive: {
-      title: 'Responsive?',
-      description: 'Renders a dropdown menu for overflow tabs',
-      type: 'boolean',
-      defaultValue: false,
+      title: 'Responsiveness',
+      choices: [
+        ['collapseMenu', 'Collapsed menu'],
+        ['scrollable', 'Scrollable'],
+      ],
     },
     description: {
       title: 'Description',

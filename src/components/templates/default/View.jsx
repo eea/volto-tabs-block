@@ -12,7 +12,8 @@ import {
   SimpleMarkdown,
   getMenuPosition,
 } from '@eeacms/volto-tabs-block/utils';
-import { useWindowDimmension } from '@eeacms/volto-tabs-block/hocs';
+
+import useResponsiveTabs from './useResponsiveTabs';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
@@ -132,8 +133,10 @@ const View = (props) => {
     hashlinkOnMount,
   ]);
 
+  const tabsRef = React.useRef();
+  const visibleCount = useResponsiveTabs({ responsive, tabsRef, tabsList });
+
   const maxCount = tabsList.length;
-  const [visibleCount, setVisibleCount] = React.useState(maxCount);
 
   const hiddenSections = tabsList.slice(visibleCount, tabsList.length);
   const activeTabIds = tabsList.slice(0, visibleCount);
@@ -202,36 +205,6 @@ const View = (props) => {
         ]
       : []),
   ];
-
-  const tabsRef = React.useRef();
-
-  const { width } = useWindowDimmension();
-
-  React.useEffect(() => {
-    if (!responsive) return;
-    function handleResize() {
-      setVisibleCount(maxCount);
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [maxCount, responsive]);
-
-  React.useLayoutEffect(() => {
-    if (!responsive) return;
-    // compute the number of tabs that are hidden due to overflow
-    const tabsMenuNode = tabsRef.current.children[0];
-    if (tabsMenuNode.scrollWidth === tabsMenuNode.clientWidth) return;
-    const rightSide = tabsMenuNode.getBoundingClientRect().right;
-    const children = Array.from(tabsMenuNode.children || []);
-    const inViewCount = children.reduce(
-      (acc, node) =>
-        node.getBoundingClientRect().right > rightSide ? acc : acc + 1,
-      -1,
-    );
-    let ref = setTimeout(() => setVisibleCount(inViewCount), 100);
-    return () => clearTimeout(ref);
-  }, [width, responsive]);
 
   return (
     <>
