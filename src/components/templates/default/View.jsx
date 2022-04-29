@@ -121,6 +121,7 @@ const View = (props) => {
       menuItem: (
         <MenuItem
           {...props}
+          key={tab}
           tab={tab}
           index={index}
           tabsTitle={tabsTitle}
