@@ -1,3 +1,10 @@
+@type: 'extra';
+@element: 'custom';
+
+@import (multiple, reference, optional) '../../theme.config';
+
+@borderColor: rgba(120, 192, 215, 0.75);
+
 .inner.tabs_block {
   margin-bottom: 0;
 
@@ -68,48 +75,36 @@
     }
   }
 
+  .blocks-form {
+    margin-top: 0.5rem;
+  }
+
+  .blocks-chooser {
+    right: 0;
+    left: auto;
+    margin-top: 3rem;
+  }
+
   .block-toolbar {
     position: absolute;
     z-index: 3;
-    right: unset;
-    left: -9px;
+    right: -9px;
     display: flex;
-    padding: 5px;
-    border: 1px solid #78c0d7bf;
-    border-bottom: 1px solid #fff;
+    border: none;
+    border: 1px solid @borderColor;
+    border-bottom: 1px solid @pageBackground;
     margin-top: -45px;
-    background-color: #fff;
+    background-color: @pageBackground;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
 
     .ui.basic.button {
-      padding: 3px;
-      padding-right: 0;
-      box-shadow: none;
+      padding: 8px 5px;
     }
 
-    .wrapper-column-block {
-      > .ui.basic.button {
-        &:hover {
-          background-color: transparent !important;
-        }
-      }
+    .ui.basic.button:hover {
+      background: transparent !important;
     }
-
-    > .ui.basic.button {
-      &:hover {
-        background-color: transparent !important;
-      }
-
-      svg {
-        color: #134448;
-      }
-    }
-  }
-
-  .blocks-chooser {
-    left: 0;
-    margin-top: 50px;
   }
 }
 
