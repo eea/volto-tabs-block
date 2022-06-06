@@ -18,7 +18,7 @@ import tabsSVG from '@eeacms/volto-tabs-block//icons/tabs.svg';
 export default (config) => {
   config.blocks.blocksConfig[TABS_BLOCK] = {
     id: TABS_BLOCK,
-    title: 'Tabs block',
+    title: 'Tabs',
     icon: tabsSVG,
     group: 'common',
     edit: TabsEdit,
