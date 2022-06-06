@@ -120,4 +120,37 @@
   }
 }
 
+.ui.menu:not(.RRT__accordion) {
+  .ui.item .icon {
+    display: none;
+  }
+}
+
+.ui.menu.RRT__accordion {
+  &::before {
+    display: none;
+  }
+
+  .ui.item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 !important;
+    padding: 0.75rem 1.25rem !important;
+    border-width: 0 !important;
+    border-bottom: none !important;
+
+    &.active {
+      background-color: #007B6C !important;
+      color: #fff !important;
+    }
+  }
+
+  .ui.tab {
+    background-color: #F9F9F9 !important;
+    padding: 1rem;
+    margin-bottom: 0;
+  }
+}
+
 .loadAddonOverrides();

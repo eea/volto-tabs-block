@@ -1,5 +1,5 @@
 export default () => ({
-  title: 'Default tabs block',
+  title: 'Horizontal tabs block',
   fieldsets: [
     {
       id: 'default',
