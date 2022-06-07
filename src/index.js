@@ -42,7 +42,7 @@ export default (config) => {
         schema: defaultSchema,
       },
       accordion: {
-        title: 'Accordion',
+        title: 'Accordion responsive',
         edit: DefaultEdit,
         view: AccordionView,
         schema: accordionSchema,
