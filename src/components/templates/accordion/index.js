@@ -1,4 +1,5 @@
+import AccordionEdit from './Edit';
 import AccordionView from './View';
 import accordionSchema from './schema';
 
-export { AccordionView, accordionSchema };
+export { AccordionEdit, AccordionView, accordionSchema };

@@ -3,24 +3,52 @@ import cx from 'classnames';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import Tabs from 'react-responsive-tabs';
+import AnimateHeight from 'react-animate-height';
 import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
-import { RenderBlocks } from '@plone/volto/components';
+import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';
 
+class Tab extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      height: 0,
+    };
+  }
+
+  componentDidMount() {
+    if (this.state.height === 0) {
+      requestAnimationFrame(() => {
+        this.setState({ height: 'auto' });
+      });
+    }
+  }
+
+  render() {
+    return (
+      <AnimateHeight animateOpacity duration={500} height={this.state.height}>
+        <RenderBlocks {...this.props} />
+      </AnimateHeight>
+    );
+  }
+}
+
 const View = (props) => {
   const {
-    metadata = {},
     data = {},
     tabsList = [],
     tabs = {},
     activeTabIndex = 0,
     setActiveTab = () => {},
   } = props;
+  const accordionConfig =
+    config.blocks.blocksConfig.tabs_block.templates.accordion;
+  const { icons, semanticIcon } = accordionConfig;
 
   const schema = React.useMemo(
     () =>
@@ -48,18 +76,20 @@ const View = (props) => {
     return {
       title: (
         <>
+          {semanticIcon ? (
+            <Icon name={active ? semanticIcon.opened : semanticIcon.closed} />
+          ) : (
+            <VoltoIcon
+              name={active ? icons.opened : icons.closed}
+              size={icons.size}
+            />
+          )}
           {title || defaultTitle}{' '}
-          <Icon
-            size="large"
-            name={active ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'}
-          />
         </>
       ),
-      getContent: () => (
-        <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
-      ),
+      getContent: () => <Tab {...props} tab={tab} content={tabs[tab]} />,
       key: tab,
-      tabClassName: cx('ui button item', { active }),
+      tabClassName: cx('ui button item title', { active }),
       panelClassName: cx('ui bottom attached segment tab', {
         active,
       }),
@@ -73,7 +103,11 @@ const View = (props) => {
         selectedTabKey={tabsList[activeTabIndex]}
         items={items}
         onChange={(tab) => {
-          setActiveTab(tab);
+          if (tab !== tabsList[activeTabIndex]) {
+            setActiveTab(tab);
+          } else {
+            setActiveTab(null);
+          }
         }}
         tabsWrapperClass={cx(
           'ui pointing secondary menu',

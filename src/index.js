@@ -2,6 +2,7 @@ import { TabsEdit, TabsView } from '@eeacms/volto-tabs-block/components';
 import {
   DefaultEdit,
   DefaultView,
+  AccordionEdit,
   AccordionView,
   HorizontalResponsiveView,
   HorizontalCarouselView,
@@ -16,6 +17,8 @@ import { TABS_BLOCK } from './constants';
 import { TabsWidget } from './widgets';
 
 import tabsSVG from '@eeacms/volto-tabs-block//icons/tabs.svg';
+import rightSVG from '@plone/volto/icons/right-key.svg';
+import downSVG from '@plone/volto/icons/down-key.svg';
 
 export default (config) => {
   config.blocks.blocksConfig[TABS_BLOCK] = {
@@ -43,9 +46,14 @@ export default (config) => {
       },
       accordion: {
         title: 'Accordion responsive',
-        edit: DefaultEdit,
+        edit: AccordionEdit,
         view: AccordionView,
         schema: accordionSchema,
+        icons: {
+          closed: rightSVG,
+          opened: downSVG,
+          size: '24px',
+        },
       },
       'horizontal-responsive': {
         title: 'Horizontal responsive',
