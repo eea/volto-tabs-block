@@ -15,3 +15,6 @@
 
 /* Menu item */
 @menuItemCountDisplay: none;
+
+@accordionMenuItemBackground: #F3F4F5;
+@accordionTabBackground: transparent;
