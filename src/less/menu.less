@@ -118,144 +118,145 @@
       }
     }
   }
-}
-
-.ui.menu:not(.RRT__accordion) {
-  .ui.item .icon {
-    display: none;
-  }
-}
-
-.RRT__container {
-  > .ui.tab .rah-animating {
-    transition: height 0ms ease 0ms !important;
-
-    > div {
-      transition: opacity 0ms ease 0ms !important;
+  .ui.menu:not(.RRT__accordion) {
+    .ui.item .icon {
+      display: none;
     }
   }
-}
 
-.ui.menu.RRT__accordion {
-  &::before {
-    display: none;
-  }
+  .RRT__container {
+    > .ui.tab .rah-animating {
+      transition: height 0ms ease 0ms !important;
 
-  border-bottom: none !important;
-
-  .ui.item {
-    display: flex;
-    width: 100%;
-    padding: 0.75rem 1rem !important;
-    border-width: 0 !important;
-    border-bottom: none !important;
-    margin: 0 !important;
-    background-color: @accordionMenuItemBackground;
-
-    .icon {
-      margin: 0 !important;
-    }
-
-    .dropdown.icon {
-      transform: rotate(-90deg);
-    }
-
-    &.active {
-      .dropdown.icon {
-        transform: rotate(0);
+      > div {
+        transition: opacity 0ms ease 0ms !important;
       }
     }
   }
 
-  &.red {
-    .ui.item.active {
-      background-color: @red !important;
-      color: #fff !important;
+  .ui.menu.RRT__accordion {
+    &::before {
+      display: none;
     }
-  }
 
-  &.orange {
-    .ui.item.active {
-      background-color: @orange !important;
-      color: #fff !important;
+    border-bottom: none !important;
+
+    .ui.item {
+      display: flex;
+      width: 100%;
+      padding: 0.75rem 1rem !important;
+      border-width: 0 !important;
+      border-bottom: none !important;
+      margin: 0 !important;
+      background-color: @accordionMenuItemBackground;
+
+      .icon {
+        margin: 0 !important;
+      }
+
+      .dropdown.icon {
+        transform: rotate(-90deg);
+      }
+
+      &.active {
+        .dropdown.icon {
+          transform: rotate(0);
+        }
+      }
     }
-  }
 
-  &.yellow {
-    .ui.item.active {
-      background-color: @yellow !important;
-      color: #fff !important;
+    &.red {
+      .ui.item.active {
+        background-color: @red !important;
+        color: #fff !important;
+      }
     }
-  }
 
-  &.olive {
-    .ui.item.active {
-      background-color: @olive !important;
-      color: #fff !important;
+    &.orange {
+      .ui.item.active {
+        background-color: @orange !important;
+        color: #fff !important;
+      }
     }
-  }
 
-  &.green {
-    .ui.item.active {
-      background-color: @green !important;
-      color: #fff !important;
+    &.yellow {
+      .ui.item.active {
+        background-color: @yellow !important;
+        color: #fff !important;
+      }
     }
-  }
 
-  &.teal {
-    .ui.item.active {
-      background-color: @teal !important;
-      color: #fff !important;
+    &.olive {
+      .ui.item.active {
+        background-color: @olive !important;
+        color: #fff !important;
+      }
     }
-  }
 
-  &.blue {
-    .ui.item.active {
-      background-color: @blue !important;
-      color: #fff !important;
+    &.green {
+      .ui.item.active {
+        background-color: @green !important;
+        color: #fff !important;
+      }
     }
-  }
 
-  &.violet {
-    .ui.item.active {
-      background-color: @violet !important;
-      color: #fff !important;
+    &.teal {
+      .ui.item.active {
+        background-color: @teal !important;
+        color: #fff !important;
+      }
     }
-  }
 
-  &.purple {
-    .ui.item.active {
-      background-color: @purple !important;
-      color: #fff !important;
+    &.blue {
+      .ui.item.active {
+        background-color: @blue !important;
+        color: #fff !important;
+      }
     }
-  }
 
-  &.brown {
-    .ui.item.active {
-      background-color: @brown !important;
-      color: #fff !important;
+    &.violet {
+      .ui.item.active {
+        background-color: @violet !important;
+        color: #fff !important;
+      }
     }
-  }
 
-  &.grey {
-    .ui.item.active {
-      background-color: @grey !important;
-      color: #fff !important;
+    &.purple {
+      .ui.item.active {
+        background-color: @purple !important;
+        color: #fff !important;
+      }
     }
-  }
 
-  &.black {
-    .ui.item.active {
-      background-color: @black !important;
-      color: #fff !important;
+    &.brown {
+      .ui.item.active {
+        background-color: @brown !important;
+        color: #fff !important;
+      }
     }
-  }
 
-  .ui.tab {
-    padding: 1rem;
-    margin-bottom: 0;
-    background-color: @accordionTabBackground !important;
+    &.grey {
+      .ui.item.active {
+        background-color: @grey !important;
+        color: #fff !important;
+      }
+    }
+
+    &.black {
+      .ui.item.active {
+        background-color: @black !important;
+        color: #fff !important;
+      }
+    }
+
+    .ui.tab {
+      padding: 1rem;
+      margin-bottom: 0;
+      background-color: @accordionTabBackground !important;
+    }
   }
 }
+
+
 
 .loadAddonOverrides();
