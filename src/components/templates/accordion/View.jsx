@@ -77,7 +77,9 @@ const View = (props) => {
       title: (
         <>
           {semanticIcon ? (
-            <Icon name={active ? semanticIcon.opened : semanticIcon.closed} />
+            <Icon
+              className={active ? semanticIcon.opened : semanticIcon.closed}
+            />
           ) : (
             <VoltoIcon
               name={active ? icons.opened : icons.closed}
