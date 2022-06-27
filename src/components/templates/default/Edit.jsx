@@ -285,7 +285,13 @@ const Edit = (props) => {
           tabular: getDataValue('menuTabular'),
           text: getDataValue('menuText'),
           vertical: menuPosition.vertical,
-          className: cx(data.menuAlign, { container: isContainer }),
+          className: cx(
+            data.menuAlign,
+            menuPosition.direction === 'left'
+              ? 'borderRight'
+              : menuPosition.direction === 'right' && 'borderLeft',
+            { container: isContainer },
+          ),
         }}
         menuPosition={menuPosition.direction}
         panes={panes}
