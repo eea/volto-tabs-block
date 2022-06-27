@@ -71,7 +71,7 @@ const View = (props) => {
     if (Object.keys(menuPosition).length === 0) {
       setMenuPosition(getMenuPosition(data));
     }
-  }, [data]);
+  }, [data, menuPosition]);
 
   const isContainer = data.align === 'full';
   const tabsTitle = data.title;
