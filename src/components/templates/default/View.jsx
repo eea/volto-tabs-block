@@ -64,7 +64,15 @@ const View = (props) => {
     hashlink = {},
     setActiveTab = () => {},
   } = props;
-  const menuPosition = getMenuPosition(data);
+
+  const [menuPosition, setMenuPosition] = React.useState({});
+
+  React.useEffect(() => {
+    if (Object.keys(menuPosition).length === 0) {
+      setMenuPosition(getMenuPosition(data));
+    }
+  }, [data, menuPosition]);
+
   const isContainer = data.align === 'full';
   const tabsTitle = data.title;
   const tabsDescription = data.description;
@@ -157,7 +165,13 @@ const View = (props) => {
           tabular: getDataValue('menuTabular'),
           text: getDataValue('menuText'),
           vertical: menuPosition.vertical,
-          className: cx(data.menuAlign, { container: isContainer }),
+          className: cx(
+            data.menuAlign,
+            menuPosition.direction === 'left'
+              ? 'borderRight'
+              : menuPosition.direction === 'right' && 'borderLeft',
+            { container: isContainer },
+          ),
         }}
         menuPosition={menuPosition.direction}
         panes={panes}

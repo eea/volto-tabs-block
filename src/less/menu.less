@@ -23,6 +23,23 @@
       justify-content: flex-start;
     }
 
+    &.borderLeft {
+      border-right-width: 0;
+      border-left-width: 0.0625rem;
+      border-left-style: solid;
+      border-left-color: #bcbec0;
+
+      .item.active {
+        border-right-width: 0rem;
+        border-left-style: solid;
+        margin: 0em 0em 0em -0.2rem;
+      }
+
+      .item:active {
+        border-right-width: 0rem;
+      }
+    }
+
     &.right {
       justify-content: flex-end;
     }
@@ -76,6 +93,10 @@
 
       .menu-item-count {
         display: @menuItemCountDisplay;
+      }
+
+      &.active {
+        border-width: 0.2rem;
       }
     }
 
