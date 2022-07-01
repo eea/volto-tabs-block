@@ -17,9 +17,12 @@ const getMenuPosition = (data) => {
   if (['bottom'].includes(position)) {
     return {
       attached: position,
+      direction: position,
     };
   }
-  return {};
+  return {
+    direction: position,
+  };
 };
 
 const toggleItem = (container, item, hidden) => {
