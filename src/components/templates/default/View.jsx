@@ -167,9 +167,10 @@ const View = (props) => {
           vertical: menuPosition.vertical,
           className: cx(
             data.menuAlign,
-            menuPosition.direction === 'left'
-              ? 'borderRight'
-              : menuPosition.direction === 'right' && 'borderLeft',
+            menuPosition.direction === 'left' ? 'border-right' : '',
+            menuPosition.direction === 'right' ? 'border-left' : '',
+            menuPosition.direction === 'top' ? 'border-bottom' : '',
+            menuPosition.direction === 'bottom' ? 'border-top' : '',
             { container: isContainer },
           ),
         }}
