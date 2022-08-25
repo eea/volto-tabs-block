@@ -49,6 +49,7 @@ export default (config) => {
         edit: AccordionEdit,
         view: AccordionView,
         schema: accordionSchema,
+        transformWidth: 800,
         icons: {
           closed: rightSVG,
           opened: downSVG,
