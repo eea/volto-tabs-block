@@ -47,8 +47,12 @@ const View = (props) => {
     setActiveTab = () => {},
   } = props;
   const accordionConfig =
-    config.blocks.blocksConfig.tabs_block.templates.accordion;
-  const { icons, semanticIcon } = accordionConfig;
+    config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
+  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
+
+  const tabsContainer = React.useRef();
+  const [mounted, setMounted] = React.useState(false);
+  const [initialWidth, setInitialWidth] = React.useState(transformWidth);
 
   const schema = React.useMemo(
     () =>
@@ -73,6 +77,7 @@ const View = (props) => {
     const title = tabs[tab].title;
     const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
+
     return {
       title: (
         <>
@@ -98,9 +103,23 @@ const View = (props) => {
     };
   });
 
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!mounted) return;
+    const { blockWidth, tabsTotalWidth } = tabsContainer.current?.state || {};
+    setInitialWidth(
+      tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1,
+    );
+  }, [mounted]);
+
   return (
     <>
       <Tabs
+        ref={tabsContainer}
+        transformWidth={initialWidth}
         className="tabs aa"
         selectedTabKey={tabsList[activeTabIndex]}
         items={items}
