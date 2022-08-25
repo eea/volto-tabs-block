@@ -46,13 +46,12 @@ const View = (props) => {
     activeTabIndex = 0,
     setActiveTab = () => {},
   } = props;
-  const tabsContainer = React.useRef();
-  const [initialWidth, setInitialWidth] = React.useState(
-    config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion']
-      ?.transformWidth,
-  );
+  const accordionConfig =
+    config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
+  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
 
-  console.log('HERE', initialWidth);
+  const tabsContainer = React.useRef();
+  const [initialWidth, setInitialWidth] = React.useState(transformWidth);
 
   const schema = React.useMemo(
     () =>
@@ -72,10 +71,6 @@ const View = (props) => {
     },
     [schema, data],
   );
-
-  const accordionConfig =
-    config.blocks.blocksConfig.tabs_block.templates.accordion;
-  const { icons, semanticIcon } = accordionConfig;
 
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab].title;
@@ -109,8 +104,10 @@ const View = (props) => {
 
   React.useEffect(() => {
     setInitialWidth(
-      tabsContainer.current?.tabsWrapper?.current?.offsetWidth || 800,
+      tabsContainer.current?.tabsWrapper?.current?.offsetWidth ||
+        transformWidth,
     );
+    /* eslint-disable-next-line */
   }, []);
 
   return (
