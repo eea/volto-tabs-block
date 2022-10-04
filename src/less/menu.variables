@@ -2,6 +2,8 @@
             Tabs menu
 *******************************/
 
+@menuMarginButton: 0;
+
 /* Menu title */
 @menuTitleFontSize: 24px;
 @menuTitleFontWeight: normal;
