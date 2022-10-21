@@ -2,8 +2,9 @@
             Tabs block
 *******************************/
 
-@verticalPadding: 1em;
-@horizontalPadding: 0;
+@tabsBlockColor: #000;
+@verticalPadding: 1rem;
+@horizontalPadding: 1rem;
 
 /* Tab pane */
 @tabPanePadding: @verticalPadding @horizontalPadding;
