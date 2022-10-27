@@ -1,13 +1,10 @@
-import { setupBeforeEach, tearDownAfterEach } from '../support';
+import { slateBeforeEach, slateAfterEach } from '../support/e2e';
 
 describe('Blocks Tests', () => {
-  beforeEach(setupBeforeEach);
-  afterEach(tearDownAfterEach);
+  beforeEach(slateBeforeEach);
+  afterEach(slateAfterEach);
 
   it('Add Block: Empty', () => {
-    // without this the clear command below does nothing sometimes
-    cy.wait(500);
-
     // Change page title
     cy.get('[contenteditable=true]').first().clear();
 
@@ -15,17 +12,20 @@ describe('Blocks Tests', () => {
 
     cy.get('.documentFirstHeading').contains('My Add-on Page');
 
-    cy.get('[contenteditable=true]').first().type('{enter}');
+    cy.getSlate().click();
 
     // Add block
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
     cy.get('.blocks-chooser .title').contains('Media').click();
     cy.get('.content.active.media .button.image').contains('Image').click();
 
-    cy.get('[contenteditable=true]').first().type('{enter}');
+    cy.getSlate().click();
+
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
     cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.tabs_block').click();
+    cy.get('.content.active.common .button.tabs_block')
+      .contains('Tabs')
+      .click({ force: true });
 
     cy.get('.field-wrapper-title input').last().type('Tab 1');
     cy.get('.field-wrapper-template #field-template').click();
@@ -38,16 +38,17 @@ describe('Blocks Tests', () => {
     cy.get('.field-wrapper-menuPosition #field-menuPosition').first().click();
     cy.get('.react-select__menu').contains('Top').click();
 
-    cy.get('[contenteditable=true]').first().focus().click();
     cy.get('.tabs-block [contenteditable=true]').first().type('Hydrogen');
     cy.get('.tabs-block .ui.left.menu .item').last().click();
     cy.get('.tabs-block').contains('Tab 2').click();
     cy.get('.tabs-block.edit [contenteditable=true]').first().type('Oxygen');
 
-    cy.get('[contenteditable=true]').first().type('{enter}');
+    cy.getSlate().click();
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
     cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.tabs_block').first().click();
+    cy.get('.content.active.common .button.tabs_block')
+      .contains('Tabs')
+      .click({ force: true });
 
     cy.get('.field-wrapper-template #field-template').click();
     cy.get('.react-select__menu').contains('Carousel horizontal').click();
