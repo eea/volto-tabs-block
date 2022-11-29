@@ -46,7 +46,7 @@
     "prettier:fix": "make prettier-fix",
     "lint": "make lint",
     "lint:fix": "make lint-fix",
-    "i18n": "make i18n",
+    "i18n": "rm -rf build/messages && NODE_ENV=production i18n --addon",
     "cypress:run": "make cypress-run",
     "cypress:open": "make cypress-open"
   }
