@@ -5,18 +5,135 @@ msgstr ""
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
-"Language: \n"
+"Language: eu\n"
 "Language-Team: \n"
-"Content-Type: \n"
-"Content-Transfer-Encoding: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 2.3\n"
 
-#: components/EditBlockWrapper
 # defaultMessage: Unknown Block {block}
-msgid "Unknown Block"
-msgstr ""
-
 #: components/EditBlockWrapper
+msgid "Unknown Block"
+msgstr "bloke ezezaguna"
+
+# defaultMessage: Allowed blocks
+#: components/layoutSchema
+msgid "allowedBlocks"
+msgstr "Onartutako blokeak"
+
+# defaultMessage: Allow only the following block types
+#: components/layoutSchema
+msgid "allowedBlocksDescription"
+msgstr "Onartu hurrengo blokeak bakarrik"
+
+# defaultMessage: Default
+#: components/layoutSchema components/schema
+msgid "default"
+msgstr "Lehenetsia"
+
 # defaultMessage: delete
+#: components/EditBlockWrapper
 msgid "delete"
-msgstr ""
+msgstr "Ezabatu"
+
+# defaultMessage: Disable new blocks
+#: components/layoutSchema
+msgid "disableNewBlocks"
+msgstr "Desgaitu bloke berriak"
+
+# defaultMessage: Disable creation of new blocks after this block
+#: components/layoutSchema
+msgid "disableNewBlocksDescription"
+msgstr "Desgaitu bloke berrien sorkuntza bloke honen ondoren"
+
+# defaultMessage: Fixed position
+#: components/layoutSchema
+msgid "fixed"
+msgstr "Finkoa"
+
+# defaultMessage: Disable drag & drop on this block
+#: components/layoutSchema
+msgid "fixedDescription"
+msgstr "Desgaitu drag & drop bloke honetatik"
+
+# defaultMessage: Helper text
+#: components/layoutSchema
+msgid "helperText"
+msgstr "Laguntzile testua"
+
+# defaultMessage: Instructions
+#: components/layoutSchema
+msgid "instructions"
+msgstr "Argibideak"
+
+# defaultMessage: Detailed expected value within this block
+#: components/layoutSchema
+msgid "instructionsDescription"
+msgstr "Esperotako balio zehatza bloke honen barruan"
+
+# defaultMessage: A short hint that describes the expected value within this block
+#: components/layoutSchema
+msgid "placeholderDescription"
+msgstr "Pista motz bat bloke honen espero den emaitzarekin"
+
+# defaultMessage: Disable editing on this block
+#: components/layoutSchema
+msgid "readOlnyDescription"
+msgstr "Desgaitu bloke honen edizioa"
+
+# defaultMessage: Read-only
+#: components/layoutSchema
+msgid "readOnly"
+msgstr "Read-Only"
+
+# defaultMessage: Read-only settings
+#: components/layoutSchema
+msgid "readOnlySettings"
+msgstr "Read-only ezarpenak"
+
+# defaultMessage: Disable editing on columns block settings
+#: components/layoutSchema
+msgid "readOnlySettingsDescription"
+msgstr "Desgaitu edizioa zutabeen blokean"
+
+# defaultMessage: Required
+#: components/layoutSchema
+msgid "required"
+msgstr "Beharrezkoa"
+
+# defaultMessage: Don't allow deletion of this block
+#: components/layoutSchema
+msgid "requiredDescription"
+msgstr "Desgaitu bloke hau ezabatzeko aukera"
+
+# defaultMessage: Tabs
+#: components/schema
+msgid "tabs"
+msgstr "Tabs"
+
+# defaultMessage: Tabs Block
+#: components/schema
+msgid "tabsBlock"
+msgstr "Tabs block"
+
+# defaultMessage: Tabs block setting
+#: components/layoutSchema
+msgid "tabsBlockSetting"
+msgstr "Tabs blokearen ezarpenak"
+
+# defaultMessage: Template
+#: components/schema
+msgid "template"
+msgstr "Txantiloia"
+
+# defaultMessage: Title
+#: components/schema
+msgid "title"
+msgstr "Titulua"
+
+# defaultMessage: Vertical Align
+#: components/schema
+msgid "verticalAlign"
+msgstr "Alineazio bertikala"

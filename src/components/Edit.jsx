@@ -10,7 +10,7 @@ import { empty, emptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { BlockStyleWrapperEdit } from '@eeacms/volto-block-style/BlockStyleWrapper';
 import { DefaultEdit } from './templates/default';
-import { schema } from './schema';
+import { Schema } from './schema';
 
 import '@eeacms/volto-tabs-block/less/edit.less';
 import '@eeacms/volto-tabs-block/less/tabs.less';
@@ -38,7 +38,7 @@ const Edit = (props) => {
   const templateSchema =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.schema || {};
 
-  const schemaObject = schema(
+  const schemaObject = Schema(
     config,
     typeof templateSchema === 'function'
       ? templateSchema(config, props)
