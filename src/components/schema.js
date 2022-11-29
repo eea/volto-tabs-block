@@ -11,7 +11,6 @@ export const Schema = (config, templateSchema = {}) => {
   const defaultFieldset = templateSchema?.fieldsets?.filter(
     (fieldset) => fieldset.id === 'default',
   )[0];
-  debugger;
   const intl = useIntl();
   const messages = defineMessages({
     tabsBlock: {
