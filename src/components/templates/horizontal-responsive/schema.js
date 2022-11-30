@@ -1,4 +1,19 @@
-export default () => ({
+import { defineMessages } from 'react-intl';
+const messages = defineMessages({
+  description: {
+    id: 'description',
+    defaultMessage: 'Description',
+  },
+  position: {
+    id: 'position',
+    defaultMessage: 'Position',
+  },
+  fluid: {
+    id: 'fluid',
+    defaultMessage: 'Fluid',
+  },
+});
+export default (config, { intl }) => ({
   title: 'Horizontal tabs block',
   fieldsets: [
     {
@@ -28,10 +43,10 @@ export default () => ({
   ],
   properties: {
     description: {
-      title: 'Description',
+      title: intl.formatMessage(messages.description),
     },
     menuPosition: {
-      title: 'Position',
+      title: intl.formatMessage(messages.position),
       choices: [
         ['top', 'Top'],
         ['bottom', 'Bottom'],
@@ -89,7 +104,7 @@ export default () => ({
       defaultValue: true,
     },
     menuFluid: {
-      title: 'Fluid',
+      title: intl.formatMessage(messages.fluid),
       type: 'boolean',
       defaultValue: true,
     },

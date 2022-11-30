@@ -12,7 +12,6 @@ const blocksArray = (config) => {
     })
     .filter((val) => !!val);
 };
-
 const messages = defineMessages({
   tabsBlockSetting: {
     id: 'tabsBlockSetting',
@@ -90,7 +89,9 @@ const messages = defineMessages({
 });
 
 export default (config) => {
-  const intl = useIntl();
+  // const intl = useIntl();
+  const intl = { formatMessage: () => {} };
+
   return {
     title: intl.formatMessage(messages.tabsBlockSetting),
     fieldsets: [

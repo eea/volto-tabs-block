@@ -37,6 +37,11 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Description
+msgid "description"
+msgstr ""
+
 #: components/layoutSchema
 # defaultMessage: Disable new blocks
 msgid "disableNewBlocks"
@@ -57,6 +62,11 @@ msgstr ""
 msgid "fixedDescription"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Fluid
+msgid "fluid"
+msgstr ""
+
 #: components/layoutSchema
 # defaultMessage: Helper text
 msgid "helperText"
@@ -75,6 +85,11 @@ msgstr ""
 #: components/layoutSchema
 # defaultMessage: A short hint that describes the expected value within this block
 msgid "placeholderDescription"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Position
+msgid "position"
 msgstr ""
 
 #: components/layoutSchema

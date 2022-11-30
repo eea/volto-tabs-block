@@ -37,7 +37,7 @@ const Edit = (props) => {
     DefaultEdit;
   const templateSchema =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.schema || {};
-
+  console.log(props);
   const schemaObject = Schema(
     config,
     typeof templateSchema === 'function'

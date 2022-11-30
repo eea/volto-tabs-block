@@ -38,6 +38,11 @@ msgstr "Lehenetsia"
 msgid "delete"
 msgstr "Ezabatu"
 
+# defaultMessage: Description
+#: components/templates/horizontal-responsive/schema
+msgid "description"
+msgstr "Deskribapena"
+
 # defaultMessage: Disable new blocks
 #: components/layoutSchema
 msgid "disableNewBlocks"
@@ -58,6 +63,11 @@ msgstr "Finkoa"
 msgid "fixedDescription"
 msgstr "Desgaitu drag & drop bloke honetatik"
 
+# defaultMessage: Fluid
+#: components/templates/horizontal-responsive/schema
+msgid "fluid"
+msgstr "testu bat"
+
 # defaultMessage: Helper text
 #: components/layoutSchema
 msgid "helperText"
@@ -77,6 +87,11 @@ msgstr "Esperotako balio zehatza bloke honen barruan"
 #: components/layoutSchema
 msgid "placeholderDescription"
 msgstr "Pista motz bat bloke honen espero den emaitzarekin"
+
+# defaultMessage: Position
+#: components/templates/horizontal-responsive/schema
+msgid "position"
+msgstr "Kokapena"
 
 # defaultMessage: Disable editing on this block
 #: components/layoutSchema
