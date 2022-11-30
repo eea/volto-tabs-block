@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2022-11-30T08:22:57.628Z\n"
+"POT-Creation-Date: 2022-11-30T09:22:17.205Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,11 @@ msgstr ""
 msgid "Unknown Block"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Aligment
+msgid "aligment"
+msgstr ""
+
 #: components/layoutSchema
 # defaultMessage: Allowed blocks
 msgid "allowedBlocks"
@@ -26,6 +31,21 @@ msgstr ""
 #: components/layoutSchema
 # defaultMessage: Allow only the following block types
 msgid "allowedBlocksDescription"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Borderless
+msgid "borderless"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Color
+msgid "color"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Compact
+msgid "compact"
 msgstr ""
 
 #: components/layoutSchema
@@ -84,9 +104,19 @@ msgstr ""
 msgid "instructionsDescription"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Inverted
+msgid "inverted"
+msgstr ""
+
 #: components/layoutSchema
 # defaultMessage: A short hint that describes the expected value within this block
 msgid "placeholderDescription"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Pointing
+msgid "pointing"
 msgstr ""
 
 #: components/templates/horizontal-responsive/schema
@@ -124,6 +154,21 @@ msgstr ""
 msgid "requiredDescription"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Secondary
+msgid "secondary"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Size
+msgid "size"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Stackable
+msgid "stackable"
+msgstr ""
+
 #: components/schema
 # defaultMessage: Tabs
 msgid "tabs"
@@ -139,9 +184,19 @@ msgstr ""
 msgid "tabsBlockSetting"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Tabular
+msgid "tabular"
+msgstr ""
+
 #: components/schema
 # defaultMessage: Template
 msgid "template"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Text
+msgid "text"
 msgstr ""
 
 #: components/schema

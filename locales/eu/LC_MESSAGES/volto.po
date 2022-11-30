@@ -13,143 +13,197 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "X-Generator: Poedit 2.3\n"
 
-#: components/EditBlockWrapper
 # defaultMessage: Unknown Block {block}
+#: components/EditBlockWrapper
 msgid "Unknown Block"
-msgstr "bloke ezezaguna"
+msgstr "Bloke ezezaguna"
 
-#: components/layoutSchema
+# defaultMessage: Aligment
+#: components/templates/horizontal-responsive/schema
+msgid "aligment"
+msgstr "Alineazioa"
+
 # defaultMessage: Allowed blocks
+#: components/layoutSchema
 msgid "allowedBlocks"
 msgstr "Onartutako blokeak"
 
-#: components/layoutSchema
 # defaultMessage: Allow only the following block types
+#: components/layoutSchema
 msgid "allowedBlocksDescription"
 msgstr "Onartu hurrengo blokeak bakarrik"
 
-#: components/layoutSchema
-#: components/schema
+# defaultMessage: Borderless
+#: components/templates/horizontal-responsive/schema
+msgid "borderless"
+msgstr "Borderik gabe"
+
+# defaultMessage: Color
+#: components/templates/horizontal-responsive/schema
+msgid "color"
+msgstr "Kolorea"
+
+# defaultMessage: Compact
+#: components/templates/horizontal-responsive/schema
+msgid "compact"
+msgstr "Konpaktua"
+
 # defaultMessage: Default
+#: components/layoutSchema components/schema
 msgid "default"
 msgstr "Lehenetsia"
 
-#: components/EditBlockWrapper
 # defaultMessage: delete
+#: components/EditBlockWrapper
 msgid "delete"
 msgstr "Ezabatu"
 
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Description
+#: components/templates/horizontal-responsive/schema
 msgid "description"
 msgstr "Deskribapena"
 
-#: components/layoutSchema
 # defaultMessage: Disable new blocks
+#: components/layoutSchema
 msgid "disableNewBlocks"
 msgstr "Desgaitu bloke berriak"
 
-#: components/layoutSchema
 # defaultMessage: Disable creation of new blocks after this block
+#: components/layoutSchema
 msgid "disableNewBlocksDescription"
 msgstr "Desgaitu bloke berrien sorkuntza bloke honen ondoren"
 
-#: components/layoutSchema
 # defaultMessage: Fixed position
+#: components/layoutSchema
 msgid "fixed"
 msgstr "Finkoa"
 
-#: components/layoutSchema
 # defaultMessage: Disable drag & drop on this block
+#: components/layoutSchema
 msgid "fixedDescription"
 msgstr "Desgaitu drag & drop bloke honetatik"
 
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Fluid
+#: components/templates/horizontal-responsive/schema
 msgid "fluid"
-msgstr "testu bat"
+msgstr "Fluidoa"
 
-#: components/layoutSchema
 # defaultMessage: Helper text
+#: components/layoutSchema
 msgid "helperText"
 msgstr "Laguntzile testua"
 
-#: components/layoutSchema
 # defaultMessage: Instructions
+#: components/layoutSchema
 msgid "instructions"
 msgstr "Argibideak"
 
-#: components/layoutSchema
 # defaultMessage: Detailed expected value within this block
+#: components/layoutSchema
 msgid "instructionsDescription"
 msgstr "Esperotako balio zehatza bloke honen barruan"
 
-#: components/layoutSchema
+# defaultMessage: Inverted
+#: components/templates/horizontal-responsive/schema
+msgid "inverted"
+msgstr "Alderantziz"
+
 # defaultMessage: A short hint that describes the expected value within this block
+#: components/layoutSchema
 msgid "placeholderDescription"
 msgstr "Pista motz bat bloke honen espero den emaitzarekin"
 
+# defaultMessage: Pointing
 #: components/templates/horizontal-responsive/schema
+msgid "pointing"
+msgstr "Seinalatuz"
+
 # defaultMessage: Position
+#: components/templates/horizontal-responsive/schema
 msgid "position"
 msgstr "Kokapena"
 
-#: components/layoutSchema
 # defaultMessage: Disable editing on this block
+#: components/layoutSchema
 msgid "readOlnyDescription"
 msgstr "Desgaitu bloke honen edizioa"
 
-#: components/layoutSchema
 # defaultMessage: Read-only
+#: components/layoutSchema
 msgid "readOnly"
 msgstr "Read-Only"
 
-#: components/layoutSchema
 # defaultMessage: Read-only settings
+#: components/layoutSchema
 msgid "readOnlySettings"
 msgstr "Read-only ezarpenak"
 
-#: components/layoutSchema
 # defaultMessage: Disable editing on columns block settings
+#: components/layoutSchema
 msgid "readOnlySettingsDescription"
 msgstr "Desgaitu edizioa zutabeen blokean"
 
-#: components/layoutSchema
 # defaultMessage: Required
+#: components/layoutSchema
 msgid "required"
 msgstr "Beharrezkoa"
 
-#: components/layoutSchema
 # defaultMessage: Don't allow deletion of this block
+#: components/layoutSchema
 msgid "requiredDescription"
 msgstr "Desgaitu bloke hau ezabatzeko aukera"
 
-#: components/schema
+# defaultMessage: Secondary
+#: components/templates/horizontal-responsive/schema
+msgid "secondary"
+msgstr "Bigarren Mailakoa"
+
+# defaultMessage: Size
+#: components/templates/horizontal-responsive/schema
+msgid "size"
+msgstr "Tamaina"
+
+# defaultMessage: Stackable
+#: components/templates/horizontal-responsive/schema
+msgid "stackable"
+msgstr "Pilagarria"
+
 # defaultMessage: Tabs
+#: components/schema
 msgid "tabs"
 msgstr "Tabs"
 
-#: components/schema
 # defaultMessage: Tabs Block
+#: components/schema
 msgid "tabsBlock"
 msgstr "Tabs block"
 
-#: components/layoutSchema
 # defaultMessage: Tabs block setting
+#: components/layoutSchema
 msgid "tabsBlockSetting"
 msgstr "Tabs blokearen ezarpenak"
 
-#: components/schema
+# defaultMessage: Tabular
+#: components/templates/horizontal-responsive/schema
+msgid "tabular"
+msgstr "Taula"
+
 # defaultMessage: Template
+#: components/schema
 msgid "template"
 msgstr "Txantiloia"
 
-#: components/schema
+# defaultMessage: Text
+#: components/templates/horizontal-responsive/schema
+msgid "text"
+msgstr "Testua"
+
 # defaultMessage: Title
+#: components/schema
 msgid "title"
 msgstr "Titulua"
 
-#: components/schema
 # defaultMessage: Vertical Align
+#: components/schema
 msgid "verticalAlign"
 msgstr "Alineazio bertikala"

@@ -12,6 +12,50 @@ const messages = defineMessages({
     id: 'fluid',
     defaultMessage: 'Fluid',
   },
+  aligment: {
+    id: 'aligment',
+    defaultMessage: 'Aligment',
+  },
+  size: {
+    id: 'size',
+    defaultMessage: 'Size',
+  },
+  color: {
+    id: 'color',
+    defaultMessage: 'Color',
+  },
+  borderless: {
+    id: 'borderless',
+    defaultMessage: 'Borderless',
+  },
+  compact: {
+    id: 'compact',
+    defaultMessage: 'Compact',
+  },
+  inverted: {
+    id: 'inverted',
+    defaultMessage: 'Inverted',
+  },
+  pointing: {
+    id: 'pointing',
+    defaultMessage: 'Pointing',
+  },
+  secondary: {
+    id: 'secondary',
+    defaultMessage: 'Secondary',
+  },
+  stackable: {
+    id: 'stackable',
+    defaultMessage: 'Stackable',
+  },
+  tabular: {
+    id: 'tabular',
+    defaultMessage: 'Tabular',
+  },
+  text: {
+    id: 'text',
+    defaultMessage: 'Text',
+  },
 });
 export default (config, { intl }) => ({
   title: 'Horizontal tabs block',
