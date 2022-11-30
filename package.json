@@ -20,6 +20,7 @@
     "@eeacms/volto-block-style"
   ],
   "dependencies": {
+    "@plone/scripts": "*",
     "@eeacms/volto-block-style": "*",
     "react-responsive-tabs": "4.4.3",
     "react-slick": "^0.24.0",
