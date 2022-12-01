@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { useIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
@@ -9,6 +10,7 @@ import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
 import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
+import { messages } from '@eeacms/volto-tabs-block/utils';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -17,6 +19,7 @@ import '@eeacms/volto-tabs-block/less/carousel.less';
 const Slider = loadable(() => import('react-slick'));
 
 const Dots = (props) => {
+  const intl = useIntl;
   const { activeTab = null, tabsList = [], slider = {} } = props;
   return tabsList.length > 1 ? (
     <div className="slick-dots-wrapper">
@@ -28,7 +31,7 @@ const Dots = (props) => {
             className={cx({ 'slick-active': activeTab === tab })}
           >
             <button
-              aria-label={`Select slide ${index + 1}`}
+              aria-label={`${intl.formatMessage(messages.light)} ${index + 1}`}
               onClick={() => {
                 if (slider.current) {
                   slider.current.slickGoTo(index);

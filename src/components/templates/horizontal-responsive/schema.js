@@ -1,73 +1,16 @@
-import { defineMessages } from 'react-intl';
-const messages = defineMessages({
-  description: {
-    id: 'description',
-    defaultMessage: 'Description',
-  },
-  position: {
-    id: 'position',
-    defaultMessage: 'Position',
-  },
-  fluid: {
-    id: 'fluid',
-    defaultMessage: 'Fluid',
-  },
-  aligment: {
-    id: 'aligment',
-    defaultMessage: 'Aligment',
-  },
-  size: {
-    id: 'size',
-    defaultMessage: 'Size',
-  },
-  color: {
-    id: 'color',
-    defaultMessage: 'Color',
-  },
-  borderless: {
-    id: 'borderless',
-    defaultMessage: 'Borderless',
-  },
-  compact: {
-    id: 'compact',
-    defaultMessage: 'Compact',
-  },
-  inverted: {
-    id: 'inverted',
-    defaultMessage: 'Inverted',
-  },
-  pointing: {
-    id: 'pointing',
-    defaultMessage: 'Pointing',
-  },
-  secondary: {
-    id: 'secondary',
-    defaultMessage: 'Secondary',
-  },
-  stackable: {
-    id: 'stackable',
-    defaultMessage: 'Stackable',
-  },
-  tabular: {
-    id: 'tabular',
-    defaultMessage: 'Tabular',
-  },
-  text: {
-    id: 'text',
-    defaultMessage: 'Text',
-  },
-});
+import { messages } from '@eeacms/volto-tabs-block/utils';
+
 export default (config, { intl }) => ({
-  title: 'Horizontal tabs block',
+  title: intl.formatMessage(messages.horizontalTabsBlock),
   fieldsets: [
     {
       id: 'default',
-      title: 'Default',
+      title: intl.formatMessage(messages.default),
       fields: ['description'],
     },
     {
       id: 'menu',
-      title: 'Menu',
+      title: intl.formatMessage(messages.menu),
       fields: [
         'menuAlign',
         'menuPosition',
@@ -92,58 +35,58 @@ export default (config, { intl }) => ({
     menuPosition: {
       title: intl.formatMessage(messages.position),
       choices: [
-        ['top', 'Top'],
-        ['bottom', 'Bottom'],
-        ['left side', 'Left side'],
-        ['right side', 'Right side'],
+        ['top', intl.formatMessage(messages.top)],
+        ['bottom', intl.formatMessage(messages.bottom)],
+        ['left side', intl.formatMessage(messages.leftSide)],
+        ['right side', intl.formatMessage(messages.rightSide)],
       ],
     },
     menuAlign: {
-      title: 'Alignment',
+      title: intl.formatMessage(messages.aligment),
       type: 'array',
       choices: [
-        ['left', 'Left'],
-        ['center', 'Center'],
-        ['right', 'Right'],
-        ['space-between', 'Space between'],
+        ['left', intl.formatMessage(messages.left)],
+        ['center', intl.formatMessage(messages.center)],
+        ['right', intl.formatMessage(messages.right)],
+        ['space-between', intl.formatMessage(messages.spaceBetween)],
       ],
     },
     menuSize: {
-      title: 'Size',
+      title: intl.formatMessage(messages.size),
       choices: [
-        ['mini', 'Mini'],
-        ['tiny', 'Tiny'],
-        ['small', 'Small'],
-        ['large', 'Large'],
-        ['huge', 'Huge'],
-        ['massive', 'Masive'],
+        ['mini', intl.formatMessage(messages.mini)],
+        ['tiny', intl.formatMessage(messages.tiny)],
+        ['small', intl.formatMessage(messages.small)],
+        ['large', intl.formatMessage(messages.large)],
+        ['huge', intl.formatMessage(messages.huge)],
+        ['massive', intl.formatMessage(messages.massive)],
       ],
     },
     menuColor: {
-      title: 'Color',
+      title: intl.formatMessage(messages.color),
       defaultValue: 'green',
       choices: [
-        ['red', 'Red'],
-        ['orange', 'Orange'],
-        ['yellow', 'Yellow'],
-        ['olive', 'Olive'],
-        ['green', 'Green'],
-        ['teal', 'Teal'],
-        ['blue', 'Blue'],
-        ['violet', 'Violet'],
-        ['purple', 'Purple'],
-        ['pink', 'Pink'],
-        ['brown', 'Brown'],
-        ['grey', 'Grey'],
-        ['black', 'Black'],
+        ['red', intl.formatMessage(messages.red)],
+        ['orange', intl.formatMessage(messages.orange)],
+        ['yellow', intl.formatMessage(messages.yellow)],
+        ['olive', intl.formatMessage(messages.olive)],
+        ['green', intl.formatMessage(messages.green)],
+        ['teal', intl.formatMessage(messages.teal)],
+        ['blue', intl.formatMessage(messages.blue)],
+        ['violet', intl.formatMessage(messages.violet)],
+        ['purple', intl.formatMessage(messages.purple)],
+        ['pink', intl.formatMessage(messages.pink)],
+        ['brown', intl.formatMessage(messages.brown)],
+        ['grey', intl.formatMessage(messages.grey)],
+        ['black', intl.formatMessage(messages.black)],
       ],
     },
     menuBorderless: {
-      title: 'Borderless',
+      title: intl.formatMessage(messages.borderless),
       type: 'boolean',
     },
     menuCompact: {
-      title: 'Compact',
+      title: intl.formatMessage(messages.compact),
       type: 'boolean',
       defaultValue: true,
     },
@@ -153,27 +96,27 @@ export default (config, { intl }) => ({
       defaultValue: true,
     },
     menuInverted: {
-      title: 'Inverted',
+      title: intl.formatMessage(messages.compact),
       type: 'boolean',
     },
     menuPointing: {
-      title: 'Pointing',
+      title: intl.formatMessage(messages.pointing),
       type: 'boolean',
     },
     menuSecondary: {
-      title: 'Secondary',
+      title: intl.formatMessage(messages.secondary),
       type: 'boolean',
     },
     menuStackable: {
-      title: 'Stackable',
+      title: intl.formatMessage(messages.stackable),
       type: 'boolean',
     },
     menuTabular: {
-      title: 'Tabular',
+      title: intl.formatMessage(messages.tabular),
       type: 'boolean',
     },
     menuText: {
-      title: 'Text',
+      title: intl.formatMessage(messages.text),
       type: 'boolean',
       defaultValue: true,
     },
