@@ -13,16 +13,7 @@ import dragSVG from '@plone/volto/icons/drag.svg';
 import addSVG from '@plone/volto/icons/circle-plus.svg';
 import trashSVG from '@plone/volto/icons/delete.svg';
 
-const messages = defineMessages({
-  unknownBlock: {
-    id: 'Unknown Block',
-    defaultMessage: 'Unknown Block {block}',
-  },
-  delete: {
-    id: 'delete',
-    defaultMessage: 'delete',
-  },
-});
+import { messages } from '@eeacms/volto-tabs-block/utils';
 
 class EditBlockWrapper extends React.Component {
   constructor(props) {

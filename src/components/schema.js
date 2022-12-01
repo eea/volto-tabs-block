@@ -1,6 +1,6 @@
-import { defineMessages, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-
+import { messages } from '@eeacms/volto-tabs-block/utils';
 export const Schema = (config, templateSchema = {}) => {
   const templatesConfig = config.blocks.blocksConfig[TABS_BLOCK].templates;
   const templates = Object.keys(templatesConfig).map((template) => [
@@ -12,43 +12,18 @@ export const Schema = (config, templateSchema = {}) => {
     (fieldset) => fieldset.id === 'default',
   )[0];
   const intl = useIntl();
-  const messages = defineMessages({
-    tabsBlock: {
-      id: 'tabsBlock',
-      defaultMessage: 'Tabs Block',
-    },
-    default: {
-      id: 'default',
-      defaultMessage: 'Default',
-    },
-    title: {
-      id: 'title',
-      defaultMessage: 'Title',
-    },
-    tabs: {
-      id: 'tabs',
-      defaultMessage: 'Tabs',
-    },
-    template: {
-      id: 'template',
-      defaultMessage: 'Template',
-    },
-    verticalAlign: {
-      id: 'verticalAlign',
-      defaultMessage: 'Vertical Align',
-    },
-  });
+
   return {
     title: templateSchema?.title || intl.formatMessage(messages.tabsBlock),
     fieldsets: [
       {
         id: 'default',
-        title: 'Default',
+        title: intl.formatMessage(messages.default),
         fields: [
-          intl.formatMessage(messages.tabs),
+          'data',
           'title',
           'template',
-          intl.formatMessage(messages.verticalAlign),
+          'verticalAlign',
           ...(defaultFieldset?.fields || []),
         ],
       },
@@ -74,9 +49,9 @@ export const Schema = (config, templateSchema = {}) => {
         title: intl.formatMessage(messages.verticalAlign),
         type: 'array',
         choices: [
-          ['flex-start', 'Top'],
-          ['center', 'Middle'],
-          ['flex-end', 'Bottom'],
+          ['flex-start', intl.formatMessage(messages.top)],
+          ['center', intl.formatMessage(messages.middle)],
+          ['flex-end', intl.formatMessage(messages.bottom)],
         ],
         default: 'flex-start',
       },
