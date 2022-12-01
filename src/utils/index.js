@@ -1,4 +1,5 @@
 import SimpleMarkdown from './SimpleMarkdown';
+import { messages } from './messages';
 
 const getMenuPosition = (data) => {
   const positions = {
@@ -42,5 +43,6 @@ const toggleItem = (container, item, hidden) => {
   }
 };
 
+export { messages };
 export { SimpleMarkdown, getMenuPosition, toggleItem };
 export * from './dimensions';
