@@ -33,10 +33,35 @@ msgstr "Onartutako blokeak"
 msgid "allowedBlocksDescription"
 msgstr "Onartu hurrengo blokeak bakarrik"
 
+# defaultMessage: Black
+#: components/templates/horizontal-responsive/schema
+msgid "black"
+msgstr "Beltza"
+
+# defaultMessage: Blue
+#: components/templates/horizontal-responsive/schema
+msgid "blue"
+msgstr "Urdina"
+
 # defaultMessage: Borderless
 #: components/templates/horizontal-responsive/schema
 msgid "borderless"
 msgstr "Borderik gabe"
+
+# defaultMessage: Bottom
+#: components/schema components/templates/horizontal-responsive/schema
+msgid "bottom"
+msgstr "Behean"
+
+# defaultMessage: Brown
+#: components/templates/horizontal-responsive/schema
+msgid "brown"
+msgstr "Marroia"
+
+# defaultMessage: Center
+#: components/templates/horizontal-responsive/schema
+msgid "center"
+msgstr "Erdian"
 
 # defaultMessage: Color
 #: components/templates/horizontal-responsive/schema
@@ -88,10 +113,25 @@ msgstr "Desgaitu drag & drop bloke honetatik"
 msgid "fluid"
 msgstr "Fluidoa"
 
+# defaultMessage: Green
+#: components/templates/horizontal-responsive/schema
+msgid "green"
+msgstr "Berdea"
+
+# defaultMessage: Grey
+#: components/templates/horizontal-responsive/schema
+msgid "grey"
+msgstr "Grisa"
+
 # defaultMessage: Helper text
 #: components/layoutSchema
 msgid "helperText"
 msgstr "Laguntzile testua"
+
+# defaultMessage: Huge
+#: components/templates/horizontal-responsive/schema
+msgid "huge"
+msgstr "Oso handia"
 
 # defaultMessage: Instructions
 #: components/layoutSchema
@@ -108,6 +148,51 @@ msgstr "Esperotako balio zehatza bloke honen barruan"
 msgid "inverted"
 msgstr "Alderantziz"
 
+# defaultMessage: Large
+#: components/templates/horizontal-responsive/schema
+msgid "large"
+msgstr "Handia"
+
+# defaultMessage: Left
+#: components/templates/horizontal-responsive/schema
+msgid "left"
+msgstr "Ezkerra"
+
+# defaultMessage: Left side
+#: components/templates/horizontal-responsive/schema
+msgid "leftSide"
+msgstr "Ezker aldean"
+
+# defaultMessage: Massive
+#: components/templates/horizontal-responsive/schema
+msgid "massive"
+msgstr "Erraldoia"
+
+# defaultMessage: Middle
+#: components/schema
+msgid "middle"
+msgstr "Erdian"
+
+# defaultMessage: Mini
+#: components/templates/horizontal-responsive/schema
+msgid "mini"
+msgstr "Mini"
+
+# defaultMessage: Olive
+#: components/templates/horizontal-responsive/schema
+msgid "olive"
+msgstr "Oliba"
+
+# defaultMessage: Orange
+#: components/templates/horizontal-responsive/schema
+msgid "orange"
+msgstr "Laranja"
+
+# defaultMessage: Pink
+#: components/templates/horizontal-responsive/schema
+msgid "pink"
+msgstr "Arrosa"
+
 # defaultMessage: A short hint that describes the expected value within this block
 #: components/layoutSchema
 msgid "placeholderDescription"
@@ -122,6 +207,11 @@ msgstr "Seinalatuz"
 #: components/templates/horizontal-responsive/schema
 msgid "position"
 msgstr "Kokapena"
+
+# defaultMessage: Purple
+#: components/templates/horizontal-responsive/schema
+msgid "purple"
+msgstr "Purpura"
 
 # defaultMessage: Disable editing on this block
 #: components/layoutSchema
@@ -143,6 +233,11 @@ msgstr "Read-only ezarpenak"
 msgid "readOnlySettingsDescription"
 msgstr "Desgaitu edizioa zutabeen blokean"
 
+# defaultMessage: Red
+#: components/templates/horizontal-responsive/schema
+msgid "red"
+msgstr "Gorria"
+
 # defaultMessage: Required
 #: components/layoutSchema
 msgid "required"
@@ -153,6 +248,16 @@ msgstr "Beharrezkoa"
 msgid "requiredDescription"
 msgstr "Desgaitu bloke hau ezabatzeko aukera"
 
+# defaultMessage: Right
+#: components/templates/horizontal-responsive/schema
+msgid "right"
+msgstr "Eskuina"
+
+# defaultMessage: Right side
+#: components/templates/horizontal-responsive/schema
+msgid "rightSide"
+msgstr "Eskuin aldea"
+
 # defaultMessage: Secondary
 #: components/templates/horizontal-responsive/schema
 msgid "secondary"
@@ -162,6 +267,16 @@ msgstr "Bigarren Mailakoa"
 #: components/templates/horizontal-responsive/schema
 msgid "size"
 msgstr "Tamaina"
+
+# defaultMessage: Small
+#: components/templates/horizontal-responsive/schema
+msgid "small"
+msgstr "Txikia"
+
+# defaultMessage: Space between
+#: components/templates/horizontal-responsive/schema
+msgid "spaceBetween"
+msgstr "Arteko espazioa"
 
 # defaultMessage: Stackable
 #: components/templates/horizontal-responsive/schema
@@ -188,6 +303,11 @@ msgstr "Tabs blokearen ezarpenak"
 msgid "tabular"
 msgstr "Taula"
 
+# defaultMessage: Teal
+#: components/templates/horizontal-responsive/schema
+msgid "teal"
+msgstr "Berde-urdin"
+
 # defaultMessage: Template
 #: components/schema
 msgid "template"
@@ -198,12 +318,32 @@ msgstr "Txantiloia"
 msgid "text"
 msgstr "Testua"
 
+# defaultMessage: Tiny
+#: components/templates/horizontal-responsive/schema
+msgid "tiny"
+msgstr "Oso txikia"
+
 # defaultMessage: Title
 #: components/schema
 msgid "title"
 msgstr "Titulua"
 
+# defaultMessage: Top
+#: components/schema components/templates/horizontal-responsive/schema
+msgid "top"
+msgstr "Goian"
+
 # defaultMessage: Vertical Align
 #: components/schema
 msgid "verticalAlign"
 msgstr "Alineazio bertikala"
+
+# defaultMessage: Violet
+#: components/templates/horizontal-responsive/schema
+msgid "violet"
+msgstr "Bioleta"
+
+# defaultMessage: Yellow
+#: components/templates/horizontal-responsive/schema
+msgid "yellow"
+msgstr "Horia"

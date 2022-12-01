@@ -32,8 +32,34 @@ msgid "allowedBlocksDescription"
 msgstr ""
 
 #: components/templates/horizontal-responsive/schema
+# defaultMessage: Black
+msgid "black"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Blue
+msgid "blue"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
 # defaultMessage: Borderless
 msgid "borderless"
+msgstr ""
+
+#: components/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Bottom
+msgid "bottom"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Brown
+msgid "brown"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Center
+msgid "center"
 msgstr ""
 
 #: components/templates/horizontal-responsive/schema
@@ -87,9 +113,24 @@ msgstr ""
 msgid "fluid"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Green
+msgid "green"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Grey
+msgid "grey"
+msgstr ""
+
 #: components/layoutSchema
 # defaultMessage: Helper text
 msgid "helperText"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Huge
+msgid "huge"
 msgstr ""
 
 #: components/layoutSchema
@@ -107,6 +148,51 @@ msgstr ""
 msgid "inverted"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Large
+msgid "large"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Left
+msgid "left"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Left side
+msgid "leftSide"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Massive
+msgid "massive"
+msgstr ""
+
+#: components/schema
+# defaultMessage: Middle
+msgid "middle"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Mini
+msgid "mini"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Olive
+msgid "olive"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Orange
+msgid "orange"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Pink
+msgid "pink"
+msgstr ""
+
 #: components/layoutSchema
 # defaultMessage: A short hint that describes the expected value within this block
 msgid "placeholderDescription"
@@ -120,6 +206,11 @@ msgstr ""
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Position
 msgid "position"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Purple
+msgid "purple"
 msgstr ""
 
 #: components/layoutSchema
@@ -142,6 +233,11 @@ msgstr ""
 msgid "readOnlySettingsDescription"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Red
+msgid "red"
+msgstr ""
+
 #: components/layoutSchema
 # defaultMessage: Required
 msgid "required"
@@ -153,6 +249,16 @@ msgid "requiredDescription"
 msgstr ""
 
 #: components/templates/horizontal-responsive/schema
+# defaultMessage: Right
+msgid "right"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Right side
+msgid "rightSide"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
 # defaultMessage: Secondary
 msgid "secondary"
 msgstr ""
@@ -160,6 +266,16 @@ msgstr ""
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Size
 msgid "size"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Small
+msgid "small"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Space between
+msgid "spaceBetween"
 msgstr ""
 
 #: components/templates/horizontal-responsive/schema
@@ -187,6 +303,11 @@ msgstr ""
 msgid "tabular"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Teal
+msgid "teal"
+msgstr ""
+
 #: components/schema
 # defaultMessage: Template
 msgid "template"
@@ -197,12 +318,33 @@ msgstr ""
 msgid "text"
 msgstr ""
 
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Tiny
+msgid "tiny"
+msgstr ""
+
 #: components/schema
 # defaultMessage: Title
 msgid "title"
 msgstr ""
 
 #: components/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Top
+msgid "top"
+msgstr ""
+
+#: components/schema
 # defaultMessage: Vertical Align
 msgid "verticalAlign"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Violet
+msgid "violet"
+msgstr ""
+
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Yellow
+msgid "yellow"
 msgstr ""
