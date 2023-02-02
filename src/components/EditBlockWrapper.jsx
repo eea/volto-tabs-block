@@ -51,10 +51,6 @@ class EditBlockWrapper extends React.Component {
       return;
     }
 
-    // if (this.props.handleClickOutside) {
-    //   this.props.handleClickOutside();
-    // }
-
     if (this.state.addNewBlockOpened) {
       this.setState({
         addNewBlockOpened: false,

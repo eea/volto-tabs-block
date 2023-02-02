@@ -1,4 +1,3 @@
-import { TabsEdit, TabsView } from '@eeacms/volto-tabs-block/components';
 import {
   DefaultEdit,
   DefaultView,
@@ -11,8 +10,10 @@ import {
   accordionSchema,
   horizontalResponsiveSchema,
   carouselSchema,
+  layoutSchema,
+  TabsEdit,
+  TabsView,
 } from '@eeacms/volto-tabs-block/components';
-import { layoutSchema } from '@eeacms/volto-tabs-block/components';
 import { TABS_BLOCK } from './constants';
 import { TabsWidget } from './widgets';
 

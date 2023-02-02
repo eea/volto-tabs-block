@@ -63,7 +63,7 @@ const Edit = (props) => {
   const handleKeyDown = (
     e,
     index,
-    block,
+    _block,
     node,
     {
       disableEnter = false,
@@ -72,11 +72,11 @@ const Edit = (props) => {
     } = {},
   ) => {
     if (e.key === 'ArrowUp' && !disableArrowUp && !activeBlock) {
-      props.onFocusPreviousBlock(block, node);
+      props.onFocusPreviousBlock(_block, node);
       e.preventDefault();
     }
     if (e.key === 'ArrowDown' && !disableArrowDown && !activeBlock) {
-      props.onFocusNextBlock(block, node);
+      props.onFocusNextBlock(_block, node);
       e.preventDefault();
     }
     if (e.key === 'Enter' && !disableEnter && !activeBlock && !editingTab) {
@@ -111,7 +111,7 @@ const Edit = (props) => {
     }
   };
 
-  const onSelectBlock = (id, tabId, isMultipleSelection, event) => {
+  const onSelectBlock = (id, isMultipleSelection, event) => {
     let newMultiSelected = [];
     let selected = id;
 
@@ -192,7 +192,7 @@ const Edit = (props) => {
           />
         </StyleWrapperView>
 
-        {props.selected ? (
+        {props.selected && (
           <BlocksToolbar
             formData={tabData}
             selectedBlock={activeTab}
@@ -217,10 +217,8 @@ const Edit = (props) => {
             }}
             onSelectBlock={onSelectBlock}
           />
-        ) : (
-          ''
         )}
-        {!data?.readOnlySettings ? (
+        {!data?.readOnlySettings && (
           <SidebarPortal selected={props.selected}>
             {activeBlock ? (
               ''
@@ -238,8 +236,6 @@ const Edit = (props) => {
               />
             )}
           </SidebarPortal>
-        ) : (
-          ''
         )}
       </div>
     </BlockStyleWrapperEdit>

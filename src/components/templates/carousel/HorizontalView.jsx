@@ -14,6 +14,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
 
+import noop from 'lodash/noop';
+
 const Slider = loadable(() => import('react-slick'));
 
 const Dots = (props) => {
@@ -104,7 +106,7 @@ const View = (props) => {
     metadata = {},
     tabsList = [],
     tabs = {},
-    setActiveTab = () => {},
+    setActiveTab = noop,
   } = props;
   const activeTabIndex = tabsList.indexOf(activeTab);
   const uiContainer = data.align === 'full' ? 'ui container' : false;
@@ -120,7 +122,7 @@ const View = (props) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     touchMove: true,
-    beforeChange: (oldIndex, index) => {
+    beforeChange: (index) => {
       setActiveTab(tabsList[index]);
     },
   };
@@ -128,7 +130,7 @@ const View = (props) => {
   React.useEffect(() => {
     if (!slider.current?.innerSlider?.list) return;
     const unfocuseElements = ['a', 'button', 'input'];
-    unfocuseElements.forEach((tag) => {
+    unfocuseElements.forEach((_tag) => {
       for (let element of slider.current.innerSlider.list.querySelectorAll(
         ".slick-slide[aria-hidden='true'] a",
       )) {
@@ -185,7 +187,7 @@ const View = (props) => {
     /* eslint-disable-next-line */
   }, [hashlink.counter]);
 
-  const panes = tabsList.map((tab, index) => {
+  const panes = tabsList.map((tab) => {
     return {
       id: tab,
       renderItem: (
