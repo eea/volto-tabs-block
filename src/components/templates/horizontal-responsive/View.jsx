@@ -17,8 +17,10 @@ import {
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
+import noop from 'lodash/noop';
+
 const MenuItem = (props) => {
-  const { activeTab = null, tabs = {}, setActiveTab = () => {} } = props;
+  const { activeTab = null, tabs = {}, setActiveTab = noop } = props;
   const { tabsTitle, tabsDescription, tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
@@ -59,12 +61,12 @@ const MenuWrapper = (props) => {
     screen = {},
     tabs = {},
     tabsList = [],
-    setActiveTab = () => {},
+    setActiveTab = noop,
   } = props;
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    if (!true || !node?.current) return;
+    if (false || !node?.current) return;
     const items = node.current.querySelectorAll(
       '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
     );
@@ -145,7 +147,7 @@ const View = (props) => {
     activeTabIndex = 0,
     hashlink = {},
     screen,
-    setActiveTab = () => {},
+    setActiveTab = noop,
   } = props;
   const menuPosition = getMenuPosition(data);
   const isContainer = data.align === 'full';

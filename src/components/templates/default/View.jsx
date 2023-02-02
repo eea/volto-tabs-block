@@ -15,11 +15,13 @@ import {
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
+import noop from 'lodash/noop';
+
 const MenuItem = (props) => {
   const {
     activeTab = null,
     tabs = {},
-    setActiveTab = () => {},
+    setActiveTab = noop,
     tabsTitle,
     tabsDescription,
   } = props;
@@ -62,7 +64,7 @@ const View = (props) => {
     tabs = {},
     activeTabIndex = 0,
     hashlink = {},
-    setActiveTab = () => {},
+    setActiveTab = noop,
   } = props;
 
   const [menuPosition, setMenuPosition] = React.useState({});

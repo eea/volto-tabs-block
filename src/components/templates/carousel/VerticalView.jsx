@@ -66,7 +66,7 @@ const View = (props) => {
     /* eslint-disable-next-line */
   }, [hashlink.counter]);
 
-  const panes = tabsList.map((tab, index) => {
+  const panes = tabsList.map((tab) => {
     return {
       id: tab,
       renderItem: (

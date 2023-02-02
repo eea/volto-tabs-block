@@ -15,6 +15,8 @@ import {
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
+import noop from 'lodash/noop';
+
 const MenuItem = (props) => {
   const inputRef = React.useRef(null);
   const {
@@ -30,11 +32,11 @@ const MenuItem = (props) => {
     tabsDescription,
     tabsList = [],
     tabsTitle,
-    emptyTab = () => {},
-    setActiveBlock = () => {},
-    setActiveTab = () => {},
-    setEditingTab = () => {},
-    onChangeBlock = () => {},
+    emptyTab = noop,
+    setActiveBlock = noop,
+    setActiveTab = noop,
+    setEditingTab = noop,
+    onChangeBlock = noop,
   } = props;
   const { tab, index } = props;
   const title = tabs[tab].title;
@@ -157,11 +159,11 @@ const Edit = (props) => {
     tabs = {},
     tabsData = {},
     tabsList = [],
-    emptyTab = () => {},
-    onChangeBlock = () => {},
-    onChangeTabData = () => {},
-    onSelectBlock = () => {},
-    setEditingTab = () => {},
+    emptyTab = noop,
+    onChangeBlock = noop,
+    onChangeTabData = noop,
+    onSelectBlock = noop,
+    setEditingTab = noop,
   } = props;
   const menuPosition = getMenuPosition(data);
   const isContainer = data.align === 'full';
@@ -235,7 +237,7 @@ const Edit = (props) => {
                   },
                 });
               }}
-              onSelectBlock={(id, selected, e) => {
+              onSelectBlock={(id, e) => {
                 const isMultipleSelection = e
                   ? e.shiftKey || e.ctrlKey || e.metaKey
                   : false;
