@@ -17,10 +17,12 @@
     "url": "git@github.com:eea/volto-tabs-block.git"
   },
   "addons": [
-    "@eeacms/volto-block-style"
+    "@eeacms/volto-block-style",
+    "@eeacms/volto-anchors"
   ],
   "dependencies": {
     "@eeacms/volto-block-style": "*",
+    "@eeacms/volto-anchors": "*",
     "react-responsive-tabs": "4.4.3",
     "react-slick": "^0.24.0",
     "slick-carousel": "^1.8.1"

@@ -5,7 +5,8 @@ import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
 import { Icon, RenderBlocks } from '@plone/volto/components';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import { withScrollToTarget } from '@eeacms/volto-anchors/hocs';
+import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 
 import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
 import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
@@ -135,32 +136,24 @@ const View = (props) => {
 
   React.useEffect(() => {
     const urlHash = props.location.hash.substring(1) || '';
-    if (
-      hashlink.counter > 0 ||
-      (hashlink.counter === 0 && urlHash && !hashlinkOnMount)
-    ) {
-      const id = hashlink.hash || urlHash || '';
-      const index = tabsList.indexOf(id);
-      const parentId = data.id || props.id;
-      const parent = document.getElementById(parentId);
-      // TODO: Find the best way to add offset relative to header
-      //       The header can be static on mobile and relative on > mobile
-      const headerWrapper = document.querySelector('.header-wrapper');
-      const offsetHeight = headerWrapper?.offsetHeight || 0;
-      if (
-        id !== parentId &&
-        parentId === hashlink.data.parentId &&
-        index > -1 &&
-        parent
-      ) {
-        if (activeTabIndex !== index) {
-          slider.current.slickGoTo(index);
-        }
-        props.scrollToTarget(parent, offsetHeight);
-      } else if (id === parentId && parent) {
-        props.scrollToTarget(parent, offsetHeight);
+    const parentTabId = getParentTabFromHash(data, urlHash);
+    const id = parentTabId;
+    const index = tabsList.indexOf(id);
+    const parentId = data.id || props.id;
+    const parent = document.getElementById(parentId);
+    // TODO: Find the best way to add offset relative to header
+    //       The header can be static on mobile and relative on > mobile
+    const headerWrapper = document.querySelector('.header-wrapper');
+    const offsetHeight = headerWrapper?.offsetHeight || 0;
+    if (id !== parentId && index > -1 && parent) {
+      if (activeTabIndex !== index) {
+        slider.current.slickGoTo(index);
       }
+      props.scrollToTarget(parent, offsetHeight);
+    } else if (id === parentId && parent) {
+      props.scrollToTarget(parent, offsetHeight);
     }
+
     if (!hashlinkOnMount) {
       setHashlinkOnMount(true);
     }
