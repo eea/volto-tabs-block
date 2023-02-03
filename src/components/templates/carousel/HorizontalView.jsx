@@ -141,6 +141,7 @@ const View = (props) => {
     const index = tabsList.indexOf(id);
     const parentId = data.id || props.id;
     const parent = document.getElementById(parentId);
+    const scrollToElement = document.getElementById(id);
     // TODO: Find the best way to add offset relative to header
     //       The header can be static on mobile and relative on > mobile
     const headerWrapper = document.querySelector('.header-wrapper');
@@ -149,7 +150,7 @@ const View = (props) => {
       if (activeTabIndex !== index) {
         slider.current.slickGoTo(index);
       }
-      props.scrollToTarget(parent, offsetHeight);
+      props.scrollToTarget(scrollToElement, offsetHeight);
     } else if (id === parentId && parent) {
       props.scrollToTarget(parent, offsetHeight);
     }

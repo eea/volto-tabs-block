@@ -104,13 +104,15 @@ const View = (props) => {
     const index = tabsList.indexOf(id);
     const parentId = data.id || props.id;
     const parent = document.getElementById(parentId);
+    const scrollToElement = document.getElementById(id);
     const headerWrapper = document.querySelector('.header-wrapper');
     const offsetHeight = headerWrapper?.offsetHeight || 0;
     if (id !== parentId && index > -1 && parent) {
       if (activeTabIndex !== index) {
         setActiveTab(id);
       }
-      props.scrollToTarget(id, offsetHeight);
+      //TODO: volto now uses react-router-hash-link which automatically scrolls to offset 0
+      props.scrollToTarget(scrollToElement, offsetHeight);
     } else if (id === parentId && parent) {
       props.scrollToTarget(parent, offsetHeight);
     }

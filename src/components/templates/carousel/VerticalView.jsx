@@ -6,6 +6,7 @@ import loadable from '@loadable/component';
 import cx from 'classnames';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -40,26 +41,24 @@ const View = (props) => {
 
   React.useEffect(() => {
     const urlHash = props.location.hash.substring(1) || '';
-    if (
-      hashlink.counter > 0 ||
-      (hashlink.counter === 0 && urlHash && !hashlinkOnMount)
-    ) {
-      const id = hashlink.hash || urlHash || '';
-      const index = tabsList.indexOf(id);
-      const currentIndex = slider.current?.innerSlider?.state?.currentSlide;
-      const parentId = data.id || props.id;
-      const parent = document.getElementById(parentId);
-      const headerWrapper = document.querySelector('.header-wrapper');
-      const offsetHeight = headerWrapper?.offsetHeight || 0;
-      if (id !== parentId && index > -1 && parent) {
-        if (currentIndex !== index) {
-          slider.current.slickGoTo(index);
-        }
-        props.scrollToTarget(parent, offsetHeight);
-      } else if (id === parentId && parent) {
-        props.scrollToTarget(parent, offsetHeight);
+    const parentTabId = getParentTabFromHash(data, urlHash);
+    const id = parentTabId;
+    const index = tabsList.indexOf(id);
+    const currentIndex = slider.current?.innerSlider?.state?.currentSlide;
+    const parentId = data.id || props.id;
+    const parent = document.getElementById(parentId);
+    const scrollToElement = document.getElementById(id);
+    const headerWrapper = document.querySelector('.header-wrapper');
+    const offsetHeight = headerWrapper?.offsetHeight || 0;
+    if (id !== parentId && index > -1 && parent) {
+      if (currentIndex !== index) {
+        slider.current.slickGoTo(index);
       }
+      props.scrollToTarget(scrollToElement, offsetHeight);
+    } else if (id === parentId && parent) {
+      props.scrollToTarget(parent, offsetHeight);
     }
+
     if (!hashlinkOnMount) {
       setHashlinkOnMount(true);
     }
