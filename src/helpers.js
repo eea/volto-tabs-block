@@ -24,6 +24,19 @@ export const emptyTab = () => ({
   ...emptyBlocksForm(),
 });
 
+export const scrollToTarget = (target, offsetHeight = 0) => {
+  const bodyRect = document.body.getBoundingClientRect().top;
+  const targetRect = target.getBoundingClientRect().top;
+  const targetPosition = targetRect - bodyRect - offsetHeight;
+
+  window.scrollTo({
+    top: targetPosition,
+    behavior: 'smooth',
+  });
+
+  return;
+};
+
 export const getParentTabFromHash = (tabsBlockData, urlHash) => {
   if (urlHash) {
     const { data } = tabsBlockData;
