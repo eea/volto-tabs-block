@@ -47,14 +47,17 @@ const View = (props) => {
     const currentIndex = slider.current?.innerSlider?.state?.currentSlide;
     const parentId = data.id || props.id;
     const parent = document.getElementById(parentId);
-    const scrollToElement = document.getElementById(id);
     const headerWrapper = document.querySelector('.header-wrapper');
     const offsetHeight = headerWrapper?.offsetHeight || 0;
     if (id !== parentId && index > -1 && parent) {
       if (currentIndex !== index) {
         slider.current.slickGoTo(index);
       }
-      props.scrollToTarget(scrollToElement, offsetHeight);
+      setTimeout(() => {
+        const scrollToElement = document.getElementById(urlHash);
+        //TODO: volto now uses react-router-hash-link which automatically scrolls to offset 0
+        props.scrollToTarget(scrollToElement, offsetHeight);
+      }, 100);
     } else if (id === parentId && parent) {
       props.scrollToTarget(parent, offsetHeight);
     }
@@ -63,7 +66,7 @@ const View = (props) => {
       setHashlinkOnMount(true);
     }
     /* eslint-disable-next-line */
-  }, [hashlink.counter]);
+  }, []);
 
   const panes = tabsList.map((tab, index) => {
     return {
