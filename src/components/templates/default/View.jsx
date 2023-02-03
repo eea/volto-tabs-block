@@ -8,7 +8,7 @@ import config from '@plone/volto/registry';
 import { RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
-import { withScrollToTarget } from '@eeacms/volto-anchors/hocs';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
   SimpleMarkdown,
   getMenuPosition,

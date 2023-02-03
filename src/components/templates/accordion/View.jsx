@@ -8,7 +8,7 @@ import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { withScrollToTarget } from '@eeacms/volto-anchors/hocs';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';

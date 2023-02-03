@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
 import { Icon, RenderBlocks } from '@plone/volto/components';
-import { withScrollToTarget } from '@eeacms/volto-anchors/hocs';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 
 import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
