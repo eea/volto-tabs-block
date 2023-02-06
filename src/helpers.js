@@ -1,7 +1,6 @@
 import { v4 as uuid } from 'uuid';
-import Slugger from 'github-slugger';
 import { emptyBlocksForm } from '@plone/volto/helpers';
-import { visitBlocks } from '@eeacms/volto-anchors/helpers';
+import { visitBlocks, toSlug } from '@eeacms/volto-anchors/helpers';
 
 export const empty = () => {
   const tabId = uuid();
@@ -43,7 +42,7 @@ export const getParentTabFromHash = (tabsBlockData, urlHash) => {
     let parentBlockId;
     visitBlocks(data, ([id, data]) => {
       if (data['@type'] === 'tab') parentBlockId = id;
-      if (Slugger.slug(data.plaintext) === urlHash) {
+      if (toSlug(data.plaintext) === urlHash) {
         return true;
       }
     });
