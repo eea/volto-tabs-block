@@ -27,11 +27,18 @@ const View = (props) => {
   const handleKeyDownTabs = (event) => {
     if (event.key === 'Enter') {
     }
-    if (event.key === 'Tab') {
+    if (!event.shiftKey && event.key === 'Tab') {
       if (activeTabIndex === tabsList.length - 1) {
         return;
       } else {
         setActiveTab(tabsList[(activeTabIndex + 1) % tabsList.length]);
+        event.preventDefault();
+      }
+    } else if (event.shiftKey && event.key === 'Tab') {
+      if (activeTabIndex === 0) {
+        return;
+      } else {
+        setActiveTab(tabsList[(activeTabIndex - 1) % tabsList.length]);
         event.preventDefault();
       }
     }
