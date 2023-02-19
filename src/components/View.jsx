@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import cx from 'classnames';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
@@ -15,6 +15,8 @@ const View = (props) => {
   const tabsData = data.data || {};
   const tabsList = tabsData.blocks_layout?.items || [];
   const tabs = tabsData.blocks || {};
+  const [navigationMode, setNavigationMode] = useState('tabs');
+  const [activeElement, setActiveElement] = useState(0);
   const [activeTab, setActiveTab] = React.useState(tabsList?.[0]);
   const activeTabIndex = tabsList.indexOf(activeTab);
   const tabData = tabs[activeTab] || {};
@@ -24,23 +26,26 @@ const View = (props) => {
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.view ||
     DefaultView;
   const ref = useRef(null);
+  const getNumberOfChildrenOfTab = (tabId) => {
+    return tabs[tabId]?.blocks_layout?.items?.length || 0;
+  };
   const handleKeyDownTabs = (event) => {
-    if (event.key === 'Enter') {
-    }
     if (!event.shiftKey && event.key === 'Tab') {
-      if (activeTabIndex === tabsList.length - 1) {
-        return;
-      } else {
+      if (activeElement === getNumberOfChildrenOfTab(activeTab) - 1) {
+        if (activeTabIndex === tabsList.length - 1) {
+          return;
+        }
         setActiveTab(tabsList[(activeTabIndex + 1) % tabsList.length]);
-        event.preventDefault();
-      }
+        setActiveElement(0);
+      } else setActiveElement(activeElement + 1);
     } else if (event.shiftKey && event.key === 'Tab') {
-      if (activeTabIndex === 0) {
-        return;
-      } else {
+      if (activeElement === 0) {
+        if (activeTabIndex === 0) {
+          return;
+        }
+        setActiveElement(getNumberOfChildrenOfTab(activeTab - 1));
         setActiveTab(tabsList[(activeTabIndex - 1) % tabsList.length]);
-        event.preventDefault();
-      }
+      } else setActiveElement(activeElement - 1);
     }
   };
   return (
