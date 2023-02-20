@@ -1,31 +1,32 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import cx from 'classnames';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { DefaultView } from './templates/default';
+
 import config from '@plone/volto/registry';
+
 import '@eeacms/volto-tabs-block/less/edit.less';
 import '@eeacms/volto-tabs-block/less/tabs.less';
 
 const View = (props) => {
   const view = React.useRef(null);
-  const { data = {}, uiContainer = '', blockProps } = props;
+  const { data = {}, uiContainer = '' } = props;
   const metadata = props.metadata || props.properties;
   const template = data.template || 'default';
   const tabsData = data.data || {};
   const tabsList = tabsData.blocks_layout?.items || [];
   const tabs = tabsData.blocks || {};
-  const [navigationMode, setNavigationMode] = useState('tabs');
-  const [activeElement, setActiveElement] = useState(0);
   const [activeTab, setActiveTab] = React.useState(tabsList?.[0]);
   const activeTabIndex = tabsList.indexOf(activeTab);
   const tabData = tabs[activeTab] || {};
   const theme = data.theme || 'light';
   const verticalAlign = data.verticalAlign || 'flex-start';
+
   const TabsView =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.view ||
     DefaultView;
-  const ref = useRef(null);
+
   return (
     <StyleWrapperView
       {...props}
@@ -36,16 +37,13 @@ const View = (props) => {
       <div
         className={cx('tabs-block', template, theme, verticalAlign)}
         id={props.id}
-        tabIndex="0"
-        role="button"
+        ref={view}
       >
         <StyleWrapperView
           {...props}
           data={tabData}
           styleData={tabData.styles || {}}
           styled={true}
-          tabIndex="0"
-          ref={ref}
         >
           <TabsView
             {...props}
