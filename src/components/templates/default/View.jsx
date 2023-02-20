@@ -164,7 +164,6 @@ const View = (props) => {
       <Tab
         activeIndex={activeTabIndex}
         className="default tabs"
-        tabIndex={0}
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),
