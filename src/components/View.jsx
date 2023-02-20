@@ -26,28 +26,6 @@ const View = (props) => {
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.view ||
     DefaultView;
   const ref = useRef(null);
-  const getNumberOfChildrenOfTab = (tabId) => {
-    return tabs[tabId]?.blocks_layout?.items?.length || 0;
-  };
-  const handleKeyDownTabs = (event) => {
-    if (!event.shiftKey && event.key === 'Tab') {
-      if (activeElement === getNumberOfChildrenOfTab(activeTab) - 1) {
-        if (activeTabIndex === tabsList.length - 1) {
-          return;
-        }
-        setActiveTab(tabsList[(activeTabIndex + 1) % tabsList.length]);
-        setActiveElement(0);
-      } else setActiveElement(activeElement + 1);
-    } else if (event.shiftKey && event.key === 'Tab') {
-      if (activeElement === 0) {
-        if (activeTabIndex === 0) {
-          return;
-        }
-        setActiveElement(getNumberOfChildrenOfTab(activeTab - 1));
-        setActiveTab(tabsList[(activeTabIndex - 1) % tabsList.length]);
-      } else setActiveElement(activeElement - 1);
-    }
-  };
   return (
     <StyleWrapperView
       {...props}
@@ -59,7 +37,6 @@ const View = (props) => {
         className={cx('tabs-block', template, theme, verticalAlign)}
         id={props.id}
         tabIndex="0"
-        onKeyDown={handleKeyDownTabs}
         role="button"
       >
         <StyleWrapperView

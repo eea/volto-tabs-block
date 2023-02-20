@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
-import { Menu, Tab, Container } from 'semantic-ui-react';
+import { Menu, Tab, Container, Button } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import { RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
@@ -18,11 +18,15 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 const MenuItem = (props) => {
   const {
     activeTab = null,
+    activeTabMenu = null,
     tabs = {},
     setActiveTab = () => {},
+    setActiveTabMenu = () => {},
+    setEnterMode = () => {},
     tabsTitle,
     tabsDescription,
   } = props;
+
   const { tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
@@ -39,11 +43,13 @@ const MenuItem = (props) => {
       )}
       <Menu.Item
         name={defaultTitle}
-        active={tab === activeTab}
+        active={tab === activeTabMenu}
         onClick={() => {
           if (activeTab !== tab) {
             setActiveTab(tab);
           }
+          if (activeTabMenu !== tab) setActiveTabMenu(tab);
+          setEnterMode(false);
         }}
       >
         <span className={'menu-item-count'}>{tabIndex}</span>
@@ -55,6 +61,7 @@ const MenuItem = (props) => {
 
 const View = (props) => {
   const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
+
   const {
     metadata = {},
     data = {},
@@ -66,7 +73,37 @@ const View = (props) => {
   } = props;
 
   const [menuPosition, setMenuPosition] = React.useState({});
-
+  const [activeTabMenu, setActiveTabMenu] = React.useState(tabsList[0]);
+  const [enterMode, setEnterMode] = React.useState(false);
+  const handleKeyDownTabs = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      setActiveTab(activeTabMenu);
+      setEnterMode(true);
+    }
+    if (!event.shiftKey && event.key === 'Tab') {
+      if (tabsList.indexOf(activeTabMenu) === tabsList.length - 1) {
+        return;
+      } else {
+        if (enterMode === false) {
+          event.preventDefault();
+          setActiveTabMenu(
+            tabsList[(tabsList.indexOf(activeTabMenu) + 1) % tabsList.length],
+          );
+        }
+      }
+    } else if (event.shiftKey && event.key === 'Tab') {
+      event.preventDefault();
+      if (tabsList.indexOf(activeTabMenu) === 0) {
+        return;
+      }
+      if (enterMode === false) {
+        setActiveTabMenu(
+          tabsList[(tabsList.indexOf(activeTabMenu) - 1) % tabsList.length],
+        );
+      }
+    }
+  };
   React.useEffect(() => {
     if (Object.keys(menuPosition).length === 0) {
       setMenuPosition(getMenuPosition(data));
@@ -132,6 +169,9 @@ const View = (props) => {
           key={tab}
           tab={tab}
           index={index}
+          activeTabMenu={activeTabMenu}
+          setActiveTabMenu={setActiveTabMenu}
+          setEnterMode={setEnterMode}
           tabsTitle={tabsTitle}
           tabsDescription={tabsDescription}
         />
@@ -151,6 +191,8 @@ const View = (props) => {
       <Tab
         activeIndex={activeTabIndex}
         className="default tabs"
+        tabIndex={0}
+        onKeyDown={handleKeyDownTabs}
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),

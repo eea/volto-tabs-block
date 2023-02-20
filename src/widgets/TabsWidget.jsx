@@ -35,7 +35,7 @@ const TabsWidget = (props) => {
     blocks[id],
   ]);
   const activeTabData = blocks[activeTabId] || {};
-
+  console.log('intru', { props });
   return (
     <FormFieldWrapper
       {...props}
