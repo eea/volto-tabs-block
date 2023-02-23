@@ -38,7 +38,7 @@ const View = (props) => {
         className={cx('tabs-block', template, theme, verticalAlign)}
         id={props.id}
         ref={view}
-        tabIndex={0}
+        s
       >
         <StyleWrapperView
           {...props}
@@ -48,7 +48,6 @@ const View = (props) => {
         >
           <TabsView
             {...props}
-            tabIndex={0}
             activeTab={activeTab}
             activeTabIndex={activeTabIndex}
             node={view}
