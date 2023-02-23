@@ -22,6 +22,7 @@ const MenuItem = (props) => {
     setActiveTab = () => {},
     tabsTitle,
     tabsDescription,
+    blockId,
   } = props;
 
   const { tab, index } = props;
@@ -49,8 +50,14 @@ const MenuItem = (props) => {
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             e.preventDefault();
-            if (document.getElementsByClassName('active tab').length > 0) {
-              const tabDiv = document.getElementsByClassName('active tab')[0];
+            if (
+              document
+                .getElementById(blockId)
+                .getElementsByClassName('active tab').length > 0
+            ) {
+              const tabDiv = document
+                .getElementById(blockId)
+                .getElementsByClassName('active tab')[0];
               tabDiv.focus();
             }
             if (activeTab !== tab) {
@@ -77,7 +84,6 @@ const View = (props) => {
     hashlink = {},
     setActiveTab = () => {},
   } = props;
-
   const [menuPosition, setMenuPosition] = React.useState({});
 
   React.useEffect(() => {
@@ -147,6 +153,7 @@ const View = (props) => {
           index={index}
           tabsTitle={tabsTitle}
           tabsDescription={tabsDescription}
+          blockId={props?.id || ''}
         />
       ),
       render: () => {
