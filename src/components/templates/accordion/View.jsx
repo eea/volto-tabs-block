@@ -11,6 +11,7 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import 'react-responsive-tabs/styles.css';
+import '@eeacms/volto-tabs-block/less/menu.less';
 
 class Tab extends React.Component {
   constructor() {
