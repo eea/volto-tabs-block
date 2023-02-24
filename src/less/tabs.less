@@ -7,6 +7,16 @@
 .loadAddonVariables();
 
 .tabs-block {
+  .tabs-accessibility {
+    .ui.button.item:focus {
+      outline: 1px dotted #212121 !important;
+      outline: 5px auto -webkit-focus-ring-color !important;
+    }
+    a:focus {
+      outline: 1px dotted #212121 !important;
+      outline: 5px auto -webkit-focus-ring-color !important;
+    }
+  }
   color: @tabsBlockColor;
 
   > .styled {

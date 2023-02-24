@@ -8,7 +8,6 @@ import config from '@plone/volto/registry';
 import { RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import './tabs.less';
 import {
   SimpleMarkdown,
   getMenuPosition,
@@ -35,7 +34,6 @@ const MenuItem = (props) => {
       {index === 0 && (tabsTitle || tabsDescription) && (
         <Menu.Item
           className="menu-title"
-          style={{ outline: 'solid !important' }}
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
@@ -140,7 +138,7 @@ const MenuWrapper = (props) => {
 
   return (
     <React.Fragment>
-      <div className="menu-wrapper">
+      <div className="menu-wrapper tabs-accessibility">
         {panes.map((pane, index) => (
           <React.Fragment key={`menu-item-${index}-${pane.id}`}>
             {pane.menuItem}

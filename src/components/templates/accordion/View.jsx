@@ -11,7 +11,6 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import 'react-responsive-tabs/styles.css';
-import '@eeacms/volto-tabs-block/less/menu.less';
 
 class Tab extends React.Component {
   constructor() {
@@ -46,6 +45,7 @@ const View = (props) => {
     activeTabIndex = 0,
     setActiveTab = () => {},
   } = props;
+
   const accordionConfig =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
   const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
@@ -121,6 +121,7 @@ const View = (props) => {
         ref={tabsContainer}
         transformWidth={initialWidth}
         className="tabs aa"
+        tabIndex={0}
         selectedTabKey={tabsList[activeTabIndex]}
         items={items}
         onChange={(tab) => {
@@ -132,6 +133,7 @@ const View = (props) => {
         }}
         tabsWrapperClass={cx(
           'ui pointing secondary menu',
+          'tabs-accessibility',
           getDataValue('menuColor'),
           {
             inverted: getDataValue('menuInverted'),
