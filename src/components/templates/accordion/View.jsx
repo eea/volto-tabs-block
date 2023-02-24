@@ -116,7 +116,19 @@ const View = (props) => {
   }, [mounted]);
 
   return (
-    <>
+    <div
+      tabIndex="0"
+      onKeyDown={(e) => {
+        if (window.screen.width <= transformWidth) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const focusedElement = document.activeElement;
+            if (focusedElement) focusedElement.click();
+          }
+        }
+      }}
+      role="tab"
+    >
       <Tabs
         ref={tabsContainer}
         transformWidth={initialWidth}
@@ -141,7 +153,7 @@ const View = (props) => {
         )}
         showMore={false}
       />
-    </>
+    </div>
   );
 };
 
