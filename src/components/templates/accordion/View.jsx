@@ -31,7 +31,13 @@ class Tab extends React.Component {
 
   render() {
     return (
-      <AnimateHeight animateOpacity duration={500} height={this.state.height}>
+      <AnimateHeight
+        animateOpacity
+        duration={500}
+        height={this.state.height}
+        tabIndex={0}
+        aria-hidden={false}
+      >
         <RenderBlocks {...this.props} />
       </AnimateHeight>
     );
@@ -95,7 +101,17 @@ const View = (props) => {
           {title || defaultTitle}{' '}
         </>
       ),
-      getContent: () => <Tab {...props} tab={tab} content={tabs[tab]} />,
+      getContent: () => (
+        <div className="tab-accesibility">
+          <Tab
+            {...props}
+            tab={tab}
+            content={tabs[tab]}
+            tabIndex={0}
+            aria-hidden={false}
+          />
+        </div>
+      ),
       key: tab,
       tabClassName: cx('ui button item title', { active }),
       panelClassName: cx('ui bottom attached segment tab', {
@@ -119,11 +135,18 @@ const View = (props) => {
   return (
     <div
       tabIndex="0"
-      onKeyDown={(e) => {
+      onKeyDown={async (e) => {
         if (window.screen.width <= transformWidth) {
           if (e.key === 'Enter') {
             e.preventDefault();
+
             const focusedElement = document.activeElement;
+            if (focusedElement) focusedElement.click();
+          }
+        } else {
+          if (e.key === 'Enter') {
+            const focusedElement = document.activeElement;
+            e.preventDefault();
             if (focusedElement) focusedElement.click();
           }
         }
