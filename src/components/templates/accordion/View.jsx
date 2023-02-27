@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import cx from 'classnames';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
@@ -35,7 +35,6 @@ class Tab extends React.Component {
         animateOpacity
         duration={500}
         height={this.state.height}
-        tabIndex={0}
         aria-hidden={false}
       >
         <RenderBlocks {...this.props} />
@@ -102,15 +101,7 @@ const View = (props) => {
         </>
       ),
       getContent: () => (
-        <div className="tab-accesibility">
-          <Tab
-            {...props}
-            tab={tab}
-            content={tabs[tab]}
-            tabIndex={0}
-            aria-hidden={false}
-          />
-        </div>
+        <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false} />
       ),
       key: tab,
       tabClassName: cx('ui button item title', { active }),
@@ -131,24 +122,25 @@ const View = (props) => {
       tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1,
     );
   }, [mounted]);
+  useLayoutEffect(() => {
+    if (document.activeElement.role !== 'tab') return;
 
+    if (document.getElementsByClassName('tab active').length > 0) {
+      let elemenet = document.getElementsByClassName('tab active')[0];
+      elemenet.setAttribute('tabindex', '0');
+      elemenet.setAttribute('className', 'accesibilty-accordion-tab');
+      elemenet.focus();
+    }
+  }, [activeTabIndex]);
   return (
     <div
       tabIndex="0"
-      onKeyDown={async (e) => {
-        if (window.screen.width <= transformWidth) {
-          if (e.key === 'Enter') {
-            e.preventDefault();
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
 
-            const focusedElement = document.activeElement;
-            if (focusedElement) focusedElement.click();
-          }
-        } else {
-          if (e.key === 'Enter') {
-            const focusedElement = document.activeElement;
-            e.preventDefault();
-            if (focusedElement) focusedElement.click();
-          }
+          const focusedElement = document.activeElement;
+          if (focusedElement) focusedElement.click();
         }
       }}
       role="tab"
@@ -157,7 +149,6 @@ const View = (props) => {
         ref={tabsContainer}
         transformWidth={initialWidth}
         className="tabs aa"
-        tabIndex={0}
         selectedTabKey={tabsList[activeTabIndex]}
         items={items}
         onChange={(tab) => {
