@@ -137,14 +137,13 @@ const View = (props) => {
       activeTabDiv.setAttribute('className', 'accesibilty-accordion-tab');
       activeTabDiv.focus();
     }
-  }, [activeTabIndex]);
+  }, [activeTabIndex, id]);
   return (
     <div
       tabIndex="0"
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
-
           const focusedElement = document.activeElement;
           if (focusedElement) focusedElement.click();
         }
