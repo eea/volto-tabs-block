@@ -50,6 +50,7 @@ const View = (props) => {
     tabs = {},
     activeTabIndex = 0,
     setActiveTab = () => {},
+    id,
   } = props;
 
   const accordionConfig =
@@ -125,8 +126,13 @@ const View = (props) => {
 
   useLayoutEffect(() => {
     if (document.activeElement.role !== 'tab') return;
-    if (document.getElementsByClassName('tab active').length > 0) {
-      let activeTabDiv = document.getElementsByClassName('tab active')[0];
+    if (
+      document.getElementById(id)?.getElementsByClassName('tab active').length >
+      0
+    ) {
+      let activeTabDiv = document
+        .getElementById(id)
+        .getElementsByClassName('tab active')[0];
       activeTabDiv.setAttribute('tabindex', '0');
       activeTabDiv.setAttribute('className', 'accesibilty-accordion-tab');
       activeTabDiv.focus();

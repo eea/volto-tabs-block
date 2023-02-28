@@ -53,7 +53,7 @@ const MenuItem = (props) => {
             if (
               document
                 .getElementById(blockId)
-                .getElementsByClassName('active tab').length > 0
+                ?.getElementsByClassName('active tab').length > 0
             ) {
               const tabDiv = document
                 .getElementById(blockId)

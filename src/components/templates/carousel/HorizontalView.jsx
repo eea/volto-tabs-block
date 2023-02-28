@@ -96,6 +96,7 @@ const ArrowsGroup = (props) => {
 const View = (props) => {
   const slider = React.useRef(null);
   const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
+  const blockId = props.id;
   const {
     activeTab = null,
     data = {},
@@ -145,9 +146,9 @@ const View = (props) => {
       element.setAttribute('aria-hidden', 'false');
       element.style.removeProperty('outline');
     }
-    document
-      .getElementsByClassName('slick-slider')[0]
-      .setAttribute('tabindex', '0');
+    if (document.getElementsByClassName('slick-slider')?.length > 0)
+      for (let carouselDiv of document.getElementsByClassName('slick-slider'))
+        carouselDiv.setAttribute('tabindex', '0');
   }, []);
 
   React.useEffect(() => {
@@ -206,9 +207,13 @@ const View = (props) => {
         className={cx(uiContainer, 'tabs-accessibility')}
         accessibility={true}
         afterChange={() => {
-          if (document.getElementsByClassName('slick-slider')[0]) {
+          if (
             document
-              .getElementsByClassName('slick-slider')[0]
+              .getElementById(blockId)
+              ?.getElementsByClassName('slick-slider')?.length > 0
+          ) {
+            document
+              .getElementById(blockId)
               .getElementsByClassName('slick-current')[0]
               .focus();
           }
