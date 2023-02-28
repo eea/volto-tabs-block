@@ -122,14 +122,14 @@ const View = (props) => {
       tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1,
     );
   }, [mounted]);
+
   useLayoutEffect(() => {
     if (document.activeElement.role !== 'tab') return;
-
     if (document.getElementsByClassName('tab active').length > 0) {
-      let elemenet = document.getElementsByClassName('tab active')[0];
-      elemenet.setAttribute('tabindex', '0');
-      elemenet.setAttribute('className', 'accesibilty-accordion-tab');
-      elemenet.focus();
+      let activeTabDiv = document.getElementsByClassName('tab active')[0];
+      activeTabDiv.setAttribute('tabindex', '0');
+      activeTabDiv.setAttribute('className', 'accesibilty-accordion-tab');
+      activeTabDiv.focus();
     }
   }, [activeTabIndex]);
   return (
