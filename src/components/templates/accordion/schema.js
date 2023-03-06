@@ -9,12 +9,17 @@ export default () => ({
     {
       id: 'menu',
       title: 'Menu',
-      fields: ['menuColor', 'menuInverted'],
+      fields: ['menuColor', 'menuInverted', 'accordionIconRight'],
     },
   ],
   properties: {
     description: {
       title: 'Description',
+    },
+    accordionIconRight: {
+      title: 'Icon position on the right',
+      description: 'Position left/right of the icon in the accordion tab',
+      type: 'boolean',
     },
     menuColor: {
       title: 'Color',

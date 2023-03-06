@@ -138,6 +138,7 @@ const View = (props) => {
       activeTabDiv.focus();
     }
   }, [activeTabIndex, id]);
+
   return (
     <div
       tabIndex="0"
@@ -164,6 +165,7 @@ const View = (props) => {
           }
         }}
         tabsWrapperClass={cx(
+          props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
           'ui pointing secondary menu',
           'tabs-accessibility',
           getDataValue('menuColor'),

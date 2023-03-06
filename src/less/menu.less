@@ -143,6 +143,13 @@
     }
   }
 
+  .ui.menu.RRT__accordion.tabs-accordion-icon-right {
+    .ui.item {
+      flex-direction: row-reverse;
+      justify-content: space-between;
+    }
+  }
+
   .ui.menu.RRT__accordion {
     &::before {
       display: none;
@@ -153,7 +160,7 @@
     .ui.item {
       display: flex;
       width: 100%;
-      padding: 0.75rem 1rem !important;
+      padding: 0 1rem !important;
       border-width: 0 !important;
       border-bottom: none !important;
       margin: 0 !important;
