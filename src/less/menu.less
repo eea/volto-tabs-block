@@ -178,8 +178,12 @@
     }
 
     &.theme-primary {
-      .ui.item:hover {
+      .ui.item:not(.active):hover {
         color: @primaryColor !important;
+
+        .icon {
+          color: @primaryColor !important;
+        }
       }
 
       .ui.item.active {
@@ -188,9 +192,21 @@
       }
     }
 
+    .RRT__tabs .active .icon {
+      color: #808285;
+    }
+
+    .RRT__tabs .icon {
+      color: white;
+    }
+
     &.theme-secondary {
-      .ui.item:hover {
+      .ui.item:not(.active):hover {
         color: @secondaryColor !important;
+
+        .icon {
+          color: @secondaryColor !important;
+        }
       }
 
       .ui.item.active {
@@ -200,8 +216,12 @@
     }
 
     &.theme-tertiary {
-      .ui.item:hover {
+      .ui.item:not(.active):hover {
         color: @tertiaryColor !important;
+
+        .icon {
+          color: @tertiaryColor !important;
+        }
       }
 
       .ui.item.active {
@@ -409,5 +429,9 @@
     }
   }
 }
+
+// .tabs-block .ui.menu.RRT__accordion .ui.item .icon {
+//   color: #808285;
+// }
 
 .loadAddonOverrides();
