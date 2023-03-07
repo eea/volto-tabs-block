@@ -270,7 +270,7 @@ const Edit = (props) => {
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className="default tabs theme-primary"
+        className="default tabs"
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),
