@@ -20,3 +20,8 @@
 
 @accordionMenuItemBackground: #F3F4F5;
 @accordionTabBackground: transparent;
+
+/* Theme variables */
+@primaryColor         : #004B7F;
+@secondaryColor       : #007B6C;
+@tertiaryColor        : #3D5265;
