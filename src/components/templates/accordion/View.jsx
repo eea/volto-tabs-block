@@ -154,7 +154,6 @@ const View = (props) => {
       <Tabs
         ref={tabsContainer}
         transformWidth={initialWidth}
-        className="tabs aa"
         selectedTabKey={tabsList[activeTabIndex]}
         items={items}
         onChange={(tab) => {
@@ -168,7 +167,7 @@ const View = (props) => {
           props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
           'ui pointing secondary menu',
           'tabs-accessibility',
-          getDataValue('menuColor'),
+          data?.theme ? `theme-${data?.theme}` : '',
           {
             inverted: getDataValue('menuInverted'),
           },

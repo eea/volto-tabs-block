@@ -55,12 +55,10 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
-        background: @menuTitleBackgrounnd;
         font-size: @menuTitleFontSize;
         font-weight: @menuTitleFontWeight;
 
         &:hover {
-          background: @menuTitleHoverBackground;
           color: @menuTitleHoverColor;
         }
 
@@ -164,7 +162,6 @@
       border-width: 0 !important;
       border-bottom: none !important;
       margin: 0 !important;
-      background-color: @accordionMenuItemBackground;
 
       .icon {
         margin: 0 !important;
@@ -181,11 +178,41 @@
       }
     }
 
+    &.theme-primary {
+      .ui.item:hover {
+        color: @primaryColor !important;
+      }
+
+      .ui.item.active {
+        background-color: @primaryColor !important;
+        color: #fff !important;
+      }
+    }
+
+    &.theme-secondary {
+      .ui.item:hover {
+        color: @secondaryColor !important;
+      }
+
+      .ui.item.active {
+        background-color: @secondaryColor !important;
+        color: #fff !important;
+      }
+    }
+
+    &.theme-tertiary {
+      .ui.item:hover {
+        color: @tertiaryColor !important;
+      }
+
+      .ui.item.active {
+        background-color: @tertiaryColor !important;
+        color: #fff !important;
+      }
+    }
+
     &.red {
       color: @red !important;
-
-      .ui.item:hover {
-      }
 
       .ui.item.active {
         background-color: @red !important;
@@ -318,6 +345,44 @@
       padding: 1rem;
       margin-bottom: 0;
       background-color: @accordionTabBackground !important;
+    }
+  }
+}
+
+.ui.menu.RRT__tabs {
+  .item.ui {
+    color: #323232;
+  }
+  &.theme-primary {
+    .item.ui:hover {
+      color: @primaryColor !important;
+    }
+
+    .item.ui.active {
+      color: @primaryColor !important;
+      border-bottom: 0.1875rem solid @primaryColor !important;
+    }
+  }
+
+  &.theme-secondary {
+    .item.ui:hover {
+      color: @secondaryColor !important;
+    }
+
+    .item.ui.active {
+      color: @secondaryColor !important;
+      border-bottom: 0.1875rem solid @secondaryColor !important;
+    }
+  }
+
+  &.theme-tertiary {
+    .item.ui:hover {
+      color: @tertiaryColor !important;
+    }
+
+    .ui.item.active {
+      color: @tertiaryColor !important;
+      border-bottom: 0.1875rem solid @tertiaryColor !important;
     }
   }
 }
