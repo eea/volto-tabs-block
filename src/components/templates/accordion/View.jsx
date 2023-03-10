@@ -134,7 +134,7 @@ const View = (props) => {
         .getElementById(id)
         .getElementsByClassName('tab active')[0];
       activeTabDiv.setAttribute('tabindex', '0');
-      activeTabDiv.setAttribute('className', 'accesibilty-accordion-tab');
+      activeTabDiv.setAttribute('className', 'accessibility-accordion-tab');
       activeTabDiv.focus();
     }
   }, [activeTabIndex, id]);
