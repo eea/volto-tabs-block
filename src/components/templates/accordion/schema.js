@@ -11,7 +11,7 @@ export default () => ({
     {
       id: 'menu',
       title: 'Menu',
-      fields: ['menuColor', 'menuInverted', 'accordionIconRight'],
+      fields: ['menuInverted', 'accordionIconRight'],
     },
     {
       id: 'style',
