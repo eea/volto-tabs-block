@@ -29,6 +29,7 @@ const Dots = (props) => {
           >
             <button
               aria-label={`Select slide ${index + 1}`}
+              tabIndex={0}
               onClick={() => {
                 if (slider.current) {
                   slider.current.slickGoTo(index);
@@ -65,6 +66,7 @@ const ArrowsGroup = (props) => {
               slider.current.slickPrev();
             }
           }}
+          tabIndex={0}
         >
           <Icon name={leftArrowSVG} size="50px" />
         </button>
@@ -80,6 +82,7 @@ const ArrowsGroup = (props) => {
               slider.current.slickNext();
             }
           }}
+          tabIndex={0}
         >
           <Icon name={rightArrowSVG} size="50px" />
         </button>
@@ -93,6 +96,7 @@ const ArrowsGroup = (props) => {
 const View = (props) => {
   const slider = React.useRef(null);
   const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
+  const blockId = props.id;
   const {
     activeTab = null,
     data = {},
@@ -128,10 +132,24 @@ const View = (props) => {
       for (let element of slider.current.innerSlider.list.querySelectorAll(
         ".slick-slide[aria-hidden='true'] a",
       )) {
-        element.setAttribute('aria-hiden', 'true');
+        element.setAttribute('aria-hidden', 'false');
       }
     });
   }, [activeTab]);
+  React.useEffect(() => {
+    if (!slider.current?.innerSlider?.list) return;
+    let unaccesibileElements = slider.current.innerSlider.list.querySelectorAll(
+      '.slick-slide',
+    );
+    for (let element of unaccesibileElements) {
+      element.setAttribute('tabindex', '0');
+      element.setAttribute('aria-hidden', 'false');
+      element.style.removeProperty('outline');
+    }
+    if (document.getElementsByClassName('slick-slider')?.length > 0)
+      for (let carouselDiv of document.getElementsByClassName('slick-slider'))
+        carouselDiv.setAttribute('tabindex', '0');
+  }, []);
 
   React.useEffect(() => {
     const urlHash = props.location.hash.substring(1) || '';
@@ -183,7 +201,24 @@ const View = (props) => {
 
   return (
     <>
-      <Slider {...settings} ref={slider} className={cx(uiContainer)}>
+      <Slider
+        {...settings}
+        ref={slider}
+        className={cx(uiContainer, 'tabs-accessibility')}
+        accessibility={true}
+        afterChange={() => {
+          if (
+            document
+              .getElementById(blockId)
+              ?.getElementsByClassName('slick-slider')?.length > 0
+          ) {
+            document
+              .getElementById(blockId)
+              .getElementsByClassName('slick-current')[0]
+              .focus();
+          }
+        }}
+      >
         {panes.length ? panes.map((pane) => pane.renderItem) : ''}
       </Slider>
       <ArrowsGroup activeTab={activeTab} tabsList={tabsList} slider={slider} />

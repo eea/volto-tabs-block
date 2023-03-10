@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import cx from 'classnames';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
@@ -31,7 +31,12 @@ class Tab extends React.Component {
 
   render() {
     return (
-      <AnimateHeight animateOpacity duration={500} height={this.state.height}>
+      <AnimateHeight
+        animateOpacity
+        duration={500}
+        height={this.state.height}
+        aria-hidden={false}
+      >
         <RenderBlocks {...this.props} />
       </AnimateHeight>
     );
@@ -45,7 +50,9 @@ const View = (props) => {
     tabs = {},
     activeTabIndex = 0,
     setActiveTab = () => {},
+    id,
   } = props;
+
   const accordionConfig =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
   const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
@@ -94,7 +101,9 @@ const View = (props) => {
           {title || defaultTitle}{' '}
         </>
       ),
-      getContent: () => <Tab {...props} tab={tab} content={tabs[tab]} />,
+      getContent: () => (
+        <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false} />
+      ),
       key: tab,
       tabClassName: cx('ui button item title', { active }),
       panelClassName: cx('ui bottom attached segment tab', {
@@ -115,12 +124,36 @@ const View = (props) => {
     );
   }, [mounted]);
 
+  useLayoutEffect(() => {
+    if (document.activeElement.role !== 'tab') return;
+    if (
+      document.getElementById(id)?.getElementsByClassName('tab active').length >
+      0
+    ) {
+      let activeTabDiv = document
+        .getElementById(id)
+        .getElementsByClassName('tab active')[0];
+      activeTabDiv.setAttribute('tabindex', '0');
+      activeTabDiv.setAttribute('className', 'accesibilty-accordion-tab');
+      activeTabDiv.focus();
+    }
+  }, [activeTabIndex, id]);
+
   return (
-    <>
+    <div
+      tabIndex="0"
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const focusedElement = document.activeElement;
+          if (focusedElement) focusedElement.click();
+        }
+      }}
+      role="tab"
+    >
       <Tabs
         ref={tabsContainer}
         transformWidth={initialWidth}
-        className="tabs aa"
         selectedTabKey={tabsList[activeTabIndex]}
         items={items}
         onChange={(tab) => {
@@ -131,15 +164,17 @@ const View = (props) => {
           }
         }}
         tabsWrapperClass={cx(
+          props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
           'ui pointing secondary menu',
-          getDataValue('menuColor'),
+          'tabs-accessibility',
+          data?.theme ? `theme-${data?.theme}` : '',
           {
             inverted: getDataValue('menuInverted'),
           },
         )}
         showMore={false}
       />
-    </>
+    </div>
   );
 };
 
