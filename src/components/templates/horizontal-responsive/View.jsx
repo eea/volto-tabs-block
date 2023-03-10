@@ -18,28 +18,74 @@ import {
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 const MenuItem = (props) => {
-  const { activeTab = null, tabs = {}, setActiveTab = () => {} } = props;
+  const {
+    activeTab = null,
+    tabs = {},
+    setActiveTab = () => {},
+    blockId,
+  } = props;
   const { tabsTitle, tabsDescription, tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
-
   const defaultTitle = `Tab ${tabIndex}`;
 
   return (
     <React.Fragment>
       {index === 0 && (tabsTitle || tabsDescription) && (
-        <Menu.Item className="menu-title">
+        <Menu.Item
+          className="menu-title"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              if (
+                document
+                  .getElementById(blockId)
+                  ?.getElementsByClassName('active tab')?.length > 0
+              ) {
+                const tabDiv = document
+                  .getElementById(blockId)
+                  .getElementsByClassName('active tab')[0];
+                tabDiv.focus();
+              }
+              if (activeTab !== tab) {
+                setActiveTab(tab);
+              }
+            }
+          }}
+        >
           <SimpleMarkdown md={tabsTitle} defaultTag="##" className="title" />
           <SimpleMarkdown md={tabsDescription} className="description" />
         </Menu.Item>
       )}
       <Button
         as="a"
-        className={cx('item', { active: tab === activeTab })}
+        tabIndex={0}
+        className={cx('item', 'accesibility-button', {
+          active: tab === activeTab,
+        })}
         item-data={tab}
         onClick={() => {
           if (activeTab !== tab) {
             setActiveTab(tab);
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            if (
+              document
+                .getElementById(blockId)
+                ?.getElementsByClassName('active tab').length > 0
+            ) {
+              const tabDiv = document
+                .getElementById(blockId)
+                .getElementsByClassName('active tab')[0];
+              tabDiv.focus();
+            }
+            if (activeTab !== tab) {
+              setActiveTab(tab);
+            }
           }
         }}
       >
@@ -92,7 +138,7 @@ const MenuWrapper = (props) => {
 
   return (
     <React.Fragment>
-      <div className="menu-wrapper">
+      <div className="menu-wrapper tabs-accessibility">
         {panes.map((pane, index) => (
           <React.Fragment key={`menu-item-${index}-${pane.id}`}>
             {pane.menuItem}
@@ -207,6 +253,7 @@ const View = (props) => {
           key={tab}
           tab={tab}
           tabsList={tabsList}
+          blockId={props.id}
           index={index}
           lastIndex={tabsList.length - 1}
           tabsTitle={tabsTitle}
@@ -216,7 +263,7 @@ const View = (props) => {
       render: () => {
         return (
           <>
-            <Tab.Pane as={isContainer ? Container : undefined}>
+            <Tab.Pane as={isContainer ? Container : undefined} tabIndex={0}>
               <RenderBlocks
                 {...props}
                 metadata={metadata}

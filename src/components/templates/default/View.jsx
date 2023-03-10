@@ -22,11 +22,12 @@ const MenuItem = (props) => {
     setActiveTab = () => {},
     tabsTitle,
     tabsDescription,
+    blockId,
   } = props;
+
   const { tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
-
   const defaultTitle = `Tab ${tabIndex}`;
 
   return (
@@ -40,9 +41,28 @@ const MenuItem = (props) => {
       <Menu.Item
         name={defaultTitle}
         active={tab === activeTab}
+        tabIndex={0}
         onClick={() => {
           if (activeTab !== tab) {
             setActiveTab(tab);
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            if (
+              document
+                .getElementById(blockId)
+                ?.getElementsByClassName('active tab').length > 0
+            ) {
+              const tabDiv = document
+                .getElementById(blockId)
+                .getElementsByClassName('active tab')[0];
+              tabDiv.focus();
+            }
+            if (activeTab !== tab) {
+              setActiveTab(tab);
+            }
           }
         }}
       >
@@ -64,7 +84,6 @@ const View = (props) => {
     hashlink = {},
     setActiveTab = () => {},
   } = props;
-
   const [menuPosition, setMenuPosition] = React.useState({});
 
   React.useEffect(() => {
@@ -134,11 +153,12 @@ const View = (props) => {
           index={index}
           tabsTitle={tabsTitle}
           tabsDescription={tabsDescription}
+          blockId={props?.id || ''}
         />
       ),
       render: () => {
         return (
-          <Tab.Pane as={isContainer ? Container : undefined}>
+          <Tab.Pane as={isContainer ? Container : undefined} tabIndex={0}>
             <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
           </Tab.Pane>
         );
@@ -150,7 +170,7 @@ const View = (props) => {
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className="default tabs"
+        className="default tabs tabs-accessibility"
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),

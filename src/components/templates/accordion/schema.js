@@ -1,3 +1,5 @@
+import config from '@plone/volto/registry';
+
 export default () => ({
   title: 'Accordion tabs block',
   fieldsets: [
@@ -9,35 +11,39 @@ export default () => ({
     {
       id: 'menu',
       title: 'Menu',
-      fields: ['menuColor', 'menuInverted'],
+      fields: ['menuInverted', 'accordionIconRight'],
+    },
+    {
+      id: 'style',
+      title: 'Style',
+      fields: ['theme'],
     },
   ],
   properties: {
     description: {
       title: 'Description',
     },
-    menuColor: {
-      title: 'Color',
-      defaultValue: 'green',
-      choices: [
-        ['red', 'Red'],
-        ['orange', 'Orange'],
-        ['yellow', 'Yellow'],
-        ['olive', 'Olive'],
-        ['green', 'Green'],
-        ['teal', 'Teal'],
-        ['blue', 'Blue'],
-        ['violet', 'Violet'],
-        ['purple', 'Purple'],
-        ['pink', 'Pink'],
-        ['brown', 'Brown'],
-        ['grey', 'Grey'],
-        ['black', 'Black'],
-      ],
+    accordionIconRight: {
+      title: 'Icon position on the right',
+      description: 'Position left/right of the icon in the accordion tab',
+      type: 'boolean',
     },
     menuInverted: {
       title: 'Inverted',
       type: 'boolean',
+    },
+    theme: {
+      title: 'Theme',
+      description: 'Set the theme for the accordion tabs block',
+      widget: 'theme_picker',
+      colors: [
+        ...(config.settings && config.settings.themeColors
+          ? config.settings.themeColors.map(({ value, title }) => ({
+              name: value,
+              label: title,
+            }))
+          : []),
+      ],
     },
   },
   required: [],
