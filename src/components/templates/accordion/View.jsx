@@ -157,11 +157,7 @@ const View = (props) => {
         selectedTabKey={tabsList[activeTabIndex]}
         items={items}
         onChange={(tab) => {
-          if (tab !== tabsList[activeTabIndex]) {
-            setActiveTab(tab);
-          } else {
-            setActiveTab(null);
-          }
+          setActiveTab(tab);
         }}
         tabsWrapperClass={cx(
           props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
