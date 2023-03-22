@@ -156,13 +156,21 @@ const View = (props) => {
           blockId={props?.id || ''}
         />
       ),
-      render: () => {
-        return (
+      pane: {
+        key: index,
+        content: (
           <Tab.Pane as={isContainer ? Container : undefined} tabIndex={0}>
             <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
           </Tab.Pane>
-        );
+        ),
       },
+      //   render: () => {
+      //     return (
+      //       <Tab.Pane as={isContainer ? Container : undefined} tabIndex={0}>
+      //         <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
+      //       </Tab.Pane>
+      //     );
+      //   },
     };
   });
 
@@ -171,6 +179,7 @@ const View = (props) => {
       <Tab
         activeIndex={activeTabIndex}
         className="default tabs tabs-accessibility"
+        renderActiveOnly={false}
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),
