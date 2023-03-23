@@ -28,8 +28,22 @@ const MenuItem = (props) => {
   const { tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
+
+  const [tabChanged, setTabChanged] = React.useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
 
+  React.useEffect(() => {
+    if (
+      tabChanged === true &&
+      document?.getElementById(blockId)?.querySelector('#tab-pane-' + tab)
+    ) {
+      document
+        .getElementById(blockId)
+        .querySelector('#tab-pane-' + tab)
+        .focus();
+      setTabChanged(false);
+    }
+  }, [tabChanged, tab, blockId]);
   return (
     <React.Fragment>
       {index === 0 && (tabsTitle || tabsDescription) && (
@@ -50,18 +64,9 @@ const MenuItem = (props) => {
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             e.preventDefault();
-            if (
-              document
-                .getElementById(blockId)
-                ?.getElementsByClassName('active tab').length > 0
-            ) {
-              const tabDiv = document
-                .getElementById(blockId)
-                .getElementsByClassName('active tab')[0];
-              tabDiv.focus();
-            }
             if (activeTab !== tab) {
               setActiveTab(tab);
+              setTabChanged(true);
             }
           }
         }}
@@ -75,6 +80,7 @@ const MenuItem = (props) => {
 
 const View = (props) => {
   const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
+
   const {
     metadata = {},
     data = {},
@@ -144,7 +150,7 @@ const View = (props) => {
 
   const panes = tabsList.map((tab, index) => {
     return {
-      id: tab,
+      id: props?.id,
       menuItem: (
         <MenuItem
           {...props}
@@ -156,21 +162,13 @@ const View = (props) => {
           blockId={props?.id || ''}
         />
       ),
-      pane: {
-        key: index,
-        content: (
-          <div>
+      pane: (
+        <Tab.Pane as={isContainer ? Container : undefined}>
+          <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
             <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
           </div>
-        ),
-      },
-      //   render: () => {
-      //     return (
-      //       <Tab.Pane as={isContainer ? Container : undefined} tabIndex={0}>
-      //         <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
-      //       </Tab.Pane>
-      //     );
-      //   },
+        </Tab.Pane>
+      ),
     };
   });
 
