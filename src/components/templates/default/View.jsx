@@ -159,9 +159,9 @@ const View = (props) => {
       pane: {
         key: index,
         content: (
-          <Tab.Pane as={isContainer ? Container : undefined} tabIndex={0}>
+          <div>
             <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
-          </Tab.Pane>
+          </div>
         ),
       },
       //   render: () => {
