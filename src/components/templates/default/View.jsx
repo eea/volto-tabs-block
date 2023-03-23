@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
@@ -29,10 +29,10 @@ const MenuItem = (props) => {
   const title = tabs[tab].title;
   const tabIndex = index + 1;
 
-  const [tabChanged, setTabChanged] = React.useState(false);
+  const [tabChanged, setTabChanged] = useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       tabChanged === true &&
       document?.getElementById(blockId)?.querySelector('#tab-pane-' + tab)
@@ -66,8 +66,8 @@ const MenuItem = (props) => {
             e.preventDefault();
             if (activeTab !== tab) {
               setActiveTab(tab);
-              setTabChanged(true);
             }
+            setTabChanged(true);
           }
         }}
       >
