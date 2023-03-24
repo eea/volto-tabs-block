@@ -104,7 +104,6 @@ const View = (props) => {
       content: (
         <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false} />
       ),
-
       key: tab,
       tabClassName: cx('ui button item title', { active }),
       panelClassName: cx('ui bottom attached segment tab', {
@@ -159,7 +158,11 @@ const View = (props) => {
         unmountOnExit={false}
         items={items}
         onChange={(tab) => {
-          setActiveTab(tab);
+          if (tab !== tabsList[activeTabIndex]) {
+            setActiveTab(tab);
+          } else {
+            setActiveTab(null);
+          }
         }}
         tabsWrapperClass={cx(
           props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
@@ -170,6 +173,7 @@ const View = (props) => {
             inverted: getDataValue('menuInverted'),
           },
         )}
+        showMore={false}
       />
     </div>
   );
