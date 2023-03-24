@@ -101,9 +101,10 @@ const View = (props) => {
           {title || defaultTitle}{' '}
         </>
       ),
-      getContent: () => (
+      content: (
         <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false} />
       ),
+
       key: tab,
       tabClassName: cx('ui button item title', { active }),
       panelClassName: cx('ui bottom attached segment tab', {
@@ -155,6 +156,7 @@ const View = (props) => {
         ref={tabsContainer}
         transformWidth={initialWidth}
         selectedTabKey={tabsList[activeTabIndex]}
+        unmountOnExit={false}
         items={items}
         onChange={(tab) => {
           setActiveTab(tab);
@@ -168,7 +170,6 @@ const View = (props) => {
             inverted: getDataValue('menuInverted'),
           },
         )}
-        showMore={false}
       />
     </div>
   );
