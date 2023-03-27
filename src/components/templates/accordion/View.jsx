@@ -138,7 +138,7 @@ const View = (props) => {
       activeTabDiv.focus();
     }
   }, [activeTabIndex, id]);
-  console.log(window.screen.width);
+
   return (
     <div
       tabIndex="0"
