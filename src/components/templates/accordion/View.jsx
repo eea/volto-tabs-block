@@ -138,7 +138,7 @@ const View = (props) => {
       activeTabDiv.focus();
     }
   }, [activeTabIndex, id]);
-
+  console.log(window.screen.width);
   return (
     <div
       tabIndex="0"
@@ -158,9 +158,10 @@ const View = (props) => {
         unmountOnExit={false}
         items={items}
         onChange={(tab) => {
+          const { blockWidth } = tabsContainer.current?.state || {};
           if (tab !== tabsList[activeTabIndex]) {
             setActiveTab(tab);
-          } else {
+          } else if (blockWidth <= initialWidth) {
             setActiveTab(null);
           }
         }}

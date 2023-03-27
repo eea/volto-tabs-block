@@ -150,7 +150,7 @@ const View = (props) => {
 
   const panes = tabsList.map((tab, index) => {
     return {
-      id: props?.id,
+      id: tab,
       menuItem: (
         <MenuItem
           {...props}
