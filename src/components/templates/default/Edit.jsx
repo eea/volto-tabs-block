@@ -193,6 +193,7 @@ const Edit = (props) => {
       menuItem: (
         <MenuItem
           {...props}
+          key={tab}
           editingTab={editingTab}
           index={index}
           setEditingTab={setEditingTab}
