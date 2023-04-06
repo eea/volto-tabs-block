@@ -193,6 +193,7 @@ const Edit = (props) => {
       menuItem: (
         <MenuItem
           {...props}
+          key={tab}
           editingTab={editingTab}
           index={index}
           setEditingTab={setEditingTab}
@@ -274,7 +275,10 @@ const Edit = (props) => {
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),
-          color: getDataValue('menuColor'),
+          color:
+            props?.template === 'accordion' && props?.data?.theme
+              ? `theme-${props?.data?.theme}`
+              : getDataValue('menuColor'),
           compact: getDataValue('menuCompact'),
           fluid: getDataValue('menuFluid'),
           inverted: getDataValue('menuInverted'),

@@ -47,6 +47,7 @@ const View = (props) => {
         >
           <TabsView
             {...props}
+            tabIndex={0}
             activeTab={activeTab}
             activeTabIndex={activeTabIndex}
             node={view}
