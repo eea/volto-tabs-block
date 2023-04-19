@@ -101,7 +101,7 @@ const View = (props) => {
           {title || defaultTitle}{' '}
         </>
       ),
-      getContent: () => (
+      content: (
         <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false} />
       ),
       key: tab,
@@ -155,11 +155,13 @@ const View = (props) => {
         ref={tabsContainer}
         transformWidth={initialWidth}
         selectedTabKey={tabsList[activeTabIndex]}
+        unmountOnExit={false}
         items={items}
         onChange={(tab) => {
+          const { blockWidth } = tabsContainer.current?.state || {};
           if (tab !== tabsList[activeTabIndex]) {
             setActiveTab(tab);
-          } else {
+          } else if (blockWidth <= initialWidth) {
             setActiveTab(null);
           }
         }}
