@@ -1,6 +1,5 @@
 import React from 'react';
 import cx from 'classnames';
-import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
@@ -16,7 +15,6 @@ import '@eeacms/volto-tabs-block/less/tabs.less';
 
 const View = (props) => {
   const view = React.useRef(null);
-  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
   const { data = {}, uiContainer = '' } = props;
   const metadata = props.metadata || props.properties;
   const template = data.template || 'default';
