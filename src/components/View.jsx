@@ -22,13 +22,13 @@ const View = (props) => {
   const tabData = tabs[activeTab] || {};
   const theme = data.theme || 'light';
   const verticalAlign = data.verticalAlign || 'flex-start';
-  const [breakPoint, setBreakPoint] = React.useState(undefined);
+  const [printMode, setPrintMode] = React.useState(false);
   const [template, setTemplate] = React.useState(data.template || 'default');
   const TabsView =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.view ||
     DefaultView;
   const onBeforePrint = () => {
-    setBreakPoint(10000); //big breakpoint to make the tabs into accordion
+    setPrintMode(true);
     setTemplate('accordion');
     let panels = document.getElementsByClassName(
       'RRT__panel ui bottom attached segment tab',
@@ -45,7 +45,7 @@ const View = (props) => {
     }
   };
   const onAfterPrint = () => {
-    setBreakPoint(undefined); //big breakpoint to make the tabs into accordion
+    setPrintMode(false); //big breakpoint to make the tabs into accordion
     setTemplate(data.template || 'default');
   };
 
@@ -75,7 +75,7 @@ const View = (props) => {
             {...props}
             tabIndex={0}
             activeTab={activeTab}
-            breakPoint={breakPoint}
+            printMode={printMode}
             activeTabIndex={activeTabIndex}
             node={view}
             metadata={metadata}
