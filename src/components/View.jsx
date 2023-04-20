@@ -27,32 +27,32 @@ const View = (props) => {
   const TabsView =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.view ||
     DefaultView;
-  const onBeforePrint = () => {
-    setPrintMode(true);
-    setTemplate('accordion');
-    let panels = document.getElementsByClassName(
-      'RRT__panel ui bottom attached segment tab',
-    );
-    for (let panel of panels) {
-      panel.className += ' active';
-    }
-    let tabs = document.getElementsByClassName(
-      'RRT__tab ui button item title RRT__tab--collapsed',
-    );
-    for (let tab of tabs) {
-      tab.ariaSelected = true;
-      tab.className += ' RRT__tab--selected active';
-    }
-  };
-  const onAfterPrint = () => {
-    setPrintMode(false); //big breakpoint to make the tabs into accordion
-    setTemplate(data.template || 'default');
-  };
 
   React.useEffect(() => {
-    window.onbeforeprint = onBeforePrint;
-    window.onafterprint = onAfterPrint;
-  }, []);
+    const onBeforePrintHandler = () => {
+      setPrintMode(true);
+      setTemplate('accordion');
+      let panels = document.getElementsByClassName(
+        'RRT__panel ui bottom attached segment tab',
+      );
+      for (let panel of panels) {
+        panel.className += ' active';
+      }
+      let tabs = document.getElementsByClassName(
+        'RRT__tab ui button item title RRT__tab--collapsed',
+      );
+      for (let tab of tabs) {
+        tab.ariaSelected = true;
+        tab.className += ' RRT__tab--selected active';
+      }
+    };
+    const onAfterPrintHandler = () => {
+      setPrintMode(false); //big breakpoint to make the tabs into accordion
+      setTemplate(data.template || 'default');
+    };
+    window.onbeforeprint = onBeforePrintHandler;
+    window.onafterprint = onAfterPrintHandler;
+  }, [data.template]);
   return (
     <StyleWrapperView
       {...props}
