@@ -51,6 +51,7 @@ const View = (props) => {
     activeTabIndex = 0,
     setActiveTab = () => {},
     id,
+    breakPoint = undefined,
   } = props;
 
   const accordionConfig =
@@ -83,7 +84,7 @@ const View = (props) => {
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab].title;
     const defaultTitle = `Tab ${index + 1}`;
-    const active = activeTabIndex === index;
+    const active = breakPoint || activeTabIndex === index;
 
     return {
       title: (
@@ -153,7 +154,7 @@ const View = (props) => {
     >
       <Tabs
         ref={tabsContainer}
-        transformWidth={initialWidth}
+        transformWidth={breakPoint || initialWidth}
         selectedTabKey={tabsList[activeTabIndex]}
         unmountOnExit={false}
         items={items}

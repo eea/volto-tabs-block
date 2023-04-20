@@ -13,7 +13,7 @@ const View = (props) => {
   const view = React.useRef(null);
   const { data = {}, uiContainer = '' } = props;
   const metadata = props.metadata || props.properties;
-  const template = data.template || 'default';
+
   const tabsData = data.data || {};
   const tabsList = tabsData.blocks_layout?.items || [];
   const tabs = tabsData.blocks || {};
@@ -22,11 +22,37 @@ const View = (props) => {
   const tabData = tabs[activeTab] || {};
   const theme = data.theme || 'light';
   const verticalAlign = data.verticalAlign || 'flex-start';
-
+  const [breakPoint, setBreakPoint] = React.useState(undefined);
+  const [template, setTemplate] = React.useState(data.template || 'default');
   const TabsView =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.view ||
     DefaultView;
+  const onBeforePrint = () => {
+    setBreakPoint(10000); //big breakpoint to make the tabs into accordion
+    setTemplate('accordion');
+    let panels = document.getElementsByClassName(
+      'RRT__panel ui bottom attached segment tab',
+    );
+    for (let panel of panels) {
+      panel.className += ' active';
+    }
+    let tabs = document.getElementsByClassName(
+      'RRT__tab ui button item title RRT__tab--collapsed',
+    );
+    for (let tab of tabs) {
+      tab.ariaSelected = true;
+      tab.className += ' RRT__tab--selected active';
+    }
+  };
+  const onAfterPrint = () => {
+    setBreakPoint(undefined); //big breakpoint to make the tabs into accordion
+    setTemplate(data.template || 'default');
+  };
 
+  React.useEffect(() => {
+    window.onbeforeprint = onBeforePrint;
+    window.onafterprint = onAfterPrint;
+  }, []);
   return (
     <StyleWrapperView
       {...props}
@@ -49,6 +75,7 @@ const View = (props) => {
             {...props}
             tabIndex={0}
             activeTab={activeTab}
+            breakPoint={breakPoint}
             activeTabIndex={activeTabIndex}
             node={view}
             metadata={metadata}
