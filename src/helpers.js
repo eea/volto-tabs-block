@@ -40,13 +40,15 @@ export const getParentTabFromHash = (tabsBlockData, urlHash) => {
   if (urlHash) {
     const { data } = tabsBlockData;
     let parentBlockId;
+    let isSlugPresent;
     visitBlocks(data, ([id, data]) => {
       if (data['@type'] === 'tab') parentBlockId = id;
       if (toSlug(data.plaintext) === urlHash) {
+        isSlugPresent = true;
         return true;
       }
     });
-    return parentBlockId;
+    return isSlugPresent ? parentBlockId : null;
   }
   return null;
 };
