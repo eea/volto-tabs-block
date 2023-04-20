@@ -1,8 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withRouter } from 'react-router';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
+import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import { DefaultView } from './templates/default';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import config from '@plone/volto/registry';
 
@@ -11,6 +16,7 @@ import '@eeacms/volto-tabs-block/less/tabs.less';
 
 const View = (props) => {
   const view = React.useRef(null);
+  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
   const { data = {}, uiContainer = '' } = props;
   const metadata = props.metadata || props.properties;
   const template = data.template || 'default';
@@ -26,6 +32,30 @@ const View = (props) => {
   const TabsView =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.view ||
     DefaultView;
+
+  React.useEffect(() => {
+    const urlHash = props.location.hash.substring(1) || '';
+    const parentTabId = getParentTabFromHash(data, urlHash);
+    const id = parentTabId;
+    const index = tabsList.indexOf(id);
+    const parentId = data.id || props.id;
+    const parent = document.getElementById(parentId);
+    const headerWrapper = document.querySelector('.header-wrapper');
+    const offsetHeight = headerWrapper?.offsetHeight || 0;
+    if (id !== parentId && index > -1 && parent) {
+      if (activeTabIndex !== index) {
+        setActiveTab(id);
+      }
+      setTimeout(() => {
+        const scrollToElement = document.getElementById(urlHash);
+        //TODO: volto now uses react-router-hash-link which automatically scrolls to offset 0
+        props.scrollToTarget(scrollToElement, offsetHeight);
+      }, 10);
+    } else if (id === parentId && parent) {
+      props.scrollToTarget(parent, offsetHeight);
+    }
+    /* eslint-disable-next-line */
+  }, []);
 
   return (
     <StyleWrapperView
@@ -67,4 +97,4 @@ const View = (props) => {
   );
 };
 
-export default View;
+export default compose(withScrollToTarget)(withRouter(View));

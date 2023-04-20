@@ -7,7 +7,6 @@ import { Menu, Tab, Container } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import { RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
   SimpleMarkdown,
@@ -80,16 +79,12 @@ const MenuItem = (props) => {
 };
 
 const View = (props) => {
-  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
-
   const {
     metadata = {},
     data = {},
     tabsList = [],
     tabs = {},
     activeTabIndex = 0,
-    hashlink = {},
-    setActiveTab = () => {},
   } = props;
   const [menuPosition, setMenuPosition] = React.useState({});
 
@@ -121,34 +116,6 @@ const View = (props) => {
     },
     [schema, data],
   );
-
-  React.useEffect(() => {
-    const urlHash = props.location.hash.substring(1) || '';
-    const parentTabId = getParentTabFromHash(data, urlHash);
-    const id = parentTabId;
-    const index = tabsList.indexOf(id);
-    const parentId = data.id || props.id;
-    const parent = document.getElementById(parentId);
-    const headerWrapper = document.querySelector('.header-wrapper');
-    const offsetHeight = headerWrapper?.offsetHeight || 0;
-    if (id !== parentId && index > -1 && parent) {
-      if (activeTabIndex !== index) {
-        setActiveTab(id);
-      }
-      setTimeout(() => {
-        const scrollToElement = document.getElementById(urlHash);
-        //TODO: volto now uses react-router-hash-link which automatically scrolls to offset 0
-        props.scrollToTarget(scrollToElement, offsetHeight);
-      }, 100);
-    } else if (id === parentId && parent) {
-      props.scrollToTarget(parent, offsetHeight);
-    }
-
-    if (!hashlinkOnMount) {
-      setHashlinkOnMount(true);
-    }
-    /* eslint-disable-next-line */
-  }, []);
 
   const panes = tabsList.map((tab, index) => {
     return {

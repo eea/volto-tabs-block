@@ -5,8 +5,6 @@ import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
 import { Icon, RenderBlocks } from '@plone/volto/components';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 
 import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
 import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
@@ -96,18 +94,15 @@ const ArrowsGroup = (props) => {
 
 const View = (props) => {
   const slider = React.useRef(null);
-  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
   const blockId = props.id;
   const {
     activeTab = null,
     data = {},
-    hashlink = {},
     metadata = {},
     tabsList = [],
     tabs = {},
     setActiveTab = () => {},
   } = props;
-  const activeTabIndex = tabsList.indexOf(activeTab);
   const uiContainer = data.align === 'full' ? 'ui container' : false;
 
   const settings = {
@@ -150,36 +145,6 @@ const View = (props) => {
     if (document.getElementsByClassName('slick-slider')?.length > 0)
       for (let carouselDiv of document.getElementsByClassName('slick-slider'))
         carouselDiv.setAttribute('tabindex', '0');
-  }, []);
-
-  React.useEffect(() => {
-    const urlHash = props.location.hash.substring(1) || '';
-    const parentTabId = getParentTabFromHash(data, urlHash);
-    const id = parentTabId;
-    const index = tabsList.indexOf(id);
-    const parentId = data.id || props.id;
-    const parent = document.getElementById(parentId);
-    // TODO: Find the best way to add offset relative to header
-    //       The header can be static on mobile and relative on > mobile
-    const headerWrapper = document.querySelector('.header-wrapper');
-    const offsetHeight = headerWrapper?.offsetHeight || 0;
-    if (id !== parentId && index > -1 && parent) {
-      if (activeTabIndex !== index) {
-        slider.current.slickGoTo(index);
-      }
-      setTimeout(() => {
-        const scrollToElement = document.getElementById(urlHash);
-        //TODO: volto now uses react-router-hash-link which automatically scrolls to offset 0
-        props.scrollToTarget(scrollToElement, offsetHeight);
-      }, 100);
-    } else if (id === parentId && parent) {
-      props.scrollToTarget(parent, offsetHeight);
-    }
-
-    if (!hashlinkOnMount) {
-      setHashlinkOnMount(true);
-    }
-    /* eslint-disable-next-line */
   }, []);
 
   const panes = tabsList.map((tab, index) => {
@@ -230,5 +195,4 @@ export default compose(
       hashlink: state.hashlink,
     };
   }),
-  withScrollToTarget,
 )(withRouter(View));
