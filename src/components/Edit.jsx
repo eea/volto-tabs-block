@@ -1,24 +1,24 @@
-import React from 'react';
-import { without } from 'lodash';
-import cx from 'classnames';
-import config from '@plone/volto/registry';
-import { SidebarPortal, BlocksToolbar } from '@plone/volto/components';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { getBlocksLayoutFieldname } from '@plone/volto/helpers';
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { empty, emptyTab } from '@eeacms/volto-tabs-block/helpers';
-import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
-import { BlockStyleWrapperEdit } from '@eeacms/volto-block-style/BlockStyleWrapper';
-import { DefaultEdit } from './templates/default';
-import { schema } from './schema';
+import React from "react";
+import { without } from "lodash";
+import cx from "classnames";
+import config from "@plone/volto/registry";
+import { SidebarPortal, BlocksToolbar } from "@plone/volto/components";
+import InlineForm from "@plone/volto/components/manage/Form/InlineForm";
+import { getBlocksLayoutFieldname } from "@plone/volto/helpers";
+import { TABS_BLOCK } from "@eeacms/volto-tabs-block/constants";
+import { empty, emptyTab } from "@eeacms/volto-tabs-block/helpers";
+import { StyleWrapperView } from "@eeacms/volto-block-style/StyleWrapper";
+import { BlockStyleWrapperEdit } from "@eeacms/volto-block-style/BlockStyleWrapper";
+import { DefaultEdit } from "./templates/default";
+import { schema } from "./schema";
 
-import '@eeacms/volto-tabs-block/less/edit.less';
-import '@eeacms/volto-tabs-block/less/tabs.less';
+import "@eeacms/volto-tabs-block/less/edit.less";
+import "@eeacms/volto-tabs-block/less/tabs.less";
 
 const Edit = (props) => {
   const { onChangeBlock, onChangeField } = props;
   const { data = {}, block = null } = props;
-  const template = data.template || 'default';
+  const template = data.template || "default";
   const tabsData = data.data || {};
   const tabsList = tabsData.blocks_layout?.items || [];
   const tabs = tabsData.blocks || {};
@@ -29,8 +29,8 @@ const Edit = (props) => {
   const blocksState = React.useRef({});
   const activeTabIndex = tabsList.indexOf(activeTab);
   const tabData = tabs[activeTab] || {};
-  const theme = data.theme || 'light';
-  const verticalAlign = data.verticalAlign || 'flex-start';
+  const theme = data.theme || "light";
+  const verticalAlign = data.verticalAlign || "flex-start";
 
   const TabsEdit =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.edit ||
@@ -40,9 +40,9 @@ const Edit = (props) => {
 
   const schemaObject = schema(
     config,
-    typeof templateSchema === 'function'
+    typeof templateSchema === "function"
       ? templateSchema(config, props)
-      : templateSchema,
+      : templateSchema
   );
 
   React.useEffect(() => {
@@ -69,21 +69,21 @@ const Edit = (props) => {
       disableEnter = false,
       disableArrowUp = false,
       disableArrowDown = false,
-    } = {},
+    } = {}
   ) => {
-    if (e.key === 'ArrowUp' && !disableArrowUp && !activeBlock) {
+    if (e.key === "ArrowUp" && !disableArrowUp && !activeBlock) {
       props.onFocusPreviousBlock(block, node);
       e.preventDefault();
     }
-    if (e.key === 'ArrowDown' && !disableArrowDown && !activeBlock) {
+    if (e.key === "ArrowDown" && !disableArrowDown && !activeBlock) {
       props.onFocusNextBlock(block, node);
       e.preventDefault();
     }
-    if (e.key === 'Enter' && !disableEnter && !activeBlock && !editingTab) {
+    if (e.key === "Enter" && !disableEnter && !activeBlock && !editingTab) {
       props.onAddBlock(config.settings.defaultBlockType, index + 1);
       e.preventDefault();
     }
-    if (e.key === 'Enter' && editingTab) {
+    if (e.key === "Enter" && editingTab) {
       setEditingTab(null);
       e.preventDefault();
     }
@@ -91,7 +91,7 @@ const Edit = (props) => {
 
   const onChangeTabData = (id, value) => {
     // special handling of blocks and blocks_layout
-    if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
+    if (["blocks", "blocks_layout"].indexOf(id) > -1) {
       blocksState.current[id] = value;
       onChangeBlock(block, {
         ...data,
@@ -154,7 +154,7 @@ const Edit = (props) => {
   return (
     <BlockStyleWrapperEdit {...props}>
       <div
-        className={cx('tabs-block edit', theme, verticalAlign)}
+        className={cx("tabs-block edit", theme, verticalAlign)}
         role="presentation"
         onKeyDown={(e) => {
           handleKeyDown(e, props.index, props.block, props.blockNode.current);
@@ -192,7 +192,7 @@ const Edit = (props) => {
           />
         </StyleWrapperView>
 
-        {props.selected && (
+        {props.selected ? (
           <BlocksToolbar
             formData={tabData}
             selectedBlock={activeTab}
@@ -217,11 +217,13 @@ const Edit = (props) => {
             }}
             onSelectBlock={onSelectBlock}
           />
+        ) : (
+          ""
         )}
-        {!data?.readOnlySettings && (
+        {!data?.readOnlySettings ? (
           <SidebarPortal selected={props.selected}>
             {activeBlock ? (
-              ''
+              ""
             ) : (
               <InlineForm
                 schema={schemaObject}
@@ -236,6 +238,8 @@ const Edit = (props) => {
               />
             )}
           </SidebarPortal>
+        ) : (
+          ""
         )}
       </div>
     </BlockStyleWrapperEdit>
