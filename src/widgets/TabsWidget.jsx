@@ -138,9 +138,9 @@ const TabsWidget = (props) => {
         {...props}
         selected={activeTabId}
         isVisible={blockStyleVisible}
-        setIsVisible={(_value) => {
+        setIsVisible={(value) => {
           setActiveTabId(null);
-          setBlockStyleVisible(_value);
+          setBlockStyleVisible(value);
         }}
         data={{
           ...activeTabData?.styles,

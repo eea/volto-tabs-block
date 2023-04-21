@@ -63,7 +63,7 @@ const Edit = (props) => {
   const handleKeyDown = (
     e,
     index,
-    blockId,
+    block,
     node,
     {
       disableEnter = false,
@@ -72,11 +72,11 @@ const Edit = (props) => {
     } = {},
   ) => {
     if (e.key === 'ArrowUp' && !disableArrowUp && !activeBlock) {
-      props.onFocusPreviousBlock(blockId, node);
+      props.onFocusPreviousBlock(block, node);
       e.preventDefault();
     }
     if (e.key === 'ArrowDown' && !disableArrowDown && !activeBlock) {
-      props.onFocusNextBlock(blockId, node);
+      props.onFocusNextBlock(block, node);
       e.preventDefault();
     }
     if (e.key === 'Enter' && !disableEnter && !activeBlock && !editingTab) {

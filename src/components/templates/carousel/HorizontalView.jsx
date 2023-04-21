@@ -130,7 +130,7 @@ const View = (props) => {
   React.useEffect(() => {
     if (!slider.current?.innerSlider?.list) return;
     const unfocuseElements = ['a', 'button', 'input'];
-    unfocuseElements.forEach((_tag) => {
+    unfocuseElements.forEach((tag) => {
       for (let element of slider.current.innerSlider.list.querySelectorAll(
         ".slick-slide[aria-hidden='true'] a",
       )) {
