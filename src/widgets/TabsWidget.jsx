@@ -28,9 +28,9 @@ const TabsWidget = (props) => {
   const [activeTabId, setActiveTabId] = React.useState(0);
   const { value = {}, id, onChange } = props;
   const { blocks = {} } = value;
-  const tabsList = (value.blocks_layout?.items || []).map((_id) => [
-    _id,
-    blocks[_id],
+  const tabsList = (value.blocks_layout?.items || []).map((uid) => [
+    uid,
+    blocks[uid],
   ]);
   const activeTabData = blocks[activeTabId] || {};
 
