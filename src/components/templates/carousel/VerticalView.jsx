@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
@@ -52,10 +50,4 @@ const View = (props) => {
   );
 };
 
-export default compose(
-  connect((state) => {
-    return {
-      hashlink: state.hashlink,
-    };
-  }),
-)(withRouter(View));
+export default withRouter(View);

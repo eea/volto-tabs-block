@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
@@ -180,11 +179,4 @@ const View = (props) => {
   );
 };
 
-export default compose(
-  connect((state) => {
-    return {
-      hashlink: state.hashlink,
-    };
-  }),
-  withScrollToTarget,
-)(withRouter(View));
+export default compose(withScrollToTarget)(withRouter(View));

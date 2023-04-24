@@ -95,10 +95,5 @@ export default (config) => {
 
   config.widgets.type.tabs = TabsWidget;
 
-  config.settings.hashlinkBlacklist = [
-    ...(config.settings.hashlinkBlacklist || []),
-    TABS_BLOCK,
-  ];
-
   return config;
 };

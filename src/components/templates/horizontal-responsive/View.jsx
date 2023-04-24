@@ -280,7 +280,6 @@ const View = (props) => {
 export default compose(
   connect((state) => {
     return {
-      hashlink: state.hashlink,
       screen: state.screen,
     };
   }),
