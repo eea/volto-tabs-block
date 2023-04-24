@@ -238,7 +238,7 @@ const Edit = (props) => {
                   },
                 });
               }}
-              onSelectBlock={(id, e) => {
+              onSelectBlock={(id, selected, e) => {
                 const isMultipleSelection = e
                   ? e.shiftKey || e.ctrlKey || e.metaKey
                   : false;
