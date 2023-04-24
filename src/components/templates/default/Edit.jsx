@@ -244,7 +244,6 @@ const Edit = (props) => {
                   : false;
                 onSelectBlock(
                   id,
-                  activeTab,
                   activeBlock === id ? false : isMultipleSelection,
                   e,
                 );
