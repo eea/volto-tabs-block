@@ -1,12 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
 import { RenderBlocks } from '@plone/volto/components';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
@@ -15,14 +11,7 @@ const Slider = loadable(() => import('react-slick'));
 
 const View = (props) => {
   const slider = React.useRef(null);
-  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
-  const {
-    metadata = {},
-    data = {},
-    tabsList = [],
-    tabs = {},
-    hashlink = {},
-  } = props;
+  const { metadata = {}, data = {}, tabsList = [], tabs = {} } = props;
   const theme = data.theme || 'light';
   const uiContainer = data.align === 'full' ? 'ui container' : false;
 
@@ -38,35 +27,7 @@ const View = (props) => {
     verticalSwiping: true,
   };
 
-  React.useEffect(() => {
-    const urlHash = props.location.hash.substring(1) || '';
-    if (
-      hashlink.counter > 0 ||
-      (hashlink.counter === 0 && urlHash && !hashlinkOnMount)
-    ) {
-      const id = hashlink.hash || urlHash || '';
-      const index = tabsList.indexOf(id);
-      const currentIndex = slider.current?.innerSlider?.state?.currentSlide;
-      const parentId = data.id || props.id;
-      const parent = document.getElementById(parentId);
-      const headerWrapper = document.querySelector('.header-wrapper');
-      const offsetHeight = headerWrapper?.offsetHeight || 0;
-      if (id !== parentId && index > -1 && parent) {
-        if (currentIndex !== index) {
-          slider.current.slickGoTo(index);
-        }
-        props.scrollToTarget(parent, offsetHeight);
-      } else if (id === parentId && parent) {
-        props.scrollToTarget(parent, offsetHeight);
-      }
-    }
-    if (!hashlinkOnMount) {
-      setHashlinkOnMount(true);
-    }
-    /* eslint-disable-next-line */
-  }, [hashlink.counter]);
-
-  const panes = tabsList.map((tab) => {
+  const panes = tabsList.map((tab, index) => {
     return {
       id: tab,
       renderItem: (
@@ -89,11 +50,4 @@ const View = (props) => {
   );
 };
 
-export default compose(
-  connect((state) => {
-    return {
-      hashlink: state.hashlink,
-    };
-  }),
-  withScrollToTarget,
-)(withRouter(View));
+export default withRouter(View);

@@ -9,6 +9,7 @@ import config from '@plone/volto/registry';
 import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
 
 import 'react-responsive-tabs/styles.css';
@@ -60,6 +61,7 @@ const View = (props) => {
 
   const tabsContainer = React.useRef();
   const [mounted, setMounted] = React.useState(false);
+  const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
 
   const schema = React.useMemo(
@@ -160,7 +162,13 @@ const View = (props) => {
         items={items}
         onChange={(tab) => {
           const { blockWidth } = tabsContainer.current?.state || {};
-          if (tab !== tabsList[activeTabIndex]) {
+          const tabWithHash = getParentTabFromHash(
+            data,
+            props.location.hash.substring(1),
+          );
+          if (tabWithHash === tabsList[activeTabIndex] && !hashTab)
+            setHashTab(true);
+          else if (tab !== tabsList[activeTabIndex]) {
             setActiveTab(tab);
           } else if (blockWidth <= initialWidth) {
             setActiveTab(null);

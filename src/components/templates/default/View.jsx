@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
@@ -81,16 +80,12 @@ const MenuItem = (props) => {
 };
 
 const View = (props) => {
-  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
-
   const {
     metadata = {},
     data = {},
     tabsList = [],
     tabs = {},
     activeTabIndex = 0,
-    hashlink = {},
-    setActiveTab = noop,
   } = props;
   const [menuPosition, setMenuPosition] = React.useState({});
 
@@ -122,33 +117,6 @@ const View = (props) => {
     },
     [schema, data],
   );
-
-  React.useEffect(() => {
-    const urlHash = props.location.hash.substring(1) || '';
-    if (
-      hashlink.counter > 0 ||
-      (hashlink.counter === 0 && urlHash && !hashlinkOnMount)
-    ) {
-      const id = hashlink.hash || urlHash || '';
-      const index = tabsList.indexOf(id);
-      const parentId = data.id || props.id;
-      const parent = document.getElementById(parentId);
-      const headerWrapper = document.querySelector('.header-wrapper');
-      const offsetHeight = headerWrapper?.offsetHeight || 0;
-      if (id !== parentId && index > -1 && parent) {
-        if (activeTabIndex !== index) {
-          setActiveTab(id);
-        }
-        props.scrollToTarget(parent, offsetHeight);
-      } else if (id === parentId && parent) {
-        props.scrollToTarget(parent, offsetHeight);
-      }
-    }
-    if (!hashlinkOnMount) {
-      setHashlinkOnMount(true);
-    }
-    /* eslint-disable-next-line */
-  }, [hashlink.counter]);
 
   const panes = tabsList.map((tab, index) => {
     return {
@@ -211,11 +179,4 @@ const View = (props) => {
   );
 };
 
-export default compose(
-  connect((state) => {
-    return {
-      hashlink: state.hashlink,
-    };
-  }),
-  withScrollToTarget,
-)(withRouter(View));
+export default compose(withScrollToTarget)(withRouter(View));

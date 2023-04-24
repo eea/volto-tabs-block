@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { emptyBlocksForm } from '@plone/volto/helpers';
+import { visitBlocks, toSlug } from '@eeacms/volto-anchors/helpers';
 
 export const empty = () => {
   const tabId = uuid();
@@ -33,4 +34,21 @@ export const scrollToTarget = (target, offsetHeight = 0) => {
   });
 
   return;
+};
+
+export const getParentTabFromHash = (tabsBlockData, urlHash) => {
+  if (urlHash) {
+    const { data } = tabsBlockData;
+    let parentBlockId;
+    let isSlugPresent;
+    visitBlocks(data, ([id, data]) => {
+      if (data['@type'] === 'tab') parentBlockId = id;
+      if (toSlug(data.plaintext) === urlHash) {
+        isSlugPresent = true;
+        return true;
+      }
+    });
+    return isSlugPresent ? parentBlockId : null;
+  }
+  return null;
 };
