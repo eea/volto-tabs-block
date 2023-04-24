@@ -1,11 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
 import { Icon, RenderBlocks } from '@plone/volto/components';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
 import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
@@ -13,6 +10,8 @@ import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
+
+import noop from 'lodash/noop';
 
 const Slider = loadable(() => import('react-slick'));
 
@@ -95,18 +94,15 @@ const ArrowsGroup = (props) => {
 
 const View = (props) => {
   const slider = React.useRef(null);
-  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
   const blockId = props.id;
   const {
     activeTab = null,
     data = {},
-    hashlink = {},
     metadata = {},
     tabsList = [],
     tabs = {},
-    setActiveTab = () => {},
+    setActiveTab = noop,
   } = props;
-  const activeTabIndex = tabsList.indexOf(activeTab);
   const uiContainer = data.align === 'full' ? 'ui container' : false;
 
   const settings = {
@@ -151,40 +147,6 @@ const View = (props) => {
         carouselDiv.setAttribute('tabindex', '0');
   }, []);
 
-  React.useEffect(() => {
-    const urlHash = props.location.hash.substring(1) || '';
-    if (
-      hashlink.counter > 0 ||
-      (hashlink.counter === 0 && urlHash && !hashlinkOnMount)
-    ) {
-      const id = hashlink.hash || urlHash || '';
-      const index = tabsList.indexOf(id);
-      const parentId = data.id || props.id;
-      const parent = document.getElementById(parentId);
-      // TODO: Find the best way to add offset relative to header
-      //       The header can be static on mobile and relative on > mobile
-      const headerWrapper = document.querySelector('.header-wrapper');
-      const offsetHeight = headerWrapper?.offsetHeight || 0;
-      if (
-        id !== parentId &&
-        parentId === hashlink.data.parentId &&
-        index > -1 &&
-        parent
-      ) {
-        if (activeTabIndex !== index) {
-          slider.current.slickGoTo(index);
-        }
-        props.scrollToTarget(parent, offsetHeight);
-      } else if (id === parentId && parent) {
-        props.scrollToTarget(parent, offsetHeight);
-      }
-    }
-    if (!hashlinkOnMount) {
-      setHashlinkOnMount(true);
-    }
-    /* eslint-disable-next-line */
-  }, [hashlink.counter]);
-
   const panes = tabsList.map((tab, index) => {
     return {
       id: tab,
@@ -227,11 +189,4 @@ const View = (props) => {
   );
 };
 
-export default compose(
-  connect((state) => {
-    return {
-      hashlink: state.hashlink,
-    };
-  }),
-  withScrollToTarget,
-)(withRouter(View));
+export default withRouter(View);
