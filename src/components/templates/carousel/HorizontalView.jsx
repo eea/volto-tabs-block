@@ -118,7 +118,7 @@ const View = (props) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     touchMove: true,
-    beforeChange: (index) => {
+    beforeChange: (oldIndex, index) => {
       setActiveTab(tabsList[index]);
     },
   };
@@ -136,9 +136,8 @@ const View = (props) => {
   }, [activeTab]);
   React.useEffect(() => {
     if (!slider.current?.innerSlider?.list) return;
-    let unaccesibileElements = slider.current.innerSlider.list.querySelectorAll(
-      '.slick-slide',
-    );
+    let unaccesibileElements =
+      slider.current.innerSlider.list.querySelectorAll('.slick-slide');
     for (let element of unaccesibileElements) {
       element.setAttribute('tabindex', '0');
       element.setAttribute('aria-hidden', 'false');
