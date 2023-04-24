@@ -13,6 +13,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
 
+import noop from 'lodash/noop';
+
 const Slider = loadable(() => import('react-slick'));
 
 const Dots = (props) => {
@@ -101,7 +103,7 @@ const View = (props) => {
     metadata = {},
     tabsList = [],
     tabs = {},
-    setActiveTab = () => {},
+    setActiveTab = noop,
   } = props;
   const uiContainer = data.align === 'full' ? 'ui container' : false;
 
@@ -116,7 +118,7 @@ const View = (props) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     touchMove: true,
-    beforeChange: (oldIndex, index) => {
+    beforeChange: (index) => {
       setActiveTab(tabsList[index]);
     },
   };

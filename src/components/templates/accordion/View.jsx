@@ -10,6 +10,7 @@ import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
+import noop from 'lodash/noop';
 
 import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';
@@ -50,7 +51,7 @@ const View = (props) => {
     tabsList = [],
     tabs = {},
     activeTabIndex = 0,
-    setActiveTab = () => {},
+    setActiveTab = noop,
     id,
   } = props;
 
