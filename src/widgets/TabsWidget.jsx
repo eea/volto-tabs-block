@@ -2,11 +2,9 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { omit, without } from 'lodash';
 import move from 'lodash-move';
-import { Icon, FormFieldWrapper } from '@plone/volto/components';
-import { DragDropList } from '@plone/volto/components';
+import { Icon, FormFieldWrapper, DragDropList } from '@plone/volto/components';
 import { emptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { StyleWrapperEdit } from '@eeacms/volto-block-style/StyleWrapper';
-
 import dragSVG from '@plone/volto/icons/drag.svg';
 import themeSVG from '@plone/volto/icons/theme.svg';
 import trashSVG from '@plone/volto/icons/delete.svg';
@@ -30,9 +28,9 @@ const TabsWidget = (props) => {
   const [activeTabId, setActiveTabId] = React.useState(0);
   const { value = {}, id, onChange } = props;
   const { blocks = {} } = value;
-  const tabsList = (value.blocks_layout?.items || []).map((id) => [
-    id,
-    blocks[id],
+  const tabsList = (value.blocks_layout?.items || []).map((uid) => [
+    uid,
+    blocks[uid],
   ]);
   const activeTabData = blocks[activeTabId] || {};
 

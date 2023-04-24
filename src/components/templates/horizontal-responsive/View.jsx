@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
@@ -7,7 +7,6 @@ import { Menu, Tab, Container, Dropdown, Button } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import { RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
   SimpleMarkdown,
   getMenuPosition,
@@ -17,18 +16,27 @@ import {
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
+import noop from 'lodash/noop';
+
 const MenuItem = (props) => {
-  const {
-    activeTab = null,
-    tabs = {},
-    setActiveTab = () => {},
-    blockId,
-  } = props;
+  const { activeTab = null, tabs = {}, setActiveTab = noop, blockId } = props;
   const { tabsTitle, tabsDescription, tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
   const defaultTitle = `Tab ${tabIndex}`;
-
+  const [tabChanged, setTabChanged] = useState(false);
+  useEffect(() => {
+    if (
+      tabChanged === true &&
+      document?.getElementById(blockId)?.querySelector('#tab-pane-' + tab)
+    ) {
+      document
+        .getElementById(blockId)
+        .querySelector('#tab-pane-' + tab)
+        .focus();
+      setTabChanged(false);
+    }
+  }, [tabChanged, tab, blockId]);
   return (
     <React.Fragment>
       {index === 0 && (tabsTitle || tabsDescription) && (
@@ -73,19 +81,10 @@ const MenuItem = (props) => {
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             e.preventDefault();
-            if (
-              document
-                .getElementById(blockId)
-                ?.getElementsByClassName('active tab').length > 0
-            ) {
-              const tabDiv = document
-                .getElementById(blockId)
-                .getElementsByClassName('active tab')[0];
-              tabDiv.focus();
-            }
             if (activeTab !== tab) {
               setActiveTab(tab);
             }
+            setTabChanged(true);
           }
         }}
       >
@@ -105,12 +104,12 @@ const MenuWrapper = (props) => {
     screen = {},
     tabs = {},
     tabsList = [],
-    setActiveTab = () => {},
+    setActiveTab = noop,
   } = props;
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    if (!true || !node?.current) return;
+    if (false || !node?.current) return;
     const items = node.current.querySelectorAll(
       '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
     );
@@ -182,16 +181,13 @@ const MenuWrapper = (props) => {
 };
 
 const View = (props) => {
-  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
   const {
     metadata = {},
     data = {},
     tabsList = [],
     tabs = {},
     activeTabIndex = 0,
-    hashlink = {},
     screen,
-    setActiveTab = () => {},
   } = props;
   const menuPosition = getMenuPosition(data);
   const isContainer = data.align === 'full';
@@ -217,33 +213,6 @@ const View = (props) => {
     [schema, data],
   );
 
-  React.useEffect(() => {
-    const urlHash = props.location.hash.substring(1) || '';
-    if (
-      hashlink.counter > 0 ||
-      (hashlink.counter === 0 && urlHash && !hashlinkOnMount)
-    ) {
-      const id = hashlink.hash || urlHash || '';
-      const index = tabsList.indexOf(id);
-      const parentId = data.id || props.id;
-      const parent = document.getElementById(parentId);
-      const headerWrapper = document.querySelector('.header-wrapper');
-      const offsetHeight = headerWrapper?.offsetHeight || 0;
-      if (id !== parentId && index > -1 && parent) {
-        if (activeTabIndex !== index) {
-          setActiveTab(id);
-        }
-        props.scrollToTarget(parent, offsetHeight);
-      } else if (id === parentId && parent) {
-        props.scrollToTarget(parent, offsetHeight);
-      }
-    }
-    if (!hashlinkOnMount) {
-      setHashlinkOnMount(true);
-    }
-    /* eslint-disable-next-line */
-  }, [hashlink.counter]);
-
   const panes = tabsList.map((tab, index) => {
     return {
       id: tab,
@@ -260,19 +229,13 @@ const View = (props) => {
           tabsDescription={tabsDescription}
         />
       ),
-      render: () => {
-        return (
-          <>
-            <Tab.Pane as={isContainer ? Container : undefined} tabIndex={0}>
-              <RenderBlocks
-                {...props}
-                metadata={metadata}
-                content={tabs[tab]}
-              />
-            </Tab.Pane>
-          </>
-        );
-      },
+      pane: (
+        <Tab.Pane as={isContainer ? Container : undefined}>
+          <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
+            <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
+          </div>
+        </Tab.Pane>
+      ),
     };
   });
 
@@ -281,6 +244,7 @@ const View = (props) => {
       <Tab
         activeIndex={activeTabIndex}
         className="horizontal-responsive tabs"
+        renderActiveOnly={false}
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),
@@ -316,9 +280,7 @@ const View = (props) => {
 export default compose(
   connect((state) => {
     return {
-      hashlink: state.hashlink,
       screen: state.screen,
     };
   }),
-  withScrollToTarget,
 )(withRouter(View));

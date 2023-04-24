@@ -9,6 +9,8 @@ import config from '@plone/volto/registry';
 import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
+import noop from 'lodash/noop';
 
 import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';
@@ -49,7 +51,7 @@ const View = (props) => {
     tabsList = [],
     tabs = {},
     activeTabIndex = 0,
-    setActiveTab = () => {},
+    setActiveTab = noop,
     id,
   } = props;
 
@@ -59,6 +61,7 @@ const View = (props) => {
 
   const tabsContainer = React.useRef();
   const [mounted, setMounted] = React.useState(false);
+  const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
 
   const schema = React.useMemo(
@@ -101,7 +104,7 @@ const View = (props) => {
           {title || defaultTitle}{' '}
         </>
       ),
-      getContent: () => (
+      content: (
         <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false} />
       ),
       key: tab,
@@ -155,11 +158,19 @@ const View = (props) => {
         ref={tabsContainer}
         transformWidth={initialWidth}
         selectedTabKey={tabsList[activeTabIndex]}
+        unmountOnExit={false}
         items={items}
         onChange={(tab) => {
-          if (tab !== tabsList[activeTabIndex]) {
+          const { blockWidth } = tabsContainer.current?.state || {};
+          const tabWithHash = getParentTabFromHash(
+            data,
+            props.location.hash.substring(1),
+          );
+          if (tabWithHash === tabsList[activeTabIndex] && !hashTab)
+            setHashTab(true);
+          else if (tab !== tabsList[activeTabIndex]) {
             setActiveTab(tab);
-          } else {
+          } else if (blockWidth <= initialWidth) {
             setActiveTab(null);
           }
         }}
