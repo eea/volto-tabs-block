@@ -37,6 +37,7 @@ const MenuItem = (props) => {
       setTabChanged(false);
     }
   }, [tabChanged, tab, blockId]);
+
   return (
     <React.Fragment>
       {index === 0 && (tabsTitle || tabsDescription) && (
@@ -193,7 +194,7 @@ const View = (props) => {
   const isContainer = data.align === 'full';
   const tabsTitle = data.title;
   const tabsDescription = data.description;
-
+  const [mounted, setMounted] = useState();
   const schema = React.useMemo(
     () =>
       config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
@@ -212,7 +213,21 @@ const View = (props) => {
     },
     [schema, data],
   );
-
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+  React.useEffect(() => {
+    if (!mounted) return;
+    for (let panel of document
+      .getElementById(props?.id)
+      .getElementsByClassName('ui bottom attached segment tab') || []) {
+      panel.dataset.tabName =
+        tabs[panel.firstChild.id.replace('tab-pane-', '')]?.title ||
+        `Tab ${
+          tabsList.indexOf(panel.firstChild.id.replace('tab-pane-', '')) + 1
+        }`;
+    }
+  }, [mounted, props.id, tabs, tabsList]);
   const panes = tabsList.map((tab, index) => {
     return {
       id: tab,
