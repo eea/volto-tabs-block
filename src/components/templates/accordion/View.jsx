@@ -33,14 +33,16 @@ class Tab extends React.Component {
 
   render() {
     return (
-      <AnimateHeight
-        animateOpacity
-        duration={500}
-        height={this.state.height}
-        aria-hidden={false}
-      >
-        <RenderBlocks {...this.props} />
-      </AnimateHeight>
+      <div data-content="jj">
+        <AnimateHeight
+          animateOpacity
+          duration={500}
+          height={this.state.height}
+          aria-hidden={false}
+        >
+          <RenderBlocks {...this.props} data-content="jj" />
+        </AnimateHeight>
+      </div>
     );
   }
 }
@@ -125,7 +127,18 @@ const View = (props) => {
     setInitialWidth(
       tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1,
     );
-  }, [mounted]);
+  }, [mounted, tabs, tabsList]);
+
+  React.useEffect(() => {
+    if (!mounted) return;
+    for (let panel of document
+      .getElementById(id)
+      .getElementsByClassName('ui bottom attached segment tab') || []) {
+      panel.dataset.tabName =
+        tabs[panel.id.replace('panel-', '')]?.title ||
+        `Tab ${tabsList.indexOf(panel.id.replace('panel-', '')) + 1}`;
+    }
+  }, [id, mounted, tabs, tabsList]);
 
   useLayoutEffect(() => {
     if (document.activeElement.role !== 'tab') return;

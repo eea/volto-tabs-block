@@ -87,10 +87,25 @@
       }
     }
   }
-}
+  @media print {
+    .ui.tab {
+      display: block !important;
+    }
+    .ui.tab div {
+      border-top: 0.1875rem solid #007b6c !important;
+    }
+    .ui.tab::before {
+      color: #007b6c;
+      content: attr(data-tab-name);
+    }
+    .secondary.menu {
+      display: none !important;
+    }
+  }
 
-.RRT__container .ui.RRT__tabs {
-  margin-bottom: 0;
+  .RRT__container .ui.RRT__tabs {
+    margin-bottom: 0;
+  }
 }
 
 .loadAddonOverrides();
