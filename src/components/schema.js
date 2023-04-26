@@ -39,7 +39,6 @@ export const schema = (config, templateSchema = {}) => {
       },
       template: {
         title: 'Template',
-        type: 'array',
         choices: [...templates],
         default: 'default',
       },
