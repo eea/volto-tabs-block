@@ -33,16 +33,14 @@ class Tab extends React.Component {
 
   render() {
     return (
-      <div data-content="jj">
-        <AnimateHeight
-          animateOpacity
-          duration={500}
-          height={this.state.height}
-          aria-hidden={false}
-        >
-          <RenderBlocks {...this.props} data-content="jj" />
-        </AnimateHeight>
-      </div>
+      <AnimateHeight
+        animateOpacity
+        duration={500}
+        height={this.state.height}
+        aria-hidden={false}
+      >
+        <RenderBlocks {...this.props} data-content="jj" />
+      </AnimateHeight>
     );
   }
 }
@@ -127,7 +125,7 @@ const View = (props) => {
     setInitialWidth(
       tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1,
     );
-  }, [mounted, tabs, tabsList]);
+  }, [mounted]);
 
   React.useEffect(() => {
     if (!mounted) return;
@@ -154,7 +152,6 @@ const View = (props) => {
       activeTabDiv.focus();
     }
   }, [activeTabIndex, id]);
-
   return (
     <div
       tabIndex="0"
