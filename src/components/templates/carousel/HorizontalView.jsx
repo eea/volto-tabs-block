@@ -111,9 +111,9 @@ const View = (props) => {
     dots: false,
     speed: 500,
     initialSlide: 0,
-    lazyLoad: 'ondemand',
     swipe: true,
     slidesToShow: 1,
+    lazyLoad: false,
     slidesToScroll: 1,
     touchMove: true,
     beforeChange: (oldIndex, index) => {
