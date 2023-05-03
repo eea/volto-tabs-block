@@ -132,8 +132,7 @@ const View = (props) => {
     for (let panel of document
       .getElementById(id)
       .getElementsByClassName('ui bottom attached segment tab') || []) {
-      panel.
-      set.tabName =
+      panel.set.tabName =
         tabs[panel.id.replace('panel-', '')]?.title ||
         `Tab ${tabsList.indexOf(panel.id.replace('panel-', '')) + 1}`;
     }
