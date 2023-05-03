@@ -39,7 +39,7 @@ class Tab extends React.Component {
         height={this.state.height}
         aria-hidden={false}
       >
-        <RenderBlocks {...this.props} data-content="jj" />
+        <RenderBlocks {...this.props} />
       </AnimateHeight>
     );
   }
@@ -132,7 +132,8 @@ const View = (props) => {
     for (let panel of document
       .getElementById(id)
       .getElementsByClassName('ui bottom attached segment tab') || []) {
-      panel.dataset.tabName =
+      panel.
+      set.tabName =
         tabs[panel.id.replace('panel-', '')]?.title ||
         `Tab ${tabsList.indexOf(panel.id.replace('panel-', '')) + 1}`;
     }
