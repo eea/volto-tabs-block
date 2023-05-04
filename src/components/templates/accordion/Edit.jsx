@@ -78,7 +78,7 @@ const MenuItem = (props) => {
       {index === 0 && (tabsTitle || tabsDescription) && (
         <div className="menu-title"></div>
       )}
-      <MenuItem
+      <Menu.Item
         role="tab"
         aria-hidden="true"
         name={defaultTitle}
@@ -125,10 +125,10 @@ const MenuItem = (props) => {
             <p className={'menu-item-text'}>{title || defaultTitle}</p>
           </>
         )}
-      </MenuItem>
+      </Menu.Item>
       {index === tabsList.length - 1 ? (
         <>
-          <MenuItem
+          <Menu.Item
             role="tab"
             aria-hidden="true"
             name="addition"
@@ -143,7 +143,7 @@ const MenuItem = (props) => {
             >
               +
             </p>
-          </MenuItem>
+          </Menu.Item>
         </>
       ) : (
         ''
@@ -221,6 +221,7 @@ const Edit = (props) => {
     },
     [schema, data],
   );
+  console.log(tabsList);
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab]?.title;
     const defaultTitle = `Tab ${index + 1}`;
