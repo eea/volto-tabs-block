@@ -92,13 +92,13 @@
       display: block !important;
     }
 
-    .ui.tab > div {
+    .tab-name > div {
       border-top: 0.1875rem solid #007b6c !important;
     }
 
-    .ui.tab::before {
+    .tab-name::before {
       color: var(--text-color, #007b6c);
-      content: attr(data-tab-name);
+      content: attr(id);
     }
 
     .secondary.menu {
