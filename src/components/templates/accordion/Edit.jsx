@@ -81,6 +81,7 @@ const MenuItem = (props) => {
       <Menu.Item
         role="tab"
         aria-hidden="true"
+        style={{ marginBottom: '0', marginTop: '0' }}
         name={defaultTitle}
         active={tab === activeTab}
         onClick={() => {
@@ -137,12 +138,7 @@ const MenuItem = (props) => {
               setEditingTab(null);
             }}
           >
-            <p
-              className={'menu-item-text'}
-              style={{ paddingLeft: '30px', borderStyle: 'none' }}
-            >
-              +
-            </p>
+            <p className={'menu-item-text'}>+</p>
           </Menu.Item>
         </>
       ) : (
@@ -229,24 +225,22 @@ const Edit = (props) => {
     const tabsDescription = data.description;
     return {
       title: (
-        <>
-          <MenuItem
-            {...props}
-            key={tab}
-            editingTab={editingTab}
-            index={index}
-            setEditingTab={setEditingTab}
-            tab={tab}
-            tabsTitle={title || defaultTitle}
-            tabsDescription={tabsDescription}
-          />
-        </>
+        <MenuItem
+          {...props}
+          key={tab}
+          editingTab={editingTab}
+          index={index}
+          setEditingTab={setEditingTab}
+          tab={tab}
+          tabsTitle={title || defaultTitle}
+          tabsDescription={tabsDescription}
+        />
       ),
       content: (
         <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false} />
       ),
       key: tab,
-      tabClassName: cx('ui button item title', { active }),
+      tabClassName: cx('item', { active }, 'remove-menu'),
       panelClassName: cx('ui bottom attached segment tab', {
         active,
       }),
@@ -320,6 +314,7 @@ const Edit = (props) => {
           {
             inverted: getDataValue('menuInverted'),
           },
+          'ui green fluid pointing secondary menu',
         )}
         showMore={false}
       />
