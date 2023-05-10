@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import cx from 'classnames';
 import { compose } from 'redux';
 import { isEmpty } from 'lodash';
@@ -10,17 +10,13 @@ import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapp
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import { BlocksForm } from '@plone/volto/components';
 import { Icon } from 'semantic-ui-react';
-import { Menu, Input, Container } from 'semantic-ui-react';
+import { Menu, Input } from 'semantic-ui-react';
+import { Icon as VoltoIcon } from '@plone/volto/components';
 import config from '@plone/volto/registry';
-import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
-import {
-  SimpleMarkdown,
-  getMenuPosition,
-} from '@eeacms/volto-tabs-block/utils';
 import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';
 
@@ -82,6 +78,7 @@ const MenuItem = (props) => {
       {index === 0 && (tabsTitle || tabsDescription) && (
         <div className="menu-title"></div>
       )}
+
       <Menu.Item
         role="tab"
         aria-hidden="true"
@@ -141,7 +138,7 @@ const MenuItem = (props) => {
               addNewTab();
               setEditingTab(null);
             }}
-            className="remove-margin"
+            className="remove-margin addition-button"
           >
             <p className={'menu-item-text'}>+</p>
           </Menu.Item>
@@ -243,16 +240,33 @@ const Edit = (props) => {
 
     return {
       title: (
-        <MenuItem
-          {...props}
-          key={tab}
-          editingTab={editingTab}
-          index={index}
-          setEditingTab={setEditingTab}
-          tab={tab}
-          tabsTitle={title || defaultTitle}
-          tabsDescription={tabsDescription}
-        />
+        <>
+          {semanticIcon ? (
+            <div className="tabs-icon">
+              <Icon
+                className={active ? semanticIcon.opened : semanticIcon.closed}
+              />
+            </div>
+          ) : (
+            <div className="tabs-icon">
+              <VoltoIcon
+                name={active ? icons.opened : icons.closed}
+                size={icons.size}
+                className="tabs-icon"
+              />
+            </div>
+          )}
+          <MenuItem
+            {...props}
+            key={tab}
+            editingTab={editingTab}
+            index={index}
+            setEditingTab={setEditingTab}
+            tab={tab}
+            tabsTitle={title || defaultTitle}
+            tabsDescription={tabsDescription}
+          />
+        </>
       ),
       content: (
         <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false}>
@@ -313,7 +327,7 @@ const Edit = (props) => {
         </Tab>
       ),
       key: tab,
-      tabClassName: cx('item', { active }, 'remove-menu'),
+      tabClassName: cx('ui button item title', { active }, 'remove-menu'),
       panelClassName: cx('ui bottom attached segment tab', {
         active,
       }),
@@ -335,7 +349,7 @@ const Edit = (props) => {
   return (
     <Tabs
       ref={tabsContainer}
-      transformWidth={initialWidth}
+      transformWidth={2000}
       selectedTabKey={tabsList[activeTabIndex]}
       unmountOnExit={false}
       items={items}
@@ -361,7 +375,7 @@ const Edit = (props) => {
         {
           inverted: getDataValue('menuInverted'),
         },
-        'ui green fluid pointing secondary menu',
+        'ui fluid pointing secondary menu',
       )}
       showMore={false}
     />
