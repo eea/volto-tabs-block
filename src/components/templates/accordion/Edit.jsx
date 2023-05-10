@@ -1,10 +1,14 @@
 import React, { useLayoutEffect } from 'react';
 import cx from 'classnames';
 import { compose } from 'redux';
+import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { withRouter } from 'react-router';
 import Tabs from 'react-responsive-tabs';
 import AnimateHeight from 'react-animate-height';
+import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
+import { emptyBlocksForm } from '@plone/volto/helpers';
+import { BlocksForm } from '@plone/volto/components';
 import { Icon } from 'semantic-ui-react';
 import { Menu, Input, Container } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
@@ -81,7 +85,6 @@ const MenuItem = (props) => {
       <Menu.Item
         role="tab"
         aria-hidden="true"
-        style={{ marginBottom: '0', marginTop: '0' }}
         name={defaultTitle}
         active={tab === activeTab}
         onClick={() => {
@@ -98,6 +101,7 @@ const MenuItem = (props) => {
         onDoubleClick={() => {
           setEditingTab(tab);
         }}
+        className="remove-margin"
       >
         {editingTab === tab && selected ? (
           <Input
@@ -137,6 +141,7 @@ const MenuItem = (props) => {
               addNewTab();
               setEditingTab(null);
             }}
+            className="remove-margin"
           >
             <p className={'menu-item-text'}>+</p>
           </Menu.Item>
@@ -172,7 +177,7 @@ class Tab extends React.Component {
         height={this.state.height}
         aria-hidden={false}
       >
-        <RenderBlocks {...this.props} />
+        {this.props.children}
       </AnimateHeight>
     );
   }
@@ -186,7 +191,19 @@ const Edit = (props) => {
     activeTabIndex = 0,
     setActiveTab = noop,
     editingTab = null,
+    activeBlock = null,
+    activeTab = null,
+    block = null,
     setEditingTab = noop,
+    multiSelected = [],
+    manage = false,
+    metadata = null,
+    selected = false,
+    onChangeBlock = noop,
+    onChangeTabData = noop,
+    onSelectBlock = noop,
+    emptyTab = noop,
+    tabsData = {},
     id,
   } = props;
 
@@ -217,12 +234,13 @@ const Edit = (props) => {
     },
     [schema, data],
   );
-  console.log(tabsList);
+
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab]?.title;
     const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
     const tabsDescription = data.description;
+
     return {
       title: (
         <MenuItem
@@ -237,7 +255,62 @@ const Edit = (props) => {
         />
       ),
       content: (
-        <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false} />
+        <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false}>
+          <BlocksForm
+            allowedBlocks={data?.allowedBlocks}
+            description={data?.instrunctions?.data}
+            manage={manage}
+            metadata={metadata}
+            pathname={props.pathname}
+            properties={isEmpty(tabs[tab]) ? emptyBlocksForm() : tabs[tab]}
+            selected={selected && activeTab === tab && activeBlock}
+            selectedBlock={
+              selected && activeTab === tab && activeBlock ? activeBlock : null
+            }
+            title={data?.placeholder}
+            onChangeField={onChangeTabData}
+            onChangeFormData={(newFormData) => {
+              console.log({ newFormData });
+              onChangeBlock(block, {
+                ...data,
+                data: {
+                  ...tabsData,
+                  blocks: {
+                    ...tabsData.blocks,
+                    [activeTab]: {
+                      ...(newFormData.blocks_layout.items.length > 0
+                        ? newFormData
+                        : emptyTab()),
+                    },
+                  },
+                },
+              });
+            }}
+            onSelectBlock={(id, selected, e) => {
+              const isMultipleSelection = e
+                ? e.shiftKey || e.ctrlKey || e.metaKey
+                : false;
+              onSelectBlock(
+                id,
+                activeBlock === id ? false : isMultipleSelection,
+                e,
+              );
+              setEditingTab(null);
+            }}
+          >
+            {({ draginfo }, editBlock, blockProps) => {
+              return (
+                <EditBlockWrapper
+                  blockProps={blockProps}
+                  draginfo={draginfo}
+                  multiSelected={multiSelected.includes(blockProps.block)}
+                >
+                  {editBlock}
+                </EditBlockWrapper>
+              );
+            }}
+          </BlocksForm>
+        </Tab>
       ),
       key: tab,
       tabClassName: cx('item', { active }, 'remove-menu'),
@@ -259,66 +332,39 @@ const Edit = (props) => {
     );
   }, [mounted]);
 
-  useLayoutEffect(() => {
-    if (document.activeElement.role !== 'tab') return;
-    if (
-      document.getElementById(id)?.getElementsByClassName('tab active').length >
-      0
-    ) {
-      let activeTabDiv = document
-        .getElementById(id)
-        .getElementsByClassName('tab active')[0];
-      activeTabDiv.setAttribute('tabindex', '0');
-      activeTabDiv.setAttribute('className', 'accessibility-accordion-tab');
-      activeTabDiv.focus();
-    }
-  }, [activeTabIndex, id]);
-
   return (
-    <div
-      tabIndex="0"
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          const focusedElement = document.activeElement;
-          if (focusedElement) focusedElement.click();
+    <Tabs
+      ref={tabsContainer}
+      transformWidth={initialWidth}
+      selectedTabKey={tabsList[activeTabIndex]}
+      unmountOnExit={false}
+      items={items}
+      onChange={(tab) => {
+        const { blockWidth } = tabsContainer.current?.state || {};
+        const tabWithHash = getParentTabFromHash(
+          data,
+          props.location.hash.substring(1),
+        );
+        if (tabWithHash === tabsList[activeTabIndex] && !hashTab)
+          setHashTab(true);
+        else if (tab !== tabsList[activeTabIndex]) {
+          setActiveTab(tab);
+        } else if (blockWidth <= initialWidth) {
+          setActiveTab(null);
         }
       }}
-      role="tab"
-    >
-      <Tabs
-        ref={tabsContainer}
-        transformWidth={initialWidth}
-        selectedTabKey={tabsList[activeTabIndex]}
-        unmountOnExit={false}
-        items={items}
-        onChange={(tab) => {
-          const { blockWidth } = tabsContainer.current?.state || {};
-          const tabWithHash = getParentTabFromHash(
-            data,
-            props.location.hash.substring(1),
-          );
-          if (tabWithHash === tabsList[activeTabIndex] && !hashTab)
-            setHashTab(true);
-          else if (tab !== tabsList[activeTabIndex]) {
-            setActiveTab(tab);
-          } else if (blockWidth <= initialWidth) {
-            setActiveTab(null);
-          }
-        }}
-        tabsWrapperClass={cx(
-          props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
-          'ui pointing secondary menu',
-          'tabs-accessibility',
-          data?.theme ? `theme-${data?.theme}` : '',
-          {
-            inverted: getDataValue('menuInverted'),
-          },
-          'ui green fluid pointing secondary menu',
-        )}
-        showMore={false}
-      />
-    </div>
+      tabsWrapperClass={cx(
+        props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
+        'ui pointing secondary menu',
+        'tabs-accessibility',
+        data?.theme ? `theme-${data?.theme}` : '',
+        {
+          inverted: getDataValue('menuInverted'),
+        },
+        'ui green fluid pointing secondary menu',
+      )}
+      showMore={false}
+    />
   );
 };
 
