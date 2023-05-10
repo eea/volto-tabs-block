@@ -223,7 +223,6 @@ const Edit = (props) => {
               title={data?.placeholder}
               onChangeField={onChangeTabData}
               onChangeFormData={(newFormData) => {
-                console.log({ newFormData });
                 onChangeBlock(block, {
                   ...data,
                   data: {
