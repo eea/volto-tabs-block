@@ -203,11 +203,11 @@ const Edit = (props) => {
     tabsData = {},
     id,
   } = props;
-
+  console.log(props);
   const accordionConfig =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
   const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
-
+  const [blockWidth, setBlockWidth] = React.useState();
   const tabsContainer = React.useRef();
   const [mounted, setMounted] = React.useState(false);
   const [hashTab, setHashTab] = React.useState(false);
@@ -337,7 +337,6 @@ const Edit = (props) => {
   React.useEffect(() => {
     setMounted(true);
   }, []);
-
   React.useEffect(() => {
     if (!mounted) return;
     const { blockWidth, tabsTotalWidth } = tabsContainer.current?.state || {};
@@ -345,6 +344,12 @@ const Edit = (props) => {
       tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1,
     );
   }, [mounted]);
+  const handleResize = () => {
+    setBlockWidth(tabsContainer.current?.state?.blockWidth);
+  };
+  React.useEffect(() => {
+    window.addEventListener('resize', handleResize, false);
+  }, []);
 
   return (
     <Tabs
@@ -370,6 +375,7 @@ const Edit = (props) => {
       tabsWrapperClass={cx(
         props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
         'ui pointing secondary menu',
+        blockWidth <= initialWidth ? 'accordion-mode' : '',
         'tabs-accessibility',
         data?.theme ? `theme-${data?.theme}` : '',
         {

@@ -141,6 +141,9 @@
   }
 
   .RRT__container {
+    .RRT__tab.active {
+      background-color: rgba(0, 0, 0, 0.1) !important;
+    }
     > .ui.tab .rah-animating {
       transition: height 0ms ease 0ms !important;
 
@@ -148,7 +151,12 @@
         transition: opacity 0ms ease 0ms !important;
       }
     }
-    .inverted .RRT__tab {
+
+    .RRT__tabs.inverted.ui.secondary.pointing.menu:not(.accordion-mode) {
+      background-color: @green !important;
+    }
+
+    .inverted .RRT__tab--collapsed {
       background-color: @green !important;
     }
   }
