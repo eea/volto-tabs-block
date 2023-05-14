@@ -1,4 +1,4 @@
 import HorizontalResponsiveView from './View';
 import horizontalResponsiveSchema from './schema';
-
-export { HorizontalResponsiveView, horizontalResponsiveSchema };
+import HorizontalEdit from './Edit';
+export { HorizontalEdit, HorizontalResponsiveView, horizontalResponsiveSchema };

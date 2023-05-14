@@ -20,6 +20,8 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 import { withRouter } from 'react-router';
 import noop from 'lodash/noop';
 
+import '@eeacms/volto-tabs-block/less/menu.less';
+
 const MenuItem = (props) => {
   const inputRef = React.useRef(null);
   const {
@@ -83,6 +85,7 @@ const MenuItem = (props) => {
       )}
       <Menu.Item
         name={defaultTitle}
+        className="menu-title"
         active={tab === activeTab}
         onClick={() => {
           if (activeTab !== tab) {
@@ -123,8 +126,8 @@ const MenuItem = (props) => {
           />
         ) : (
           <>
-            <span className={'menu-item-count'}>{tabIndex}</span>
-            <p className={'menu-item-text'}>{title || defaultTitle}</p>
+            <span className={' menu-item-count'}>{tabIndex}</span>
+            <p className={' menu-item-text'}>{title || defaultTitle}</p>
           </>
         )}
       </Menu.Item>
@@ -259,10 +262,9 @@ const Edit = (props) => {
 
   const schema = React.useMemo(
     () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
+      config.blocks.blocksConfig[TABS_BLOCK].templates?.[
+        'horizontal-responsive'
+      ]?.schema(config, props) || {},
     [props],
   );
 
@@ -359,14 +361,11 @@ const Edit = (props) => {
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className="default tabs"
+        className="horizontal-responsive tabs"
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),
-          color:
-            props?.template === 'accordion' && props?.data?.theme
-              ? `theme-${props?.data?.theme}`
-              : getDataValue('menuColor'),
+          color: getDataValue('menuColor'),
           compact: getDataValue('menuCompact'),
           fluid: getDataValue('menuFluid'),
           inverted: getDataValue('menuInverted'),
@@ -377,14 +376,7 @@ const Edit = (props) => {
           tabular: getDataValue('menuTabular'),
           text: getDataValue('menuText'),
           vertical: menuPosition.vertical,
-          className: cx(
-            data.menuAlign,
-            menuPosition.direction === 'left' ? 'border-right' : '',
-            menuPosition.direction === 'right' ? 'border-left' : '',
-            menuPosition.direction === 'top' ? 'border-bottom' : '',
-            menuPosition.direction === 'bottom' ? 'border-top' : '',
-            { container: isContainer },
-          ),
+          className: cx(data.menuAlign, { container: isContainer }),
           children: (
             <MenuWrapper
               {...props}

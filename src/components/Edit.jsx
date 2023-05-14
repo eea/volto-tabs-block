@@ -150,11 +150,16 @@ const Edit = (props) => {
     setActiveBlock(selected);
     setMultiSelected(newMultiSelected);
   };
-
+  console.log(template);
   return (
     <BlockStyleWrapperEdit {...props}>
       <div
-        className={cx('tabs-block edit', theme, verticalAlign)}
+        className={cx(
+          'tabs-block edit',
+          theme,
+          verticalAlign,
+          template.map((x) => x),
+        )}
         role="presentation"
         onKeyDown={(e) => {
           handleKeyDown(e, props.index, props.block, props.blockNode.current);
