@@ -345,10 +345,17 @@ const Edit = (props) => {
     );
   }, [mounted]);
   const handleResize = () => {
-    setBlockWidth(tabsContainer.current?.state?.blockWidth);
+    setBlockWidth(tabsContainer.current?.state.blockWidth);
   };
   React.useEffect(() => {
-    window.addEventListener('resize', handleResize, false);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  React.useLayoutEffect(() => {
+    handleResize();
   }, []);
 
   return (
@@ -375,7 +382,7 @@ const Edit = (props) => {
       tabsWrapperClass={cx(
         props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
         'ui pointing secondary menu',
-        blockWidth <= initialWidth ? 'accordion-mode' : '',
+        true ? 'accordion-mode' : '',
         'tabs-accessibility',
         data?.theme ? `theme-${data?.theme}` : '',
         {
