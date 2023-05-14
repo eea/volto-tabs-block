@@ -156,7 +156,7 @@ const View = (props) => {
     >
       <Tabs
         ref={tabsContainer}
-        transformWidth={2000}
+        transformWidth={initialWidth}
         selectedTabKey={tabsList[activeTabIndex]}
         unmountOnExit={false}
         items={items}

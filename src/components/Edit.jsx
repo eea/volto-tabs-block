@@ -150,7 +150,6 @@ const Edit = (props) => {
     setActiveBlock(selected);
     setMultiSelected(newMultiSelected);
   };
-  console.log(template);
   return (
     <BlockStyleWrapperEdit {...props}>
       <div

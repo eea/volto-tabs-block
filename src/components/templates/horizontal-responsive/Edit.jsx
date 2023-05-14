@@ -167,6 +167,8 @@ const MenuWrapper = (props) => {
     const items = node.current.querySelectorAll(
       '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
     );
+    console.log('intru');
+    console.log({ items });
     const underlineDropdown = node.current.querySelector('.ui.dropdown');
     if (!underlineDropdown) return;
     const overflowOffset = positionedOffset(underlineDropdown, node.current);

@@ -109,6 +109,7 @@ const MenuWrapper = (props) => {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
+    console.log('intru');
     if (false || !node?.current) return;
     const items = node.current.querySelectorAll(
       '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
