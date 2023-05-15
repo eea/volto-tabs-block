@@ -16,6 +16,7 @@ import '@eeacms/volto-tabs-block/less/edit.less';
 import '@eeacms/volto-tabs-block/less/tabs.less';
 
 const Edit = (props) => {
+  const view = React.useRef(null);
   const { onChangeBlock, onChangeField } = props;
   const { data = {}, block = null } = props;
   const template = data.template || 'default';
@@ -159,6 +160,7 @@ const Edit = (props) => {
           verticalAlign,
           template.map((x) => x),
         )}
+        ref={view}
         role="presentation"
         onKeyDown={(e) => {
           handleKeyDown(e, props.index, props.block, props.blockNode.current);
@@ -187,6 +189,7 @@ const Edit = (props) => {
             tabData={tabData}
             tabsData={tabsData}
             tabsList={tabsList}
+            node={view}
             template={template}
             onChangeTabData={onChangeTabData}
             onSelectBlock={onSelectBlock}

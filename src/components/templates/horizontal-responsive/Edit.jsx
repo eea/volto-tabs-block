@@ -161,7 +161,7 @@ const MenuWrapper = (props) => {
     setActiveTab = noop,
   } = props;
   const [open, setOpen] = React.useState(false);
-
+  console.log({ screen, node, open, data });
   React.useEffect(() => {
     if (false || !node?.current) return;
     const items = node.current.querySelectorAll(
