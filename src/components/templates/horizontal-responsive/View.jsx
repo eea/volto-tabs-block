@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { defineMessages } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
@@ -18,12 +19,23 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 
 import noop from 'lodash/noop';
 
+const messages = defineMessages({
+  DefaultTitle: {
+    id: 'default-title',
+    defaultMessage: 'Tab {tabTitle}',
+  },
+  DefaultTitleUnderlineIndex: {
+    id: 'default-title-underline-index',
+    defaultMessage: 'Tab {tabTitle}',
+  },
+});
+
 const MenuItem = (props) => {
   const { activeTab = null, tabs = {}, setActiveTab = noop, blockId } = props;
   const { tabsTitle, tabsDescription, tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
-  const defaultTitle = `Tab ${tabIndex}`;
+  const defaultTitle = intl.formatMessage(messages.DefaultTitle, { tabTitle: `${tabIndex}` });
   const [tabChanged, setTabChanged] = useState(false);
   useEffect(() => {
     if (
@@ -155,7 +167,7 @@ const MenuWrapper = (props) => {
         <Dropdown.Menu>
           {tabsList.map((underlineTab, underlineIndex) => {
             const title = tabs[underlineTab].title;
-            const defaultTitle = `Tab ${underlineIndex + 1}`;
+            const defaultTitle = intl.formatMessage(messages.DefaultTitleUnderlineIndex, { tabTitle: `${underlineIndex + 1}` });
 
             return (
               <Dropdown.Item

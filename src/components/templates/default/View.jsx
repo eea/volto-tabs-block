@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { defineMessages } from 'react-intl';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
@@ -16,6 +17,13 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 
 import noop from 'lodash/noop';
 
+const messages = defineMessages({
+  DefaultTitle: {
+    id: 'default-title',
+    defaultMessage: 'Tab {tabTitle}',
+  },
+});
+
 const MenuItem = (props) => {
   const {
     activeTab = null,
@@ -31,7 +39,7 @@ const MenuItem = (props) => {
   const tabIndex = index + 1;
 
   const [tabChanged, setTabChanged] = useState(false);
-  const defaultTitle = `Tab ${tabIndex}`;
+  const defaultTitle = intl.formatMessage(messages.DefaultTitle, { tabTitle: `${tabIndex}` });
 
   useEffect(() => {
     if (

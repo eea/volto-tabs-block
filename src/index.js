@@ -1,3 +1,5 @@
+import { defineMessages } from 'react-intl';
+
 import {
   DefaultEdit,
   DefaultView,
@@ -21,10 +23,41 @@ import tabsSVG from '@eeacms/volto-tabs-block//icons/tabs.svg';
 import rightSVG from '@plone/volto/icons/right-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 
+const messages = defineMessages({
+  Tabs: {
+    id: 'tabs',
+    defaultMessage: 'Tabs',
+  },
+  Default: {
+    id: 'default',
+    defaultMessage: 'Default',
+  },
+  AccordionResponsive: {
+    id: 'accordion-responsive',
+    defaultMessage: 'Accordion responsive',
+  },
+  HorizontalResponsive: {
+    id: 'horizontal-responsive',
+    defaultMessage: 'Horizontal responsive',
+  },
+  CarouselHorizontal: {
+    id: 'carousel-horizontal',
+    defaultMessage: 'Carousel horizontal',
+  },
+  CarouselVertical: {
+    id: 'carousel-vertical',
+    defaultMessage: 'Carousel vertical (prototype)',
+  },
+  DefaultTitle: {
+    id: 'default-title',
+    defaultMessage: 'Tab {tabTitle}',
+  },
+});
+
 export default (config) => {
   config.blocks.blocksConfig[TABS_BLOCK] = {
     id: TABS_BLOCK,
-    title: 'Tabs',
+    title: intl.formatMessage(messages.Tabs),
     icon: tabsSVG,
     group: 'common',
     edit: TabsEdit,
@@ -40,13 +73,13 @@ export default (config) => {
     schema: layoutSchema(config),
     templates: {
       default: {
-        title: 'Default',
+        title: intl.formatMessage(messages.Default),
         edit: DefaultEdit,
         view: DefaultView,
         schema: defaultSchema,
       },
       accordion: {
-        title: 'Accordion responsive',
+        title: intl.formatMessage(messages.AccordionResponsive),
         edit: AccordionEdit,
         view: AccordionView,
         schema: accordionSchema,
@@ -58,19 +91,19 @@ export default (config) => {
         },
       },
       'horizontal-responsive': {
-        title: 'Horizontal responsive',
+        title: intl.formatMessage(messages.HorizontalResponsive),
         edit: DefaultEdit,
         view: HorizontalResponsiveView,
         schema: horizontalResponsiveSchema,
       },
       carousel: {
-        title: 'Carousel horizontal',
+        title: intl.formatMessage(messages.CarouselHorizontal),
         edit: DefaultEdit,
         view: HorizontalCarouselView,
         schema: carouselSchema,
       },
       carousel_vertical: {
-        title: 'Carousel vertical (prototype)',
+        title: intl.formatMessage(messages.CarouselVertical),
         edit: DefaultEdit,
         view: VerticalCarouselView,
         schema: carouselSchema,
@@ -82,7 +115,7 @@ export default (config) => {
       if (blocks_layout?.items?.length) {
         return {
           blocks: blocks_layout.items.map((block, index) => ({
-            title: blocks[block]['title'] || `Tab ${index + 1}`,
+            title: blocks[block]['title'] || intl.formatMessage(messages.DefaultTitle, { tabTitle: `${index + 1}` }),
             id: block,
             parentId: data.parentId,
             type: TABS_BLOCK,
