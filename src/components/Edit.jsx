@@ -220,23 +220,19 @@ const Edit = (props) => {
         ) : (
           ''
         )}
-        {!data?.readOnlySettings ? (
+        {!data?.readOnlySettings && !activeBlock ? (
           <SidebarPortal selected={props.selected}>
-            {activeBlock ? (
-              ''
-            ) : (
-              <InlineForm
-                schema={schemaObject}
-                title={schemaObject.title}
-                onChangeField={(id, value) => {
-                  onChangeBlock(block, {
-                    ...data,
-                    [id]: value,
-                  });
-                }}
-                formData={data}
-              />
-            )}
+            <InlineForm
+              schema={schemaObject}
+              title={schemaObject.title}
+              onChangeField={(id, value) => {
+                onChangeBlock(block, {
+                  ...data,
+                  [id]: value,
+                });
+              }}
+              formData={data}
+            />
           </SidebarPortal>
         ) : (
           ''
