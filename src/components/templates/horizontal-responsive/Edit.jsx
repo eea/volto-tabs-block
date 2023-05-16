@@ -161,14 +161,12 @@ const MenuWrapper = (props) => {
     setActiveTab = noop,
   } = props;
   const [open, setOpen] = React.useState(false);
-  console.log({ screen, node, open, data });
+
   React.useEffect(() => {
     if (false || !node?.current) return;
     const items = node.current.querySelectorAll(
       '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
     );
-    console.log('intru');
-    console.log({ items });
     const underlineDropdown = node.current.querySelector('.ui.dropdown');
     if (!underlineDropdown) return;
     const overflowOffset = positionedOffset(underlineDropdown, node.current);
