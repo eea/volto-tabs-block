@@ -154,12 +154,7 @@ const Edit = (props) => {
   return (
     <BlockStyleWrapperEdit {...props}>
       <div
-        className={cx(
-          'tabs-block edit',
-          theme,
-          verticalAlign,
-          template.map((x) => x),
-        )}
+        className={cx('tabs-block edit', theme, verticalAlign, template)}
         ref={view}
         role="presentation"
         onKeyDown={(e) => {

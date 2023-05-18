@@ -1,27 +1,26 @@
-import React from 'react';
-import { isEmpty } from 'lodash';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withRouter } from 'react-router';
 import { v4 as uuid } from 'uuid';
+import { isEmpty } from 'lodash';
 import cx from 'classnames';
-import { Menu, Tab, Input, Container, Dropdown } from 'semantic-ui-react';
+import { Menu, Tab, Container, Dropdown, Input } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
-import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
+import { BlocksForm } from '@plone/volto/components';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
+import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import {
   SimpleMarkdown,
   getMenuPosition,
   positionedOffset,
   toggleItem,
 } from '@eeacms/volto-tabs-block/utils';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+
 import '@eeacms/volto-tabs-block/less/menu.less';
-import { withRouter } from 'react-router';
+
 import noop from 'lodash/noop';
-
-import '@eeacms/volto-tabs-block/less/menu.less';
-
 const MenuItem = (props) => {
   const inputRef = React.useRef(null);
   const {
@@ -84,8 +83,8 @@ const MenuItem = (props) => {
         </Menu.Item>
       )}
       <Menu.Item
+        item-data={tab}
         name={defaultTitle}
-        className="menu-title"
         active={tab === activeTab}
         onClick={() => {
           if (activeTab !== tab) {
@@ -104,6 +103,7 @@ const MenuItem = (props) => {
       >
         {editingTab === tab && selected ? (
           <Input
+            item-data={tab}
             placeholder={defaultTitle}
             ref={inputRef}
             transparent
@@ -126,8 +126,12 @@ const MenuItem = (props) => {
           />
         ) : (
           <>
-            <span className={' menu-item-count'}>{tabIndex}</span>
-            <p className={' menu-item-text'}>{title || defaultTitle}</p>
+            <span className={'menu-item-count'} item-data={tab}>
+              {tabIndex}
+            </span>
+            <p className={'menu-item-text'} item-data={tab}>
+              {title || defaultTitle}
+            </p>
           </>
         )}
       </Menu.Item>
@@ -135,10 +139,12 @@ const MenuItem = (props) => {
         <>
           <Menu.Item
             name="addition"
-            onClick={() => {
+            onClick={(e) => {
               addNewTab();
               setEditingTab(null);
+              e.preventDefault();
             }}
+            item-data={'addition'}
           >
             +
           </Menu.Item>
@@ -149,6 +155,7 @@ const MenuItem = (props) => {
     </>
   );
 };
+
 const MenuWrapper = (props) => {
   const {
     data = {},
@@ -158,10 +165,33 @@ const MenuWrapper = (props) => {
     screen = {},
     tabs = {},
     tabsList = [],
+    block = null,
+    emptyTab = noop,
+    setEditingTab = noop,
+    tabsData = {},
+    onChangeBlock = noop,
     setActiveTab = noop,
   } = props;
   const [open, setOpen] = React.useState(false);
+  const addNewTab = () => {
+    const tabId = uuid();
 
+    onChangeBlock(block, {
+      ...data,
+      data: {
+        ...tabsData,
+        blocks: {
+          ...tabsData.blocks,
+          [tabId]: {
+            ...emptyTab(),
+          },
+        },
+        blocks_layout: {
+          items: [...tabsData.blocks_layout.items, tabId],
+        },
+      },
+    });
+  };
   React.useEffect(() => {
     if (false || !node?.current) return;
     const items = node.current.querySelectorAll(
@@ -207,8 +237,9 @@ const MenuWrapper = (props) => {
         onClose={() => setOpen(false)}
       >
         <Dropdown.Menu>
-          {tabsList.map((underlineTab, underlineIndex) => {
-            const title = tabs[underlineTab].title;
+          {[...tabsList, 'addition'].map((underlineTab, underlineIndex) => {
+            const title =
+              underlineTab === 'addition' ? '+' : tabs[underlineTab]?.title;
             const defaultTitle = `Tab ${underlineIndex + 1}`;
 
             return (
@@ -217,10 +248,15 @@ const MenuWrapper = (props) => {
                 key={`underline-tab-${underlineIndex}-${underlineTab}`}
                 underline-item-data={underlineTab}
                 active={underlineTab === activeTab}
-                onClick={() => {
-                  if (activeTab !== underlineTab) {
+                onClick={(e) => {
+                  if (underlineTab === 'addition') {
+                    addNewTab();
+                    setEditingTab(null);
+                    e.preventDefault();
+                  } else if (activeTab !== underlineTab) {
                     setActiveTab(underlineTab);
                   }
+                  e.preventDefault();
                 }}
               >
                 <span className={'menu-item-count'}>{underlineIndex + 1}</span>
@@ -233,38 +269,38 @@ const MenuWrapper = (props) => {
     </React.Fragment>
   );
 };
+
 const Edit = (props) => {
   const {
-    activeBlock = null,
+    metadata = {},
+    data = {},
+    tabsList = [],
+    tabs = {},
     activeTab = null,
+    selected = false,
+    manage = false,
     activeTabIndex = 0,
     block = null,
-    data = {},
-    selected = false,
-    editingTab = null,
-    manage = false,
-    metadata = null,
+    activeBlock = null,
     multiSelected = [],
-    tabs = {},
+    screen,
     tabsData = {},
-    tabsList = [],
     emptyTab = noop,
     onChangeBlock = noop,
     onChangeTabData = noop,
     onSelectBlock = noop,
     setEditingTab = noop,
-    screen,
   } = props;
   const menuPosition = getMenuPosition(data);
   const isContainer = data.align === 'full';
   const tabsTitle = data.title;
   const tabsDescription = data.description;
-
   const schema = React.useMemo(
     () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.[
-        'horizontal-responsive'
-      ]?.schema(config, props) || {},
+      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
+        config,
+        props,
+      ) || {},
     [props],
   );
 
@@ -285,17 +321,18 @@ const Edit = (props) => {
         <MenuItem
           {...props}
           key={tab}
-          editingTab={editingTab}
-          index={index}
-          setEditingTab={setEditingTab}
           tab={tab}
+          tabsList={tabsList}
+          blockId={props.id}
+          index={index}
+          lastIndex={tabsList.length - 1}
           tabsTitle={tabsTitle}
           tabsDescription={tabsDescription}
         />
       ),
-      render: () => {
-        return (
-          <Tab.Pane as={isContainer ? Container : undefined}>
+      pane: (
+        <Tab.Pane as={isContainer ? Container : undefined}>
+          <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
             <BlocksForm
               allowedBlocks={data?.allowedBlocks}
               description={data?.instrunctions?.data}
@@ -351,9 +388,9 @@ const Edit = (props) => {
                 );
               }}
             </BlocksForm>
-          </Tab.Pane>
-        );
-      },
+          </div>
+        </Tab.Pane>
+      ),
     };
   });
 
@@ -362,6 +399,7 @@ const Edit = (props) => {
       <Tab
         activeIndex={activeTabIndex}
         className="horizontal-responsive tabs"
+        renderActiveOnly={false}
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),
@@ -383,6 +421,11 @@ const Edit = (props) => {
               panes={panes}
               menuPosition={menuPosition}
               screen={screen}
+              tabsList={tabsList}
+              blockId={props.id}
+              lastIndex={tabsList.length - 1}
+              tabsTitle={tabsTitle}
+              tabsDescription={tabsDescription}
             />
           ),
         }}
@@ -393,6 +436,7 @@ const Edit = (props) => {
     </>
   );
 };
+
 export default compose(
   connect((state) => {
     return {
