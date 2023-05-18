@@ -29,7 +29,6 @@ const MenuItem = (props) => {
   const { tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
-
   const [tabChanged, setTabChanged] = useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
 
@@ -45,6 +44,7 @@ const MenuItem = (props) => {
       setTabChanged(false);
     }
   }, [tabChanged, tab, blockId]);
+
   return (
     <React.Fragment>
       {index === 0 && (tabsTitle || tabsDescription) && (
@@ -88,7 +88,6 @@ const View = (props) => {
     activeTabIndex = 0,
   } = props;
   const [menuPosition, setMenuPosition] = React.useState({});
-
   React.useEffect(() => {
     if (Object.keys(menuPosition).length === 0) {
       setMenuPosition(getMenuPosition(data));
@@ -134,8 +133,17 @@ const View = (props) => {
       ),
       pane: (
         <Tab.Pane as={isContainer ? Container : undefined}>
-          <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
-            <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
+          <div
+            id={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
+            className="tab-name"
+          >
+            <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
+              <RenderBlocks
+                {...props}
+                metadata={metadata}
+                content={tabs[tab]}
+              />
+            </div>
           </div>
         </Tab.Pane>
       ),

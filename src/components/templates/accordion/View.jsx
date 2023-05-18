@@ -33,14 +33,16 @@ class Tab extends React.Component {
 
   render() {
     return (
-      <AnimateHeight
-        animateOpacity
-        duration={500}
-        height={this.state.height}
-        aria-hidden={false}
-      >
-        <RenderBlocks {...this.props} />
-      </AnimateHeight>
+      <div id={this.props.title} className="tab-name">
+        <AnimateHeight
+          animateOpacity
+          duration={500}
+          height={this.state.height}
+          aria-hidden={false}
+        >
+          <RenderBlocks {...this.props} />
+        </AnimateHeight>
+      </div>
     );
   }
 }
@@ -105,7 +107,13 @@ const View = (props) => {
         </>
       ),
       content: (
-        <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false} />
+        <Tab
+          {...props}
+          tab={tab}
+          content={tabs[tab]}
+          aria-hidden={false}
+          title={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
+        />
       ),
       key: tab,
       tabClassName: cx('ui button item title', { active }),
@@ -141,7 +149,6 @@ const View = (props) => {
       activeTabDiv.focus();
     }
   }, [activeTabIndex, id]);
-
   return (
     <div
       tabIndex="0"
