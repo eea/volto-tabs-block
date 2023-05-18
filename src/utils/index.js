@@ -29,9 +29,6 @@ const toggleItem = (container, item, hidden) => {
   // Set visibility to hidden, instead of .hidden attribute
   // so we can still calculate distance accurately
   item.style.visibility = hidden ? 'hidden' : '';
-
-  //item.style.display = hidden ? 'none' : 'block';
-  // item.style.display = hidden ? 'none' : 'flex';
   // Get tab-item name, if present, so we can match it up with the dropdown menu
   const itemData = item.getAttribute('item-data');
 
