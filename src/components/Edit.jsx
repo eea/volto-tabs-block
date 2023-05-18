@@ -16,6 +16,7 @@ import '@eeacms/volto-tabs-block/less/edit.less';
 import '@eeacms/volto-tabs-block/less/tabs.less';
 
 const Edit = (props) => {
+  const view = React.useRef(null);
   const { onChangeBlock, onChangeField } = props;
   const { data = {}, block = null } = props;
   const template = data.template || 'default';
@@ -150,11 +151,11 @@ const Edit = (props) => {
     setActiveBlock(selected);
     setMultiSelected(newMultiSelected);
   };
-
   return (
     <BlockStyleWrapperEdit {...props}>
       <div
-        className={cx('tabs-block edit', theme, verticalAlign)}
+        className={cx('tabs-block edit', theme, verticalAlign, template)}
+        ref={view}
         role="presentation"
         onKeyDown={(e) => {
           handleKeyDown(e, props.index, props.block, props.blockNode.current);
@@ -183,6 +184,7 @@ const Edit = (props) => {
             tabData={tabData}
             tabsData={tabsData}
             tabsList={tabsList}
+            node={view}
             template={template}
             onChangeTabData={onChangeTabData}
             onSelectBlock={onSelectBlock}

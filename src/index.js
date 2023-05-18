@@ -3,6 +3,7 @@ import {
   DefaultView,
   AccordionEdit,
   AccordionView,
+  HorizontalResponsiveEdit,
   HorizontalResponsiveView,
   HorizontalCarouselView,
   VerticalCarouselView,
@@ -59,7 +60,7 @@ export default (config) => {
       },
       'horizontal-responsive': {
         title: 'Horizontal responsive',
-        edit: DefaultEdit,
+        edit: HorizontalResponsiveEdit,
         view: HorizontalResponsiveView,
         schema: horizontalResponsiveSchema,
       },
