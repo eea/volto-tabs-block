@@ -37,6 +37,7 @@ const MenuItem = (props) => {
       setTabChanged(false);
     }
   }, [tabChanged, tab, blockId]);
+
   return (
     <React.Fragment>
       {index === 0 && (tabsTitle || tabsDescription) && (
@@ -193,7 +194,6 @@ const View = (props) => {
   const isContainer = data.align === 'full';
   const tabsTitle = data.title;
   const tabsDescription = data.description;
-
   const schema = React.useMemo(
     () =>
       config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
@@ -231,8 +231,17 @@ const View = (props) => {
       ),
       pane: (
         <Tab.Pane as={isContainer ? Container : undefined}>
-          <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
-            <RenderBlocks {...props} metadata={metadata} content={tabs[tab]} />
+          <div
+            id={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
+            className="tab-name"
+          >
+            <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
+              <RenderBlocks
+                {...props}
+                metadata={metadata}
+                content={tabs[tab]}
+              />
+            </div>
           </div>
         </Tab.Pane>
       ),

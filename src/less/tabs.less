@@ -87,10 +87,55 @@
       }
     }
   }
-}
+  @media print {
+    .ui.tab {
+      display: block !important;
+    }
 
-.RRT__container .ui.RRT__tabs {
-  margin-bottom: 0;
+    .tab-name > div {
+      border-top: 0.1875rem solid #007b6c !important;
+    }
+
+    .tab-name::before {
+      color: var(--text-color, #007b6c);
+      content: attr(id);
+    }
+
+    .secondary.menu {
+      display: none !important;
+    }
+
+    .RRT__container .ui.RRT__tabs {
+      margin-bottom: 0;
+    }
+
+    .slick-track {
+      flex-direction: column !important;
+    }
+
+    .slick-list {
+      overflow: visible !important;
+    }
+
+    .slick-slider .slick-track,
+    .slick-slider .slick-list {
+      overflow: visible !important;
+      width: auto !important;
+      height: auto !important;
+      transform: none !important;
+    }
+
+    .slick-track .slick-slide {
+      display: block !important;
+      overflow: visible !important;
+    }
+
+    .slick-arrow,
+    .slick-dots,
+    .slick-track .slick-cloned {
+      display: none !important;
+    }
+  }
 }
 
 .loadAddonOverrides();

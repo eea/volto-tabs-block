@@ -11,7 +11,6 @@ export function positionedOffset(targetElement, container) {
   }
 
   const HTMLElement = document.defaultView.HTMLElement;
-
   let top = 0;
   let left = 0;
   const height = element.offsetHeight;
