@@ -1,4 +1,5 @@
 import React, { useLayoutEffect } from 'react';
+import { defineMessages } from 'react-intl';
 import cx from 'classnames';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
@@ -14,6 +15,13 @@ import noop from 'lodash/noop';
 
 import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';
+
+const messages = defineMessages({
+  DefaultTitle: {
+    id: 'default-title',
+    defaultMessage: 'Tab {tabTitle}',
+  },
+});
 
 class Tab extends React.Component {
   constructor() {
@@ -87,7 +95,7 @@ const View = (props) => {
 
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab].title;
-    const defaultTitle = `Tab ${index + 1}`;
+    const defaultTitle = intl.formatMessage(messages.DefaultTitle, { tabTitle: `${index + 1}` });
     const active = activeTabIndex === index;
 
     return {
