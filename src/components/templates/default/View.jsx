@@ -98,24 +98,26 @@ const View = (props) => {
   const tabsTitle = data.title;
   const tabsDescription = data.description;
 
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
+  // const defaultView = config.blocks.blocksConfig[TABS_BLOCK].variations.filter(
+  //   (v, i) => v.id === 'default',
+  // );
 
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
+  // console.log('data', data);
+
+  // const schema = React.useMemo(
+  //   () => defaultView[0]?.schema(config, props) || {},
+  //   [defaultView, props],
+  // );
+
+  // const getDataValue = React.useCallback(
+  //   (key) => {
+  //     return (
+  //       (schema.properties[key]?.value || data[key]) ??
+  //       schema.properties[key]?.defaultValue
+  //     );
+  //   },
+  //   [schema, data],
+  // );
 
   const panes = tabsList.map((tab, index) => {
     return {
@@ -158,17 +160,31 @@ const View = (props) => {
         renderActiveOnly={false}
         menu={{
           attached: menuPosition.attached,
-          borderless: getDataValue('menuBorderless'),
-          color: getDataValue('menuColor'),
-          compact: getDataValue('menuCompact'),
-          fluid: getDataValue('menuFluid'),
-          inverted: getDataValue('menuInverted'),
-          pointing: getDataValue('menuPointing'),
-          secondary: getDataValue('menuSecondary'),
-          size: getDataValue('menuSize'),
-          stackable: getDataValue('menuStackable'),
-          tabular: getDataValue('menuTabular'),
-          text: getDataValue('menuText'),
+          // borderless: getDataValue('menuBorderless'),
+          // color: getDataValue('menuColor'),
+          // compact: getDataValue('menuCompact'),
+          // fluid: getDataValue('menuFluid'),
+          // inverted: getDataValue('menuInverted'),
+          // pointing: getDataValue('menuPointing'),
+          // secondary: getDataValue('menuSecondary'),
+          // size: getDataValue('menuSize'),
+          // stackable: getDataValue('menuStackable'),
+          // tabular: getDataValue('menuTabular'),
+          // text: getDataValue('menuText'),
+          borderless: data.menuBorderless,
+          color:
+            data?.variation === 'accordion' && props?.data?.theme
+              ? `theme-${props?.data?.theme}`
+              : data.menuColor,
+          compact: data.menuCompact,
+          fluid: data.menuFluid,
+          inverted: data.menuInverted,
+          pointing: data.menuPointing,
+          secondary: data.menuSecondary,
+          size: data.menuSize,
+          stackable: data.menuStackable,
+          tabular: data.menuTabular,
+          text: data.menuText,
           vertical: menuPosition.vertical,
           className: cx(
             data.menuAlign,

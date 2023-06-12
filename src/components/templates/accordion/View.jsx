@@ -66,24 +66,24 @@ const View = (props) => {
   const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
 
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
+  // const schema = React.useMemo(
+  //   () =>
+  //     config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
+  //       config,
+  //       props,
+  //     ) || {},
+  //   [props],
+  // );
 
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
+  // const getDataValue = React.useCallback(
+  //   (key) => {
+  //     return (
+  //       (schema.properties[key]?.value || data[key]) ??
+  //       schema.properties[key]?.defaultValue
+  //     );
+  //   },
+  //   [schema, data],
+  // );
 
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab].title;
@@ -187,7 +187,7 @@ const View = (props) => {
           'tabs-accessibility',
           data?.theme ? `theme-${data?.theme}` : '',
           {
-            inverted: getDataValue('menuInverted'),
+            inverted: data.menuInverted,
           },
         )}
         showMore={false}

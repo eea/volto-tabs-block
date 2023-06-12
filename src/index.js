@@ -3,14 +3,14 @@ import {
   DefaultView,
   AccordionEdit,
   AccordionView,
-  HorizontalResponsiveEdit,
-  HorizontalResponsiveView,
-  HorizontalCarouselView,
-  VerticalCarouselView,
-  defaultSchema,
-  accordionSchema,
-  horizontalResponsiveSchema,
-  carouselSchema,
+  // HorizontalResponsiveEdit,
+  // HorizontalResponsiveView,
+  // HorizontalCarouselView,
+  // VerticalCarouselView,
+  // defaultSchema,
+  // accordionSchema,
+  // horizontalResponsiveSchema,
+  // carouselSchema,
   layoutSchema,
   TabsEdit,
   TabsView,
@@ -39,18 +39,30 @@ export default (config) => {
     },
     blockHasOwnFocusManagement: true,
     schema: layoutSchema(config),
-    templates: {
-      default: {
+    variations: [
+      {
+        id: 'default',
         title: 'Default',
+        isDefault: true,
         edit: DefaultEdit,
         view: DefaultView,
-        schema: defaultSchema,
+        // schema: defaultSchema,
+        schemaEnhancer: DefaultEdit.schemaEnhancer,
+        // schemaEnhancer: (props) => {
+        //   const { schema } = props;
+        //   // console.log('schema', schema);
+        //   return {
+        //     ...schema,
+        //   };
+        // },
       },
-      accordion: {
-        title: 'Accordion responsive',
+      {
+        id: 'accordion',
+        title: 'Accordion',
         edit: AccordionEdit,
         view: AccordionView,
-        schema: accordionSchema,
+        // schema: accordionSchema,
+        schemaEnhancer: AccordionEdit.schemaEnhancer,
         transformWidth: 800,
         icons: {
           closed: rightSVG,
@@ -58,26 +70,47 @@ export default (config) => {
           size: '24px',
         },
       },
-      'horizontal-responsive': {
-        title: 'Horizontal responsive',
-        edit: HorizontalResponsiveEdit,
-        view: HorizontalResponsiveView,
-        schema: horizontalResponsiveSchema,
-      },
-      carousel: {
-        title: 'Carousel horizontal',
-        edit: DefaultEdit,
-        view: HorizontalCarouselView,
-        schema: carouselSchema,
-      },
-      carousel_vertical: {
-        title: 'Carousel vertical (prototype)',
-        edit: DefaultEdit,
-        view: VerticalCarouselView,
-        schema: carouselSchema,
-      },
-      ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
-    },
+      // ...(config.blocks.blocksConfig[TABS_BLOCK]?.variations || []),
+    ],
+    // templates: {
+    //   default: {
+    //     title: 'Default',
+    //     edit: DefaultEdit,
+    //     view: DefaultView,
+    //     schema: defaultSchema,
+    //   },
+    //   accordion: {
+    //     title: 'Accordion responsive',
+    //     edit: AccordionEdit,
+    //     view: AccordionView,
+    //     schema: accordionSchema,
+    //     transformWidth: 800,
+    //     icons: {
+    //       closed: rightSVG,
+    //       opened: downSVG,
+    //       size: '24px',
+    //     },
+    //   },
+    //   'horizontal-responsive': {
+    //     title: 'Horizontal responsive',
+    //     edit: HorizontalResponsiveEdit,
+    //     view: HorizontalResponsiveView,
+    //     schema: horizontalResponsiveSchema,
+    //   },
+    //   carousel: {
+    //     title: 'Carousel horizontal',
+    //     edit: DefaultEdit,
+    //     view: HorizontalCarouselView,
+    //     schema: carouselSchema,
+    //   },
+    //   carousel_vertical: {
+    //     title: 'Carousel vertical (prototype)',
+    //     edit: DefaultEdit,
+    //     view: VerticalCarouselView,
+    //     schema: carouselSchema,
+    //   },
+    //   ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
+    // },
     getBlocks: (data) => {
       const { blocks = {}, blocks_layout = {} } = data?.data;
       if (blocks_layout?.items?.length) {

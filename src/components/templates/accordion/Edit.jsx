@@ -1,9 +1,9 @@
 import React from 'react';
 import cx from 'classnames';
-import { compose } from 'redux';
+// import { compose } from 'redux';
 import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 import Tabs from 'react-responsive-tabs';
 import AnimateHeight from 'react-animate-height';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
@@ -14,7 +14,7 @@ import { Menu, Input } from 'semantic-ui-react';
 import { Icon as VoltoIcon } from '@plone/volto/components';
 import config from '@plone/volto/registry';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+// import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
 import 'react-responsive-tabs/styles.css';
@@ -203,33 +203,39 @@ const Edit = (props) => {
     tabsData = {},
   } = props;
 
-  const accordionConfig =
-    config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
-  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
+  const template = data.variation || 'default';
+
+  const activeTemplate = config.blocks.blocksConfig[
+    TABS_BLOCK
+  ].variations.filter((v, i) => v.id === template);
+
+  // const defaultView = config.blocks.blocksConfig[TABS_BLOCK].variations.filter(
+  //   (v, i) => v.id === 'default',
+  // );
+
+  // const accordionConfig =
+  //   config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
+  const { icons, semanticIcon, transformWidth = 800 } = activeTemplate[0];
 
   const tabsContainer = React.useRef();
   const [mounted, setMounted] = React.useState(false);
   const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
 
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
+  // const schema = React.useMemo(
+  //   () => defaultView[0]?.schema(config, props) || {},
+  //   [defaultView, props],
+  // );
 
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
+  // const getDataValue = React.useCallback(
+  //   (key) => {
+  //     return (
+  //       (schema.properties[key]?.value || data[key]) ??
+  //       schema.properties[key]?.defaultValue
+  //     );
+  //   },
+  //   [schema, data],
+  // );
 
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab]?.title;
@@ -370,7 +376,7 @@ const Edit = (props) => {
         'tabs-accessibility',
         data?.theme ? `theme-${data?.theme}` : '',
         {
-          inverted: getDataValue('menuInverted'),
+          inverted: data.menuInverted,
         },
         'ui fluid pointing secondary menu',
       )}
@@ -379,4 +385,47 @@ const Edit = (props) => {
   );
 };
 
-export default compose(withScrollToTarget, withRouter)(Edit);
+Edit.schemaEnhancer = ({ schema }) => {
+  schema.fieldsets.splice(1, 0, {
+    id: 'menu',
+    title: 'Menu',
+    fields: ['menuInverted', 'accordionIconRight'],
+  });
+
+  schema.fieldsets.splice(2, 0, {
+    id: 'style',
+    title: 'Style',
+    fields: ['theme'],
+  });
+
+  schema.properties = {
+    ...schema.properties,
+    accordionIconRight: {
+      title: 'Icon position on the right',
+      description: 'Position left/right of the icon in the accordion tab',
+      type: 'boolean',
+    },
+    menuInverted: {
+      title: 'Inverted',
+      type: 'boolean',
+    },
+    theme: {
+      title: 'Theme',
+      description: 'Set the theme for the accordion tabs block',
+      widget: 'theme_picker',
+      colors: [
+        ...(config.settings && config.settings.themeColors
+          ? config.settings.themeColors.map(({ value, title }) => ({
+              name: value,
+              label: title,
+            }))
+          : []),
+      ],
+    },
+  };
+  return schema;
+};
+
+export default Edit;
+
+// export default compose(withScrollToTarget, withRouter)(Edit);

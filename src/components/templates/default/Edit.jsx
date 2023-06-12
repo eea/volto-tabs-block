@@ -3,10 +3,10 @@ import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import cx from 'classnames';
 import { Menu, Tab, Input, Container } from 'semantic-ui-react';
-import config from '@plone/volto/registry';
+// import config from '@plone/volto/registry';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
+// import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
 import {
   SimpleMarkdown,
@@ -170,24 +170,26 @@ const Edit = (props) => {
   const tabsTitle = data.title;
   const tabsDescription = data.description;
 
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
+  // const defaultView = config.blocks.blocksConfig[TABS_BLOCK].variations.filter(
+  //   (v, i) => v.id === 'default',
+  // );
 
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
+  // const schema = React.useMemo(
+  //   () => defaultView[0]?.schema(config, props) || {},
+  //   [defaultView, props],
+  // );
+
+  // const getDataValue = React.useCallback(
+  //   (key) => {
+  //     return (
+  //       (schema.properties[key]?.value || data[key]) ??
+  //       schema.properties[key]?.defaultValue
+  //     );
+  //   },
+  //   [schema, data],
+  // );
+
+  // console.log('data', data);
 
   const panes = tabsList.map((tab, index) => {
     return {
@@ -275,20 +277,34 @@ const Edit = (props) => {
         className="default tabs"
         menu={{
           attached: menuPosition.attached,
-          borderless: getDataValue('menuBorderless'),
+          // borderless: getDataValue('menuBorderless'),
+          // color:
+          //   props?.template === 'accordion' && props?.data?.theme
+          //     ? `theme-${props?.data?.theme}`
+          //     : getDataValue('menuColor'),
+          // compact: getDataValue('menuCompact'),
+          // fluid: getDataValue('menuFluid'),
+          // inverted: getDataValue('menuInverted'),
+          // pointing: getDataValue('menuPointing'),
+          // secondary: getDataValue('menuSecondary'),
+          // size: getDataValue('menuSize'),
+          // stackable: getDataValue('menuStackable'),
+          // tabular: getDataValue('menuTabular'),
+          // text: getDataValue('menuText'),
+          borderless: data.menuBorderless,
           color:
-            props?.template === 'accordion' && props?.data?.theme
+            data?.variation === 'accordion' && props?.data?.theme
               ? `theme-${props?.data?.theme}`
-              : getDataValue('menuColor'),
-          compact: getDataValue('menuCompact'),
-          fluid: getDataValue('menuFluid'),
-          inverted: getDataValue('menuInverted'),
-          pointing: getDataValue('menuPointing'),
-          secondary: getDataValue('menuSecondary'),
-          size: getDataValue('menuSize'),
-          stackable: getDataValue('menuStackable'),
-          tabular: getDataValue('menuTabular'),
-          text: getDataValue('menuText'),
+              : data.menuColor,
+          compact: data.menuCompact,
+          fluid: data.menuFluid,
+          inverted: data.menuInverted,
+          pointing: data.menuPointing,
+          secondary: data.menuSecondary,
+          size: data.menuSize,
+          stackable: data.menuStackable,
+          tabular: data.menuTabular,
+          text: data.menuText,
           vertical: menuPosition.vertical,
           className: cx(
             data.menuAlign,
@@ -305,6 +321,123 @@ const Edit = (props) => {
       />
     </>
   );
+};
+
+Edit.schemaEnhancer = ({ schema }) => {
+  // console.log('schema', schema);
+
+  schema.fieldsets.splice(1, 0, {
+    id: 'menu',
+    title: 'Menu',
+    fields: [
+      'menuAlign',
+      'menuPosition',
+      'menuSize',
+      'menuColor',
+      'menuBorderless',
+      'menuCompact',
+      'menuFluid',
+      'menuInverted',
+      'menuPointing',
+      'menuSecondary',
+      'menuStackable',
+      'menuTabular',
+      'menuText',
+    ],
+  });
+
+  schema.properties = {
+    ...schema.properties,
+    menuPosition: {
+      title: 'Position',
+      choices: [
+        ['top', 'Top'],
+        ['bottom', 'Bottom'],
+        ['left side', 'Left side'],
+        ['right side', 'Right side'],
+      ],
+    },
+    menuAlign: {
+      title: 'Alignment',
+      type: 'array',
+      choices: [
+        ['left', 'Left'],
+        ['center', 'Center'],
+        ['right', 'Right'],
+        ['space-between', 'Space between'],
+      ],
+    },
+    menuSize: {
+      title: 'Size',
+      choices: [
+        ['mini', 'Mini'],
+        ['tiny', 'Tiny'],
+        ['small', 'Small'],
+        ['large', 'Large'],
+        ['huge', 'Huge'],
+        ['massive', 'Masive'],
+      ],
+    },
+    menuColor: {
+      title: 'Color',
+      defaultValue: 'green',
+      choices: [
+        ['red', 'Red'],
+        ['orange', 'Orange'],
+        ['yellow', 'Yellow'],
+        ['olive', 'Olive'],
+        ['green', 'Green'],
+        ['teal', 'Teal'],
+        ['blue', 'Blue'],
+        ['violet', 'Violet'],
+        ['purple', 'Purple'],
+        ['pink', 'Pink'],
+        ['brown', 'Brown'],
+        ['grey', 'Grey'],
+        ['black', 'Black'],
+      ],
+    },
+    menuBorderless: {
+      title: 'Borderless',
+      type: 'boolean',
+    },
+    menuCompact: {
+      title: 'Compact',
+      type: 'boolean',
+      defaultValue: true,
+    },
+    menuFluid: {
+      title: 'Fluid',
+      type: 'boolean',
+      defaultValue: true,
+    },
+    menuInverted: {
+      title: 'Inverted',
+      type: 'boolean',
+    },
+    menuPointing: {
+      title: 'Pointing',
+      type: 'boolean',
+    },
+    menuSecondary: {
+      title: 'Secondary',
+      type: 'boolean',
+    },
+    menuStackable: {
+      title: 'Stackable',
+      type: 'boolean',
+    },
+    menuTabular: {
+      title: 'Tabular',
+      type: 'boolean',
+    },
+    menuText: {
+      title: 'Text',
+      type: 'boolean',
+      defaultValue: true,
+    },
+  };
+  return schema;
 };
 
 export default Edit;
