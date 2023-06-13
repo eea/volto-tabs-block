@@ -292,27 +292,25 @@ const Edit = (props) => {
     setEditingTab = noop,
   } = props;
   const menuPosition = getMenuPosition(data);
-  const isContainer = data.align === 'full';
-  const tabsTitle = data.title;
-  const tabsDescription = data.description;
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
 
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
+  const {
+    title,
+    description,
+    align,
+    menuBorderless,
+    menuColor,
+    menuCompact,
+    menuFluid,
+    menuInverted,
+    menuPointing,
+    menuSecondary,
+    menuSize,
+    menuStackable,
+    menuTabular,
+    menuText,
+    menuAlign,
+  } = data;
+  const isContainer = align === 'full';
 
   const panes = tabsList.map((tab, index) => {
     return {
@@ -326,8 +324,8 @@ const Edit = (props) => {
           blockId={props.id}
           index={index}
           lastIndex={tabsList.length - 1}
-          tabsTitle={tabsTitle}
-          tabsDescription={tabsDescription}
+          tabsTitle={title}
+          tabsDescription={description}
         />
       ),
       pane: (
@@ -402,19 +400,19 @@ const Edit = (props) => {
         renderActiveOnly={false}
         menu={{
           attached: menuPosition.attached,
-          borderless: getDataValue('menuBorderless'),
-          color: getDataValue('menuColor'),
-          compact: getDataValue('menuCompact'),
-          fluid: getDataValue('menuFluid'),
-          inverted: getDataValue('menuInverted'),
-          pointing: getDataValue('menuPointing'),
-          secondary: getDataValue('menuSecondary'),
-          size: getDataValue('menuSize'),
-          stackable: getDataValue('menuStackable'),
-          tabular: getDataValue('menuTabular'),
-          text: getDataValue('menuText'),
+          borderless: menuBorderless,
+          color: menuColor,
+          compact: menuCompact || true,
+          fluid: menuFluid || true,
+          inverted: menuInverted,
+          pointing: menuPointing,
+          secondary: menuSecondary,
+          size: menuSize,
+          stackable: menuStackable,
+          tabular: menuTabular,
+          text: menuText || true,
           vertical: menuPosition.vertical,
-          className: cx(data.menuAlign, { container: isContainer }),
+          className: cx(menuAlign, { container: isContainer }),
           children: (
             <MenuWrapper
               {...props}
@@ -424,8 +422,8 @@ const Edit = (props) => {
               tabsList={tabsList}
               blockId={props.id}
               lastIndex={tabsList.length - 1}
-              tabsTitle={tabsTitle}
-              tabsDescription={tabsDescription}
+              tabsTitle={title}
+              tabsDescription={description}
             />
           ),
         }}
@@ -435,6 +433,121 @@ const Edit = (props) => {
       />
     </>
   );
+};
+
+Edit.schemaEnhancer = ({ schema }) => {
+  schema.fieldsets.splice(1, 0, {
+    id: 'menu',
+    title: 'Menu',
+    fields: [
+      'menuAlign',
+      'menuPosition',
+      'menuSize',
+      'menuColor',
+      'menuBorderless',
+      'menuCompact',
+      'menuFluid',
+      'menuInverted',
+      'menuPointing',
+      'menuSecondary',
+      'menuStackable',
+      'menuTabular',
+      'menuText',
+    ],
+  });
+
+  schema.properties = {
+    ...schema.properties,
+    menuPosition: {
+      title: 'Position',
+      choices: [
+        ['top', 'Top'],
+        ['bottom', 'Bottom'],
+        ['left side', 'Left side'],
+        ['right side', 'Right side'],
+      ],
+    },
+    menuAlign: {
+      title: 'Alignment',
+      type: 'array',
+      choices: [
+        ['left', 'Left'],
+        ['center', 'Center'],
+        ['right', 'Right'],
+        ['space-between', 'Space between'],
+      ],
+    },
+    menuSize: {
+      title: 'Size',
+      choices: [
+        ['mini', 'Mini'],
+        ['tiny', 'Tiny'],
+        ['small', 'Small'],
+        ['large', 'Large'],
+        ['huge', 'Huge'],
+        ['massive', 'Masive'],
+      ],
+    },
+    menuColor: {
+      title: 'Color',
+      defaultValue: 'green',
+      choices: [
+        ['red', 'Red'],
+        ['orange', 'Orange'],
+        ['yellow', 'Yellow'],
+        ['olive', 'Olive'],
+        ['green', 'Green'],
+        ['teal', 'Teal'],
+        ['blue', 'Blue'],
+        ['violet', 'Violet'],
+        ['purple', 'Purple'],
+        ['pink', 'Pink'],
+        ['brown', 'Brown'],
+        ['grey', 'Grey'],
+        ['black', 'Black'],
+      ],
+    },
+    menuBorderless: {
+      title: 'Borderless',
+      type: 'boolean',
+    },
+    menuCompact: {
+      title: 'Compact',
+      type: 'boolean',
+      defaultValue: true,
+    },
+    menuFluid: {
+      title: 'Fluid',
+      type: 'boolean',
+      defaultValue: true,
+    },
+    menuInverted: {
+      title: 'Inverted',
+      type: 'boolean',
+    },
+    menuPointing: {
+      title: 'Pointing',
+      type: 'boolean',
+    },
+    menuSecondary: {
+      title: 'Secondary',
+      type: 'boolean',
+    },
+    menuStackable: {
+      title: 'Stackable',
+      type: 'boolean',
+    },
+    menuTabular: {
+      title: 'Tabular',
+      type: 'boolean',
+    },
+    menuText: {
+      title: 'Text',
+      type: 'boolean',
+      defaultValue: true,
+    },
+  };
+  return schema;
 };
 
 export default compose(

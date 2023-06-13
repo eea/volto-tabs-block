@@ -57,33 +57,15 @@ const View = (props) => {
     id,
   } = props;
 
-  const accordionConfig =
-    config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
-  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
+  const accordionConfig = config.blocks.blocksConfig[
+    TABS_BLOCK
+  ].variations.filter((v, i) => v.id === 'accordion');
+  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig?.[0];
 
   const tabsContainer = React.useRef();
   const [mounted, setMounted] = React.useState(false);
   const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
-
-  // const schema = React.useMemo(
-  //   () =>
-  //     config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-  //       config,
-  //       props,
-  //     ) || {},
-  //   [props],
-  // );
-
-  // const getDataValue = React.useCallback(
-  //   (key) => {
-  //     return (
-  //       (schema.properties[key]?.value || data[key]) ??
-  //       schema.properties[key]?.defaultValue
-  //     );
-  //   },
-  //   [schema, data],
-  // );
 
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab].title;
@@ -149,6 +131,7 @@ const View = (props) => {
       activeTabDiv.focus();
     }
   }, [activeTabIndex, id]);
+
   return (
     <div
       tabIndex="0"

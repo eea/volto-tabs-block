@@ -50,4 +50,27 @@ const View = (props) => {
   );
 };
 
+View.schemaEnhancer = ({ schema }) => {
+  schema.fieldsets.splice(2, 0, {
+    id: 'style',
+    title: 'Style',
+    fields: ['theme'],
+  });
+
+  schema.properties = {
+    ...schema.properties,
+    theme: {
+      title: 'Theme',
+      type: 'array',
+      choices: [
+        ['light', 'Light'],
+        ['dark', 'Dark'],
+        ['grey', 'Grey'],
+      ],
+      defaultValue: 'light',
+    },
+  };
+  return schema;
+};
+
 export default withRouter(View);

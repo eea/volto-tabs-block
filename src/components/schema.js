@@ -1,6 +1,5 @@
-// import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-
 const tabSchema = (props) => {
+  // const { data } = props;
   return {
     title: 'Tab',
 
@@ -10,20 +9,16 @@ const tabSchema = (props) => {
         title: 'Default',
         fields: [
           'title',
-          'assetType',
           'image',
           'imageSize',
-          // ...(assetType === 'image'
-          //   ? [{ id: 'image', title: 'Image', fields: ['image', 'imageSize'] }]
+          'icon',
+          'iconSize',
+          // 'assetType',
+          // ...(data?.blocks?.[tabId]?.assetType === 'image'
+          //   ? ['image', 'imageSize']
           //   : []),
-          // ...(assetType === 'icon'
-          //   ? [
-          //       {
-          //         id: 'icon',
-          //         title: 'Icon',
-          //         fields: ['icon', 'iconSize'],
-          //       },
-          //     ]
+          // ...(data?.blocks?.[tabId]?.assetType === 'icon'
+          //   ? ['icon', 'iconSize']
           //   : []),
         ],
       },
@@ -39,7 +34,7 @@ const tabSchema = (props) => {
           ['image', 'Image'],
           ['icon', 'Icon'],
         ],
-        default: 'image',
+        defaultValue: 'image',
       },
       image: {
         title: 'Image',
@@ -87,34 +82,27 @@ const tabSchema = (props) => {
   };
 };
 
-export const schema = (config, templateSchema = {}) => {
-  // const templatesConfig = config.blocks.blocksConfig[TABS_BLOCK].variations;
-  // const templates = Object.keys(templatesConfig).map((template) => [
-  //   template,
-  //   templatesConfig[template].title || template,
-  // ]);
-
-  // const defaultFieldset = templateSchema?.fieldsets?.filter(
-  //   (fieldset) => fieldset.id === 'default',
-  // )[0];
-
+export const schema = (props) => {
   return {
-    title: templateSchema?.title || 'Tabs block',
+    title: 'Tabs block',
     fieldsets: [
       {
         id: 'default',
         title: 'Default',
-        fields: ['title', 'verticalAlign', 'data'],
+        fields: ['title', 'description', 'verticalAlign', 'data'],
       },
     ],
     properties: {
       data: {
         title: 'Tabs',
         type: 'tabs',
-        schema: tabSchema,
+        schema: tabSchema(props),
       },
       title: {
         title: 'Title',
+      },
+      description: {
+        title: 'Description',
       },
       verticalAlign: {
         title: 'Vertical align',

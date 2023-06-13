@@ -3,9 +3,7 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
 import { Menu, Tab, Container } from 'semantic-ui-react';
-import config from '@plone/volto/registry';
 import { RenderBlocks } from '@plone/volto/components';
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
   SimpleMarkdown,
@@ -94,30 +92,25 @@ const View = (props) => {
     }
   }, [data, menuPosition]);
 
-  const isContainer = data.align === 'full';
-  const tabsTitle = data.title;
-  const tabsDescription = data.description;
-
-  // const defaultView = config.blocks.blocksConfig[TABS_BLOCK].variations.filter(
-  //   (v, i) => v.id === 'default',
-  // );
-
-  // console.log('data', data);
-
-  // const schema = React.useMemo(
-  //   () => defaultView[0]?.schema(config, props) || {},
-  //   [defaultView, props],
-  // );
-
-  // const getDataValue = React.useCallback(
-  //   (key) => {
-  //     return (
-  //       (schema.properties[key]?.value || data[key]) ??
-  //       schema.properties[key]?.defaultValue
-  //     );
-  //   },
-  //   [schema, data],
-  // );
+  const {
+    title,
+    description,
+    align,
+    variation,
+    menuBorderless,
+    menuColor,
+    menuCompact,
+    menuFluid,
+    menuInverted,
+    menuPointing,
+    menuSecondary,
+    menuSize,
+    menuStackable,
+    menuTabular,
+    menuText,
+    menuAlign,
+  } = data;
+  const isContainer = align === 'full';
 
   const panes = tabsList.map((tab, index) => {
     return {
@@ -128,8 +121,8 @@ const View = (props) => {
           key={tab}
           tab={tab}
           index={index}
-          tabsTitle={tabsTitle}
-          tabsDescription={tabsDescription}
+          tabsTitle={title}
+          tabsDescription={description}
           blockId={props?.id || ''}
         />
       ),
@@ -160,34 +153,23 @@ const View = (props) => {
         renderActiveOnly={false}
         menu={{
           attached: menuPosition.attached,
-          // borderless: getDataValue('menuBorderless'),
-          // color: getDataValue('menuColor'),
-          // compact: getDataValue('menuCompact'),
-          // fluid: getDataValue('menuFluid'),
-          // inverted: getDataValue('menuInverted'),
-          // pointing: getDataValue('menuPointing'),
-          // secondary: getDataValue('menuSecondary'),
-          // size: getDataValue('menuSize'),
-          // stackable: getDataValue('menuStackable'),
-          // tabular: getDataValue('menuTabular'),
-          // text: getDataValue('menuText'),
-          borderless: data.menuBorderless,
+          borderless: menuBorderless,
           color:
-            data?.variation === 'accordion' && props?.data?.theme
+            variation === 'accordion' && props?.data?.theme
               ? `theme-${props?.data?.theme}`
-              : data.menuColor,
-          compact: data.menuCompact,
-          fluid: data.menuFluid,
-          inverted: data.menuInverted,
-          pointing: data.menuPointing,
-          secondary: data.menuSecondary,
-          size: data.menuSize,
-          stackable: data.menuStackable,
-          tabular: data.menuTabular,
-          text: data.menuText,
+              : menuColor,
+          compact: menuCompact,
+          fluid: menuFluid,
+          inverted: menuInverted,
+          pointing: menuPointing,
+          secondary: menuSecondary,
+          size: menuSize,
+          stackable: menuStackable,
+          tabular: menuTabular,
+          text: menuText,
           vertical: menuPosition.vertical,
           className: cx(
-            data.menuAlign,
+            menuAlign,
             menuPosition.direction === 'left' ? 'border-right' : '',
             menuPosition.direction === 'right' ? 'border-left' : '',
             menuPosition.direction === 'top' ? 'border-bottom' : '',

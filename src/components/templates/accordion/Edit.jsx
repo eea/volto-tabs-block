@@ -1,9 +1,9 @@
 import React from 'react';
 import cx from 'classnames';
-// import { compose } from 'redux';
 import { isEmpty } from 'lodash';
-import { v4 as uuid } from 'uuid';
+// import { compose } from 'redux';
 // import { withRouter } from 'react-router';
+import { v4 as uuid } from 'uuid';
 import Tabs from 'react-responsive-tabs';
 import AnimateHeight from 'react-animate-height';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
@@ -14,9 +14,10 @@ import { Menu, Input } from 'semantic-ui-react';
 import { Icon as VoltoIcon } from '@plone/volto/components';
 import config from '@plone/volto/registry';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-// import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
+// import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+
 import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';
 
@@ -31,7 +32,6 @@ const MenuItem = (props) => {
     selected = false,
     tabData = {},
     tabs = {},
-
     tabsData = {},
     tabsDescription,
     tabsList = [],
@@ -203,45 +203,23 @@ const Edit = (props) => {
     tabsData = {},
   } = props;
 
-  const template = data.variation || 'default';
+  const { description, menuInverted } = data;
 
-  const activeTemplate = config.blocks.blocksConfig[
+  const accordionConfig = config.blocks.blocksConfig[
     TABS_BLOCK
-  ].variations.filter((v, i) => v.id === template);
-
-  // const defaultView = config.blocks.blocksConfig[TABS_BLOCK].variations.filter(
-  //   (v, i) => v.id === 'default',
-  // );
-
-  // const accordionConfig =
-  //   config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
-  const { icons, semanticIcon, transformWidth = 800 } = activeTemplate[0];
+  ].variations.filter((v, i) => v.id === 'accordion');
+  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig?.[0];
 
   const tabsContainer = React.useRef();
   const [mounted, setMounted] = React.useState(false);
   const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
 
-  // const schema = React.useMemo(
-  //   () => defaultView[0]?.schema(config, props) || {},
-  //   [defaultView, props],
-  // );
-
-  // const getDataValue = React.useCallback(
-  //   (key) => {
-  //     return (
-  //       (schema.properties[key]?.value || data[key]) ??
-  //       schema.properties[key]?.defaultValue
-  //     );
-  //   },
-  //   [schema, data],
-  // );
-
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab]?.title;
     const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
-    const tabsDescription = data.description;
+    const tabsDescription = description;
 
     return {
       title: (
@@ -376,7 +354,7 @@ const Edit = (props) => {
         'tabs-accessibility',
         data?.theme ? `theme-${data?.theme}` : '',
         {
-          inverted: data.menuInverted,
+          inverted: menuInverted,
         },
         'ui fluid pointing secondary menu',
       )}
@@ -427,5 +405,3 @@ Edit.schemaEnhancer = ({ schema }) => {
 };
 
 export default Edit;
-
-// export default compose(withScrollToTarget, withRouter)(Edit);

@@ -41,14 +41,8 @@ const Edit = (props) => {
   ].variations.filter((v, i) => v.id === template);
 
   const TabsEdit = activeTemplate?.[0]?.edit || DefaultEdit;
-  const templateSchema = activeTemplate[0]?.schema || {};
 
-  const schemaObject = schema(
-    config,
-    typeof templateSchema === 'function'
-      ? templateSchema(config, props)
-      : templateSchema,
-  );
+  const schemaObject = schema(props.data);
 
   React.useEffect(() => {
     if (!Object.keys(data.data || {}).length) {
