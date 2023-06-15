@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import cx from 'classnames';
@@ -17,7 +18,9 @@ import noop from 'lodash/noop';
 
 const MenuItem = (props) => {
   const inputRef = React.useRef(null);
+  const intl = useIntl();
   const {
+    schema,
     activeTab = null,
     activeBlock = null,
     block = null,
@@ -58,7 +61,10 @@ const MenuItem = (props) => {
         blocks: {
           ...tabsData.blocks,
           [tabId]: {
-            ...emptyTab(),
+            ...emptyTab({
+              schema: schema.properties.data.schema,
+              intl,
+            }),
           },
         },
         blocks_layout: {
@@ -177,6 +183,7 @@ const MenuItem = (props) => {
 };
 
 const Edit = (props) => {
+  const intl = useIntl();
   const {
     activeBlock = null,
     activeTab = null,
@@ -196,6 +203,7 @@ const Edit = (props) => {
     onChangeTabData = noop,
     onSelectBlock = noop,
     setEditingTab = noop,
+    schema,
   } = props;
   const menuPosition = getMenuPosition(data);
   const {
@@ -231,6 +239,7 @@ const Edit = (props) => {
           tab={tab}
           tabsTitle={title}
           tabsDescription={description}
+          schema={schema}
         />
       ),
       render: () => {
@@ -261,7 +270,10 @@ const Edit = (props) => {
                       [activeTab]: {
                         ...(newFormData.blocks_layout.items.length > 0
                           ? newFormData
-                          : emptyTab()),
+                          : emptyTab({
+                              schema: schema.properties.data.schema,
+                              intl,
+                            })),
                       },
                     },
                   },

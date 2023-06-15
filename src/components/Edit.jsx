@@ -13,6 +13,7 @@ import { empty, emptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { BlockStyleWrapperEdit } from '@eeacms/volto-block-style/BlockStyleWrapper';
 import { DefaultEdit } from './templates/default';
+import { useIntl } from 'react-intl';
 import { schema } from './schema';
 
 import '@eeacms/volto-tabs-block/less/edit.less';
@@ -20,6 +21,7 @@ import '@eeacms/volto-tabs-block/less/tabs.less';
 
 const Edit = (props) => {
   const view = React.useRef(null);
+  const intl = useIntl();
   const { onChangeBlock, onChangeField } = props;
   const { data = {}, block = null } = props;
   const template = data.variation || 'default';
@@ -47,7 +49,10 @@ const Edit = (props) => {
   React.useEffect(() => {
     if (!Object.keys(data.data || {}).length) {
       // Initialize TABS_BLOCK
-      const tabsData = empty();
+      const tabsData = empty({
+        schema: schemaObject.properties.data.schema,
+        intl,
+      });
       onChangeBlock(block, {
         ...data,
         data: {
@@ -181,6 +186,7 @@ const Edit = (props) => {
           >
             <TabsEdit
               {...props}
+              schema={schemaObject}
               activeBlock={activeBlock}
               activeTab={activeTab}
               activeTabIndex={activeTabIndex}

@@ -25,8 +25,14 @@ export function moveColumn(formData, source, destination) {
   };
 }
 
-const empty = () => {
-  return [uuid(), emptyTab()];
+const empty = ({ schema, intl }) => {
+  return [
+    uuid(),
+    emptyTab({
+      schema,
+      intl,
+    }),
+  ];
 };
 
 const TabsWidget = (props) => {
@@ -77,7 +83,7 @@ const TabsWidget = (props) => {
             compact
             icon
             onClick={() => {
-              const [newId, newData] = empty();
+              const [newId, newData] = empty({ schema: objectSchema, intl });
               onChange(id, {
                 ...value,
                 blocks: {
