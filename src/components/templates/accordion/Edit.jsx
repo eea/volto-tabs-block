@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
+import { useIntl } from 'react-intl';
 // import { compose } from 'redux';
 // import { withRouter } from 'react-router';
 import { v4 as uuid } from 'uuid';
@@ -22,7 +23,9 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 
 const MenuItem = (props) => {
   const inputRef = React.useRef(null);
+  const intl = useIntl();
   const {
+    schema,
     activeTab = null,
     activeBlock = null,
     block = null,
@@ -56,7 +59,10 @@ const MenuItem = (props) => {
         blocks: {
           ...tabsData.blocks,
           [tabId]: {
-            ...emptyTab(),
+            ...emptyTab({
+              schema: schema.properties.data.schema,
+              intl,
+            }),
           },
         },
         blocks_layout: {
@@ -206,6 +212,7 @@ class Tab extends React.Component {
 }
 
 const Edit = (props) => {
+  const intl = useIntl();
   const {
     data = {},
     tabsList = [],
@@ -226,6 +233,7 @@ const Edit = (props) => {
     onSelectBlock = noop,
     emptyTab = noop,
     tabsData = {},
+    schema,
   } = props;
 
   const { description, menuInverted } = data;
@@ -273,6 +281,7 @@ const Edit = (props) => {
             tab={tab}
             tabsTitle={title || defaultTitle}
             tabsDescription={tabsDescription}
+            schema={schema}
           />
         </>
       ),
@@ -301,7 +310,10 @@ const Edit = (props) => {
                     [activeTab]: {
                       ...(newFormData.blocks_layout.items.length > 0
                         ? newFormData
-                        : emptyTab()),
+                        : emptyTab({
+                            schema: schema.properties.data.schema,
+                            intl,
+                          })),
                     },
                   },
                 },

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { useIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import { v4 as uuid } from 'uuid';
 import { isEmpty } from 'lodash';
@@ -21,7 +22,9 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 import noop from 'lodash/noop';
 const MenuItem = (props) => {
   const inputRef = React.useRef(null);
+  const intl = useIntl();
   const {
+    schema,
     activeTab = null,
     activeBlock = null,
     block = null,
@@ -55,7 +58,10 @@ const MenuItem = (props) => {
         blocks: {
           ...tabsData.blocks,
           [tabId]: {
-            ...emptyTab(),
+            ...emptyTab({
+              schema: schema.properties.data.schema,
+              intl,
+            }),
           },
         },
         blocks_layout: {
@@ -155,6 +161,7 @@ const MenuItem = (props) => {
 };
 
 const MenuWrapper = (props) => {
+  const intl = useIntl();
   const {
     data = {},
     panes = [],
@@ -169,6 +176,7 @@ const MenuWrapper = (props) => {
     tabsData = {},
     onChangeBlock = noop,
     setActiveTab = noop,
+    schema,
   } = props;
   const [open, setOpen] = React.useState(false);
   const addNewTab = () => {
@@ -181,7 +189,10 @@ const MenuWrapper = (props) => {
         blocks: {
           ...tabsData.blocks,
           [tabId]: {
-            ...emptyTab(),
+            ...emptyTab({
+              schema: schema.properties.data.schema,
+              intl,
+            }),
           },
         },
         blocks_layout: {
@@ -269,6 +280,7 @@ const MenuWrapper = (props) => {
 };
 
 const Edit = (props) => {
+  const intl = useIntl();
   const {
     metadata = {},
     data = {},
@@ -288,6 +300,7 @@ const Edit = (props) => {
     onChangeTabData = noop,
     onSelectBlock = noop,
     setEditingTab = noop,
+    schema,
   } = props;
   const menuPosition = getMenuPosition(data);
 
@@ -324,6 +337,7 @@ const Edit = (props) => {
           lastIndex={tabsList.length - 1}
           tabsTitle={title}
           tabsDescription={description}
+          schema={schema}
         />
       ),
       pane: (
@@ -354,7 +368,10 @@ const Edit = (props) => {
                       [activeTab]: {
                         ...(newFormData.blocks_layout.items.length > 0
                           ? newFormData
-                          : emptyTab()),
+                          : emptyTab({
+                              schema: schema.properties.data.schema,
+                              intl,
+                            })),
                       },
                     },
                   },
@@ -422,6 +439,7 @@ const Edit = (props) => {
               lastIndex={tabsList.length - 1}
               tabsTitle={title}
               tabsDescription={description}
+              schema={schema}
             />
           ),
         }}
