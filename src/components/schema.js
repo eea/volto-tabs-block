@@ -8,13 +8,21 @@ const tabSchema = (props) => {
       {
         id: 'default',
         title: 'Default',
-        fields: ['title', 'assetPosition', 'assetSize', 'icon', 'image'],
+        fields: ['title', 'assetType', 'assetPosition'],
       },
     ],
 
     properties: {
       title: {
         title: 'Tab title',
+      },
+      assetType: {
+        title: 'Asset type',
+        choices: [
+          ['image', 'Image'],
+          ['icon', 'Icon'],
+        ],
+        default: 'icon',
       },
       assetPosition: {
         title: 'Asset position',
@@ -29,9 +37,19 @@ const tabSchema = (props) => {
         title: 'Image',
         widget: 'attachedimage',
       },
-      assetSize: {
+      imageSize: {
         title: 'Asset size',
-        type: 'array',
+        choices: [
+          ['tiny', 'Tiny'],
+          ['small', 'Small'],
+          ['medium', 'Medium'],
+          ['big', 'Large'],
+          ['preview', 'Preview'],
+        ],
+        default: 'big',
+      },
+      iconSize: {
+        title: 'Asset size',
         choices: [
           ['tiny', 'Tiny'],
           ['small', 'Small'],
@@ -63,12 +81,13 @@ const tabSchema = (props) => {
 
 const toggleIconField = (schema, child, intl) => {
   const cloned = cloneDeepSchema(schema);
-  // console.log('s', schema, child);
-  if (child.icon) {
-    cloned.fieldsets[0].fields = schema.fieldsets[0].fields.filter(
-      (f) => f !== 'image',
-    );
-  }
+
+  cloned.fieldsets[0].fields = [
+    ...cloned.fieldsets[0].fields,
+    ...(child.assetType === 'icon' ? ['iconSize', 'icon'] : []),
+    ...(child.assetType === 'image' ? ['imageSize', 'image'] : []),
+  ];
+
   return cloned;
 };
 
