@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash';
+
 const tabSchema = (props) => {
   return {
     title: 'Tab',
@@ -59,6 +61,17 @@ const tabSchema = (props) => {
   };
 };
 
+const toggleIconField = (schema, child, intl) => {
+  const cloned = cloneDeep(schema);
+  // console.log('s', schema, child);
+  if (child.icon) {
+    cloned.fieldsets[0].fields = schema.fieldsets[0].fields.filter(
+      (f) => f !== 'image',
+    );
+  }
+  return cloned;
+};
+
 export const schema = (props) => {
   return {
     title: 'Tabs block',
@@ -74,6 +87,7 @@ export const schema = (props) => {
         title: 'Tabs',
         type: 'tabs',
         schema: tabSchema(props),
+        schemaExtender: toggleIconField,
       },
       title: {
         title: 'Title',
