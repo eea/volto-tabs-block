@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import { cloneDeepSchema } from '@plone/volto/helpers/Utils/Utils';
 
 const tabSchema = (props) => {
   return {
@@ -62,7 +62,7 @@ const tabSchema = (props) => {
 };
 
 const toggleIconField = (schema, child, intl) => {
-  const cloned = cloneDeep(schema);
+  const cloned = cloneDeepSchema(schema);
   // console.log('s', schema, child);
   if (child.icon) {
     cloned.fieldsets[0].fields = schema.fieldsets[0].fields.filter(
