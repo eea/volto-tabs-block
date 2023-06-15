@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
-import { Menu, Tab, Container } from 'semantic-ui-react';
+import { Menu, Tab, Container, Icon, Image } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
@@ -29,6 +29,8 @@ const MenuItem = (props) => {
   const tabIndex = index + 1;
   const [tabChanged, setTabChanged] = useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
+
+  const { icon, assetPosition, assetSize, image } = tabs[tab];
 
   useEffect(() => {
     if (
@@ -70,8 +72,37 @@ const MenuItem = (props) => {
           }
         }}
       >
-        <span className={'menu-item-count'}>{tabIndex}</span>
-        <p className={'menu-item-text'}>{title || defaultTitle}</p>
+        <>
+          <div
+            className={cx({
+              'asset-top': assetPosition === 'top',
+              'asset-left': assetPosition === 'left',
+              'asset-right': assetPosition === 'right',
+            })}
+          >
+            {icon && (
+              <Icon
+                className={cx(icon, 'aligned', {
+                  medium: assetSize === 'medium' ?? false,
+                })}
+                size={assetSize === 'medium' ? null : assetSize}
+              />
+            )}
+
+            {image && (
+              <Image
+                src={`${image}/@@images/image/${assetSize}`}
+                className={cx('ui', assetSize, 'aligned')}
+                alt="Tab image"
+              />
+            )}
+
+            <div>
+              <span className="menu-item-count">{tabIndex}</span>
+              <p className="menu-item-text">{title || defaultTitle}</p>
+            </div>
+          </div>
+        </>
       </Menu.Item>
     </React.Fragment>
   );

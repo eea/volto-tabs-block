@@ -6,11 +6,9 @@ import { v4 as uuid } from 'uuid';
 import { isEmpty } from 'lodash';
 import cx from 'classnames';
 import { Menu, Tab, Container, Dropdown, Input } from 'semantic-ui-react';
-import config from '@plone/volto/registry';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import { BlocksForm } from '@plone/volto/components';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import {
   SimpleMarkdown,
   getMenuPosition,

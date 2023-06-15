@@ -1,5 +1,4 @@
 const tabSchema = (props) => {
-  // const { data } = props;
   return {
     title: 'Tab',
 
@@ -7,20 +6,7 @@ const tabSchema = (props) => {
       {
         id: 'default',
         title: 'Default',
-        fields: [
-          'title',
-          'image',
-          'imageSize',
-          'icon',
-          'iconSize',
-          // 'assetType',
-          // ...(data?.blocks?.[tabId]?.assetType === 'image'
-          //   ? ['image', 'imageSize']
-          //   : []),
-          // ...(data?.blocks?.[tabId]?.assetType === 'icon'
-          //   ? ['icon', 'iconSize']
-          //   : []),
-        ],
+        fields: ['title', 'assetPosition', 'assetSize', 'icon', 'image'],
       },
     ],
 
@@ -28,28 +14,29 @@ const tabSchema = (props) => {
       title: {
         title: 'Tab title',
       },
-      assetType: {
-        title: 'Asset type',
+      assetPosition: {
+        title: 'Asset position',
         choices: [
-          ['image', 'Image'],
-          ['icon', 'Icon'],
+          ['top', 'Top'],
+          ['left', 'Left'],
+          ['right', 'Right'],
         ],
-        defaultValue: 'image',
+        default: 'top',
       },
       image: {
         title: 'Image',
         widget: 'attachedimage',
       },
-      imageSize: {
-        title: 'Image size',
+      assetSize: {
+        title: 'Asset size',
+        type: 'array',
         choices: [
           ['tiny', 'Tiny'],
           ['small', 'Small'],
           ['medium', 'Medium'],
           ['big', 'Large'],
-          ['preview', 'Preview'],
         ],
-        default: 'big',
+        default: 'small',
       },
       icon: {
         title: 'Icon name',
@@ -65,16 +52,6 @@ const tabSchema = (props) => {
             </a>
           </>
         ),
-      },
-      iconSize: {
-        title: 'Icon size',
-        choices: [
-          ['tiny', 'Tiny'],
-          ['small', 'Small'],
-          ['medium', 'Medium'],
-          ['big', 'Large'],
-        ],
-        default: 'big',
       },
     },
 

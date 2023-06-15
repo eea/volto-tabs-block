@@ -42,7 +42,7 @@ const Edit = (props) => {
 
   const TabsEdit = activeTemplate?.[0]?.edit || DefaultEdit;
 
-  const schemaObject = schema(props.data);
+  const schemaObject = schema(props);
 
   React.useEffect(() => {
     if (!Object.keys(data.data || {}).length) {
@@ -234,8 +234,10 @@ const Edit = (props) => {
           {!data?.readOnlySettings && !activeBlock ? (
             <SidebarPortal selected={props.selected}>
               <BlockDataForm
+                block={block}
                 schema={schemaObject}
                 title={schemaObject.title}
+                onChangeBlock={onChangeBlock}
                 onChangeField={(id, value) => {
                   onChangeBlock(block, {
                     ...data,

@@ -2,7 +2,7 @@ import React from 'react';
 import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import cx from 'classnames';
-import { Menu, Tab, Input, Container } from 'semantic-ui-react';
+import { Menu, Tab, Input, Container, Icon, Image } from 'semantic-ui-react';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
@@ -37,9 +37,16 @@ const MenuItem = (props) => {
     onChangeBlock = noop,
   } = props;
   const { tab, index } = props;
-  const title = tabs[tab].title;
   const tabIndex = index + 1;
   const defaultTitle = `Tab ${tabIndex}`;
+
+  const {
+    title,
+    icon,
+    assetPosition = 'top',
+    image,
+    assetSize = 'small',
+  } = tabs[tab];
 
   const addNewTab = () => {
     const tabId = uuid();
@@ -118,8 +125,35 @@ const MenuItem = (props) => {
           />
         ) : (
           <>
-            <span className={'menu-item-count'}>{tabIndex}</span>
-            <p className={'menu-item-text'}>{title || defaultTitle}</p>
+            <div
+              className={cx({
+                'asset-top': assetPosition === 'top',
+                'asset-left': assetPosition === 'left',
+                'asset-right': assetPosition === 'right',
+              })}
+            >
+              {icon && (
+                <Icon
+                  className={cx(icon, 'aligned', {
+                    medium: assetSize === 'medium' ?? false,
+                  })}
+                  size={assetSize}
+                />
+              )}
+
+              {image && (
+                <Image
+                  src={`${image}/@@images/image/${assetSize}`}
+                  className={cx('ui', assetSize, 'aligned')}
+                  alt="Tab image"
+                />
+              )}
+
+              <div>
+                <span className="menu-item-count">{tabIndex}</span>
+                <p className="menu-item-text">{title || defaultTitle}</p>
+              </div>
+            </div>
           </>
         )}
       </Menu.Item>
@@ -356,8 +390,7 @@ Edit.schemaEnhancer = ({ schema }) => {
       ],
     },
     menuColor: {
-      title: 'Color',
-      defaultValue: 'green',
+      title: 'Colors',
       choices: [
         ['red', 'Red'],
         ['orange', 'Orange'],
@@ -373,6 +406,7 @@ Edit.schemaEnhancer = ({ schema }) => {
         ['grey', 'Grey'],
         ['black', 'Black'],
       ],
+      default: 'green',
     },
     menuBorderless: {
       title: 'Borderless',

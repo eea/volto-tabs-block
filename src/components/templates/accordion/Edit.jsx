@@ -9,8 +9,7 @@ import AnimateHeight from 'react-animate-height';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import { BlocksForm } from '@plone/volto/components';
-import { Icon } from 'semantic-ui-react';
-import { Menu, Input } from 'semantic-ui-react';
+import { Menu, Input, Image, Icon } from 'semantic-ui-react';
 import { Icon as VoltoIcon } from '@plone/volto/components';
 import config from '@plone/volto/registry';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
@@ -45,7 +44,8 @@ const MenuItem = (props) => {
   const { tab, index } = props;
   const tabIndex = index + 1;
   const defaultTitle = `Tab ${tabIndex}`;
-  const title = tabs[tab]?.title;
+  const { title, icon, assetPosition, image, assetSize } = tabs[tab];
+
   const addNewTab = () => {
     const tabId = uuid();
 
@@ -124,7 +124,32 @@ const MenuItem = (props) => {
           />
         ) : (
           <>
-            <p className={'menu-item-text'}>{title || defaultTitle}</p>
+            <div
+              className={cx({
+                'asset-top': assetPosition === 'top',
+                'asset-left': assetPosition === 'left',
+                'asset-right': assetPosition === 'right',
+              })}
+            >
+              {icon && (
+                <Icon
+                  className={cx(icon, 'aligned', {
+                    medium: assetSize === 'medium' ?? false,
+                  })}
+                  size={assetSize === 'medium' ? null : assetSize}
+                />
+              )}
+
+              {image && (
+                <Image
+                  src={`${image}/@@images/image/${assetSize}`}
+                  className={cx('ui', assetSize, 'aligned')}
+                  alt={'Item image'}
+                />
+              )}
+
+              <p className="menu-item-text">{title || defaultTitle}</p>
+            </div>
           </>
         )}
       </Menu.Item>
@@ -140,7 +165,7 @@ const MenuItem = (props) => {
             }}
             className="remove-margin addition-button"
           >
-            <p className={'menu-item-text'}>+</p>
+            <p className="menu-item-text">+</p>
           </Menu.Item>
         </>
       ) : (
@@ -338,7 +363,7 @@ const Edit = (props) => {
         const { blockWidth } = tabsContainer.current?.state || {};
         const tabWithHash = getParentTabFromHash(
           data,
-          props.location.hash.substring(1),
+          props?.location?.hash.substring(1),
         );
         if (tabWithHash === tabsList[activeTabIndex] && !hashTab)
           setHashTab(true);

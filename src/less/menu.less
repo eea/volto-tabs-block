@@ -27,6 +27,52 @@
     margin-bottom: @menuMarginButton;
   }
 
+  .menu-item-text {
+    margin: 0;
+  }
+
+  .asset-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    text-align: center;
+
+    .icon {
+      display: block !important;
+    }
+
+    .icon,
+    img {
+      align-self: center;
+    }
+
+    .menu-item-text {
+      margin: 0;
+    }
+  }
+
+  .asset-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6em;
+
+    .menu-item-text {
+      margin: 0;
+    }
+  }
+
+  .asset-right {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 0.6em;
+
+    .menu-item-text {
+      margin: 0;
+    }
+  }
+
   > .styled > .tabs > .ui.menu,
   > .styled > .tabs > .ui.grid > .column > .ui.menu,
   > .tabs > .ui.menu,

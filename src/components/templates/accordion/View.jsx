@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import Tabs from 'react-responsive-tabs';
 import AnimateHeight from 'react-animate-height';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Image } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
@@ -68,9 +68,9 @@ const View = (props) => {
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
 
   const items = tabsList.map((tab, index) => {
-    const title = tabs[tab].title;
     const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
+    const { title, icon, assetPosition, image, assetSize } = tabs[tab];
 
     return {
       title: (
@@ -85,7 +85,32 @@ const View = (props) => {
               size={icons.size}
             />
           )}
-          {title || defaultTitle}{' '}
+          <div
+            className={cx({
+              'asset-top': assetPosition === 'top',
+              'asset-left': assetPosition === 'left',
+              'asset-right': assetPosition === 'right',
+            })}
+          >
+            {icon && (
+              <Icon
+                className={cx(icon, 'aligned', {
+                  medium: assetSize === 'medium' ?? false,
+                })}
+                size={assetSize === 'medium' ? null : assetSize}
+              />
+            )}
+
+            {image && (
+              <Image
+                src={`${image}/@@images/image/${assetSize}`}
+                className={cx('ui', assetSize, 'aligned')}
+                alt={'Item image'}
+              />
+            )}
+
+            <p>{title || defaultTitle} </p>
+          </div>
         </>
       ),
       content: (
