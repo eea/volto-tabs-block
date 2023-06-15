@@ -25,12 +25,11 @@ const MenuItem = (props) => {
   } = props;
 
   const { tab, index } = props;
-  const title = tabs[tab].title;
   const tabIndex = index + 1;
   const [tabChanged, setTabChanged] = useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
 
-  const { icon, assetPosition, assetSize, image } = tabs[tab];
+  const { title, icon, image, assetPosition, iconSize, imageSize } = tabs[tab];
 
   useEffect(() => {
     if (
@@ -81,18 +80,13 @@ const MenuItem = (props) => {
             })}
           >
             {icon && (
-              <Icon
-                className={cx(icon, 'aligned', {
-                  medium: assetSize === 'medium' ?? false,
-                })}
-                size={assetSize === 'medium' ? null : assetSize}
-              />
+              <Icon className={cx(icon, iconSize, 'aligned')} size={iconSize} />
             )}
 
             {image && (
               <Image
-                src={`${image}/@@images/image/${assetSize}`}
-                className={cx('ui', assetSize, 'aligned')}
+                src={`${image}/@@images/image/${imageSize}`}
+                className={cx('ui', imageSize, 'aligned')}
                 alt="Tab image"
               />
             )}

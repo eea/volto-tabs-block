@@ -8,7 +8,7 @@ const tabSchema = (props) => {
       {
         id: 'default',
         title: 'Default',
-        fields: ['title', 'assetType', 'assetPosition'],
+        fields: ['title', 'assetType'],
       },
     ],
 
@@ -28,8 +28,8 @@ const tabSchema = (props) => {
         title: 'Asset position',
         choices: [
           ['top', 'Top'],
-          ['left', 'Left'],
-          ['right', 'Right'],
+          ['left', 'Left side'],
+          ['right', 'Right side'],
         ],
         default: 'top',
       },
@@ -51,10 +51,12 @@ const tabSchema = (props) => {
       iconSize: {
         title: 'Asset size',
         choices: [
+          ['mini', 'Mini'],
           ['tiny', 'Tiny'],
           ['small', 'Small'],
-          ['medium', 'Medium'],
-          ['big', 'Large'],
+          ['big', 'Big'],
+          ['huge', 'Huge'],
+          ['massive', 'Massive'],
         ],
         default: 'small',
       },
@@ -84,8 +86,12 @@ const toggleIconField = (schema, child, intl) => {
 
   cloned.fieldsets[0].fields = [
     ...cloned.fieldsets[0].fields,
-    ...(child.assetType === 'icon' ? ['iconSize', 'icon'] : []),
-    ...(child.assetType === 'image' ? ['imageSize', 'image'] : []),
+    ...(child.assetType === 'icon'
+      ? ['icon', 'iconSize', 'assetPosition']
+      : []),
+    ...(child.assetType === 'image'
+      ? ['image', 'imageSize', 'assetPosition']
+      : []),
   ];
 
   return cloned;

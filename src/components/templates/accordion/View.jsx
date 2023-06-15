@@ -70,7 +70,9 @@ const View = (props) => {
   const items = tabsList.map((tab, index) => {
     const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
-    const { title, icon, assetPosition, image, assetSize } = tabs[tab];
+    const { title, icon, image, assetPosition, iconSize, imageSize } = tabs[
+      tab
+    ];
 
     return {
       title: (
@@ -93,19 +95,14 @@ const View = (props) => {
             })}
           >
             {icon && (
-              <Icon
-                className={cx(icon, 'aligned', {
-                  medium: assetSize === 'medium' ?? false,
-                })}
-                size={assetSize === 'medium' ? null : assetSize}
-              />
+              <Icon className={cx(icon, iconSize, 'aligned')} size={iconSize} />
             )}
 
             {image && (
               <Image
-                src={`${image}/@@images/image/${assetSize}`}
-                className={cx('ui', assetSize, 'aligned')}
-                alt={'Item image'}
+                src={`${image}/@@images/image/${imageSize}`}
+                className={cx('ui', imageSize, 'aligned')}
+                alt="Tab image"
               />
             )}
 

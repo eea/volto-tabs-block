@@ -47,7 +47,7 @@ const MenuItem = (props) => {
   const { tab, index } = props;
   const tabIndex = index + 1;
   const defaultTitle = `Tab ${tabIndex}`;
-  const { title, icon, assetPosition, image, assetSize } = tabs[tab];
+  const { title, icon, image, assetPosition, iconSize, imageSize } = tabs[tab];
 
   const addNewTab = () => {
     const tabId = uuid();
@@ -139,18 +139,16 @@ const MenuItem = (props) => {
             >
               {icon && (
                 <Icon
-                  className={cx(icon, 'aligned', {
-                    medium: assetSize === 'medium' ?? false,
-                  })}
-                  size={assetSize === 'medium' ? null : assetSize}
+                  className={cx(icon, iconSize, 'aligned')}
+                  size={iconSize}
                 />
               )}
 
               {image && (
                 <Image
-                  src={`${image}/@@images/image/${assetSize}`}
-                  className={cx('ui', assetSize, 'aligned')}
-                  alt={'Item image'}
+                  src={`${image}/@@images/image/${imageSize}`}
+                  className={cx('ui', imageSize, 'aligned')}
+                  alt="Tab image"
                 />
               )}
 
