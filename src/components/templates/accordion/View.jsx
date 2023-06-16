@@ -70,9 +70,17 @@ const View = (props) => {
   const items = tabsList.map((tab, index) => {
     const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
-    const { title, icon, image, assetPosition, iconSize, imageSize } = tabs[
-      tab
-    ];
+    const {
+      title,
+      icon,
+      image,
+      assetPosition,
+      assetType,
+      iconSize,
+      imageSize,
+      hideTitle,
+    } = tabs[tab];
+    const tabTitle = title || defaultTitle;
 
     return {
       title: (
@@ -94,11 +102,21 @@ const View = (props) => {
               'asset-right': assetPosition === 'right',
             })}
           >
-            {icon && (
-              <Icon className={cx(icon, iconSize, 'aligned')} size={iconSize} />
+            {assetType === 'icon' && icon && (
+              <Icon
+                className={cx('tab-icon aligned', icon, iconSize)}
+                size={iconSize}
+                {...{
+                  ...(hideTitle && {
+                    role: 'img',
+                    'aria-hidden': 'false',
+                    'aria-label': tabTitle,
+                  }),
+                }}
+              />
             )}
 
-            {image && (
+            {assetType === 'image' && image && (
               <Image
                 src={`${image}/@@images/image/${imageSize}`}
                 className={cx('ui', imageSize, 'aligned')}
@@ -106,7 +124,7 @@ const View = (props) => {
               />
             )}
 
-            <p>{title || defaultTitle} </p>
+            {!hideTitle && <p className="menu-item-text">{tabTitle}</p>}
           </div>
         </>
       ),

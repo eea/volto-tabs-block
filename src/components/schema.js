@@ -64,16 +64,21 @@ const tabSchema = (props) => {
         title: 'Icon name',
         description: (
           <>
-            See{' '}
+            Ex. ri-home-line. See{' '}
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href="https://remixicon.com"
+              href="https://remixicon.com/"
             >
-              Remix icon cheatsheet
+              Remix Icon set
             </a>
           </>
         ),
+      },
+      hideTitle: {
+        title: 'Hide tab title?',
+        type: 'boolean',
+        defaultValue: false,
       },
     },
 
@@ -87,10 +92,10 @@ const toggleIconField = (schema, child, intl) => {
   cloned.fieldsets[0].fields = [
     ...cloned.fieldsets[0].fields,
     ...(child.assetType === 'icon'
-      ? ['icon', 'iconSize', 'assetPosition']
+      ? ['icon', 'iconSize', 'assetPosition', 'hideTitle']
       : []),
     ...(child.assetType === 'image'
-      ? ['image', 'imageSize', 'assetPosition']
+      ? ['image', 'imageSize', 'assetPosition', 'hideTitle']
       : []),
   ];
 

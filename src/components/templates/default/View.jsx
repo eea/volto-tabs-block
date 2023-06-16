@@ -28,8 +28,17 @@ const MenuItem = (props) => {
   const tabIndex = index + 1;
   const [tabChanged, setTabChanged] = useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
-
-  const { title, icon, image, assetPosition, iconSize, imageSize } = tabs[tab];
+  const {
+    title,
+    icon,
+    image,
+    assetType,
+    assetPosition,
+    iconSize,
+    imageSize,
+    hideTitle,
+  } = tabs[tab];
+  const tabTitle = title || defaultTitle;
 
   useEffect(() => {
     if (
@@ -79,11 +88,21 @@ const MenuItem = (props) => {
               'asset-right': assetPosition === 'right',
             })}
           >
-            {icon && (
-              <Icon className={cx(icon, iconSize, 'aligned')} size={iconSize} />
+            {assetType === 'icon' && icon && (
+              <Icon
+                className={cx(icon, iconSize, 'aligned')}
+                size={iconSize}
+                {...{
+                  ...(hideTitle && {
+                    role: 'img',
+                    'aria-hidden': 'false',
+                    'aria-label': tabTitle,
+                  }),
+                }}
+              />
             )}
 
-            {image && (
+            {assetType === 'image' && image && (
               <Image
                 src={`${image}/@@images/image/${imageSize}`}
                 className={cx('ui', imageSize, 'aligned')}
@@ -91,10 +110,12 @@ const MenuItem = (props) => {
               />
             )}
 
-            <div>
-              <span className="menu-item-count">{tabIndex}</span>
-              <p className="menu-item-text">{title || defaultTitle}</p>
-            </div>
+            {!hideTitle && (
+              <div>
+                <span className="menu-item-count">{tabIndex}</span>
+                <p className="menu-item-text">{tabTitle}</p>
+              </div>
+            )}
           </div>
         </>
       </Menu.Item>
@@ -124,15 +145,15 @@ const View = (props) => {
     variation,
     menuBorderless,
     menuColor,
-    menuCompact,
-    menuFluid,
+    menuCompact = true,
+    menuFluid = true,
     menuInverted,
     menuPointing,
     menuSecondary,
     menuSize,
     menuStackable,
     menuTabular,
-    menuText,
+    menuText = true,
     menuAlign,
   } = data;
   const isContainer = align === 'full';
