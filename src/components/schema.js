@@ -40,7 +40,8 @@ const messages = defineMessages({
   },
 });
 
-export const schema = (config, templateSchema = {}) => {
+export const schema = (config, templateSchema = {}, props) => {
+  const { intl } = props;
   const templatesConfig = config.blocks.blocksConfig[TABS_BLOCK].templates;
   const templates = Object.keys(templatesConfig).map((template) => [
     template,

@@ -27,23 +27,23 @@ const messages = defineMessages({
   },
 });
 
-export default () => ({
-  title: intl.formatMessage(messages.CarouselBlock),
+export default (props) => ({
+  title: props.intl.formatMessage(messages.CarouselBlock),
   fieldsets: [
     {
       id: 'default',
-      title: intl.formatMessage(messages.Default),
+      title: props.intl.formatMessage(messages.Default),
       fields: ['theme'],
     },
   ],
   properties: {
     theme: {
-      title: intl.formatMessage(messages.Theme),
+      title: props.intl.formatMessage(messages.Theme),
       type: 'array',
       choices: [
-        ['light', intl.formatMessage(messages.Light)],
-        ['dark', intl.formatMessage(messages.Dark)],
-        ['grey', intl.formatMessage(messages.Grey)],
+        ['light', props.intl.formatMessage(messages.Light)],
+        ['dark', props.intl.formatMessage(messages.Dark)],
+        ['grey', props.intl.formatMessage(messages.Grey)],
       ],
       default: 'light',
     },
