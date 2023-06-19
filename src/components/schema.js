@@ -22,7 +22,6 @@ const tabSchema = (props) => {
           ['image', 'Image'],
           ['icon', 'Icon'],
         ],
-        default: 'icon',
       },
       assetPosition: {
         title: 'Asset position',
