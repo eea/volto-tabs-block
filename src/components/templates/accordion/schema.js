@@ -69,7 +69,9 @@ export default (props) => ({
     },
     accordionIconRight: {
       title: props.intl.formatMessage(messages.IconPositionOnTheRight),
-      description: props.intl.formatMessage(messages.PositionLeftRightIconAccordionTab),
+      description: props.intl.formatMessage(
+        messages.PositionLeftRightIconAccordionTab
+      ),
       type: 'boolean',
     },
     menuInverted: {
@@ -78,7 +80,9 @@ export default (props) => ({
     },
     theme: {
       title: props.intl.formatMessage(messages.Theme),
-      description: props.intl.formatMessage(messages.SetThemeAccordionTabsBlock),
+      description: props.intl.formatMessage(
+        messages.SetThemeAccordionTabsBlock
+      ),
       widget: 'theme_picker',
       colors: [
         ...(config.settings && config.settings.themeColors

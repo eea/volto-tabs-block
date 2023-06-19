@@ -23,7 +23,8 @@ const messages = defineMessages({
   },
   ShortHintThatDescribesTheExpectedValueWithinThisBlock: {
     id: 'a-short-hint-that-describes-the-expected-value-within-this-block',
-    defaultMessage: 'A short hint that describes the expected value within this block',
+    defaultMessage:
+      'A short hint that describes the expected value within this block',
   },
   Instructions: {
     id: 'instructions',
@@ -109,7 +110,9 @@ export default (config, props) => ({
   properties: {
     allowedBlocks: {
       title: props.intl.formatMessage(messages.AllowedBlocks),
-      description: props.intl.formatMessage(messages.AllowOnlyTheFollowingBlocksTypes),
+      description: props.intl.formatMessage(
+        messages.AllowOnlyTheFollowingBlocksTypes
+      ),
       type: 'array',
       items: {
         choices: blocksArray(config),
@@ -117,28 +120,38 @@ export default (config, props) => ({
     },
     placeholder: {
       title: props.intl.formatMessage(messages.HelperText),
-      description: props.intl.formatMessage(messages.ShortHintThatDescribesTheExpectedValueWithinThisBlock),
+      description: props.intl.formatMessage(
+        messages.ShortHintThatDescribesTheExpectedValueWithinThisBlock
+      ),
       type: 'string',
     },
     instructions: {
       title: props.intl.formatMessage(messages.Instructions),
-      description: props.intl.formatMessage(messages.DetailedExpectedValueWithinThisBlock),
+      description: props.intl.formatMessage(
+        messages.DetailedExpectedValueWithinThisBlock
+      ),
       type: 'string',
       widget: 'richtext',
     },
     required: {
       title: props.intl.formatMessage(messages.Required),
-      description: props.intl.formatMessage(messages.DontAllowDeletionOfThisBlock),
+      description: props.intl.formatMessage(
+        messages.DontAllowDeletionOfThisBlock
+      ),
       type: 'boolean',
     },
     fixed: {
       title: props.intl.formatMessage(messages.FixedPosition),
-      description: props.intl.formatMessage(messages.DisableDragDropOnThisBlock),
+      description: props.intl.formatMessage(
+        messages.DisableDragDropOnThisBlock
+      ),
       type: 'boolean',
     },
     disableNewBlocks: {
       title: props.intl.formatMessage(messages.DisableNewBlocks),
-      description: props.intl.formatMessage(messages.DisableCreationNewBlocksAfterThisBlock),
+      description: props.intl.formatMessage(
+        messages.DisableCreationNewBlocksAfterThisBlock
+      ),
       type: 'boolean',
     },
     readOnly: {
@@ -148,7 +161,9 @@ export default (config, props) => ({
     },
     readOnlySettings: {
       title: props.intl.formatMessage(messages.ReadOnlySettings),
-      description: props.intl.formatMessage(messages.DisableEditingOnColumnsBlockSettings),
+      description: props.intl.formatMessage(
+        messages.DisableEditingOnColumnsBlockSettings
+      ),
       type: 'boolean',
     },
   },

@@ -49,7 +49,7 @@ export const schema = (config, templateSchema = {}, props) => {
   ]);
 
   const defaultFieldset = templateSchema?.fieldsets?.filter(
-    (fieldset) => fieldset.id === 'default',
+    (fieldset) => fieldset.id === 'default'
   )[0];
 
   return {
@@ -67,7 +67,7 @@ export const schema = (config, templateSchema = {}, props) => {
         ],
       },
       ...(templateSchema?.fieldsets?.filter(
-        (fieldset) => fieldset.id !== 'default',
+        (fieldset) => fieldset.id !== 'default'
       ) || []),
     ],
     properties: {

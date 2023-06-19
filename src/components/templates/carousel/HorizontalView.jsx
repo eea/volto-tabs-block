@@ -43,7 +43,9 @@ const Dots = (props) => {
             className={cx({ 'slick-active': activeTab === tab })}
           >
             <button
-              aria-label={intl.formatMessage(messages.SelectSlide, { index: `${index + 1}` })}
+              aria-label={props.intl.formatMessage(messages.SelectSlide, {
+                index: `${index + 1}`,
+              })}
               tabIndex={0}
               onClick={() => {
                 if (slider.current) {
@@ -74,7 +76,7 @@ const ArrowsGroup = (props) => {
     >
       {currentSlide > 0 ? (
         <button
-          aria-label={intl.formatMessage(messages.PreviousSlide)}
+          aria-label={props.intl.formatMessage(messages.PreviousSlide)}
           className="slick-arrow slick-prev"
           onClick={() => {
             if (slider.current) {
@@ -90,7 +92,7 @@ const ArrowsGroup = (props) => {
       )}
       {currentSlide < slideCount - 1 ? (
         <button
-          aria-label={intl.formatMessage(messages.NextSlide)}
+          aria-label={props.intl.formatMessage(messages.NextSlide)}
           className="slick-arrow slick-next"
           onClick={() => {
             if (slider.current) {
@@ -142,7 +144,7 @@ const View = (props) => {
     const unfocuseElements = ['a', 'button', 'input'];
     unfocuseElements.forEach((tag) => {
       for (let element of slider.current.innerSlider.list.querySelectorAll(
-        ".slick-slide[aria-hidden='true'] a",
+        ".slick-slide[aria-hidden='true'] a"
       )) {
         element.setAttribute('aria-hidden', 'false');
       }
@@ -150,9 +152,8 @@ const View = (props) => {
   }, [activeTab]);
   React.useEffect(() => {
     if (!slider.current?.innerSlider?.list) return;
-    let unaccesibileElements = slider.current.innerSlider.list.querySelectorAll(
-      '.slick-slide',
-    );
+    let unaccesibileElements =
+      slider.current.innerSlider.list.querySelectorAll('.slick-slide');
     for (let element of unaccesibileElements) {
       element.setAttribute('tabindex', '0');
       element.setAttribute('aria-hidden', 'false');

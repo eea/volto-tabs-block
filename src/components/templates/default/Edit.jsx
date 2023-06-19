@@ -49,7 +49,9 @@ const MenuItem = (props) => {
   const { tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
-  const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, { tabTitle: `${tabIndex}` });
+  const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, {
+    tabTitle: `${tabIndex}`,
+  });
 
   const addNewTab = () => {
     const tabId = uuid();
@@ -182,9 +184,9 @@ const Edit = (props) => {
     () =>
       config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
         config,
-        props,
+        props
       ) || {},
-    [props],
+    [props]
   );
 
   const getDataValue = React.useCallback(
@@ -194,7 +196,7 @@ const Edit = (props) => {
         schema.properties[key]?.defaultValue
       );
     },
-    [schema, data],
+    [schema, data]
   );
 
   const panes = tabsList.map((tab, index) => {
@@ -253,7 +255,7 @@ const Edit = (props) => {
                 onSelectBlock(
                   id,
                   activeBlock === id ? false : isMultipleSelection,
-                  e,
+                  e
                 );
                 setEditingTab(null);
               }}
@@ -304,7 +306,7 @@ const Edit = (props) => {
             menuPosition.direction === 'right' ? 'border-left' : '',
             menuPosition.direction === 'top' ? 'border-bottom' : '',
             menuPosition.direction === 'bottom' ? 'border-top' : '',
-            { container: isContainer },
+            { container: isContainer }
           ),
         }}
         menuPosition={menuPosition.direction}

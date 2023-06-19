@@ -195,7 +195,7 @@ const MenuWrapper = (props) => {
   React.useEffect(() => {
     if (false || !node?.current) return;
     const items = node.current.querySelectorAll(
-      '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
+      '.ui.menu > .menu-wrapper > .item:not(.menu-title)'
     );
     const underlineDropdown = node.current.querySelector('.ui.dropdown');
     if (!underlineDropdown) return;
@@ -299,9 +299,9 @@ const Edit = (props) => {
     () =>
       config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
         config,
-        props,
+        props
       ) || {},
-    [props],
+    [props]
   );
 
   const getDataValue = React.useCallback(
@@ -311,7 +311,7 @@ const Edit = (props) => {
         schema.properties[key]?.defaultValue
       );
     },
-    [schema, data],
+    [schema, data]
   );
 
   const panes = tabsList.map((tab, index) => {
@@ -371,7 +371,7 @@ const Edit = (props) => {
                 onSelectBlock(
                   id,
                   activeBlock === id ? false : isMultipleSelection,
-                  e,
+                  e
                 );
                 setEditingTab(null);
               }}
@@ -442,5 +442,5 @@ export default compose(
     return {
       screen: state.screen,
     };
-  }),
+  })
 )(withRouter(Edit));

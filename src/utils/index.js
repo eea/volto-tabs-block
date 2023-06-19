@@ -34,7 +34,7 @@ const toggleItem = (container, item, hidden) => {
 
   if (itemData) {
     const itemToHide = container.querySelector(
-      `[underline-item-data="${itemData}"]`,
+      `[underline-item-data="${itemData}"]`
     );
     if (itemToHide instanceof HTMLElement) {
       itemToHide.hidden = !hidden;

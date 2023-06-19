@@ -78,9 +78,9 @@ const View = (props) => {
     () =>
       config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
         config,
-        props,
+        props
       ) || {},
-    [props],
+    [props]
   );
 
   const getDataValue = React.useCallback(
@@ -90,12 +90,14 @@ const View = (props) => {
         schema.properties[key]?.defaultValue
       );
     },
-    [schema, data],
+    [schema, data]
   );
 
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab].title;
-    const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, { tabTitle: `${index + 1}` });
+    const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, {
+      tabTitle: `${index + 1}`,
+    });
     const active = activeTabIndex === index;
 
     return {
@@ -139,7 +141,7 @@ const View = (props) => {
     if (!mounted) return;
     const { blockWidth, tabsTotalWidth } = tabsContainer.current?.state || {};
     setInitialWidth(
-      tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1,
+      tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1
     );
   }, [mounted]);
 
@@ -179,7 +181,7 @@ const View = (props) => {
           const { blockWidth } = tabsContainer.current?.state || {};
           const tabWithHash = getParentTabFromHash(
             data,
-            props.location.hash.substring(1),
+            props.location.hash.substring(1)
           );
           if (tabWithHash === tabsList[activeTabIndex] && !hashTab)
             setHashTab(true);
@@ -196,7 +198,7 @@ const View = (props) => {
           data?.theme ? `theme-${data?.theme}` : '',
           {
             inverted: getDataValue('menuInverted'),
-          },
+          }
         )}
         showMore={false}
       />
@@ -204,8 +206,4 @@ const View = (props) => {
   );
 };
 
-export default compose(
-  injectIntl,
-  withScrollToTarget,
-  withRouter
-)(View);
+export default compose(injectIntl, withScrollToTarget, withRouter)(View);

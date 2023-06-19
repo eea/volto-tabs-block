@@ -116,7 +116,11 @@ export default (config, props) => {
       if (blocks_layout?.items?.length) {
         return {
           blocks: blocks_layout.items.map((block, index) => ({
-            title: blocks[block]['title'] || props.intl.formatMessage(messages.DefaultTitle, { tabTitle: `${index + 1}` }),
+            title:
+              blocks[block]['title'] ||
+              props.intl.formatMessage(messages.DefaultTitle, {
+                tabTitle: `${index + 1}`,
+              }),
             id: block,
             parentId: data.parentId,
             type: TABS_BLOCK,

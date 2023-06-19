@@ -35,7 +35,9 @@ const MenuItem = (props) => {
   const { tabsTitle, tabsDescription, tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
-  const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, { tabTitle: `${tabIndex}` });
+  const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, {
+    tabTitle: `${tabIndex}`,
+  });
   const [tabChanged, setTabChanged] = useState(false);
   useEffect(() => {
     if (
@@ -124,7 +126,7 @@ const MenuWrapper = (props) => {
   React.useEffect(() => {
     if (false || !node?.current) return;
     const items = node.current.querySelectorAll(
-      '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
+      '.ui.menu > .menu-wrapper > .item:not(.menu-title)'
     );
     const underlineDropdown = node.current.querySelector('.ui.dropdown');
     if (!underlineDropdown) return;
@@ -168,7 +170,10 @@ const MenuWrapper = (props) => {
         <Dropdown.Menu>
           {tabsList.map((underlineTab, underlineIndex) => {
             const title = tabs[underlineTab].title;
-            const defaultTitle = props.intl.formatMessage(messages.DefaultTitleUnderlineIndex, { tabTitle: `${underlineIndex + 1}` });
+            const defaultTitle = props.intl.formatMessage(
+              messages.DefaultTitleUnderlineIndex,
+              { tabTitle: `${underlineIndex + 1}` }
+            );
 
             return (
               <Dropdown.Item
@@ -210,9 +215,9 @@ const View = (props) => {
     () =>
       config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
         config,
-        props,
+        props
       ) || {},
-    [props],
+    [props]
   );
 
   const getDataValue = React.useCallback(
@@ -222,7 +227,7 @@ const View = (props) => {
         schema.properties[key]?.defaultValue
       );
     },
-    [schema, data],
+    [schema, data]
   );
 
   const panes = tabsList.map((tab, index) => {
@@ -303,5 +308,5 @@ export default compose(
     return {
       screen: state.screen,
     };
-  }),
+  })
 )(withRouter(View));

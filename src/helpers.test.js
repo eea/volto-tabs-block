@@ -22,7 +22,7 @@ describe('empty function', () => {
     const result = empty();
     expect(Object.keys(result.blocks)).toHaveLength(1);
     expect(result.blocks[Object.keys(result.blocks)[0]]['@type']).toEqual(
-      'tab',
+      'tab'
     );
     expect(result.blocks_layout.items).toEqual([Object.keys(result.blocks)[0]]);
   });

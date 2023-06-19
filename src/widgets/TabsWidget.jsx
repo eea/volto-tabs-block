@@ -71,7 +71,7 @@ const TabsWidget = (props) => {
             const newFormData = moveColumn(
               value,
               source.index,
-              destination.index,
+              destination.index
             );
             onChange(id, newFormData);
             return true;
@@ -94,7 +94,10 @@ const TabsWidget = (props) => {
                   </div>
                   <div className="tab-area">
                     <div className="label">
-                      {child.title || intl.formatMessage(messages.DefaultTitle, { tabTitle: `${index + 1}` })}
+                      {child.title ||
+                        intl.formatMessage(messages.DefaultTitle, {
+                          tabTitle: `${index + 1}`,
+                        })}
                     </div>
                     <button
                       onClick={() => {
@@ -115,7 +118,7 @@ const TabsWidget = (props) => {
                               ...value.blocks_layout,
                               items: without(
                                 [...value.blocks_layout?.items],
-                                childId,
+                                childId
                               ),
                             },
                           };

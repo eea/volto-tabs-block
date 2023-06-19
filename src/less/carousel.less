@@ -292,7 +292,9 @@
 }
 
 @media only screen and (max-width: @largestMobileScreen + @largestMobileScreenOffset) {
-  body:not(.has-toolbar):not(.has-sidebar):not(.has-toolbar-collapsed):not(.has-sidebar-collapsed),
+  body:not(.has-toolbar):not(.has-sidebar):not(.has-toolbar-collapsed):not(
+      .has-sidebar-collapsed
+    ),
   body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed),
   body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed) {
     .tabs-block {

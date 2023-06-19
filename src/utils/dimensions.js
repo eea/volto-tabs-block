@@ -60,7 +60,7 @@ export function getDocumentHeight(documentBody, documentElement) {
     documentElement.scrollHeight,
     documentBody.offsetHeight,
     documentElement.offsetHeight,
-    documentElement.clientHeight,
+    documentElement.clientHeight
   );
 }
 
@@ -70,6 +70,6 @@ export function getDocumentWidth(documentBody, documentElement) {
     documentElement.scrollWidth,
     documentBody.offsetWidth,
     documentElement.offsetWidth,
-    documentElement.clientWidth,
+    documentElement.clientWidth
   );
 }

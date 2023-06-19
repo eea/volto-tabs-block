@@ -38,7 +38,9 @@ const MenuItem = (props) => {
   const title = tabs[tab].title;
   const tabIndex = index + 1;
   const [tabChanged, setTabChanged] = useState(false);
-  const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, { tabTitle: `${tabIndex}` });
+  const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, {
+    tabTitle: `${tabIndex}`,
+  });
 
   useEffect(() => {
     if (
@@ -110,9 +112,9 @@ const View = (props) => {
     () =>
       config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
         config,
-        props,
+        props
       ) || {},
-    [props],
+    [props]
   );
 
   const getDataValue = React.useCallback(
@@ -122,7 +124,7 @@ const View = (props) => {
         schema.properties[key]?.defaultValue
       );
     },
-    [schema, data],
+    [schema, data]
   );
 
   const panes = tabsList.map((tab, index) => {
@@ -184,7 +186,7 @@ const View = (props) => {
             menuPosition.direction === 'right' ? 'border-left' : '',
             menuPosition.direction === 'top' ? 'border-bottom' : '',
             menuPosition.direction === 'bottom' ? 'border-top' : '',
-            { container: isContainer },
+            { container: isContainer }
           ),
         }}
         menuPosition={menuPosition.direction}

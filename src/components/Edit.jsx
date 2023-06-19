@@ -43,7 +43,7 @@ const Edit = (props) => {
     config,
     typeof templateSchema === 'function'
       ? templateSchema(config, props)
-      : templateSchema,
+      : templateSchema
   );
 
   React.useEffect(() => {
@@ -70,7 +70,7 @@ const Edit = (props) => {
       disableEnter = false,
       disableArrowUp = false,
       disableArrowDown = false,
-    } = {},
+    } = {}
   ) => {
     if (e.key === 'ArrowUp' && !disableArrowUp && !activeBlock) {
       props.onFocusPreviousBlock(block, node);
