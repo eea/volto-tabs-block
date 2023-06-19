@@ -88,12 +88,12 @@ const blocksArray = (config) => {
     .filter((val) => !!val);
 };
 
-export default (config) => ({
-  title: intl.formatMessage(messages.TabsBlockSettings),
+export default (config, props) => ({
+  title: props.intl.formatMessage(messages.TabsBlockSettings),
   fieldsets: [
     {
       id: 'default',
-      title: intl.formatMessage(messages.Default),
+      title: props.intl.formatMessage(messages.Default),
       fields: [
         'placeholder',
         'instructions',
@@ -108,47 +108,47 @@ export default (config) => ({
   ],
   properties: {
     allowedBlocks: {
-      title: intl.formatMessage(messages.AllowedBlocks),
-      description: intl.formatMessage(messages.AllowOnlyTheFollowingBlocksTypes),
+      title: props.intl.formatMessage(messages.AllowedBlocks),
+      description: props.intl.formatMessage(messages.AllowOnlyTheFollowingBlocksTypes),
       type: 'array',
       items: {
         choices: blocksArray(config),
       },
     },
     placeholder: {
-      title: intl.formatMessage(messages.HelperText),
-      description: intl.formatMessage(messages.ShortHintThatDescribesTheExpectedValueWithinThisBlock),
+      title: props.intl.formatMessage(messages.HelperText),
+      description: props.intl.formatMessage(messages.ShortHintThatDescribesTheExpectedValueWithinThisBlock),
       type: 'string',
     },
     instructions: {
-      title: intl.formatMessage(messages.Instructions),
-      description: intl.formatMessage(messages.DetailedExpectedValueWithinThisBlock),
+      title: props.intl.formatMessage(messages.Instructions),
+      description: props.intl.formatMessage(messages.DetailedExpectedValueWithinThisBlock),
       type: 'string',
       widget: 'richtext',
     },
     required: {
-      title: intl.formatMessage(messages.Required),
-      description: intl.formatMessage(messages.DontAllowDeletionOfThisBlock),
+      title: props.intl.formatMessage(messages.Required),
+      description: props.intl.formatMessage(messages.DontAllowDeletionOfThisBlock),
       type: 'boolean',
     },
     fixed: {
-      title: intl.formatMessage(messages.FixedPosition),
-      description: intl.formatMessage(messages.DisableDragDropOnThisBlock),
+      title: props.intl.formatMessage(messages.FixedPosition),
+      description: props.intl.formatMessage(messages.DisableDragDropOnThisBlock),
       type: 'boolean',
     },
     disableNewBlocks: {
-      title: intl.formatMessage(messages.DisableNewBlocks),
-      description: intl.formatMessage(messages.DisableCreationNewBlocksAfterThisBlock),
+      title: props.intl.formatMessage(messages.DisableNewBlocks),
+      description: props.intl.formatMessage(messages.DisableCreationNewBlocksAfterThisBlock),
       type: 'boolean',
     },
     readOnly: {
-      title: intl.formatMessage(messages.ReadOnly),
-      description: intl.formatMessage(messages.DisableEditingOnThisBlock),
+      title: props.intl.formatMessage(messages.ReadOnly),
+      description: props.intl.formatMessage(messages.DisableEditingOnThisBlock),
       type: 'boolean',
     },
     readOnlySettings: {
-      title: intl.formatMessage(messages.ReadOnlySettings),
-      description: intl.formatMessage(messages.DisableEditingOnColumnsBlockSettings),
+      title: props.intl.formatMessage(messages.ReadOnlySettings),
+      description: props.intl.formatMessage(messages.DisableEditingOnColumnsBlockSettings),
       type: 'boolean',
     },
   },

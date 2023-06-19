@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { defineMessages } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import cx from 'classnames';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
@@ -95,7 +95,7 @@ const View = (props) => {
 
   const items = tabsList.map((tab, index) => {
     const title = tabs[tab].title;
-    const defaultTitle = intl.formatMessage(messages.DefaultTitle, { tabTitle: `${index + 1}` });
+    const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, { tabTitle: `${index + 1}` });
     const active = activeTabIndex === index;
 
     return {
@@ -204,4 +204,8 @@ const View = (props) => {
   );
 };
 
-export default compose(withScrollToTarget, withRouter)(View);
+export default compose(
+  injectIntl,
+  withScrollToTarget,
+  withRouter
+)(View);

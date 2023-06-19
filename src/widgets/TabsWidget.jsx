@@ -1,5 +1,5 @@
 import React from 'react';
-import { defineMessages } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 import { omit, without } from 'lodash';
 import move from 'lodash-move';
@@ -191,4 +191,4 @@ const TabsWidget = (props) => {
   );
 };
 
-export default TabsWidget;
+export default injectIntl(TabsWidget);

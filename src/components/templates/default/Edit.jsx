@@ -49,7 +49,7 @@ const MenuItem = (props) => {
   const { tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
-  const defaultTitle = intl.formatMessage(messages.DefaultTitle, { tabTitle: `${tabIndex}` });
+  const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, { tabTitle: `${tabIndex}` });
 
   const addNewTab = () => {
     const tabId = uuid();
