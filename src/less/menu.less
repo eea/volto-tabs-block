@@ -27,54 +27,37 @@
     margin-bottom: @menuMarginButton;
   }
 
-  .menu-item-text {
-    margin: 0;
-  }
-
   .tab-icon {
     display: block !important;
   }
 
-  .asset-top {
+  .asset-top,
+  .asset-left,
+  .asset-right {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     gap: 0.6em;
+
+    .menu-item-text {
+      margin: 0;
+    }
+  }
+
+  .asset-top {
+    flex-direction: column;
     text-align: center;
 
     .icon {
       display: block !important;
     }
-
-    .icon,
-    img {
-      align-self: center;
-    }
-
-    .menu-item-text {
-      margin: 0;
-    }
   }
 
   .asset-left {
-    display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: 0.6em;
-
-    .menu-item-text {
-      margin: 0;
-    }
   }
 
   .asset-right {
-    display: flex;
     flex-direction: row-reverse;
-    align-items: center;
-    gap: 0.6em;
-
-    .menu-item-text {
-      margin: 0;
-    }
   }
 
   > .styled > .tabs > .ui.menu,
