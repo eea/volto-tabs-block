@@ -22,9 +22,13 @@
 
 - [Tab Component Storybook](https://eea.github.io/eea-storybook/?path=/story/components-tab--default).
 
-###
+### Tab Horizontal Screenshot
 
-Demo GIF
+![Tab Horizontal Screenshot](https://github.com/eea/volto-tabs-block/raw/docs/docs/tab-horizontal.png)
+
+### Tab Vertical Screenshot
+
+![Tab Vertical Screenshot](https://github.com/eea/volto-tabs-block/raw/docs/docs/tab-vertical.png)
 
 ## Getting started
 
