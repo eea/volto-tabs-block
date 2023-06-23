@@ -38,7 +38,9 @@ const MenuItem = (props) => {
   const title = tabs[tab].title;
   const tabIndex = index + 1;
   const [tabChanged, setTabChanged] = useState(false);
-  const defaultTitle = intl.formatMessage(messages.DefaultTitle, { tabTitle: `${tabIndex}` });
+  const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, {
+    tabTitle: `${tabIndex}`,
+  });
 
   useEffect(() => {
     if (

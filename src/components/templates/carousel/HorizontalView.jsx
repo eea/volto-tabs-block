@@ -43,7 +43,9 @@ const Dots = (props) => {
             className={cx({ 'slick-active': activeTab === tab })}
           >
             <button
-              aria-label={intl.formatMessage(messages.SelectSlide, { index: `${index + 1}` })}
+              aria-label={props.intl.formatMessage(messages.SelectSlide, {
+                index: `${index + 1}`,
+              })}
               tabIndex={0}
               onClick={() => {
                 if (slider.current) {
@@ -74,7 +76,7 @@ const ArrowsGroup = (props) => {
     >
       {currentSlide > 0 ? (
         <button
-          aria-label={intl.formatMessage(messages.PreviousSlide)}
+          aria-label={props.intl.formatMessage(messages.PreviousSlide)}
           className="slick-arrow slick-prev"
           onClick={() => {
             if (slider.current) {
@@ -90,7 +92,7 @@ const ArrowsGroup = (props) => {
       )}
       {currentSlide < slideCount - 1 ? (
         <button
-          aria-label={intl.formatMessage(messages.NextSlide)}
+          aria-label={props.intl.formatMessage(messages.NextSlide)}
           className="slick-arrow slick-next"
           onClick={() => {
             if (slider.current) {

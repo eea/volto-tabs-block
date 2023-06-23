@@ -1,5 +1,5 @@
 import React from 'react';
-import { defineMessages } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 import { omit, without } from 'lodash';
 import move from 'lodash-move';
@@ -46,7 +46,7 @@ const empty = () => {
 const TabsWidget = (props) => {
   const [blockStyleVisible, setBlockStyleVisible] = React.useState(false);
   const [activeTabId, setActiveTabId] = React.useState(0);
-  const { value = {}, id, onChange } = props;
+  const { value = {}, id, onChange, intl } = props;
   const { blocks = {} } = value;
   const tabsList = (value.blocks_layout?.items || []).map((uid) => [
     uid,
@@ -94,7 +94,10 @@ const TabsWidget = (props) => {
                   </div>
                   <div className="tab-area">
                     <div className="label">
-                      {child.title || intl.formatMessage(messages.DefaultTitle, { tabTitle: `${index + 1}` })}
+                      {child.title ||
+                        intl.formatMessage(messages.DefaultTitle, {
+                          tabTitle: `${index + 1}`,
+                        })}
                     </div>
                     <button
                       onClick={() => {
@@ -191,4 +194,4 @@ const TabsWidget = (props) => {
   );
 };
 
-export default TabsWidget;
+export default injectIntl(TabsWidget);

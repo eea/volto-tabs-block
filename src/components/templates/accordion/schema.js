@@ -44,41 +44,45 @@ const messages = defineMessages({
   },
 });
 
-export default () => ({
-  title: intl.formatMessage(messages.AccordionTabsBlock),
+export default (props) => ({
+  title: props.intl.formatMessage(messages.AccordionTabsBlock),
   fieldsets: [
     {
       id: 'default',
-      title: intl.formatMessage(messages.Default),
+      title: props.intl.formatMessage(messages.Default),
       fields: ['description'],
     },
     {
       id: 'menu',
-      title: intl.formatMessage(messages.Menu),
+      title: props.intl.formatMessage(messages.Menu),
       fields: ['menuInverted', 'accordionIconRight'],
     },
     {
       id: 'style',
-      title: intl.formatMessage(messages.Style),
+      title: props.intl.formatMessage(messages.Style),
       fields: ['theme'],
     },
   ],
   properties: {
     description: {
-      title: intl.formatMessage(messages.Description),
+      title: props.intl.formatMessage(messages.Description),
     },
     accordionIconRight: {
-      title: intl.formatMessage(messages.IconPositionOnTheRight),
-      description: intl.formatMessage(messages.PositionLeftRightIconAccordionTab),
+      title: props.intl.formatMessage(messages.IconPositionOnTheRight),
+      description: props.intl.formatMessage(
+        messages.PositionLeftRightIconAccordionTab,
+      ),
       type: 'boolean',
     },
     menuInverted: {
-      title: intl.formatMessage(messages.Inverted),
+      title: props.intl.formatMessage(messages.Inverted),
       type: 'boolean',
     },
     theme: {
-      title: intl.formatMessage(messages.Theme),
-      description: intl.formatMessage(messages.SetThemeAccordionTabsBlock),
+      title: props.intl.formatMessage(messages.Theme),
+      description: props.intl.formatMessage(
+        messages.SetThemeAccordionTabsBlock,
+      ),
       widget: 'theme_picker',
       colors: [
         ...(config.settings && config.settings.themeColors

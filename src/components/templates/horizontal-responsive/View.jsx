@@ -35,7 +35,9 @@ const MenuItem = (props) => {
   const { tabsTitle, tabsDescription, tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
-  const defaultTitle = intl.formatMessage(messages.DefaultTitle, { tabTitle: `${tabIndex}` });
+  const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, {
+    tabTitle: `${tabIndex}`,
+  });
   const [tabChanged, setTabChanged] = useState(false);
   useEffect(() => {
     if (
@@ -168,7 +170,10 @@ const MenuWrapper = (props) => {
         <Dropdown.Menu>
           {tabsList.map((underlineTab, underlineIndex) => {
             const title = tabs[underlineTab].title;
-            const defaultTitle = intl.formatMessage(messages.DefaultTitleUnderlineIndex, { tabTitle: `${underlineIndex + 1}` });
+            const defaultTitle = props.intl.formatMessage(
+              messages.DefaultTitleUnderlineIndex,
+              { tabTitle: `${underlineIndex + 1}` },
+            );
 
             return (
               <Dropdown.Item

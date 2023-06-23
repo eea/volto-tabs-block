@@ -121,7 +121,11 @@ class EditBlockWrapper extends React.Component {
                 {...draginfo.dragHandleProps}
                 className="drag handle wrapper-column-block"
               >
-                <Button icon basic title={intl.formatMessage(messages.dragAndDrop)}>
+                <Button
+                  icon
+                  basic
+                  title={intl.formatMessage(messages.dragAndDrop)}
+                >
                   <Icon name={dragSVG} size="19px" />
                 </Button>
               </div>

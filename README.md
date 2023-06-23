@@ -20,9 +20,15 @@
 
 #### IMPORTANT! Because this depends on @eeacms/volto-block-style, you should always load this addon as the last addon in Volto project configuration or after @eeacms/volto-block-style.
 
-###
+- [Tab Component Storybook](https://eea.github.io/eea-storybook/?path=/story/components-tab--default).
 
-Demo GIF
+### Tab Horizontal Screenshot
+
+![Tab Horizontal Screenshot](https://github.com/eea/volto-tabs-block/raw/docs/docs/tab-horizontal.png)
+
+### Tab Vertical Screenshot
+
+![Tab Vertical Screenshot](https://github.com/eea/volto-tabs-block/raw/docs/docs/tab-vertical.png)
 
 ## Getting started
 
