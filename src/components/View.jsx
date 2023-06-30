@@ -113,7 +113,9 @@ const View = (props) => {
             tabsList={tabsList}
             template={template}
             uiContainer={uiContainer}
-            setActiveTab={handleActiveTabChange}
+            setActiveTab={
+              data.allow_linking ? handleActiveTabChange : setActiveTab
+            }
           />
         </StyleWrapperView>
       </div>
