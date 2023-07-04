@@ -1,4 +1,5 @@
 import React from 'react';
+import { defineMessages } from 'react-intl';
 import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import cx from 'classnames';
@@ -16,6 +17,13 @@ import {
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 import noop from 'lodash/noop';
+
+const messages = defineMessages({
+  DefaultTitle: {
+    id: 'default-title',
+    defaultMessage: 'Tab {tabTitle}',
+  },
+});
 
 const MenuItem = (props) => {
   const inputRef = React.useRef(null);
@@ -41,7 +49,9 @@ const MenuItem = (props) => {
   const { tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
-  const defaultTitle = `Tab ${tabIndex}`;
+  const defaultTitle = props.intl.formatMessage(messages.DefaultTitle, {
+    tabTitle: `${tabIndex}`,
+  });
 
   const addNewTab = () => {
     const tabId = uuid();
