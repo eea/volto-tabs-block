@@ -41,7 +41,6 @@ export default () => ({
     },
     menuAlign: {
       title: 'Alignment',
-      type: 'array',
       choices: [
         ['left', 'Left'],
         ['center', 'Center'],
