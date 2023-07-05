@@ -44,7 +44,6 @@ export const schema = (config, templateSchema = {}) => {
       },
       verticalAlign: {
         title: 'Vertical align',
-        type: 'array',
         choices: [
           ['flex-start', 'Top'],
           ['center', 'Middle'],

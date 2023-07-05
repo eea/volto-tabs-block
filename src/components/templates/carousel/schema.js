@@ -10,7 +10,6 @@ export default () => ({
   properties: {
     theme: {
       title: 'Theme',
-      type: 'array',
       choices: [
         ['light', 'Light'],
         ['dark', 'Dark'],
