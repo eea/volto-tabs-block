@@ -126,7 +126,6 @@ export const schema = (props) => {
       },
       verticalAlign: {
         title: 'Vertical align',
-        type: 'array',
         choices: [
           ['flex-start', 'Top'],
           ['center', 'Middle'],
