@@ -200,7 +200,7 @@ View.schemaEnhancer = ({ schema }) => {
     ...schema.properties,
     theme: {
       title: 'Theme',
-      type: 'array',
+      // type: 'array',
       choices: [
         ['light', 'Light'],
         ['dark', 'Dark'],
