@@ -4,12 +4,12 @@ import {
   scrollToTarget,
   getParentTabFromHash,
 } from './helpers';
-import { emptyBlocksForm } from '@plone/volto/helpers';
+// import { emptyBlocksForm } from '@plone/volto/helpers';
 import { visitBlocks, toSlug } from '@eeacms/volto-anchors/helpers';
 
-jest.mock('@plone/volto/helpers', () => ({
-  emptyBlocksForm: jest.fn(),
-}));
+// jest.mock('@plone/volto/helpers', () => ({
+//   emptyBlocksForm: jest.fn(),
+// }));
 
 jest.mock('@eeacms/volto-anchors/helpers', () => ({
   visitBlocks: jest.fn(),
@@ -24,7 +24,7 @@ const schema = {
 
 describe('empty function', () => {
   it('returns a tab block with unique ID', () => {
-    emptyBlocksForm.mockReturnValue({});
+    // emptyBlocksForm.mockReturnValue({});
     const result = empty({ schema });
     expect(Object.keys(result.blocks)).toHaveLength(1);
     expect(result.blocks[Object.keys(result.blocks)[0]]['@type']).toEqual(
@@ -36,7 +36,7 @@ describe('empty function', () => {
 
 describe('emptyTab function', () => {
   it('returns a tab block', () => {
-    emptyBlocksForm.mockReturnValue({});
+    // emptyBlocksForm.mockReturnValue({});
     const result = emptyTab({ schema });
     expect(result['@type']).toEqual('tab');
   });
