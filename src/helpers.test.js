@@ -16,10 +16,16 @@ jest.mock('@eeacms/volto-anchors/helpers', () => ({
   toSlug: jest.fn(),
 }));
 
+const schema = {
+  fieldsets: [{ id: 'default', fields: [] }],
+  properties: {},
+  required: [],
+};
+
 describe('empty function', () => {
   it('returns a tab block with unique ID', () => {
     emptyBlocksForm.mockReturnValue({});
-    const result = empty();
+    const result = empty({ schema });
     expect(Object.keys(result.blocks)).toHaveLength(1);
     expect(result.blocks[Object.keys(result.blocks)[0]]['@type']).toEqual(
       'tab',
@@ -31,7 +37,7 @@ describe('empty function', () => {
 describe('emptyTab function', () => {
   it('returns a tab block', () => {
     emptyBlocksForm.mockReturnValue({});
-    const result = emptyTab();
+    const result = emptyTab({ schema });
     expect(result['@type']).toEqual('tab');
   });
 });
