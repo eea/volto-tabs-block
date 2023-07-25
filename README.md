@@ -22,7 +22,7 @@
 
 ###
 
-Demo GIF
+![Tabs](https://github.com/eea/volto-tabs-block/raw/develop/docs/volto-tabs-block.gif)
 
 ## Getting started
 
