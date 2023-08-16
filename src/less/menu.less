@@ -145,8 +145,12 @@
 
   .RRT__container {
     .inverted {
-      .RRT__tab.active {
-        background-color: rgba(0, 0, 0, 0.1) !important;
+      .RRT__tab:not(.active):hover {
+        color: #fefefe !important;
+      }
+
+      .RRT__tab:hover {
+        color: #fefefe !important;
       }
     }
 
@@ -209,7 +213,7 @@
     }
 
     .RRT__tab:not(.active) .icon {
-      color: #808285;
+      color: #fff;
     }
 
     &.theme-primary {
