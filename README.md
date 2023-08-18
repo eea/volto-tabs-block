@@ -14,45 +14,59 @@
 [![Bugs](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-tabs-block-develop&metric=bugs)](https://sonarqube.eea.europa.eu/dashboard?id=volto-tabs-block-develop)
 [![Duplicated Lines (%)](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-tabs-block-develop&metric=duplicated_lines_density)](https://sonarqube.eea.europa.eu/dashboard?id=volto-tabs-block-develop)
 
+
 [Volto](https://github.com/plone/volto) add-on
 
 ## Features
 
-#### IMPORTANT! Because this depends on @eeacms/volto-block-style, you should always load this addon as the last addon in Volto project configuration or after @eeacms/volto-block-style.
-
-###
-
-![Tabs](https://github.com/eea/volto-tabs-block/raw/develop/docs/volto-tabs-block.gif)
+Demo GIF
 
 ## Getting started
 
-1. Create new volto project if you don't already have one:
+### Try volto-tabs-block with Docker
 
+      git clone https://github.com/eea/volto-tabs-block.git
+      cd volto-tabs-block
+      make
+      make start
+
+Go to http://localhost:3000
+
+### Add volto-tabs-block to your Volto project
+
+1. Make sure you have a [Plone backend](https://plone.org/download) up-and-running at http://localhost:8080/Plone
+
+   ```Bash
+   docker compose up backend
    ```
-   $ npm install -g yo @plone/generator-volto
-   $ yo @plone/volto my-volto-project --addon @eeacms/volto-tabs-block
 
-   $ cd my-volto-project
-   $ yarn add -W @eeacms/volto-tabs-block        // Not yet available
-   ```
+1. Start Volto frontend
 
-1. If you already have a volto project, just update `package.json`:
+* If you already have a volto project, just update `package.json`:
 
    ```JSON
    "addons": [
-      "@eeacms/volto-tabs-block"
+       "@eeacms/volto-tabs-block"
    ],
 
    "dependencies": {
-      "@eeacms/volto-tabs-block": "^1.2.0"
+       "@eeacms/volto-tabs-block": "*"
    }
+   ```
+
+* If not, create one:
+
+   ```
+   npm install -g yo @plone/generator-volto
+   yo @plone/volto my-volto-project --canary --addon @eeacms/volto-tabs-block
+   cd my-volto-project
    ```
 
 1. Install new add-ons and restart Volto:
 
    ```
-   $ yarn
-   $ yarn start
+   yarn
+   yarn start
    ```
 
 1. Go to http://localhost:3000
