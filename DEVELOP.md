@@ -24,7 +24,7 @@
 
 ### Or add @eeacms/volto-tabs-block to your Volto project
 
-Before starting make sure your development environment is properly set. See [Volto Developer Documentation](https://docs.voltocms.com/getting-started/install/)
+Before starting make sure your development environment is properly set. See [Volto Developer Documentation](https://6.docs.plone.org/volto/getting-started/install.html)
 
 1.  Make sure you have installed `yo`, `@plone/generator-volto` and `mrs-developer`
 
@@ -50,17 +50,18 @@ Before starting make sure your development environment is properly set. See [Vol
 
 1.  Install
 
-        $ yarn develop
+        $ yarn bootstrap
         $ yarn
 
 1.  Start backend
 
-        $ docker pull plone
-        $ docker run -d --name plone -p 8080:8080 -e SITE=Plone -e PROFILES="profile-plone.restapi:blocks" plone
+        $ docker pull plone/plone-backend
+        $ docker run -d --name plone-backend -p 8080:8080 -e SITE="Plone" -e PROFILES="plone.restapi:blocks" plone/plone-backend:6.0
+
 
     ...wait for backend to setup and start - `Ready to handle requests`:
 
-        $ docker logs -f plone
+        $ docker logs -f plone-backend
 
     ...you can also check http://localhost:8080/Plone
 
