@@ -1,4 +1,5 @@
 import React from 'react';
+import { defineMessages } from 'react-intl';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
@@ -12,6 +13,21 @@ import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
 
 import noop from 'lodash/noop';
+
+const messages = defineMessages({
+  SelectSlide: {
+    id: 'select-slide',
+    defaultMessage: 'Select slide {index}',
+  },
+  PreviousSlide: {
+    id: 'previous-slide',
+    defaultMessage: 'Previous slide',
+  },
+  NextSlide: {
+    id: 'next-slide',
+    defaultMessage: 'Next slide',
+  },
+});
 
 const Slider = loadable(() => import('react-slick'));
 
@@ -27,7 +43,9 @@ const Dots = (props) => {
             className={cx({ 'slick-active': activeTab === tab })}
           >
             <button
-              aria-label={`Select slide ${index + 1}`}
+              aria-label={props.intl.formatMessage(messages.SelectSlide, {
+                index: `${index + 1}`,
+              })}
               tabIndex={0}
               onClick={() => {
                 if (slider.current) {
@@ -58,7 +76,7 @@ const ArrowsGroup = (props) => {
     >
       {currentSlide > 0 ? (
         <button
-          aria-label="Previous slide"
+          aria-label={props.intl.formatMessage(messages.PreviousSlide)}
           className="slick-arrow slick-prev"
           onClick={() => {
             if (slider.current) {
@@ -74,7 +92,7 @@ const ArrowsGroup = (props) => {
       )}
       {currentSlide < slideCount - 1 ? (
         <button
-          aria-label="Next slide"
+          aria-label={props.intl.formatMessage(messages.NextSlide)}
           className="slick-arrow slick-next"
           onClick={() => {
             if (slider.current) {
@@ -134,9 +152,8 @@ const View = (props) => {
   }, [activeTab]);
   React.useEffect(() => {
     if (!slider.current?.innerSlider?.list) return;
-    let unaccesibileElements = slider.current.innerSlider.list.querySelectorAll(
-      '.slick-slide',
-    );
+    let unaccesibileElements =
+      slider.current.innerSlider.list.querySelectorAll('.slick-slide');
     for (let element of unaccesibileElements) {
       element.setAttribute('tabindex', '0');
       element.setAttribute('aria-hidden', 'false');

@@ -1,6 +1,47 @@
+import { defineMessages, useIntl } from 'react-intl';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 
+const messages = defineMessages({
+  TabsBlock: {
+    id: 'tabs-block',
+    defaultMessage: 'Tabs block',
+  },
+  Default: {
+    id: 'default',
+    defaultMessage: 'Default',
+  },
+  Tabs: {
+    id: 'tabs',
+    defaultMessage: 'Tabs',
+  },
+  Title: {
+    id: 'title',
+    defaultMessage: 'Title',
+  },
+  Template: {
+    id: 'template',
+    defaultMessage: 'Template',
+  },
+  VerticalAlign: {
+    id: 'vertical-align',
+    defaultMessage: 'Vertical align',
+  },
+  Top: {
+    id: 'top',
+    defaultMessage: 'Top',
+  },
+  Middle: {
+    id: 'middle',
+    defaultMessage: 'Middle',
+  },
+  Bottom: {
+    id: 'bottom',
+    defaultMessage: 'Bottom',
+  },
+});
+
 export const schema = (config, templateSchema = {}) => {
+  const intl = useIntl();
   const templatesConfig = config.blocks.blocksConfig[TABS_BLOCK].templates;
   const templates = Object.keys(templatesConfig).map((template) => [
     template,
@@ -12,11 +53,11 @@ export const schema = (config, templateSchema = {}) => {
   )[0];
 
   return {
-    title: templateSchema?.title || 'Tabs block',
+    title: templateSchema?.title || intl.formatMessage(messages.TabsBlock),
     fieldsets: [
       {
         id: 'default',
-        title: 'Default',
+        title: intl.formatMessage(messages.Default),
         fields: [
           'data',
           'title',
@@ -31,23 +72,23 @@ export const schema = (config, templateSchema = {}) => {
     ],
     properties: {
       data: {
-        title: 'Tabs',
+        title: intl.formatMessage(messages.Tabs),
         type: 'tabs',
       },
       title: {
-        title: 'Title',
+        title: intl.formatMessage(messages.Title),
       },
       template: {
-        title: 'Template',
+        title: intl.formatMessage(messages.Template),
         choices: [...templates],
         default: 'default',
       },
       verticalAlign: {
-        title: 'Vertical align',
+        title: intl.formatMessage(messages.VerticalAlign),
         choices: [
-          ['flex-start', 'Top'],
-          ['center', 'Middle'],
-          ['flex-end', 'Bottom'],
+          ['flex-start', intl.formatMessage(messages.Top)],
+          ['center', intl.formatMessage(messages.Middle)],
+          ['flex-end', intl.formatMessage(messages.Bottom)],
         ],
         default: 'flex-start',
       },
