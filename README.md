@@ -15,7 +15,10 @@
 [![Duplicated Lines (%)](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-tabs-block-develop&metric=duplicated_lines_density)](https://sonarqube.eea.europa.eu/dashboard?id=volto-tabs-block-develop)
 
 
-[Volto](https://github.com/plone/volto) add-on
+[Volto](https://github.com/plone/volto) add-on for Tabs component, checkout the
+[Tabs Component Storybook](https://eea.github.io/eea-storybook/?path=/story/components-tab--default)
+for more details.
+
 
 ## Features
 
