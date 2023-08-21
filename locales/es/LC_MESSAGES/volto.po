@@ -1,0 +1,529 @@
+# Translation of volto.pot to Spanish
+# Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2023.
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-20T18:38:33.091Z\n"
+"PO-Revision-Date: 2023-08-20 21:57-0400\n"
+"Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
+"Language: es\n"
+"Language-Team: ES <LL@li.org>\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Preferred-Encodings: utf-8\n"
+"MIME-Version: 1.0\n"
+"Language-Code: es\n"
+"Language-Name: Español\n"
+"Domain: volto\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: components/EditBlockWrapper
+# defaultMessage: Unknown Block {block}
+msgid "Unknown Block"
+msgstr "Bloque desconocido"
+
+#: components/layoutSchema
+# defaultMessage: A short hint that describes the expected value within this block
+msgid "a-short-hint-that-describes-the-expected-value-within-this-block"
+msgstr "Una breve pista que describe el valor esperado dentro de este bloque"
+
+#: components/templates/accordion/schema
+# defaultMessage: Accordion tabs block
+msgid "accordion-tabs-block"
+msgstr "Bloque de pestañas de acordeón"
+
+#: components/EditBlockWrapper
+# defaultMessage: Add block
+msgid "add-block"
+msgstr "Añadir bloque"
+
+#: widgets/TabsWidget
+# defaultMessage: Add new tab
+msgid "add-new-tab"
+msgstr "Añadir nueva pestaña"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Alignment
+msgid "alignment"
+msgstr "Alineación"
+
+#: components/layoutSchema
+# defaultMessage: Allow only the following blocks types
+msgid "allow-only-the-following-blocks-types"
+msgstr "Permitir solo los siguientes tipos de bloques"
+
+#: components/layoutSchema
+# defaultMessage: Allowed blocks
+msgid "allowed-blocks"
+msgstr "Permitido bloques"
+
+#: widgets/TabsWidget
+# defaultMessage: Apply style
+msgid "apply-style"
+msgstr "Aplicar estilo"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Black
+msgid "black"
+msgstr "Negro"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Blue
+msgid "blue"
+msgstr "Azul"
+
+#: components/schema
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Bottom
+msgid "bottom"
+msgstr "Abajo"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Brown
+msgid "brown"
+msgstr "Marrón"
+
+#: components/templates/carousel/schema
+# defaultMessage: Carousel block
+msgid "carousel-block"
+msgstr "Bloque Carrusel"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Center
+msgid "center"
+msgstr "Centro"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Color
+msgid "color"
+msgstr "Color"
+
+#: components/templates/carousel/schema
+# defaultMessage: Dark
+msgid "dark"
+msgstr "Oscuro"
+
+#: components/layoutSchema
+#: components/schema
+#: components/templates/accordion/schema
+#: components/templates/carousel/schema
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Default
+msgid "default"
+msgstr "Por defecto"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Default tabs block
+msgid "default-tabs-block"
+msgstr "Bloque de pestañas predeterminado"
+
+#: components/templates/accordion/View
+#: components/templates/default/Edit
+#: components/templates/default/View
+#: components/templates/horizontal-responsive/View
+#: widgets/TabsWidget
+# defaultMessage: Tab {tabTitle}
+msgid "default-title"
+msgstr "Pestaña {tabTitle}"
+
+#: components/templates/horizontal-responsive/View
+# defaultMessage: Tab {tabTitle}
+msgid "default-title-underline-index"
+msgstr "Pestaña {tabTitle}"
+
+#: components/EditBlockWrapper
+# defaultMessage: delete
+msgid "delete"
+msgstr "eliminar"
+
+#: widgets/TabsWidget
+# defaultMessage: Delete tab
+msgid "delete-tab"
+msgstr "Eliminar pestaña"
+
+#: components/templates/accordion/schema
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Description
+msgid "description"
+msgstr "descripción"
+
+#: components/layoutSchema
+# defaultMessage: Detailed expected value within this block
+msgid "detailed-expected-value-within-this-block"
+msgstr "Valor esperado detallado dentro de este bloque"
+
+#: components/layoutSchema
+# defaultMessage: Disable creation of new blocks after this block
+msgid "disable-creation-of-new-blocks-after-this-block"
+msgstr "Deshabilitar la creación de nuevos bloques después de este bloque"
+
+#: components/layoutSchema
+# defaultMessage: Disable drag & drop on this block
+msgid "disable-drag-drop-on-this-block"
+msgstr "Desactivar arrastrar y soltar en este bloque"
+
+#: components/layoutSchema
+# defaultMessage: Disable editing on columns block settings
+msgid "disable-editing-on-columns-block-settings"
+msgstr "Deshabilitar la edición en la configuración del bloque de columnas"
+
+#: components/layoutSchema
+# defaultMessage: Disable editing on this block
+msgid "disable-editing-on-this-block"
+msgstr "Deshabilitar la edición en este bloque"
+
+#: components/layoutSchema
+# defaultMessage: Disable new blocks
+msgid "disable-new-blocks"
+msgstr "Deshabilitar nuevos bloques"
+
+#: components/layoutSchema
+# defaultMessage: Don't allow deletion of this block
+msgid "dont-allow-deletion-of-this-block"
+msgstr "No permitir la eliminación de este bloque"
+
+#: components/EditBlockWrapper
+# defaultMessage: Drag and drop
+msgid "drag-and-drop"
+msgstr "Arrastre y suelte"
+
+#: components/layoutSchema
+# defaultMessage: Fixed position
+msgid "fixed-position"
+msgstr "Posición fija"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Green
+msgid "green"
+msgstr "Verde"
+
+#: components/templates/carousel/schema
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Grey
+msgid "grey"
+msgstr "Gris"
+
+#: components/layoutSchema
+# defaultMessage: Helper text
+msgid "helper-text"
+msgstr "Texto de ayuda"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Huge
+msgid "huge"
+msgstr "Enorme"
+
+#: components/templates/accordion/schema
+# defaultMessage: Icon position on the right
+msgid "icon-position-on-the-right"
+msgstr "Posición del icono a la derecha"
+
+#: components/layoutSchema
+# defaultMessage: Instructions
+msgid "instructions"
+msgstr "Instrucciones"
+
+#: components/templates/accordion/schema
+# defaultMessage: Inverted
+msgid "inverted"
+msgstr "Invertido"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Large
+msgid "large"
+msgstr "Grande"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Left
+msgid "left"
+msgstr "Izquierda"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Left side
+msgid "left-side"
+msgstr "Lado izquierdo"
+
+#: components/templates/carousel/schema
+# defaultMessage: Light
+msgid "light"
+msgstr "Claro"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Masive
+msgid "massive"
+msgstr "Masivo"
+
+#: components/templates/accordion/schema
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Menu
+msgid "menu"
+msgstr "Menú"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Borderless
+msgid "menu-border-less"
+msgstr "Sin bordes"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Compact
+msgid "menu-compact"
+msgstr "Compacto"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Fluid
+msgid "menu-fluid"
+msgstr "Líquido"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Inverted
+msgid "menu-inverted"
+msgstr "Invertido"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Pointing
+msgid "menu-pointing"
+msgstr "Señalando"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Secondary
+msgid "menu-secondary"
+msgstr "Secundario"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Stackable
+msgid "menu-stackable"
+msgstr "Apilable"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Tabular
+msgid "menu-tabular"
+msgstr "Tabular"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Text
+msgid "menu-text"
+msgstr "Texto"
+
+#: components/schema
+# defaultMessage: Middle
+msgid "middle"
+msgstr "Medio"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Mini
+msgid "mini"
+msgstr "Mini"
+
+#: components/templates/carousel/HorizontalView
+# defaultMessage: Next slide
+msgid "next-slide"
+msgstr "Diapositiva siguiente"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Olive
+msgid "olive"
+msgstr "Oliva"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Orange
+msgid "orange"
+msgstr "Naranja"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Pink
+msgid "pink"
+msgstr "Rosado"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Position
+msgid "position"
+msgstr "Posición"
+
+#: components/templates/accordion/schema
+# defaultMessage: Position left/right of the icon in the accordion tab
+msgid "position-left-right-of-the-icon-in-the-accordion-tab"
+msgstr "Posición izquierda/derecha del icono en la pestaña de acordeón"
+
+#: components/templates/carousel/HorizontalView
+# defaultMessage: Previous slide
+msgid "previous-slide"
+msgstr "Anterior diapositiva"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Purple
+msgid "purple"
+msgstr "Morado"
+
+#: components/layoutSchema
+# defaultMessage: Read-only
+msgid "read-only"
+msgstr "Solo lectura"
+
+#: components/layoutSchema
+# defaultMessage: Read-only settings
+msgid "read-only-settings"
+msgstr "Configuración de solo lectura"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Red
+msgid "red"
+msgstr "Rojo"
+
+#: components/EditBlockWrapper
+# defaultMessage: Remove block
+msgid "remove-block"
+msgstr "Eliminar bloque"
+
+#: components/layoutSchema
+# defaultMessage: Required
+msgid "required"
+msgstr "Requerido"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Right
+msgid "right"
+msgstr "Derecha"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Right side
+msgid "right-side"
+msgstr "Lado derecho"
+
+#: components/templates/carousel/HorizontalView
+# defaultMessage: Select slide {index}
+msgid "select-slide"
+msgstr "Seleccionar diapositiva {index}"
+
+#: components/templates/accordion/schema
+# defaultMessage: Set the theme for the accordion tabs block
+msgid "set-the-theme-for-the-accordion-tabs-block"
+msgstr "Establecer el tema para el bloque de pestañas de acordeón"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Size
+msgid "size"
+msgstr "Tamaño"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Small
+msgid "small"
+msgstr "Pequeño"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Space between
+msgid "space-between"
+msgstr "Espacio entre"
+
+#: components/templates/accordion/schema
+# defaultMessage: Style
+msgid "style"
+msgstr "Estilo"
+
+#: components/schema
+# defaultMessage: Tabs
+msgid "tabs"
+msgstr "Pestañas"
+
+#: components/schema
+# defaultMessage: Tabs block
+msgid "tabs-block"
+msgstr "Bloque Pestañas"
+
+#: components/layoutSchema
+# defaultMessage: Tabs block settings
+msgid "tabs-block-settings"
+msgstr "Configuración del bloque de pestañas"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Teal
+msgid "teal"
+msgstr "Verde azulado"
+
+#: components/schema
+# defaultMessage: Template
+msgid "template"
+msgstr "Plantilla"
+
+#: components/templates/accordion/schema
+#: components/templates/carousel/schema
+# defaultMessage: Theme
+msgid "theme"
+msgstr "Tema"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Tiny
+msgid "tiny"
+msgstr "Diminuto"
+
+#: components/schema
+# defaultMessage: Title
+msgid "title"
+msgstr "Título"
+
+#: components/schema
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Top
+msgid "top"
+msgstr "Arriba"
+
+#: components/schema
+# defaultMessage: Vertical align
+msgid "vertical-align"
+msgstr "Alineación vertical"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Violet
+msgid "violet"
+msgstr "Violeta"
+
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+# defaultMessage: Yellow
+msgid "yellow"
+msgstr "Amarillo"
