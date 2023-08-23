@@ -15,11 +15,36 @@
 [![Duplicated Lines (%)](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-tabs-block-develop&metric=duplicated_lines_density)](https://sonarqube.eea.europa.eu/dashboard?id=volto-tabs-block-develop)
 
 
-[Volto](https://github.com/plone/volto) add-on
+[Volto](https://github.com/plone/volto) add-on for Tabs component, checkout the
+[Tabs Component Storybook](https://eea.github.io/eea-storybook/?path=/story/components-tab--default)
+for more details.
+
 
 ## Features
 
-Demo GIF
+### Volto Tabs Horizontal
+
+A example of Volto Tabs Horizontal, it look like the following capture:
+
+![Volto Tabs Horizontal](https://github.com/plone-ve/volto-tabs-block/assets/185395/c097d022-cc04-4551-a414-41fdce0329d9 "Volto Tabs Horizontal")
+
+---
+
+### Volto Tabs Vertical
+
+A example of Volto Tabs Vertical, it look like the following capture:
+
+![Volto Tabs Vertical](https://github.com/plone-ve/volto-tabs-block/assets/185395/07ad74c6-7101-4651-b690-e30673ebc0f6 "Volto Tabs Vertical")
+
+---
+
+### Volto Tabs Block Demo
+
+A demonstration example of Volto Tabs Block, it's as the following capture:
+
+![Volto Tabs Block Demo](https://github.com/plone-ve/volto-tabs-block/assets/185395/b8f6cb20-ee02-4bb6-8e91-29462fe2074a "Volto Tabs Block Demo")
+
+---
 
 ## Getting started
 
