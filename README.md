@@ -14,12 +14,11 @@
 [![Bugs](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-tabs-block-develop&metric=bugs)](https://sonarqube.eea.europa.eu/dashboard?id=volto-tabs-block-develop)
 [![Duplicated Lines (%)](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-tabs-block-develop&metric=duplicated_lines_density)](https://sonarqube.eea.europa.eu/dashboard?id=volto-tabs-block-develop)
 
-
 [Volto](https://github.com/plone/volto) add-on
 
 ## Features
 
-Demo GIF
+![Tabs](./docs/volto-tabs-block.gif)
 
 ## Getting started
 
@@ -42,25 +41,25 @@ Go to http://localhost:3000
 
 1. Start Volto frontend
 
-* If you already have a volto project, just update `package.json`:
+- If you already have a volto project, just update `package.json`:
 
-   ```JSON
-   "addons": [
-       "@eeacms/volto-tabs-block"
-   ],
+  ```JSON
+  "addons": [
+      "@eeacms/volto-tabs-block"
+  ],
 
-   "dependencies": {
-       "@eeacms/volto-tabs-block": "*"
-   }
-   ```
+  "dependencies": {
+      "@eeacms/volto-tabs-block": "*"
+  }
+  ```
 
-* If not, create one:
+- If not, create one:
 
-   ```
-   npm install -g yo @plone/generator-volto
-   yo @plone/volto my-volto-project --canary --addon @eeacms/volto-tabs-block
-   cd my-volto-project
-   ```
+  ```
+  npm install -g yo @plone/generator-volto
+  yo @plone/volto my-volto-project --canary --addon @eeacms/volto-tabs-block
+  cd my-volto-project
+  ```
 
 1. Install new add-ons and restart Volto:
 
