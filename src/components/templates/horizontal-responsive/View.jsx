@@ -70,7 +70,7 @@ const MenuItem = (props) => {
       <Button
         as="a"
         tabIndex={0}
-        className={cx('item', 'accesibility-button', {
+        className={cx('item', {
           active: tab === activeTab,
         })}
         item-data={tab}
