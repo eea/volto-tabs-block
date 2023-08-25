@@ -65,11 +65,11 @@ export const schema = (config, templateSchema = {}, props) => {
   const templatesConfig = config.blocks.blocksConfig[TABS_BLOCK].templates;
   const templates = Object.keys(templatesConfig).map((template) => {
     let templateTitle = templatesConfig[template].title || template;
-    let templateId = templatesConfig[template].id
+    let templateId = templatesConfig[template].id;
     if (templateId && messages[`${templateId}`]) {
-      templateTitle = intl.formatMessage(messages[`${templateId}`])
+      templateTitle = intl.formatMessage(messages[`${templateId}`]);
     }
-    return [template, templateTitle]
+    return [template, templateTitle];
   });
 
   const defaultFieldset = templateSchema?.fieldsets?.filter(

@@ -40,7 +40,7 @@ export default (config, props) => ({
     theme: {
       title: props.intl.formatMessage(messages.Theme),
       choices: [
-        ['light',props.intl.formatMessage(messages.Light)],
+        ['light', props.intl.formatMessage(messages.Light)],
         ['dark', props.intl.formatMessage(messages.Dark)],
         ['grey', props.intl.formatMessage(messages.Grey)],
       ],

@@ -44,7 +44,7 @@ const Edit = (props) => {
     typeof templateSchema === 'function'
       ? templateSchema(config, props)
       : templateSchema,
-    props
+    props,
   );
 
   React.useEffect(() => {
