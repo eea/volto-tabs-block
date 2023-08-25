@@ -269,7 +269,7 @@ const View = (props) => {
           text: getDataValue('menuText'),
           vertical: menuPosition.vertical,
           className: cx(data.menuAlign, { container: isContainer }),
-          items: (
+          children: (
             <MenuWrapper
               {...props}
               panes={panes}
