@@ -173,7 +173,7 @@ const View = (props) => {
         />
       ),
       pane: (
-        <Tab.Pane as={isContainer ? Container : undefined}>
+        <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
           <div
             id={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
             className="tab-name"

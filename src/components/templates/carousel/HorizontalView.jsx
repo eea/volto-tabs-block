@@ -4,8 +4,8 @@ import loadable from '@loadable/component';
 import cx from 'classnames';
 import { Icon, RenderBlocks } from '@plone/volto/components';
 
-import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
-import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
+import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-key.svg';
+import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-key.svg';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
