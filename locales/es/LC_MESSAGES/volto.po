@@ -1,411 +1,410 @@
+# Translation of volto.pot to Spanish
+# Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2023-07-26T20:41:22.374Z\n"
-"Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
-"Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-15 09:19-0400\n"
+"PO-Revision-Date: 2023-07-26 17:59-0300\n"
+"Last-Translator: André Clímaco <andre.barbosa@tse.jus.br>\n"
+"Language-Team: ES <LL@li.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Preferred-Encodings: utf-8\n"
+"Language-Code: es\n"
+"Language-Name: Español\n"
 "Domain: volto\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: index
 # defaultMessage: Accordion responsive
+#: index
 msgid "Accordion responsive"
 msgstr ""
 
-#: index
 # defaultMessage: Default
+#: index
 msgid "Default"
 msgstr ""
 
-#: components/EditBlockWrapper
 # defaultMessage: Unknown Block {block}
+#: components/EditBlockWrapper
 msgid "Unknown Block"
-msgstr ""
+msgstr "Bloque desconocido"
 
-#: components/templates/accordion/schema
 # defaultMessage: Accordion tabs block
+#: components/templates/accordion/schema
 msgid "accordion-tabs-block"
-msgstr ""
+msgstr "Bloque de pestañas de acordeón"
 
-#: components/schema
 # defaultMessage: Accordion responsive
+#: components/schema
 msgid "accordionResponsive"
 msgstr ""
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Alignment
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "alignment"
-msgstr ""
+msgstr "Alineación"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Black
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "black"
-msgstr ""
+msgstr "Negro"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Blue
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "blue"
-msgstr ""
+msgstr "Azul"
 
-#: components/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Bottom
+#: components/schema components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "bottom"
-msgstr ""
+msgstr "abajo"
 
+# defaultMessage: Brown
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
-# defaultMessage: Brown
 msgid "brown"
-msgstr ""
+msgstr "Marrón"
 
-#: components/templates/carousel/schema
 # defaultMessage: Carousel block
+#: components/templates/carousel/schema
 msgid "carousel-tabs-block"
 msgstr ""
 
-#: components/schema
 # defaultMessage: Carousel horizontal
+#: components/schema
 msgid "carouselHorizontal"
 msgstr ""
 
-#: components/schema
 # defaultMessage: Carousel vertical (prototype)
+#: components/schema
 msgid "carouselVerticalPrototype"
 msgstr ""
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Center
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "center"
-msgstr ""
+msgstr "Centro"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Color
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "color"
-msgstr ""
+msgstr "Color"
 
-#: components/templates/carousel/schema
 # defaultMessage: Dark
+#: components/templates/carousel/schema
 msgid "dark"
-msgstr ""
+msgstr "Oscuro"
 
-#: components/schema
-#: components/templates/accordion/schema
-#: components/templates/carousel/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Default
+#: components/schema components/templates/accordion/schema
+#: components/templates/carousel/schema components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "default"
-msgstr ""
+msgstr "Por defecto"
 
-#: components/templates/default/schema
 # defaultMessage: Default tabs block
+#: components/templates/default/schema
 msgid "default-tabs-block"
-msgstr ""
+msgstr "Bloque de pestañas predeterminado"
 
-#: components/EditBlockWrapper
 # defaultMessage: delete
+#: components/EditBlockWrapper
 msgid "delete"
-msgstr ""
+msgstr "eliminar"
 
-#: components/templates/accordion/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Description
+#: components/templates/accordion/schema components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "description"
-msgstr ""
+msgstr "descripción"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Green
-msgid "green"
-msgstr ""
-
-#: components/templates/carousel/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
-# defaultMessage: Grey
-msgid "grey"
-msgstr ""
+msgid "green"
+msgstr "Verde"
 
+# defaultMessage: Grey
+#: components/templates/carousel/schema components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
+msgid "grey"
+msgstr "Gris"
+
 # defaultMessage: Horizontal tabs block
+#: components/templates/horizontal-responsive/schema
 msgid "horizontal-tabs-block"
 msgstr ""
 
-#: components/schema
 # defaultMessage: Horizontal responsive
+#: components/schema
 msgid "horizontalResponsive"
 msgstr ""
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Huge
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "huge"
-msgstr ""
+msgstr "Enorme"
 
-#: components/templates/accordion/schema
 # defaultMessage: Icon position on the right
+#: components/templates/accordion/schema
 msgid "icon-position-on-the-right"
-msgstr ""
+msgstr "Posición del icono a la derecha"
 
-#: components/templates/accordion/schema
 # defaultMessage: Inverted
+#: components/templates/accordion/schema
 msgid "inverted"
-msgstr ""
+msgstr "Invertido"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Large
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "large"
-msgstr ""
+msgstr "Grande"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Left
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "left"
-msgstr ""
+msgstr "izquierda"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Left side
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "left-side"
-msgstr ""
+msgstr "Lado izquierdo"
 
-#: components/templates/carousel/schema
 # defaultMessage: Light
-msgid "light"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Masive
-msgid "massive"
-msgstr ""
-
-#: components/templates/accordion/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Menu
-msgid "menu"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Borderless
-msgid "menu-border-less"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Compact
-msgid "menu-compact"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Fluid
-msgid "menu-fluid"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Inverted
-msgid "menu-inverted"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Pointing
-msgid "menu-pointing"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Secondary
-msgid "menu-secondary"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Stackable
-msgid "menu-stackable"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Tabular
-msgid "menu-tabular"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Text
-msgid "menu-text"
-msgstr ""
-
-#: components/schema
-# defaultMessage: Middle
-msgid "middle"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Mini
-msgid "mini"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Olive
-msgid "olive"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Orange
-msgid "orange"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Pink
-msgid "pink"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Position
-msgid "position"
-msgstr ""
-
-#: components/templates/accordion/schema
-# defaultMessage: Position left/right of the icon in the accordion tab
-msgid "position-left-right-of-the-icon-in-the-accordion-tab"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Purple
-msgid "purple"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Red
-msgid "red"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Right
-msgid "right"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Right side
-msgid "right-side"
-msgstr ""
-
-#: components/templates/accordion/schema
-# defaultMessage: Set the theme for the accordion tabs block
-msgid "set-the-theme-for-the-accordion-tabs-block"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Size
-msgid "size"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Small
-msgid "small"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Space between
-msgid "space-between"
-msgstr ""
-
-#: components/templates/accordion/schema
-# defaultMessage: Style
-msgid "style"
-msgstr ""
-
-#: components/schema
-# defaultMessage: Tabs
-msgid "tabs"
-msgstr ""
-
-#: components/schema
-# defaultMessage: Tabs block
-msgid "tabs-block"
-msgstr ""
-
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Teal
-msgid "teal"
-msgstr ""
-
-#: components/schema
-# defaultMessage: Template
-msgid "template"
-msgstr ""
-
-#: components/templates/accordion/schema
 #: components/templates/carousel/schema
+msgid "light"
+msgstr "Claro"
+
+# defaultMessage: Masive
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "massive"
+msgstr "Masivo"
+
+# defaultMessage: Menu
+#: components/templates/accordion/schema components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "menu"
+msgstr "Menú"
+
+# defaultMessage: Borderless
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "menu-border-less"
+msgstr "Sin bordes"
+
+# defaultMessage: Compact
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "menu-compact"
+msgstr "Compacto"
+
+# defaultMessage: Fluid
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "menu-fluid"
+msgstr "Líquido"
+
+# defaultMessage: Inverted
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "menu-inverted"
+msgstr "Invertido"
+
+# defaultMessage: Pointing
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "menu-pointing"
+msgstr "Señalando"
+
+# defaultMessage: Secondary
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "menu-secondary"
+msgstr "Secundario"
+
+# defaultMessage: Stackable
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "menu-stackable"
+msgstr "Apilable"
+
+# defaultMessage: Tabular
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "menu-tabular"
+msgstr "Tabular"
+
+# defaultMessage: Text
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "menu-text"
+msgstr "Texto"
+
+# defaultMessage: Middle
+#: components/schema
+msgid "middle"
+msgstr "Medio"
+
+# defaultMessage: Mini
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "mini"
+msgstr "Mini"
+
+# defaultMessage: Olive
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "olive"
+msgstr "Oliva"
+
+# defaultMessage: Orange
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "orange"
+msgstr "Naranja"
+
+# defaultMessage: Pink
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "pink"
+msgstr "Rosado"
+
+# defaultMessage: Position
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "position"
+msgstr "Posición"
+
+# defaultMessage: Position left/right of the icon in the accordion tab
+#: components/templates/accordion/schema
+msgid "position-left-right-of-the-icon-in-the-accordion-tab"
+msgstr "Posición izquierda/derecha del icono en la pestaña de acordeón"
+
+# defaultMessage: Purple
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "purple"
+msgstr "Morado"
+
+# defaultMessage: Red
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "red"
+msgstr "Rojo"
+
+# defaultMessage: Right
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "right"
+msgstr "derecha"
+
+# defaultMessage: Right side
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "right-side"
+msgstr "Lado derecho"
+
+# defaultMessage: Set the theme for the accordion tabs block
+#: components/templates/accordion/schema
+msgid "set-the-theme-for-the-accordion-tabs-block"
+msgstr "Establecer el tema para el bloque de pestañas de acordeón"
+
+# defaultMessage: Size
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "size"
+msgstr "Tamaño"
+
+# defaultMessage: Small
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "small"
+msgstr "Pequeño"
+
+# defaultMessage: Space between
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "space-between"
+msgstr "Espacio entre"
+
+# defaultMessage: Style
+#: components/templates/accordion/schema
+msgid "style"
+msgstr "Estilo"
+
+# defaultMessage: Tabs
+#: components/schema
+msgid "tabs"
+msgstr "Pestañas"
+
+# defaultMessage: Tabs block
+#: components/schema
+msgid "tabs-block"
+msgstr "Bloque Pestañas"
+
+# defaultMessage: Teal
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
+msgid "teal"
+msgstr "Verde azulado"
+
+# defaultMessage: Template
+#: components/schema
+msgid "template"
+msgstr "plantilla"
+
 # defaultMessage: Theme
+#: components/templates/accordion/schema components/templates/carousel/schema
 msgid "theme"
-msgstr ""
+msgstr "tema"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Tiny
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "tiny"
-msgstr ""
+msgstr "Diminuto"
 
-#: components/schema
 # defaultMessage: Title
+#: components/schema
 msgid "title"
-msgstr ""
+msgstr "título"
 
-#: components/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Top
+#: components/schema components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "top"
-msgstr ""
+msgstr "arriba"
 
-#: components/schema
 # defaultMessage: Vertical align
+#: components/schema
 msgid "vertical-align"
-msgstr ""
+msgstr "Alineación vertical"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
 # defaultMessage: Violet
-msgid "violet"
-msgstr ""
-
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
+msgid "violet"
+msgstr "Violeta"
+
 # defaultMessage: Yellow
+#: components/templates/default/schema
+#: components/templates/horizontal-responsive/schema
 msgid "yellow"
-msgstr ""
+msgstr "Amarillo"

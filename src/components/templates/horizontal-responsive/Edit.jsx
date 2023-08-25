@@ -331,7 +331,7 @@ const Edit = (props) => {
         />
       ),
       pane: (
-        <Tab.Pane as={isContainer ? Container : undefined}>
+        <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
           <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
             <BlocksForm
               allowedBlocks={data?.allowedBlocks}
@@ -415,7 +415,7 @@ const Edit = (props) => {
           text: getDataValue('menuText'),
           vertical: menuPosition.vertical,
           className: cx(data.menuAlign, { container: isContainer }),
-          children: (
+          items: (
             <MenuWrapper
               {...props}
               panes={panes}

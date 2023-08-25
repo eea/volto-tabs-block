@@ -230,7 +230,7 @@ const View = (props) => {
         />
       ),
       pane: (
-        <Tab.Pane as={isContainer ? Container : undefined}>
+        <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
           <div
             id={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
             className="tab-name"
@@ -269,7 +269,7 @@ const View = (props) => {
           text: getDataValue('menuText'),
           vertical: menuPosition.vertical,
           className: cx(data.menuAlign, { container: isContainer }),
-          children: (
+          items: (
             <MenuWrapper
               {...props}
               panes={panes}
