@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2023-07-26T20:41:22.374Z\n"
+"POT-Creation-Date: 2023-08-29T17:15:15.520Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -191,7 +191,7 @@ msgstr ""
 
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
-# defaultMessage: Masive
+# defaultMessage: Massive
 msgid "massive"
 msgstr ""
 
