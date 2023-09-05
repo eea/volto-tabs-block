@@ -8,7 +8,6 @@
 @menuTitleFontSize: 24px;
 @menuTitleFontWeight: normal;
 @menuTitleColor: #013C60;
-@menuTitleBackgrounnd: none;
 @menuTitleHoverColor: #013C60;
 @menuTitleHoverBackground: none;
 
@@ -18,7 +17,7 @@
 /* Menu item */
 @menuItemCountDisplay: none;
 
-@accordionMenuItemBackground: #F3F4F5;
+@accordionMenuItemBackground: #F3F4F5;  /* not used */
 @accordionTabBackground: transparent;
 
 /* Theme variables */

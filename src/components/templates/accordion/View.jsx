@@ -11,6 +11,7 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
+import { withResizeDetector } from 'react-resize-detector';
 
 import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';
@@ -55,6 +56,7 @@ const View = (props) => {
     activeTabIndex = 0,
     setActiveTab = noop,
     id,
+    width,
   } = props;
 
   const accordionConfig =
@@ -65,6 +67,7 @@ const View = (props) => {
   const [mounted, setMounted] = React.useState(false);
   const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
+  const [isCollapsed, setIsCollapsed] = React.useState(true);
 
   const schema = React.useMemo(
     () =>
@@ -103,7 +106,7 @@ const View = (props) => {
               size={icons.size}
             />
           )}
-          {title || defaultTitle}{' '}
+          <span>{title || defaultTitle} </span>
         </>
       ),
       content: (
@@ -117,7 +120,7 @@ const View = (props) => {
       ),
       key: tab,
       tabClassName: cx('ui button item title', { active }),
-      panelClassName: cx('ui bottom attached segment tab', {
+      panelClassName: cx('ui bottom attached segment tab content', {
         active,
       }),
     };
@@ -149,6 +152,11 @@ const View = (props) => {
       activeTabDiv.focus();
     }
   }, [activeTabIndex, id]);
+
+  React.useEffect(() => {
+    setIsCollapsed(tabsContainer.current?.getIsCollapsed());
+  }, [width]);
+
   return (
     <div
       tabIndex="0"
@@ -183,8 +191,9 @@ const View = (props) => {
         }}
         tabsWrapperClass={cx(
           props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
-          'ui pointing secondary menu',
-          'tabs-accessibility',
+          isCollapsed
+            ? 'ui accordion tabs-accessibility'
+            : 'ui pointing secondary menu',
           data?.theme ? `theme-${data?.theme}` : '',
           {
             inverted: getDataValue('menuInverted'),
@@ -196,4 +205,8 @@ const View = (props) => {
   );
 };
 
-export default compose(withScrollToTarget, withRouter)(View);
+export default compose(
+  withScrollToTarget,
+  withResizeDetector,
+  withRouter,
+)(View);
