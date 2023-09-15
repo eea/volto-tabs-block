@@ -58,7 +58,7 @@ const View = (props) => {
     id,
     width,
   } = props;
-
+  console.log({ width });
   const accordionConfig =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
   const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
@@ -119,7 +119,9 @@ const View = (props) => {
         />
       ),
       key: tab,
-      tabClassName: cx('ui button item title', { active }),
+      tabClassName: cx('ui button title accordion-title item title', {
+        active,
+      }),
       panelClassName: cx('ui bottom attached segment tab content', {
         active,
       }),
@@ -154,6 +156,8 @@ const View = (props) => {
   }, [activeTabIndex, id]);
 
   React.useEffect(() => {
+    console.log('intru');
+    console.log(tabsContainer.current?.getIsCollapsed());
     setIsCollapsed(tabsContainer.current?.getIsCollapsed());
   }, [width]);
 
@@ -191,9 +195,9 @@ const View = (props) => {
         }}
         tabsWrapperClass={cx(
           props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
-          isCollapsed
+          tabsContainer?.current?.state?.blockWidth <= initialWidth
             ? 'ui accordion tabs-accessibility'
-            : 'ui pointing secondary menu',
+            : 'ui pointing secondary menu tabs-accessibility',
           data?.theme ? `theme-${data?.theme}` : '',
           {
             inverted: getDataValue('menuInverted'),
