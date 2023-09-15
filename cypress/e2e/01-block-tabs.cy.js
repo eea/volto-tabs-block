@@ -72,6 +72,7 @@ describe('Blocks Tests', () => {
     cy.get('.slick-arrow').click();
     cy.get('.block.image');
   });
+
   it('Test accordion template', () => {
     // Change page title
     cy.clearSlateTitle();
