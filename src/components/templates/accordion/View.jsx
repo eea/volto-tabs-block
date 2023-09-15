@@ -56,9 +56,7 @@ const View = (props) => {
     activeTabIndex = 0,
     setActiveTab = noop,
     id,
-    width,
   } = props;
-  console.log({ width });
   const accordionConfig =
     config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
   const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
@@ -67,7 +65,6 @@ const View = (props) => {
   const [mounted, setMounted] = React.useState(false);
   const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
-  const [isCollapsed, setIsCollapsed] = React.useState(true);
 
   const schema = React.useMemo(
     () =>
@@ -154,12 +151,6 @@ const View = (props) => {
       activeTabDiv.focus();
     }
   }, [activeTabIndex, id]);
-
-  React.useEffect(() => {
-    console.log('intru');
-    console.log(tabsContainer.current?.getIsCollapsed());
-    setIsCollapsed(tabsContainer.current?.getIsCollapsed());
-  }, [width]);
 
   return (
     <div
