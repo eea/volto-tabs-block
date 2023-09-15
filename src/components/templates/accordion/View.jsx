@@ -11,7 +11,6 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
-import { withResizeDetector } from 'react-resize-detector';
 
 import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';
@@ -200,8 +199,4 @@ const View = (props) => {
   );
 };
 
-export default compose(
-  withScrollToTarget,
-  withResizeDetector,
-  withRouter,
-)(View);
+export default compose(withScrollToTarget, withRouter)(View);
