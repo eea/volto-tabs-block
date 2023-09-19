@@ -12,12 +12,14 @@ import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
 
-import 'react-responsive-tabs/styles.css';
+import { withResizeDetector } from 'react-resize-detector';
+
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 class Tab extends React.Component {
   constructor() {
     super();
+    this.animateId = null;
     this.state = {
       height: 0,
     };
@@ -25,10 +27,13 @@ class Tab extends React.Component {
 
   componentDidMount() {
     if (this.state.height === 0) {
-      requestAnimationFrame(() => {
+      this.animateId = requestAnimationFrame(() => {
         this.setState({ height: 'auto' });
       });
     }
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.animateId);
   }
 
   render() {
@@ -88,6 +93,8 @@ const View = (props) => {
     const title = tabs[tab].title;
     const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
+    const isAccordion =
+      tabsContainer?.current?.state?.blockWidth <= initialWidth;
 
     return {
       title: (
@@ -115,10 +122,13 @@ const View = (props) => {
         />
       ),
       key: tab,
-      tabClassName: cx('ui button title accordion-title item title', {
-        active,
-      }),
-      panelClassName: cx('ui bottom attached segment tab content', {
+      tabClassName: cx(
+        {
+          active,
+        },
+        isAccordion ? 'title accordion-title' : 'ui item title',
+      ),
+      panelClassName: cx('ui attached segment tab content', {
         active,
       }),
     };
@@ -199,4 +209,8 @@ const View = (props) => {
   );
 };
 
-export default compose(withScrollToTarget, withRouter)(View);
+export default compose(
+  withScrollToTarget,
+  withResizeDetector,
+  withRouter,
+)(View);
