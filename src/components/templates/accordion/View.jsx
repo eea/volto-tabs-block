@@ -197,8 +197,8 @@ const View = (props) => {
           props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
           tabsContainer?.current?.state?.blockWidth <= initialWidth
             ? 'ui accordion tabs-accessibility'
-            : 'ui pointing secondary menu tabs-accessibility',
-          data?.theme ? `theme-${data?.theme}` : '',
+            : 'ui menu tabs-accessibility',
+          data?.theme ? `${data?.theme}` : '',
           {
             inverted: getDataValue('menuInverted'),
           },
