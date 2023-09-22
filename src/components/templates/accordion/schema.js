@@ -1,40 +1,87 @@
-import config from '@plone/volto/registry';
+import { defineMessages } from 'react-intl';
 
-export default () => ({
-  title: 'Accordion tabs block',
+const messages = defineMessages({
+  AccordionTabsBlock: {
+    id: 'accordion-tabs-block',
+    defaultMessage: 'Accordion tabs block',
+  },
+  Default: {
+    id: 'default',
+    defaultMessage: 'Default',
+  },
+  Menu: {
+    id: 'menu',
+    defaultMessage: 'Menu',
+  },
+  Style: {
+    id: 'style',
+    defaultMessage: 'Style',
+  },
+  Description: {
+    id: 'description',
+    defaultMessage: 'Description',
+  },
+  IconPositionOnTheRight: {
+    id: 'icon-position-on-the-right',
+    defaultMessage: 'Icon position on the right',
+  },
+  PositionLeftRightIconAccordionTab: {
+    id: 'position-left-right-of-the-icon-in-the-accordion-tab',
+    defaultMessage: 'Position left/right of the icon in the accordion tab',
+  },
+  Inverted: {
+    id: 'inverted',
+    defaultMessage: 'Inverted',
+  },
+  Theme: {
+    id: 'theme',
+    defaultMessage: 'Theme',
+  },
+  SetThemeAccordionTabsBlock: {
+    id: 'set-the-theme-for-the-accordion-tabs-block',
+    defaultMessage: 'Set the theme for the accordion tabs block',
+  },
+});
+
+export default (config, props) => ({
+  title: props.intl.formatMessage(messages.AccordionTabsBlock),
   fieldsets: [
     {
       id: 'default',
-      title: 'Default',
+      title: props.intl.formatMessage(messages.Default),
       fields: ['description'],
     },
     {
       id: 'menu',
-      title: 'Menu',
+      title: props.intl.formatMessage(messages.Menu),
       fields: ['menuInverted', 'accordionIconRight'],
     },
     {
       id: 'style',
-      title: 'Style',
+      title: props.intl.formatMessage(messages.Style),
       fields: ['theme'],
     },
   ],
   properties: {
     description: {
-      title: 'Description',
+      title: props.intl.formatMessage(messages.Description),
     },
     accordionIconRight: {
-      title: 'Icon position on the right',
-      description: 'Position left/right of the icon in the accordion tab',
+      title: props.intl.formatMessage(messages.IconPositionOnTheRight),
+      description: props.intl.formatMessage(
+        messages.PositionLeftRightIconAccordionTab,
+      ),
       type: 'boolean',
     },
     menuInverted: {
-      title: 'Inverted',
+      title: props.intl.formatMessage(messages.Inverted),
       type: 'boolean',
     },
     theme: {
-      title: 'Theme',
-      description: 'Set the theme for the accordion tabs block',
+      title: props.intl.formatMessage(messages.Theme),
+      description: props.intl.formatMessage(
+        messages.SetThemeAccordionTabsBlock,
+      ),
       widget: 'theme_picker',
       colors: [
         ...(config.settings && config.settings.themeColors

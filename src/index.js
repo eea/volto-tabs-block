@@ -1,3 +1,5 @@
+import { defineMessages } from 'react-intl';
+
 import {
   DefaultEdit,
   DefaultView,
@@ -22,6 +24,17 @@ import tabsSVG from '@eeacms/volto-tabs-block//icons/tabs.svg';
 import rightSVG from '@plone/volto/icons/right-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 
+defineMessages({
+  default: {
+    id: 'Default',
+    defaultMessage: 'Default',
+  },
+  accordion: {
+    id: 'Accordion responsive',
+    defaultMessage: 'Accordion responsive',
+  },
+});
+
 export default (config) => {
   config.blocks.blocksConfig[TABS_BLOCK] = {
     id: TABS_BLOCK,
@@ -41,12 +54,14 @@ export default (config) => {
     schema: layoutSchema(config),
     templates: {
       default: {
+        id: 'default',
         title: 'Default',
         edit: DefaultEdit,
         view: DefaultView,
         schema: defaultSchema,
       },
       accordion: {
+        id: 'accordionResponsive',
         title: 'Accordion responsive',
         edit: AccordionEdit,
         view: AccordionView,
@@ -59,18 +74,21 @@ export default (config) => {
         },
       },
       'horizontal-responsive': {
+        id: 'horizontalResponsive',
         title: 'Horizontal responsive',
         edit: HorizontalResponsiveEdit,
         view: HorizontalResponsiveView,
         schema: horizontalResponsiveSchema,
       },
       carousel: {
+        id: 'carouselHorizontal',
         title: 'Carousel horizontal',
         edit: DefaultEdit,
         view: HorizontalCarouselView,
         schema: carouselSchema,
       },
       carousel_vertical: {
+        id: 'carouselVerticalPrototype',
         title: 'Carousel vertical (prototype)',
         edit: DefaultEdit,
         view: VerticalCarouselView,
