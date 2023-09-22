@@ -59,6 +59,7 @@ const View = (props) => {
     tabs = {},
     activeTabIndex = 0,
     setActiveTab = noop,
+    width,
     id,
   } = props;
   const accordionConfig =
@@ -69,6 +70,10 @@ const View = (props) => {
   const [mounted, setMounted] = React.useState(false);
   const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
+  const tabs_width = tabsContainer?.current?.state?.blockWidth || initialWidth;
+  const [isAccordion, setIsAccordion] = React.useState(
+    tabs_width < initialWidth,
+  );
 
   const schema = React.useMemo(
     () =>
@@ -93,8 +98,6 @@ const View = (props) => {
     const title = tabs[tab].title;
     const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
-    const isAccordion =
-      tabsContainer?.current?.state?.blockWidth <= initialWidth;
 
     return {
       title: (
@@ -146,6 +149,10 @@ const View = (props) => {
     );
   }, [mounted]);
 
+  React.useEffect(() => {
+    setIsAccordion(width <= initialWidth);
+  }, [width, initialWidth]);
+
   useLayoutEffect(() => {
     if (document.activeElement.role !== 'tab') return;
     if (
@@ -195,7 +202,7 @@ const View = (props) => {
         }}
         tabsWrapperClass={cx(
           props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
-          tabsContainer?.current?.state?.blockWidth <= initialWidth
+          isAccordion
             ? 'ui accordion tabs-accessibility'
             : 'ui menu tabs-accessibility',
           data?.theme ? `${data?.theme}` : '',
