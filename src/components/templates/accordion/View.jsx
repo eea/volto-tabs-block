@@ -201,7 +201,9 @@ const View = (props) => {
           }
         }}
         tabsWrapperClass={cx(
-          props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
+          props?.data?.accordionIconRight
+            ? 'tabs-accordion-icon-right'
+            : 'tabs-accordion-icon-left',
           isAccordion
             ? 'ui accordion tabs-accessibility'
             : 'ui menu tabs-accessibility',
