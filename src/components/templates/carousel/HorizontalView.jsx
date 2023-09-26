@@ -123,8 +123,8 @@ const View = (props) => {
 
   React.useEffect(() => {
     if (!slider.current?.innerSlider?.list) return;
-    const unfocuseElements = ['a', 'button', 'input'];
-    unfocuseElements.forEach((tag) => {
+    const unfocusedElements = ['a', 'button', 'input'];
+    unfocusedElements.forEach((_tag) => {
       for (let element of slider.current.innerSlider.list.querySelectorAll(
         ".slick-slide[aria-hidden='true'] a",
       )) {
@@ -134,10 +134,10 @@ const View = (props) => {
   }, [activeTab]);
   React.useEffect(() => {
     if (!slider.current?.innerSlider?.list) return;
-    let unaccesibileElements = slider.current.innerSlider.list.querySelectorAll(
+    let inaccessibleElements = slider.current.innerSlider.list.querySelectorAll(
       '.slick-slide',
     );
-    for (let element of unaccesibileElements) {
+    for (let element of inaccessibleElements) {
       element.setAttribute('tabindex', '0');
       element.setAttribute('aria-hidden', 'false');
       element.style.removeProperty('outline');
@@ -147,7 +147,7 @@ const View = (props) => {
         carouselDiv.setAttribute('tabindex', '0');
   }, []);
 
-  const panes = tabsList.map((tab, index) => {
+  const panes = tabsList.map((tab, _index) => {
     return {
       id: tab,
       renderItem: (
