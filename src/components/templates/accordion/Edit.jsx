@@ -363,13 +363,12 @@ const Edit = (props) => {
       }}
       tabsWrapperClass={cx(
         props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
-        'ui menu',
+        'ui fluid menu tabs-secondary-variant',
         'tabs-accessibility',
         data?.theme ? `${data?.theme}` : '',
         {
           inverted: getDataValue('menuInverted'),
         },
-        'ui fluid menu',
       )}
       showMore={false}
     />

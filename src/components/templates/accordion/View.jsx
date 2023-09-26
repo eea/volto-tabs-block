@@ -206,7 +206,7 @@ const View = (props) => {
             : 'tabs-accordion-icon-left',
           isAccordion
             ? 'ui accordion tabs-accessibility'
-            : 'ui menu tabs-accessibility',
+            : 'ui menu tabs-accessibility tabs-secondary-variant',
           data?.theme ? `${data?.theme}` : '',
           {
             inverted: getDataValue('menuInverted'),
