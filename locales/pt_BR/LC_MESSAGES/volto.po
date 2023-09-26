@@ -195,7 +195,7 @@ msgstr "Claro"
 
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
-# defaultMessage: Masive
+# defaultMessage: Massive
 msgid "massive"
 msgstr "Gigante"
 
