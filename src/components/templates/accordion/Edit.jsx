@@ -3,7 +3,6 @@ import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import { useIntl } from 'react-intl';
 import { v4 as uuid } from 'uuid';
-import { withRouter } from 'react-router';
 import Tabs from 'react-responsive-tabs';
 import AnimateHeight from 'react-animate-height';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
@@ -12,7 +11,6 @@ import { Menu, Input, Image, Icon } from 'semantic-ui-react';
 import { Icon as VoltoIcon, BlocksForm } from '@plone/volto/components';
 import config from '@plone/volto/registry';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
 
