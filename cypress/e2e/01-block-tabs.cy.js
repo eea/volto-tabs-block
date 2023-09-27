@@ -74,7 +74,7 @@ describe('Blocks Tests', () => {
   });
 
   it('Add Tabs Block Horizontal', () => {
-    // Change page title    
+    // Change page title
     cy.clearSlateTitle();
     cy.getSlateTitle().type('My Add-on Page');
 
@@ -110,7 +110,7 @@ describe('Blocks Tests', () => {
   });
 
   it('Add Tabs Block Accordion', () => {
-    // Change page title    
+    // Change page title
     cy.clearSlateTitle();
     cy.getSlateTitle().type('My Add-on Page');
 
@@ -131,6 +131,10 @@ describe('Blocks Tests', () => {
     cy.get('.tabs-block .menu-item-text').last().click({force: true});
     cy.get('.tabs-block').contains('Tab 2').click();
     cy.get('.tabs-block.edit [contenteditable=true]').first().type('Accordion Second Item');
+    cy.get('.block-editor-tabs_block + .block-editor-slate .block.slate:not(.ui)').click();
+    // cy.get('.block-editor-slate .block.slate').click();
+    cy.get('.tabs-block').contains('Tab 1').click();
+    cy.get('.field-wrapper-accordionIconRight .checkbox').click();
 
     // Save
     cy.get('#toolbar-save').click();
@@ -143,5 +147,6 @@ describe('Blocks Tests', () => {
 
     cy.get('.tabs-block').contains('Tab 2').click();
     cy.contains('Accordion Second Item');
+    cy.get('.tabs-block .RRT__tab:not(.RRT__tab--selected').focus().type('{enter}');
   });
 });
