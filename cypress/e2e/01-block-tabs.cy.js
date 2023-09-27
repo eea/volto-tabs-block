@@ -41,6 +41,8 @@ describe('Blocks Tests', () => {
     cy.contains('Tabs block default template');
 
     cy.get('.tabs-block p').contains('Tab 2').parent().focus().type('{enter}');
+
+    cy.contains('Oxygen');
   });
 
   // it('Add Tabs carousel template', () => {
@@ -158,5 +160,6 @@ describe('Blocks Tests', () => {
     cy.get('.tabs-block').contains('Tab 2').click();
     cy.contains('Accordion Second Item');
     cy.get('.tabs-block .RRT__tab:not(.RRT__tab--selected').focus().type('{enter}');
+    cy.contains('Accordion First Item');
   });
 });
