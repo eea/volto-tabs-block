@@ -179,7 +179,7 @@ const messages = defineMessages({
   },
 });
 
-export default (config, props) => ({
+const horizontalSchema = (config, props) => ({
   title: props.intl.formatMessage(messages.HorizontalTabsBlock),
   fieldsets: [
     {
@@ -301,3 +301,5 @@ export default (config, props) => ({
   },
   required: [],
 });
+
+export default horizontalSchema;

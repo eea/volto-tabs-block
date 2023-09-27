@@ -249,7 +249,7 @@ const Edit = (props) => {
     schema,
   } = props;
 
-  const { description, menuInverted } = data;
+  const { description, menuInverted, menuSecondary, menuPointing } = data;
 
   const accordionConfig = config.blocks.blocksConfig[
     TABS_BLOCK
@@ -407,10 +407,10 @@ const Edit = (props) => {
           inverted: menuInverted,
         },
         {
-          pointing: getDataValue('menuPointing'),
+          pointing: menuPointing,
         },
         {
-          secondary: getDataValue('menuSecondary'),
+          secondary: menuSecondary,
         },
       )}
       showMore={false}
@@ -440,6 +440,14 @@ Edit.schemaEnhancer = ({ schema }) => {
     },
     menuInverted: {
       title: 'Inverted',
+      type: 'boolean',
+    },
+    menuSecondary: {
+      title: 'Secondary',
+      type: 'boolean',
+    },
+    menuPointing: {
+      title: 'Pointing',
       type: 'boolean',
     },
     theme: {

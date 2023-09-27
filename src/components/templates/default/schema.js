@@ -179,7 +179,7 @@ const messages = defineMessages({
   },
 });
 
-export default (config, props) => ({
+const defaultSchema = (config, props) => ({
   title: props.intl.formatMessage(messages.DefaultTabsBlock),
   fieldsets: [
     {
@@ -301,3 +301,5 @@ export default (config, props) => ({
   },
   required: [],
 });
+
+export default defaultSchema;

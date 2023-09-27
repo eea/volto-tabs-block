@@ -11,7 +11,7 @@ const blocksArray = (config) => {
     .filter((val) => !!val);
 };
 
-export default (config) => ({
+const layoutSchema = (config) => ({
   title: 'Tabs block settings',
   fieldsets: [
     {
@@ -78,3 +78,5 @@ export default (config) => ({
   },
   required: [],
 });
+
+export default layoutSchema;

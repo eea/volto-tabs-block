@@ -236,10 +236,10 @@ const View = (props) => {
             inverted: data.menuInverted,
           },
           {
-            pointing: getDataValue('menuPointing'),
+            pointing: data.menuPointing,
           },
           {
-            secondary: getDataValue('menuSecondary'),
+            secondary: data.menuSecondary,
           },
         )}
         showMore={false}

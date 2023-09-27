@@ -27,7 +27,7 @@ const messages = defineMessages({
   },
 });
 
-export default (config, props) => ({
+const carouselSchema = (config, props) => ({
   title: props.intl.formatMessage(messages.CarouselTabsBlock),
   fieldsets: [
     {
@@ -49,3 +49,5 @@ export default (config, props) => ({
   },
   required: [],
 });
+
+export default carouselSchema;
