@@ -2,7 +2,7 @@
             Tabs block
 *******************************/
 
-@tabsBlockColor: #000;
+@tabsBlockColor: var(--text-color, #000);
 @verticalPadding: 1rem;
 @horizontalPadding: 1rem;
 

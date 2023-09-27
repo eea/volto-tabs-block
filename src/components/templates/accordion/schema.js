@@ -13,6 +13,14 @@ const messages = defineMessages({
     id: 'menu',
     defaultMessage: 'Menu',
   },
+  MenuPointing: {
+    id: 'menu-pointing',
+    defaultMessage: 'Pointing',
+  },
+  MenuSecondary: {
+    id: 'menu-secondary',
+    defaultMessage: 'Secondary',
+  },
   Style: {
     id: 'style',
     defaultMessage: 'Style',
@@ -54,7 +62,12 @@ export default (config, props) => ({
     {
       id: 'menu',
       title: props.intl.formatMessage(messages.Menu),
-      fields: ['menuInverted', 'accordionIconRight'],
+      fields: [
+        'menuInverted',
+        'menuSecondary',
+        'menuPointing',
+        'accordionIconRight',
+      ],
     },
     {
       id: 'style',
@@ -75,6 +88,14 @@ export default (config, props) => ({
     },
     menuInverted: {
       title: props.intl.formatMessage(messages.Inverted),
+      type: 'boolean',
+    },
+    menuPointing: {
+      title: props.intl.formatMessage(messages.MenuPointing),
+      type: 'boolean',
+    },
+    menuSecondary: {
+      title: props.intl.formatMessage(messages.MenuSecondary),
       type: 'boolean',
     },
     theme: {
