@@ -116,7 +116,7 @@ describe('Blocks Tests', () => {
     cy.get('.tabs-block .horizontal-responsive.tabs').should('exist');
     cy.contains('Horizontal First Item');
 
-    cy.get('.tabs-block p').contains('Tab 2').click();
+    cy.get('.tabs-block p').contains('Tab 2').parent().focus().type('{enter}');
     cy.contains('Horizontal Second Item');
   });
 

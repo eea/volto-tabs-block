@@ -207,10 +207,7 @@ const View = (props) => {
         menu={{
           attached: menuPosition.attached,
           borderless: menuBorderless,
-          color:
-            variation === 'accordion' && props?.data?.theme
-              ? `theme-${props?.data?.theme}`
-              : menuColor,
+          color: menuColor,
           compact: menuCompact,
           fluid: menuFluid,
           inverted: menuInverted,
