@@ -27,7 +27,7 @@ const View = (props) => {
     verticalSwiping: true,
   };
 
-  const panes = tabsList.map((tab, index) => {
+  const panes = tabsList.map((tab, _index) => {
     return {
       id: tab,
       renderItem: (

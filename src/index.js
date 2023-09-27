@@ -1,3 +1,5 @@
+import { defineMessages } from 'react-intl';
+
 import {
   DefaultEdit,
   DefaultView,
@@ -17,6 +19,17 @@ import { TabsWidget } from './widgets';
 import tabsSVG from '@eeacms/volto-tabs-block//icons/tabs.svg';
 import rightSVG from '@plone/volto/icons/right-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
+
+defineMessages({
+  default: {
+    id: 'Default',
+    defaultMessage: 'Default',
+  },
+  accordion: {
+    id: 'Accordion responsive',
+    defaultMessage: 'Accordion responsive',
+  },
+});
 
 export default (config) => {
   config.blocks.blocksConfig[TABS_BLOCK] = {

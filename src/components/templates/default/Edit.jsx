@@ -342,6 +342,8 @@ const Edit = (props) => {
           text: menuText,
           vertical: menuPosition.vertical,
           className: cx(
+            'tabs-secondary-variant',
+            data.menuAlign,
             menuAlign,
             menuPosition.direction === 'left' ? 'border-right' : '',
             menuPosition.direction === 'right' ? 'border-left' : '',

@@ -15,7 +15,7 @@ import '@eeacms/volto-tabs-block/less/tabs.less';
 
 const View = (props) => {
   const view = React.useRef(null);
-  const { data = {}, uiContainer = '' } = props;
+  const { data = {}, uiContainer = '', location, history } = props;
   const metadata = props.metadata || props.properties;
   const template = data.variation || 'default';
   const tabsData = data.data || {};
@@ -33,7 +33,33 @@ const View = (props) => {
 
   const TabsView = activeTemplate?.[0]?.view || DefaultView;
 
+  const useQuery = () => {
+    const { search } = location;
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  };
+
+  const query = useQuery();
+  const activeTabId = query.get('activeTab');
+
+  const addQueryParam = (key, value) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set(key, value);
+
+    history.push({
+      pathname: location.pathname,
+      search: searchParams.toString(),
+    });
+  };
+
+  const handleActiveTabChange = (id) => {
+    setActiveTab(id);
+    addQueryParam('activeTab', id);
+  };
+
   React.useEffect(() => {
+    if (tabsList.includes(activeTabId)) {
+      setActiveTab(activeTabId);
+    }
     const urlHash = props.location.hash.substring(1) || '';
     const parentTabId = getParentTabFromHash(data, urlHash);
     const id = parentTabId;
@@ -89,7 +115,7 @@ const View = (props) => {
             tabsList={tabsList}
             template={template}
             uiContainer={uiContainer}
-            setActiveTab={setActiveTab}
+            setActiveTab={handleActiveTabChange}
           />
         </StyleWrapperView>
       </div>

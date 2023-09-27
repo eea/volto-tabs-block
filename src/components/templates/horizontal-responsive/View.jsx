@@ -68,7 +68,7 @@ const MenuItem = (props) => {
       <Button
         as="a"
         tabIndex={0}
-        className={cx('item', 'accesibility-button', {
+        className={cx('item', {
           active: tab === activeTab,
         })}
         item-data={tab}
@@ -226,7 +226,7 @@ const View = (props) => {
         />
       ),
       pane: (
-        <Tab.Pane as={isContainer ? Container : undefined}>
+        <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
           <div
             id={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
             className="tab-name"

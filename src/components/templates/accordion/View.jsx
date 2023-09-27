@@ -12,12 +12,14 @@ import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
 
-import 'react-responsive-tabs/styles.css';
+import { withResizeDetector } from 'react-resize-detector';
+
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 class Tab extends React.Component {
   constructor() {
     super();
+    this.animateId = null;
     this.state = {
       height: 0,
     };
@@ -25,10 +27,13 @@ class Tab extends React.Component {
 
   componentDidMount() {
     if (this.state.height === 0) {
-      requestAnimationFrame(() => {
+      this.animateId = requestAnimationFrame(() => {
         this.setState({ height: 'auto' });
       });
     }
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.animateId);
   }
 
   render() {
@@ -54,6 +59,7 @@ const View = (props) => {
     tabs = {},
     activeTabIndex = 0,
     setActiveTab = noop,
+    width,
     id,
   } = props;
 
@@ -66,6 +72,10 @@ const View = (props) => {
   const [mounted, setMounted] = React.useState(false);
   const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
+  const tabs_width = tabsContainer?.current?.state?.blockWidth || initialWidth;
+  const [isAccordion, setIsAccordion] = React.useState(
+    tabs_width < initialWidth,
+  );
 
   const items = tabsList.map((tab, index) => {
     const defaultTitle = `Tab ${index + 1}`;
@@ -95,6 +105,7 @@ const View = (props) => {
               size={icons.size}
             />
           )}
+          <span>{title || defaultTitle} </span>
           <div
             className={cx({
               'asset-top': assetPosition === 'top',
@@ -138,8 +149,13 @@ const View = (props) => {
         />
       ),
       key: tab,
-      tabClassName: cx('ui button item title', { active }),
-      panelClassName: cx('ui bottom attached segment tab', {
+      tabClassName: cx(
+        {
+          active,
+        },
+        isAccordion ? 'title accordion-title' : 'ui item title',
+      ),
+      panelClassName: cx('ui attached segment tab content', {
         active,
       }),
     };
@@ -156,6 +172,10 @@ const View = (props) => {
       tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1,
     );
   }, [mounted]);
+
+  React.useEffect(() => {
+    setIsAccordion(width <= initialWidth);
+  }, [width, initialWidth]);
 
   useLayoutEffect(() => {
     if (document.activeElement.role !== 'tab') return;
@@ -205,12 +225,21 @@ const View = (props) => {
           }
         }}
         tabsWrapperClass={cx(
-          props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
-          'ui pointing secondary menu',
-          'tabs-accessibility',
-          data?.theme ? `theme-${data?.theme}` : '',
+          props?.data?.accordionIconRight
+            ? 'tabs-accordion-icon-right'
+            : 'tabs-accordion-icon-left',
+          isAccordion
+            ? 'ui accordion tabs-accessibility'
+            : 'ui menu tabs-accessibility tabs-secondary-variant',
+          data?.theme ? `${data?.theme}` : '',
           {
             inverted: data.menuInverted,
+          },
+          {
+            pointing: getDataValue('menuPointing'),
+          },
+          {
+            secondary: getDataValue('menuSecondary'),
           },
         )}
         showMore={false}
@@ -219,4 +248,8 @@ const View = (props) => {
   );
 };
 
-export default compose(withScrollToTarget, withRouter)(View);
+export default compose(
+  withScrollToTarget,
+  withResizeDetector,
+  withRouter,
+)(View);
