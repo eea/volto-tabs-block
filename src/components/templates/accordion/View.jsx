@@ -211,6 +211,12 @@ const View = (props) => {
           {
             inverted: getDataValue('menuInverted'),
           },
+          {
+            pointing: getDataValue('menuPointing'),
+          },
+          {
+            secondary: getDataValue('menuSecondary'),
+          },
         )}
         showMore={false}
       />
