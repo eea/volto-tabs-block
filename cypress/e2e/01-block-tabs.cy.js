@@ -4,19 +4,11 @@ describe('Blocks Tests', () => {
   beforeEach(slateBeforeEach);
   afterEach(slateAfterEach);
 
-  it('Add Block: Empty', () => {
-    // Change page title
+  it('Add Tabs default template', () => {
     cy.clearSlateTitle();
-    cy.getSlateTitle().type('My Add-on Page');
+    cy.getSlateTitle().type('Tabs block default template');
 
-    cy.get('.documentFirstHeading').contains('My Add-on Page');
-
-    cy.getSlate().click();
-
-    // Add block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Media').click();
-    cy.get('.content.active.media .button.image').contains('Image').click();
+    cy.get('.documentFirstHeading').contains('Tabs block default template');
 
     cy.getSlate().click();
 
@@ -42,7 +34,24 @@ describe('Blocks Tests', () => {
     cy.get('.tabs-block').contains('Tab 2').click();
     cy.get('.tabs-block.edit [contenteditable=true]').first().type('Oxygen');
 
+    cy.get('#toolbar-save').click();
+    cy.url().should('eq', Cypress.config().baseUrl + '/cypress/my-page');
+
+    // then the page view should contain our changes
+    cy.contains('Tabs block default template');
+
+    cy.get('.tabs-block p').contains('Tab 2').parent().focus().type('{enter}');
+  });
+
+  it('Add Tabs carousel template', () => {
+    // Change page title
+    cy.clearSlateTitle();
+    cy.getSlateTitle().type('Tabs block carousel template');
+
+    cy.get('.documentFirstHeading').contains('Tabs block carousel template');
+
     cy.getSlate().click();
+
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
     cy.get('.blocks-chooser .title').contains('Common').click();
     cy.get('.content.active.common .button.tabs_block')
@@ -52,33 +61,34 @@ describe('Blocks Tests', () => {
     cy.get('.field-wrapper-template #field-template').click();
     cy.get('.react-select__menu').contains('Carousel horizontal').click();
     cy.get('.field-wrapper-verticalAlign #field-verticalAlign').click();
-    cy.get('.react-select__menu').contains('Bottom').click();
+    cy.get('.react-select__menu').contains('Top').click();
     cy.get('.field-wrapper-theme #field-theme').click();
     cy.get('.react-select__menu').contains('Dark').click();
+    cy.get('.tabs-block [contenteditable=true]').first().type('Hydrogen');
     cy.get('.tabs-block .ui.menu .item').last().click();
     cy.get('.tabs-block .ui.menu .item').eq(1).click();
+    cy.get('.tabs-block').contains('Tab 2').click();
+    cy.get('.tabs-block.edit [contenteditable=true]').first().type('Oxygen');
 
     // Save
     cy.get('#toolbar-save').click();
     cy.url().should('eq', Cypress.config().baseUrl + '/cypress/my-page');
 
     // then the page view should contain our changes
-    cy.contains('My Add-on Page');
+    cy.contains('Tabs block carousel template');
     cy.contains('Hydrogen');
 
-    cy.get('.tabs-block p').contains('Tab 2').click();
-    cy.contains('Oxygen');
 
     cy.get('.slick-arrow').click();
-    cy.get('.block.image');
+    cy.contains('Oxygen');
   });
 
   it('Add Tabs Block Horizontal', () => {
     // Change page title
     cy.clearSlateTitle();
-    cy.getSlateTitle().type('My Add-on Page');
+    cy.getSlateTitle().type('Tabs block horizontal template');
 
-    cy.get('.documentFirstHeading').contains('My Add-on Page');
+    cy.get('.documentFirstHeading').contains('Tabs block horizontal template');
     cy.getSlate().click();
 
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
@@ -101,7 +111,7 @@ describe('Blocks Tests', () => {
     cy.url().should('eq', Cypress.config().baseUrl + '/cypress/my-page');
 
     // then the page view should contain our changes
-    cy.contains('My Add-on Page');
+    cy.contains('Tabs block horizontal template');
     cy.get('.tabs-block .horizontal-responsive.tabs').should('exist');
     cy.contains('Horizontal First Item');
 
@@ -112,9 +122,9 @@ describe('Blocks Tests', () => {
   it('Add Tabs Block Accordion', () => {
     // Change page title
     cy.clearSlateTitle();
-    cy.getSlateTitle().type('My Add-on Page');
+    cy.getSlateTitle().type('Tabs block accordion template');
 
-    cy.get('.documentFirstHeading').contains('My Add-on Page');
+    cy.get('.documentFirstHeading').contains('Tabs block accordion template');
     cy.getSlate().click();
 
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
@@ -141,7 +151,7 @@ describe('Blocks Tests', () => {
     cy.url().should('eq', Cypress.config().baseUrl + '/cypress/my-page');
 
     // then the page view should contain our changes
-    cy.contains('My Add-on Page');
+    cy.contains('Tabs block accordion template');
     cy.get('.tabs-block.accordion').should('exist');
     cy.contains('Accordion First Item');
 
