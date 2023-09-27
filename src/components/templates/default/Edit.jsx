@@ -276,10 +276,7 @@ const Edit = (props) => {
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),
-          color:
-            props?.template === 'accordion' && props?.data?.theme
-              ? `theme-${props?.data?.theme}`
-              : getDataValue('menuColor'),
+          color: getDataValue('menuColor'),
           compact: getDataValue('menuCompact'),
           fluid: getDataValue('menuFluid'),
           inverted: getDataValue('menuInverted'),
