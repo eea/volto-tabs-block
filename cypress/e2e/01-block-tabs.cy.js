@@ -99,7 +99,7 @@ describe('Blocks Tests', () => {
       .click({ force: true });
 
     cy.get('.field-wrapper-title input').last().type('Tab 1');
-    cy.get('.field-wrapper-template #field-template').click();
+    cy.get('.field-wrapper-variation #field-variation').click();
     cy.get('.react-select__menu').contains('Horizontal responsive').click();
 
     cy.get('.tabs-block [contenteditable=true]').first().type('Horizontal First Item');
@@ -135,7 +135,7 @@ describe('Blocks Tests', () => {
       .click({ force: true });
 
     cy.get('.field-wrapper-title input').last().type('Tab 1');
-    cy.get('.field-wrapper-template #field-template').click();
+    cy.get('.field-wrapper-variation #field-variation').click();
     cy.get('.react-select__menu').contains('Accordion responsive').click();
 
     cy.get('.tabs-block [contenteditable=true]').first().type('Accordion First Item');

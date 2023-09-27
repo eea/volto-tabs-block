@@ -81,42 +81,49 @@ const MenuItem = (props) => {
         }}
       >
         <>
-          <div
-            className={cx({
-              'asset-top': assetPosition === 'top',
-              'asset-left': assetPosition === 'left',
-              'asset-right': assetPosition === 'right',
-            })}
-          >
-            {assetType === 'icon' && icon && (
-              <Icon
-                className={cx(icon, iconSize, 'aligned')}
-                size={iconSize}
-                {...{
-                  ...(hideTitle && {
-                    role: 'img',
-                    'aria-hidden': 'false',
-                    'aria-label': tabTitle,
-                  }),
-                }}
-              />
-            )}
+          {assetType ? (
+            <div
+              className={cx({
+                'asset-top': assetPosition === 'top',
+                'asset-left': assetPosition === 'left',
+                'asset-right': assetPosition === 'right',
+              })}
+            >
+              {assetType === 'icon' && icon && (
+                <Icon
+                  className={cx(icon, iconSize, 'aligned')}
+                  size={iconSize}
+                  {...{
+                    ...(hideTitle && {
+                      role: 'img',
+                      'aria-hidden': 'false',
+                      'aria-label': tabTitle,
+                    }),
+                  }}
+                />
+              )}
 
-            {assetType === 'image' && image && (
-              <Image
-                src={`${image}/@@images/image/${imageSize}`}
-                className={cx('ui', imageSize, 'aligned')}
-                alt="Tab image"
-              />
-            )}
+              {assetType === 'image' && image && (
+                <Image
+                  src={`${image}/@@images/image/${imageSize}`}
+                  className={cx('ui', imageSize, 'aligned')}
+                  alt="Tab image"
+                />
+              )}
 
-            {!hideTitle && (
-              <div>
-                <span className="menu-item-count">{tabIndex}</span>
-                <p className="menu-item-text">{tabTitle}</p>
-              </div>
-            )}
-          </div>
+              {!hideTitle && (
+                <div>
+                  <span className="menu-item-count">{tabIndex}</span>
+                  <p className="menu-item-text">{tabTitle}</p>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <span className="menu-item-count">{tabIndex}</span>
+              <p className="menu-item-text">{tabTitle}</p>
+            </>
+          )}
         </>
       </Menu.Item>
     </React.Fragment>

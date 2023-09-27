@@ -59,7 +59,7 @@ export default (config) => {
       },
       {
         id: 'accordion',
-        title: 'Accordion',
+        title: 'Accordion responsive',
         edit: AccordionEdit,
         view: AccordionView,
         schemaEnhancer: AccordionEdit.schemaEnhancer,
