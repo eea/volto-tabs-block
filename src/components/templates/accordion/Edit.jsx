@@ -425,7 +425,12 @@ Edit.schemaEnhancer = ({ schema }) => {
   schema.fieldsets.splice(1, 0, {
     id: 'menu',
     title: 'Menu',
-    fields: ['menuInverted', 'accordionIconRight'],
+    fields: [
+      'menuInverted',
+      'menuSecondary',
+      'menuPointing',
+      'accordionIconRight',
+    ],
   });
 
   schema.fieldsets.splice(2, 0, {
@@ -448,10 +453,12 @@ Edit.schemaEnhancer = ({ schema }) => {
     menuSecondary: {
       title: 'Secondary',
       type: 'boolean',
+      default: true,
     },
     menuPointing: {
       title: 'Pointing',
       type: 'boolean',
+      default: true,
     },
     theme: {
       title: 'Theme',
