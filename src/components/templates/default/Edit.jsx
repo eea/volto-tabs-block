@@ -220,7 +220,6 @@ const Edit = (props) => {
     title,
     description,
     align,
-    variation,
     menuBorderless,
     menuColor,
     menuCompact = true,

@@ -149,7 +149,6 @@ const View = (props) => {
     title,
     description,
     align,
-    variation,
     menuBorderless,
     menuColor,
     menuCompact = true,
