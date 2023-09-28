@@ -43,6 +43,10 @@ describe('Blocks Tests', () => {
     cy.get('.tabs-block p').contains('Tab 2').parent().focus().type('{enter}');
 
     cy.contains('Oxygen');
+
+    cy.get('.tabs-block p').contains('Tab 1').click();
+
+    cy.contains('Hydrogen');
   });
 
   it('Add Tabs carousel template', () => {
@@ -106,6 +110,8 @@ describe('Blocks Tests', () => {
     cy.get('.tabs-block .horizontal-responsive .ui.text.menu .item').last().click({force: true});
     cy.get('.tabs-block').contains('Tab 2').click();
     cy.get('.tabs-block.edit [contenteditable=true]').first().type('Horizontal Second Item');
+    cy.get('.tabs-block .horizontal-responsive .ui.text.menu .item').last().click({force: true});
+    cy.get('.tabs-block').contains('Tab 3').dblclick().type('Tab 3 edited');
 
     // Save
     cy.get('#toolbar-save').click();
@@ -118,6 +124,9 @@ describe('Blocks Tests', () => {
 
     cy.get('.tabs-block p').contains('Tab 2').parent().focus().type('{enter}');
     cy.contains('Horizontal Second Item');
+
+    cy.get('.tabs-block p').contains('Tab 1').click();
+    cy.contains('Horizontal First Item');
   });
 
   it('Add Tabs Block Accordion', () => {
