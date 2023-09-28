@@ -105,38 +105,41 @@ const View = (props) => {
               size={icons.size}
             />
           )}
-          <span>{title || defaultTitle} </span>
-          <div
-            className={cx({
-              'asset-top': assetPosition === 'top',
-              'asset-left': assetPosition === 'left',
-              'asset-right': assetPosition === 'right',
-            })}
-          >
-            {assetType === 'icon' && icon && (
-              <Icon
-                className={cx('tab-icon aligned', icon, iconSize)}
-                size={iconSize}
-                {...{
-                  ...(hideTitle && {
-                    role: 'img',
-                    'aria-hidden': 'false',
-                    'aria-label': tabTitle,
-                  }),
-                }}
-              />
-            )}
+          {assetType ? (
+            <div
+              className={cx('tab-with-icon', {
+                'asset-top': assetPosition === 'top',
+                'asset-left': assetPosition === 'left',
+                'asset-right': assetPosition === 'right',
+              })}
+            >
+              {assetType === 'icon' && icon && (
+                <Icon
+                  className={cx('tab-icon aligned', icon, iconSize)}
+                  size={iconSize}
+                  {...{
+                    ...(hideTitle && {
+                      role: 'img',
+                      'aria-hidden': 'false',
+                      'aria-label': tabTitle,
+                    }),
+                  }}
+                />
+              )}
 
-            {assetType === 'image' && image && (
-              <Image
-                src={`${image}/@@images/image/${imageSize}`}
-                className={cx('ui', imageSize, 'aligned')}
-                alt="Tab image"
-              />
-            )}
+              {assetType === 'image' && image && (
+                <Image
+                  src={`${image}/@@images/image/${imageSize}`}
+                  className={cx('ui', imageSize, 'aligned')}
+                  alt="Tab image"
+                />
+              )}
 
-            {!hideTitle && <p className="menu-item-text">{tabTitle}</p>}
-          </div>
+              {!hideTitle && <span className="menu-item-text">{tabTitle}</span>}
+            </div>
+          ) : (
+            <span>{title || defaultTitle}</span>
+          )}
         </>
       ),
       content: (

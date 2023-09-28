@@ -14,7 +14,6 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
 
-import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 const MenuItem = (props) => {
@@ -136,37 +135,43 @@ const MenuItem = (props) => {
           />
         ) : (
           <>
-            <div
-              className={cx({
-                'asset-top': assetPosition === 'top',
-                'asset-left': assetPosition === 'left',
-                'asset-right': assetPosition === 'right',
-              })}
-            >
-              {assetType === 'icon' && icon && (
-                <Icon
-                  className={cx('tab-icon aligned', icon, iconSize)}
-                  size={iconSize}
-                  {...{
-                    ...(hideTitle && {
-                      role: 'img',
-                      'aria-hidden': 'false',
-                      'aria-label': tabTitle,
-                    }),
-                  }}
-                />
-              )}
+            {assetType ? (
+              <div
+                className={cx('tab-with-icon', {
+                  'asset-top': assetPosition === 'top',
+                  'asset-left': assetPosition === 'left',
+                  'asset-right': assetPosition === 'right',
+                })}
+              >
+                {assetType === 'icon' && icon && (
+                  <Icon
+                    className={cx('tab-icon aligned', icon, iconSize)}
+                    size={iconSize}
+                    {...{
+                      ...(hideTitle && {
+                        role: 'img',
+                        'aria-hidden': 'false',
+                        'aria-label': tabTitle,
+                      }),
+                    }}
+                  />
+                )}
 
-              {assetType === 'image' && image && (
-                <Image
-                  src={`${image}/@@images/image/${imageSize}`}
-                  className={cx('ui', imageSize, 'aligned')}
-                  alt="Tab image"
-                />
-              )}
+                {assetType === 'image' && image && (
+                  <Image
+                    src={`${image}/@@images/image/${imageSize}`}
+                    className={cx('ui', imageSize, 'aligned')}
+                    alt="Tab image"
+                  />
+                )}
 
-              {!hideTitle && <p className="menu-item-text">{tabTitle}</p>}
-            </div>
+                {!hideTitle && (
+                  <span className="menu-item-text">{tabTitle}</span>
+                )}
+              </div>
+            ) : (
+              <span>{title || defaultTitle}</span>
+            )}
           </>
         )}
       </Menu.Item>
