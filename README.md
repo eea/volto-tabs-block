@@ -18,7 +18,11 @@
 
 ## Features
 
-![Tabs](./docs/volto-tabs-block.gif)
+#### IMPORTANT! Because this depends on @eeacms/volto-block-style, you should always load this addon as the last addon in Volto project configuration or after @eeacms/volto-block-style.
+
+###
+
+![Tabs](https://github.com/eea/volto-tabs-block/raw/master/docs/volto-tabs-block.gif)
 
 ## Getting started
 
@@ -41,25 +45,25 @@ Go to http://localhost:3000
 
 1. Start Volto frontend
 
-- If you already have a volto project, just update `package.json`:
+* If you already have a volto project, just update `package.json`:
 
-  ```JSON
-  "addons": [
-      "@eeacms/volto-tabs-block"
-  ],
+   ```JSON
+   "addons": [
+       "@eeacms/volto-tabs-block"
+   ],
 
-  "dependencies": {
-      "@eeacms/volto-tabs-block": "*"
-  }
-  ```
+   "dependencies": {
+       "@eeacms/volto-tabs-block": "*"
+   }
+   ```
 
-- If not, create one:
+* If not, create one:
 
-  ```
-  npm install -g yo @plone/generator-volto
-  yo @plone/volto my-volto-project --canary --addon @eeacms/volto-tabs-block
-  cd my-volto-project
-  ```
+   ```
+   npm install -g yo @plone/generator-volto
+   yo @plone/volto my-volto-project --canary --addon @eeacms/volto-tabs-block
+   cd my-volto-project
+   ```
 
 1. Install new add-ons and restart Volto:
 
