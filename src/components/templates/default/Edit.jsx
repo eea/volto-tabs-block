@@ -209,7 +209,7 @@ const Edit = (props) => {
           <Tab.Pane as={isContainer ? Container : undefined}>
             <BlocksForm
               allowedBlocks={data?.allowedBlocks}
-              description={data?.instrunctions?.data}
+              description={data?.instructions?.data}
               manage={manage}
               metadata={metadata}
               pathname={props.pathname}
@@ -276,10 +276,7 @@ const Edit = (props) => {
         menu={{
           attached: menuPosition.attached,
           borderless: getDataValue('menuBorderless'),
-          color:
-            props?.template === 'accordion' && props?.data?.theme
-              ? `theme-${props?.data?.theme}`
-              : getDataValue('menuColor'),
+          color: getDataValue('menuColor'),
           compact: getDataValue('menuCompact'),
           fluid: getDataValue('menuFluid'),
           inverted: getDataValue('menuInverted'),
@@ -291,6 +288,7 @@ const Edit = (props) => {
           text: getDataValue('menuText'),
           vertical: menuPosition.vertical,
           className: cx(
+            'tabs-secondary-variant',
             data.menuAlign,
             menuPosition.direction === 'left' ? 'border-right' : '',
             menuPosition.direction === 'right' ? 'border-left' : '',

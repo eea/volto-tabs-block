@@ -15,7 +15,6 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
-import 'react-responsive-tabs/styles.css';
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 const MenuItem = (props) => {
@@ -364,13 +363,18 @@ const Edit = (props) => {
       }}
       tabsWrapperClass={cx(
         props?.data?.accordionIconRight ? 'tabs-accordion-icon-right' : '',
-        'ui pointing secondary menu',
+        'ui fluid menu tabs-secondary-variant',
         'tabs-accessibility',
-        data?.theme ? `theme-${data?.theme}` : '',
+        data?.theme ? `${data?.theme}` : '',
         {
           inverted: getDataValue('menuInverted'),
         },
-        'ui fluid pointing secondary menu',
+        {
+          pointing: getDataValue('menuPointing'),
+        },
+        {
+          secondary: getDataValue('menuSecondary'),
+        },
       )}
       showMore={false}
     />
