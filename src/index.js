@@ -74,7 +74,7 @@ export default (config) => {
         schemaEnhancer: DefaultEdit.schemaEnhancer,
       },
       {
-        id: 'accordionResponsive',
+        id: 'accordion',
         title: 'Accordion responsive',
         edit: AccordionEdit,
         view: AccordionView,

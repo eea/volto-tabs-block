@@ -253,10 +253,9 @@ const Edit = (props) => {
   } = props;
 
   const { description, menuInverted, menuSecondary, menuPointing } = data;
-
   const accordionConfig = config.blocks.blocksConfig[
     TABS_BLOCK
-  ].variations.filter((v, i) => v.id === 'accordion');
+  ].variations.filter((v, i) => v.id === data.variation);
   const { icons, semanticIcon, transformWidth = 800 } = accordionConfig?.[0];
 
   const tabsContainer = React.useRef();
