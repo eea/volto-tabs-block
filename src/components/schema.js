@@ -1,66 +1,187 @@
 import { cloneDeepSchema } from '@plone/volto/helpers/Utils/Utils';
+import { defineMessages } from 'react-intl';
+
+const messages = defineMessages({
+  AssetPosition: {
+    defaultMessage: 'Asset position',
+    id: 'assetPosition',
+  },
+  AssetSize: {
+    defaultMessage: 'Asset size',
+    id: 'assetSize',
+  },
+  AssetType: {
+    defaultMessage: 'Asset type',
+    id: 'assetType',
+  },
+  Bottom: {
+    defaultMessage: 'Bottom',
+    id: 'bottom',
+  },
+  Default: {
+    defaultMessage: 'Default',
+    id: 'default',
+  },
+  Image: {
+    defaultMessage: 'Image',
+    id: 'image',
+  },
+  Icon: {
+    defaultMessage: 'Icon',
+    id: 'icon',
+  },
+  IconName: {
+    defaultMessage: 'Icon name',
+    id: 'iconName',
+  },
+  LeftSide: {
+    id: 'left-side',
+    defaultMessage: 'Left side',
+  },
+  RightSide: {
+    id: 'right-side',
+    defaultMessage: 'Right side',
+  },
+  Medium: {
+    defaultMessage: 'Medium',
+    id: 'Medium',
+  },
+  Middle: {
+    defaultMessage: 'Middle',
+    id: 'middle',
+  },
+  Preview: {
+    defaultMessage: 'Preview',
+    id: 'preview',
+  },
+  Small: {
+    id: 'small',
+    defaultMessage: 'Small',
+  },
+  Tiny: {
+    id: 'tiny',
+    defaultMessage: 'Tiny',
+  },
+  Tabs: {
+    defaultMessage: 'Tabs',
+    id: 'tabs',
+  },
+  TabsBlock: {
+    defaultMessage: 'Tabs block',
+    id: 'tabs-block',
+  },
+  TabTitle: {
+    defaultMessage: 'Tab title',
+    id: 'tabTitle',
+  },
+  Template: {
+    defaultMessage: 'Template',
+    id: 'template',
+  },
+  Title: {
+    defaultMessage: 'Title',
+    id: 'title',
+  },
+  Top: {
+    defaultMessage: 'Top',
+    id: 'top',
+  },
+  VerticalAlign: {
+    defaultMessage: 'Vertical align',
+    id: 'vertical-align',
+  },
+  Huge: {
+    id: 'huge',
+    defaultMessage: 'Huge',
+  },
+  Mini: {
+    id: 'mini',
+    defaultMessage: 'Mini',
+  },
+  Massive: {
+    id: 'massive',
+    defaultMessage: 'Massive',
+  },
+  Tab: {
+    id: 'tab',
+    defaultMessage: 'Tab',
+  },
+  HideTitle: {
+    id: 'hideTitle',
+    defaultMessage: 'Hide tab title?',
+  },
+  Large: {
+    id: 'large',
+    defaultMessage: 'Large',
+  },
+  Description: {
+    id: 'description',
+    defaultMessage: 'Description',
+  },
+});
 
 const tabSchema = (props) => {
+  const intl = props.intl;
   return {
-    title: 'Tab',
+    title: intl.formatMessage(messages.Tab),
 
     fieldsets: [
       {
         id: 'default',
-        title: 'Default',
+        title: intl.formatMessage(messages.Default),
         fields: ['title', 'assetType'],
       },
     ],
 
     properties: {
       title: {
-        title: 'Tab title',
+        title: intl.formatMessage(messages.TabTitle),
       },
       assetType: {
-        title: 'Asset type',
+        title: intl.formatMessage(messages.AssetType),
         choices: [
-          ['image', 'Image'],
-          ['icon', 'Icon'],
+          ['image', intl.formatMessage(messages.Image)],
+          ['icon', intl.formatMessage(messages.Icon)],
         ],
       },
       assetPosition: {
-        title: 'Asset position',
+        title: intl.formatMessage(messages.AssetPosition),
         choices: [
-          ['top', 'Top'],
-          ['left', 'Left side'],
-          ['right', 'Right side'],
+          ['top', intl.formatMessage(messages.Top)],
+          ['left', intl.formatMessage(messages.LeftSide)],
+          ['right', intl.formatMessage(messages.RightSide)],
         ],
         default: 'top',
       },
       image: {
-        title: 'Image',
+        title: intl.formatMessage(messages.Image),
         widget: 'attachedimage',
       },
       imageSize: {
-        title: 'Asset size',
+        title: intl.formatMessage(messages.AssetSize),
         choices: [
-          ['tiny', 'Tiny'],
-          ['small', 'Small'],
-          ['medium', 'Medium'],
-          ['big', 'Large'],
-          ['preview', 'Preview'],
+          ['tiny', intl.formatMessage(messages.Tiny)],
+          ['small', intl.formatMessage(messages.Small)],
+          ['medium', intl.formatMessage(messages.Medium)],
+          ['big', intl.formatMessage(messages.Large)],
+          ['preview', intl.formatMessage(messages.Preview)],
         ],
         default: 'big',
       },
       iconSize: {
-        title: 'Asset size',
+        title: intl.formatMessage(messages.AssetSize),
         choices: [
-          ['mini', 'Mini'],
-          ['tiny', 'Tiny'],
-          ['small', 'Small'],
-          ['big', 'Big'],
-          ['huge', 'Huge'],
-          ['massive', 'Massive'],
+          ['mini', intl.formatMessage(messages.Mini)],
+          ['tiny', intl.formatMessage(messages.Tiny)],
+          ['small', intl.formatMessage(messages.Small)],
+          ['big', intl.formatMessage(messages.Large)],
+          ['huge', props.intl.formatMessage(messages.Huge)],
+          ['massive', props.intl.formatMessage(messages.Massive)],
         ],
         default: 'small',
       },
       icon: {
-        title: 'Icon name',
+        title: intl.formatMessage(messages.IconName),
         description: (
           <>
             Ex. ri-home-line. See{' '}
@@ -75,7 +196,7 @@ const tabSchema = (props) => {
         ),
       },
       hideTitle: {
-        title: 'Hide tab title?',
+        title: intl.formatMessage(messages.HideTitle),
         type: 'boolean',
         defaultValue: false,
       },
@@ -85,7 +206,7 @@ const tabSchema = (props) => {
   };
 };
 
-const toggleIconField = (schema, child, intl) => {
+const toggleIconField = (schema, child) => {
   const cloned = cloneDeepSchema(schema);
 
   cloned.fieldsets[0].fields = [
@@ -102,34 +223,35 @@ const toggleIconField = (schema, child, intl) => {
 };
 
 export const schema = (props) => {
+  const intl = props.intl;
   return {
-    title: 'Tabs block',
+    title: intl.formatMessage(messages.TabsBlock),
     fieldsets: [
       {
         id: 'default',
-        title: 'Default',
+        title: intl.formatMessage(messages.Default),
         fields: ['title', 'description', 'verticalAlign', 'data'],
       },
     ],
     properties: {
       data: {
-        title: 'Tabs',
+        title: intl.formatMessage(messages.Tabs),
         type: 'tabs',
         schema: tabSchema(props),
         schemaExtender: toggleIconField,
       },
       title: {
-        title: 'Title',
+        title: intl.formatMessage(messages.Title),
       },
       description: {
-        title: 'Description',
+        title: intl.formatMessage(messages.Description),
       },
       verticalAlign: {
-        title: 'Vertical align',
+        title: intl.formatMessage(messages.VerticalAlign),
         choices: [
-          ['flex-start', 'Top'],
-          ['center', 'Middle'],
-          ['flex-end', 'Bottom'],
+          ['flex-start', intl.formatMessage(messages.Top)],
+          ['center', intl.formatMessage(messages.Middle)],
+          ['flex-end', intl.formatMessage(messages.Bottom)],
         ],
         default: 'flex-start',
       },

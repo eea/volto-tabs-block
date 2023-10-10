@@ -16,6 +16,15 @@ import plusSVG from '@plone/volto/icons/add.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 
+import { defineMessages } from 'react-intl';
+
+const messages = defineMessages({
+  AddTab: {
+    defaultMessage: 'Add Tab',
+    id: 'addTab',
+  },
+});
+
 export function moveColumn(formData, source, destination) {
   return {
     ...formData,
@@ -96,10 +105,9 @@ const TabsWidget = (props) => {
                 },
               });
             }}
-            title="Add Tab"
           >
             <Icon name={plusSVG} size="18px" />
-            &nbsp; Add Tab
+            &nbsp; {intl.formatMessage(messages.AddTab)}
           </Button>
         </div>
       </FormFieldWrapper>
