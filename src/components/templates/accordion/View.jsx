@@ -131,7 +131,7 @@ const View = (props) => {
                 <Image
                   src={`${image}/@@images/image/${imageSize}`}
                   className={cx('ui', imageSize, 'aligned')}
-                  alt="Tab image"
+                  alt={hideTitle ? tabTitle : ''}
                 />
               )}
 

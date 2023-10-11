@@ -64,7 +64,9 @@ const MenuItem = (props) => {
       <Menu.Item
         name={defaultTitle}
         active={tab === activeTab}
+        aria-selected={tab === activeTab}
         tabIndex={0}
+        role={'tab'}
         onClick={() => {
           if (activeTab !== tab) {
             setActiveTab(tab);
@@ -107,7 +109,7 @@ const MenuItem = (props) => {
                 <Image
                   src={`${image}/@@images/image/${imageSize}`}
                   className={cx('ui', imageSize, 'aligned')}
-                  alt="Tab image"
+                  alt={hideTitle ? tabTitle : ''}
                 />
               )}
 
