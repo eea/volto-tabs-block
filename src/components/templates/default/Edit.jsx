@@ -3,10 +3,11 @@ import { useIntl } from 'react-intl';
 import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import cx from 'classnames';
-import { Menu, Tab, Input, Container, Icon, Image } from 'semantic-ui-react';
+import { Menu, Tab, Input, Container } from 'semantic-ui-react';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
+import { AssetTab } from '@eeacms/volto-tabs-block/components';
 import {
   SimpleMarkdown,
   getMenuPosition,
@@ -42,16 +43,8 @@ const MenuItem = (props) => {
   const { tab, index } = props;
   const tabIndex = index + 1;
   const defaultTitle = `Tab ${tabIndex}`;
-  const {
-    title,
-    icon,
-    image,
-    assetPosition,
-    assetType,
-    iconSize,
-    imageSize,
-    hideTitle,
-  } = tabs[tab];
+  const tabSettings = tabs[tab];
+  const { title } = tabSettings;
   const tabTitle = title || defaultTitle;
 
   const addNewTab = () => {
@@ -135,42 +128,11 @@ const MenuItem = (props) => {
           />
         ) : (
           <>
-            <div
-              className={cx({
-                'asset-top': assetPosition === 'top',
-                'asset-left': assetPosition === 'left',
-                'asset-right': assetPosition === 'right',
-              })}
-            >
-              {assetType === 'icon' && icon && (
-                <Icon
-                  className={cx(icon, iconSize, 'aligned')}
-                  size={iconSize}
-                  {...{
-                    ...(hideTitle && {
-                      role: 'img',
-                      'aria-hidden': 'false',
-                      'aria-label': tabTitle,
-                    }),
-                  }}
-                />
-              )}
-
-              {assetType === 'image' && image && (
-                <Image
-                  src={`${image}/@@images/image/${imageSize}`}
-                  className={cx('ui', imageSize, 'aligned')}
-                  alt={hideTitle ? tabTitle : ''}
-                />
-              )}
-
-              {!hideTitle && (
-                <div>
-                  <span className="menu-item-count">{tabIndex}</span>
-                  <p className="menu-item-text">{tabTitle}</p>
-                </div>
-              )}
-            </div>
+            <AssetTab
+              props={tabSettings}
+              tabTitle={tabTitle}
+              tabIndex={tabIndex}
+            />
           </>
         )}
       </Menu.Item>

@@ -1,4 +1,5 @@
 import DefaultEdit from './Edit';
 import DefaultView from './View';
+import { AssetTab } from './View';
 
-export { DefaultEdit, DefaultView };
+export { DefaultEdit, DefaultView, AssetTab };

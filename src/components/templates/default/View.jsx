@@ -14,6 +14,56 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 
 import noop from 'lodash/noop';
 
+export const AssetTab = ({ props, tabIndex, tabTitle }) => {
+  const {
+    icon,
+    image,
+    assetType,
+    assetPosition,
+    iconSize,
+    imageSize,
+    hideTitle,
+  } = props;
+  return (
+    <div
+      className={cx({
+        'asset-top': assetPosition === 'top',
+        'asset-left': assetPosition === 'left',
+        'asset-right': assetPosition === 'right',
+      })}
+    >
+      {assetType === 'icon' && icon && (
+        <Icon
+          className={cx(icon, iconSize, 'aligned')}
+          size={iconSize}
+          {...{
+            ...(hideTitle && {
+              role: 'img',
+              'aria-hidden': 'false',
+              'aria-label': tabTitle,
+            }),
+          }}
+        />
+      )}
+
+      {assetType === 'image' && image && (
+        <Image
+          src={`${image}/@@images/image/${imageSize}`}
+          className={cx('ui', imageSize, 'aligned')}
+          alt={hideTitle ? tabTitle : ''}
+        />
+      )}
+
+      {!hideTitle && (
+        <div>
+          <span className="menu-item-count">{tabIndex}</span>
+          <p className="menu-item-text">{tabTitle}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const MenuItem = (props) => {
   const {
     activeTab = null,
@@ -28,16 +78,8 @@ const MenuItem = (props) => {
   const tabIndex = index + 1;
   const [tabChanged, setTabChanged] = useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
-  const {
-    title,
-    icon,
-    image,
-    assetType,
-    assetPosition,
-    iconSize,
-    imageSize,
-    hideTitle,
-  } = tabs[tab];
+  const tabSettings = tabs[tab];
+  const { title, assetType } = tabSettings;
   const tabTitle = title || defaultTitle;
 
   useEffect(() => {
@@ -84,42 +126,11 @@ const MenuItem = (props) => {
       >
         <>
           {assetType ? (
-            <div
-              className={cx({
-                'asset-top': assetPosition === 'top',
-                'asset-left': assetPosition === 'left',
-                'asset-right': assetPosition === 'right',
-              })}
-            >
-              {assetType === 'icon' && icon && (
-                <Icon
-                  className={cx(icon, iconSize, 'aligned')}
-                  size={iconSize}
-                  {...{
-                    ...(hideTitle && {
-                      role: 'img',
-                      'aria-hidden': 'false',
-                      'aria-label': tabTitle,
-                    }),
-                  }}
-                />
-              )}
-
-              {assetType === 'image' && image && (
-                <Image
-                  src={`${image}/@@images/image/${imageSize}`}
-                  className={cx('ui', imageSize, 'aligned')}
-                  alt={hideTitle ? tabTitle : ''}
-                />
-              )}
-
-              {!hideTitle && (
-                <div>
-                  <span className="menu-item-count">{tabIndex}</span>
-                  <p className="menu-item-text">{tabTitle}</p>
-                </div>
-              )}
-            </div>
+            <AssetTab
+              props={tabSettings}
+              tabTitle={tabTitle}
+              tabIndex={tabIndex}
+            />
           ) : (
             <>
               <span className="menu-item-count">{tabIndex}</span>

@@ -74,6 +74,10 @@
     flex-direction: row-reverse;
   }
 
+  .menu-item-count {
+    display: @menuItemCountDisplay;
+  }
+
   > .styled > .tabs > .ui.menu,
   > .styled > .tabs > .ui.grid > .column > .ui.menu,
   > .tabs > .ui.menu,
@@ -133,10 +137,6 @@
           margin: 0;
           color: inherit;
         }
-      }
-
-      .menu-item-count {
-        display: @menuItemCountDisplay;
       }
 
       &.active {

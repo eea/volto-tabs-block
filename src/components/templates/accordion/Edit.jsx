@@ -7,11 +7,12 @@ import Tabs from 'react-responsive-tabs';
 import AnimateHeight from 'react-animate-height';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
 import { emptyBlocksForm } from '@plone/volto/helpers';
-import { Menu, Input, Image, Icon } from 'semantic-ui-react';
+import { Menu, Input, Icon } from 'semantic-ui-react';
 import { Icon as VoltoIcon, BlocksForm } from '@plone/volto/components';
 import config from '@plone/volto/registry';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
+import { AssetTab } from '@eeacms/volto-tabs-block/components';
 import noop from 'lodash/noop';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
@@ -42,16 +43,8 @@ const MenuItem = (props) => {
   const { tab, index } = props;
   const tabIndex = index + 1;
   const defaultTitle = `Tab ${tabIndex}`;
-  const {
-    title,
-    icon,
-    image,
-    assetPosition,
-    assetType,
-    iconSize,
-    imageSize,
-    hideTitle,
-  } = tabs[tab];
+  const tabSettings = tabs[tab];
+  const { title, assetType } = tabSettings;
   const tabTitle = title || defaultTitle;
 
   const addNewTab = () => {
@@ -136,39 +129,11 @@ const MenuItem = (props) => {
         ) : (
           <>
             {assetType ? (
-              <div
-                className={cx('tab-with-icon', {
-                  'asset-top': assetPosition === 'top',
-                  'asset-left': assetPosition === 'left',
-                  'asset-right': assetPosition === 'right',
-                })}
-              >
-                {assetType === 'icon' && icon && (
-                  <Icon
-                    className={cx('tab-icon aligned', icon, iconSize)}
-                    size={iconSize}
-                    {...{
-                      ...(hideTitle && {
-                        role: 'img',
-                        'aria-hidden': 'false',
-                        'aria-label': tabTitle,
-                      }),
-                    }}
-                  />
-                )}
-
-                {assetType === 'image' && image && (
-                  <Image
-                    src={`${image}/@@images/image/${imageSize}`}
-                    className={cx('ui', imageSize, 'aligned')}
-                    alt={hideTitle ? tabTitle : ''}
-                  />
-                )}
-
-                {!hideTitle && (
-                  <span className="menu-item-text">{tabTitle}</span>
-                )}
-              </div>
+              <AssetTab
+                props={tabSettings}
+                tabTitle={tabTitle}
+                tabIndex={tabIndex}
+              />
             ) : (
               <span>{title || defaultTitle}</span>
             )}
