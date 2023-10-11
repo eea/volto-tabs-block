@@ -14,7 +14,6 @@ import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { BlockStyleWrapperEdit } from '@eeacms/volto-block-style/BlockStyleWrapper';
 import { DefaultEdit } from './templates/default';
 import { useIntl } from 'react-intl';
-import { schema } from './schema';
 
 import '@eeacms/volto-tabs-block/less/edit.less';
 import '@eeacms/volto-tabs-block/less/tabs.less';
@@ -37,6 +36,7 @@ const Edit = (props) => {
   const tabData = tabs[activeTab] || {};
   const theme = data.theme || 'light';
   const verticalAlign = data.verticalAlign || 'flex-start';
+  const tabsBlockConfig = config.blocks.blocksConfig[TABS_BLOCK];
 
   const activeTemplate = config.blocks.blocksConfig[
     TABS_BLOCK
@@ -44,7 +44,7 @@ const Edit = (props) => {
 
   const TabsEdit = activeTemplate?.[0]?.edit || DefaultEdit;
 
-  const schemaObject = schema(props);
+  const schemaObject = tabsBlockConfig.blockSchema(props);
 
   React.useEffect(() => {
     if (!Object.keys(data.data || {}).length) {

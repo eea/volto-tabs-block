@@ -182,18 +182,6 @@ const tabSchema = (props) => {
       },
       icon: {
         title: intl.formatMessage(messages.IconName),
-        description: (
-          <>
-            Ex. ri-home-line. See{' '}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://remixicon.com/"
-            >
-              Remix Icon set
-            </a>
-          </>
-        ),
       },
       hideTitle: {
         title: intl.formatMessage(messages.HideTitle),
@@ -222,7 +210,7 @@ const toggleIconField = (schema, child) => {
   return cloned;
 };
 
-export const schema = (props) => {
+export const blockSchema = (props) => {
   const intl = props.intl;
   return {
     title: intl.formatMessage(messages.TabsBlock),

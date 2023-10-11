@@ -12,6 +12,7 @@ import {
   layoutSchema,
   TabsEdit,
   TabsView,
+  blockSchema,
 } from '@eeacms/volto-tabs-block/components';
 import { TABS_BLOCK } from './constants';
 import { TabsWidget } from './widgets';
@@ -47,7 +48,7 @@ defineMessages({
   },
 });
 
-export default (config) => {
+const applyConfig = (config) => {
   config.blocks.blocksConfig[TABS_BLOCK] = {
     id: TABS_BLOCK,
     title: 'Tabs',
@@ -63,6 +64,7 @@ export default (config) => {
       view: [],
     },
     blockHasOwnFocusManagement: true,
+    blockSchema: blockSchema,
     schema: layoutSchema(config),
     variations: [
       {
@@ -128,3 +130,5 @@ export default (config) => {
 
   return config;
 };
+
+export default applyConfig;
