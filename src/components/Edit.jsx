@@ -47,7 +47,7 @@ const Edit = (props) => {
   const schemaObject = tabsBlockConfig.blockSchema(props);
 
   React.useEffect(() => {
-    if (!Object.keys(data.data || {}).length) {
+    if (!Object.keys(data?.data?.blocks || {}).length) {
       // Initialize TABS_BLOCK
       const tabsData = empty({
         schema: schemaObject.properties.data.schema,
