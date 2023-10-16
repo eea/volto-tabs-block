@@ -24,6 +24,7 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
     imageSize,
     hideTitle,
   } = props;
+
   return (
     <div
       className={cx({
