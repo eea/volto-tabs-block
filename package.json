@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-tabs-block",
-  "version": "6.0.0",
+  "version": "6.0.2",
   "description": "volto-tabs-block: Volto add-on",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
@@ -31,8 +31,8 @@
     "@cypress/code-coverage": "^3.10.0",
     "@plone/scripts": "*",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "husky": "*",
-    "lint-staged": "*",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "md5": "^2.3.0"
   },
   "lint-staged": {
