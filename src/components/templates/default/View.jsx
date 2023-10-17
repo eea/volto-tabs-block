@@ -10,6 +10,8 @@ import {
   getMenuPosition,
 } from '@eeacms/volto-tabs-block/utils';
 
+import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers';
+
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 import noop from 'lodash/noop';
@@ -24,7 +26,7 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
     imageSize,
     hideTitle,
   } = props;
-
+  const imageObject = image?.[0];
   return (
     <div
       className={cx({
@@ -35,7 +37,7 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
     >
       {assetType === 'icon' && icon && (
         <Icon
-          className={cx(icon, iconSize, 'aligned')}
+          className={cx(icon, 'aligned')}
           size={iconSize}
           {...{
             ...(hideTitle && {
@@ -47,9 +49,16 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
         />
       )}
 
-      {assetType === 'image' && image && (
+      {assetType === 'image' && imageObject && (
         <Image
-          src={`${image}/@@images/image/${imageSize}`}
+          src={
+            isInternalURL(imageObject['@id'])
+              ? `${flattenToAppURL(imageObject['@id'])}/${
+                  imageObject?.image_scales?.image?.[0].scales?.[imageSize]
+                    ?.download || imageObject?.image_scales?.image?.[0].download
+                }`
+              : imageObject['@id']
+          }
           className={cx('ui', imageSize, 'aligned')}
           alt={hideTitle ? tabTitle : ''}
         />
@@ -80,6 +89,7 @@ const MenuItem = (props) => {
   const [tabChanged, setTabChanged] = useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
   const tabSettings = tabs[tab];
+  // console.log('menu props', props);
   const { title, assetType } = tabSettings;
   const tabTitle = title || defaultTitle;
 

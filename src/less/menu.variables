@@ -11,6 +11,11 @@
 @menuTitleHoverColor: #013C60;
 @menuTitleHoverBackground: none;
 
+/* Tab Icons */
+@tabImageIconWidth:  2em;
+@tabImageTileWidth: 4em;
+@tabImageThumbWidth: 8em;
+
 /* Menu description */
 @menuDescriptionColor: #636363;
 

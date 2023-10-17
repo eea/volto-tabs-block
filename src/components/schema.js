@@ -50,17 +50,9 @@ const messages = defineMessages({
     defaultMessage: 'Middle',
     id: 'middle',
   },
-  Preview: {
-    defaultMessage: 'Preview',
-    id: 'preview',
-  },
   Small: {
     id: 'small',
     defaultMessage: 'Small',
-  },
-  Tiny: {
-    id: 'tiny',
-    defaultMessage: 'Tiny',
   },
   Tabs: {
     defaultMessage: 'Tabs',
@@ -74,10 +66,6 @@ const messages = defineMessages({
     defaultMessage: 'Tab title',
     id: 'tabTitle',
   },
-  Template: {
-    defaultMessage: 'Template',
-    id: 'template',
-  },
   Title: {
     defaultMessage: 'Title',
     id: 'title',
@@ -89,18 +77,6 @@ const messages = defineMessages({
   VerticalAlign: {
     defaultMessage: 'Vertical align',
     id: 'vertical-align',
-  },
-  Huge: {
-    id: 'huge',
-    defaultMessage: 'Huge',
-  },
-  Mini: {
-    id: 'mini',
-    defaultMessage: 'Mini',
-  },
-  Massive: {
-    id: 'massive',
-    defaultMessage: 'Massive',
   },
   Tab: {
     id: 'tab',
@@ -155,30 +131,28 @@ const tabSchema = (props) => {
       },
       image: {
         title: intl.formatMessage(messages.Image),
-        widget: 'attachedimage',
+        widget: 'object_browser',
+        mode: 'image',
+        allowExternals: true,
+        selectedItemAttrs: ['image_field', 'image_scales'],
       },
       imageSize: {
         title: intl.formatMessage(messages.AssetSize),
         choices: [
-          ['tiny', intl.formatMessage(messages.Tiny)],
-          ['small', intl.formatMessage(messages.Small)],
-          ['medium', intl.formatMessage(messages.Medium)],
-          ['big', intl.formatMessage(messages.Large)],
-          ['preview', intl.formatMessage(messages.Preview)],
+          ['icon', intl.formatMessage(messages.Small)],
+          ['tile', intl.formatMessage(messages.Medium)],
+          ['thumb', intl.formatMessage(messages.Large)],
         ],
-        default: 'big',
+        default: 'icon',
       },
       iconSize: {
         title: intl.formatMessage(messages.AssetSize),
         choices: [
-          ['mini', intl.formatMessage(messages.Mini)],
-          ['tiny', intl.formatMessage(messages.Tiny)],
-          ['small', intl.formatMessage(messages.Small)],
-          ['big', intl.formatMessage(messages.Large)],
-          ['huge', props.intl.formatMessage(messages.Huge)],
-          ['massive', props.intl.formatMessage(messages.Massive)],
+          ['big', intl.formatMessage(messages.Small)],
+          ['huge', intl.formatMessage(messages.Medium)],
+          ['massive', intl.formatMessage(messages.Large)],
         ],
-        default: 'small',
+        default: 'big',
       },
       icon: {
         title: intl.formatMessage(messages.IconName),
