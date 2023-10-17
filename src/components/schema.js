@@ -148,11 +148,11 @@ const tabSchema = (props) => {
       iconSize: {
         title: intl.formatMessage(messages.AssetSize),
         choices: [
-          ['big', intl.formatMessage(messages.Small)],
-          ['huge', intl.formatMessage(messages.Medium)],
-          ['massive', intl.formatMessage(messages.Large)],
+          ['small', intl.formatMessage(messages.Small)],
+          ['medium', intl.formatMessage(messages.Medium)],
+          ['large', intl.formatMessage(messages.Large)],
         ],
-        default: 'big',
+        default: 'small',
       },
       icon: {
         title: intl.formatMessage(messages.IconName),

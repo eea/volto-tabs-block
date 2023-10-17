@@ -29,7 +29,7 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
   const imageObject = image?.[0];
   return (
     <div
-      className={cx({
+      className={cx('asset-position', {
         'asset-top': assetPosition === 'top',
         'asset-left': assetPosition === 'left',
         'asset-right': assetPosition === 'right',
@@ -37,8 +37,7 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
     >
       {assetType === 'icon' && icon && (
         <Icon
-          className={cx(icon, 'aligned')}
-          size={iconSize}
+          className={cx('tab-icon', icon, iconSize, 'aligned')}
           {...{
             ...(hideTitle && {
               role: 'img',

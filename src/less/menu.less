@@ -31,17 +31,32 @@
     display: block !important;
   }
 
-  .asset-top .image {
-    &.icon {
-      width: @tabImageIconWidth;
-    }
+  .asset-position {
+    .image {
+      &.icon {
+        width: @tabImageSmallSize;
+      }
 
-    &.tile {
-      width: @tabImageTileWidth;
-    }
+      &.tile {
+        width: @tabImageMediumSize;
+      }
 
-    &.thumb {
-      width: @tabImageThumbWidth;
+      &.thumb {
+        width: @tabImageLargeSize;
+      }
+    }
+    .icon {
+      &.small {
+        font-size: @tabIconSmallSize;
+      }
+
+      &.medium {
+        font-size: @tabIconMediumSize;
+      }
+
+      &.large {
+        font-size: @tabIconLargeSize;
+      }
     }
   }
 
