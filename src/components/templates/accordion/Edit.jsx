@@ -4,7 +4,6 @@ import { isEmpty } from 'lodash';
 import { useIntl } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 import Tabs from 'react-responsive-tabs';
-import AnimateHeight from 'react-animate-height';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import { Menu, Input, Icon } from 'semantic-ui-react';
@@ -163,32 +162,8 @@ const MenuItem = (props) => {
 };
 
 class Tab extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      height: 0,
-    };
-  }
-
-  componentDidMount() {
-    if (this.state.height === 0) {
-      requestAnimationFrame(() => {
-        this.setState({ height: 'auto' });
-      });
-    }
-  }
-
   render() {
-    return (
-      <AnimateHeight
-        animateOpacity
-        duration={500}
-        height={this.state.height}
-        aria-hidden={false}
-      >
-        {this.props.children}
-      </AnimateHeight>
-    );
+    return this.props.children;
   }
 }
 
