@@ -219,7 +219,7 @@ const Edit = (props) => {
           <Tab.Pane as={isContainer ? Container : undefined}>
             <BlocksForm
               allowedBlocks={data?.allowedBlocks}
-              description={data?.instrunctions?.data}
+              description={data?.instructions?.data}
               manage={manage}
               metadata={metadata}
               pathname={props.pathname}
