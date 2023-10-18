@@ -2,164 +2,18 @@ import React from 'react';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import { useIntl } from 'react-intl';
-import { v4 as uuid } from 'uuid';
 import Tabs from 'react-responsive-tabs';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
+import { MenuItem } from '@eeacms/volto-tabs-block/components/templates/default/Edit';
 import { emptyBlocksForm } from '@plone/volto/helpers';
-import { Menu, Input, Icon } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 import { Icon as VoltoIcon, BlocksForm } from '@plone/volto/components';
 import config from '@plone/volto/registry';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
-import { AssetTab } from '@eeacms/volto-tabs-block/components';
 import noop from 'lodash/noop';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
-
-const MenuItem = (props) => {
-  const inputRef = React.useRef(null);
-  const intl = useIntl();
-  const {
-    schema,
-    activeTab = null,
-    activeBlock = null,
-    block = null,
-    data = {},
-    editingTab = null,
-    selected = false,
-    tabData = {},
-    tabs = {},
-    tabsData = {},
-    tabsDescription,
-    tabsList = [],
-    tabsTitle,
-    emptyTab = noop,
-    setActiveBlock = noop,
-    setActiveTab = noop,
-    setEditingTab = noop,
-    onChangeBlock = noop,
-  } = props;
-  const { tab, index } = props;
-  const tabIndex = index + 1;
-  const defaultTitle = `Tab ${tabIndex}`;
-  const tabSettings = tabs[tab];
-  const { title, assetType } = tabSettings;
-  const tabTitle = title || defaultTitle;
-
-  const addNewTab = () => {
-    const tabId = uuid();
-
-    onChangeBlock(block, {
-      ...data,
-      data: {
-        ...tabsData,
-        blocks: {
-          ...tabsData.blocks,
-          [tabId]: {
-            ...emptyTab({
-              schema: schema.properties.data.schema,
-              intl,
-            }),
-          },
-        },
-        blocks_layout: {
-          items: [...tabsData.blocks_layout.items, tabId],
-        },
-      },
-    });
-  };
-
-  React.useEffect(() => {
-    if (editingTab === tab && inputRef.current) {
-      inputRef.current.focus();
-    }
-    /* eslint-disable-next-line */
-  }, [editingTab]);
-
-  return (
-    <>
-      {index === 0 && (tabsTitle || tabsDescription) && (
-        <div className="menu-title"></div>
-      )}
-
-      <Menu.Item
-        role="tab"
-        aria-hidden="true"
-        name={defaultTitle}
-        active={tab === activeTab}
-        onClick={() => {
-          if (activeTab !== tab) {
-            setActiveTab(tab);
-          }
-          if (activeBlock) {
-            setActiveBlock(null);
-          }
-          if (editingTab !== tab) {
-            setEditingTab(null);
-          }
-        }}
-        onDoubleClick={() => {
-          setEditingTab(tab);
-        }}
-        className="remove-margin"
-      >
-        {editingTab === tab && selected ? (
-          <Input
-            placeholder={defaultTitle}
-            ref={inputRef}
-            transparent
-            value={title}
-            onChange={(e) => {
-              onChangeBlock(block, {
-                ...data,
-                data: {
-                  ...tabsData,
-                  blocks: {
-                    ...tabsData.blocks,
-                    [tab]: {
-                      ...(tabData || {}),
-                      title: e.target.value,
-                    },
-                  },
-                },
-              });
-            }}
-          />
-        ) : (
-          <>
-            {assetType ? (
-              <AssetTab
-                props={tabSettings}
-                tabTitle={tabTitle}
-                tabIndex={tabIndex}
-              />
-            ) : (
-              <span>{title || defaultTitle}</span>
-            )}
-          </>
-        )}
-      </Menu.Item>
-      {index === tabsList.length - 1 ? (
-        <>
-          <Menu.Item
-            role="tab"
-            aria-hidden="true"
-            name="addition"
-            onClick={() => {
-              addNewTab();
-              setEditingTab(null);
-            }}
-            className="remove-margin addition-button"
-          >
-            <p className="menu-item-text">+</p>
-          </Menu.Item>
-        </>
-      ) : (
-        ''
-      )}
-    </>
-  );
-};
 
 class Tab extends React.Component {
   render() {
@@ -192,10 +46,10 @@ const Edit = (props) => {
     schema,
   } = props;
 
-  const { description, menuInverted, menuSecondary, menuPointing } = data;
+  const { menuInverted, menuSecondary, menuPointing } = data;
   const accordionConfig = config.blocks.blocksConfig[
     TABS_BLOCK
-  ].variations.filter((v, i) => v.id === data.variation);
+  ].variations.filter((v, _i) => v.id === data.variation);
   const { icons, semanticIcon, transformWidth = 800 } = accordionConfig?.[0];
 
   const tabsContainer = React.useRef();
@@ -204,10 +58,7 @@ const Edit = (props) => {
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
 
   const items = tabsList.map((tab, index) => {
-    const title = tabs[tab]?.title;
-    const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
-    const tabsDescription = description;
 
     return {
       title: (
@@ -234,8 +85,6 @@ const Edit = (props) => {
             index={index}
             setEditingTab={setEditingTab}
             tab={tab}
-            tabsTitle={title || defaultTitle}
-            tabsDescription={tabsDescription}
             schema={schema}
           />
         </>
@@ -244,7 +93,7 @@ const Edit = (props) => {
         <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false}>
           <BlocksForm
             allowedBlocks={data?.allowedBlocks}
-            description={data?.instrunctions?.data}
+            description={data?.instructions?.data}
             manage={manage}
             metadata={metadata}
             pathname={props.pathname}

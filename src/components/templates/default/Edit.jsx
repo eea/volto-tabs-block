@@ -17,7 +17,7 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 
 import noop from 'lodash/noop';
 
-const MenuItem = (props) => {
+export const MenuItem = (props) => {
   const inputRef = React.useRef(null);
   const intl = useIntl();
   const {
@@ -30,11 +30,11 @@ const MenuItem = (props) => {
     selected = false,
     tabData = {},
     tabs = {},
-    tabsData = {},
     tabsDescription,
-    tabsList = [],
     tabsTitle,
-    emptyTab = noop,
+    tabsData = {},
+    tabsList = [],
+    emptyTab = () => {},
     setActiveBlock = noop,
     setActiveTab = noop,
     setEditingTab = noop,
@@ -44,7 +44,7 @@ const MenuItem = (props) => {
   const tabIndex = index + 1;
   const defaultTitle = `Tab ${tabIndex}`;
   const tabSettings = tabs[tab];
-  const { title } = tabSettings;
+  const { title, assetType } = tabSettings;
   const tabTitle = title || defaultTitle;
 
   const addNewTab = () => {
@@ -88,6 +88,7 @@ const MenuItem = (props) => {
       <Menu.Item
         name={defaultTitle}
         active={tab === activeTab}
+        className="remove-margin"
         role={'tab'}
         onClick={() => {
           if (activeTab !== tab) {
@@ -128,24 +129,30 @@ const MenuItem = (props) => {
           />
         ) : (
           <>
-            <AssetTab
-              props={tabSettings}
-              tabTitle={tabTitle}
-              tabIndex={tabIndex}
-            />
+            {assetType ? (
+              <AssetTab
+                props={tabSettings}
+                tabTitle={tabTitle}
+                tabIndex={tabIndex}
+              />
+            ) : (
+              <span>{tabTitle}</span>
+            )}
           </>
         )}
       </Menu.Item>
       {index === tabsList.length - 1 ? (
         <>
           <Menu.Item
+            role="tab"
             name="addition"
             onClick={() => {
               addNewTab();
               setEditingTab(null);
             }}
+            className="remove-margin addition-button"
           >
-            +
+            <p className="menu-item-text">+</p>
           </Menu.Item>
         </>
       ) : (
@@ -171,7 +178,7 @@ const Edit = (props) => {
     tabs = {},
     tabsData = {},
     tabsList = [],
-    emptyTab = noop,
+    emptyTab = () => {},
     onChangeBlock = noop,
     onChangeTabData = noop,
     onSelectBlock = noop,
