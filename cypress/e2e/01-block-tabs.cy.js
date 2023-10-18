@@ -82,6 +82,7 @@ describe('Blocks Tests', () => {
 
     // then the page view should contain our changes
     cy.contains('Tabs block carousel template');
+    cy.wait(500);
     cy.contains('Hydrogen');
 
     cy.get('.slick-arrow').click();
