@@ -345,7 +345,7 @@ const Edit = (props) => {
           <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
             <BlocksForm
               allowedBlocks={data?.allowedBlocks}
-              description={data?.instrunctions?.data}
+              description={data?.instructions?.data}
               manage={manage}
               metadata={metadata}
               pathname={props.pathname}
