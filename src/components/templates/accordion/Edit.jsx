@@ -181,10 +181,8 @@ const Edit = (props) => {
           data,
           props?.location?.hash.substring(1),
         );
-        if (tabWithHash === tabsList[activeTabIndex] && !hashTab)
+        if (tabWithHash === tabsList[activeTabIndex] && !hashTab) {
           setHashTab(true);
-        else if (tab !== tabsList[activeTabIndex]) {
-          setActiveTab(tab);
         } else if (blockWidth <= initialWidth) {
           setActiveTab(null);
         }

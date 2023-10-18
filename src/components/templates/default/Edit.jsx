@@ -68,6 +68,7 @@ export const MenuItem = (props) => {
         },
       },
     });
+    return tabId;
   };
 
   React.useEffect(() => {
@@ -89,7 +90,14 @@ export const MenuItem = (props) => {
         name={defaultTitle}
         active={tab === activeTab}
         className="remove-margin"
+        tabIndex={0}
         role={'tab'}
+        onKeyDown={(e) => {
+          if (e.keyCode === 32) {
+            e.preventDefault();
+            setActiveTab(tab);
+          }
+        }}
         onClick={() => {
           if (activeTab !== tab) {
             setActiveTab(tab);
@@ -144,10 +152,19 @@ export const MenuItem = (props) => {
       {index === tabsList.length - 1 ? (
         <>
           <Menu.Item
+            tabIndex={0}
             role="tab"
             name="addition"
+            onKeyDown={(e) => {
+              if (e.keyCode === 32) {
+                e.preventDefault();
+                const newTab = addNewTab();
+                setActiveTab(newTab);
+              }
+            }}
             onClick={() => {
-              addNewTab();
+              const newTab = addNewTab();
+              setActiveTab(newTab);
               setEditingTab(null);
             }}
             className="remove-margin addition-button"
@@ -376,7 +393,7 @@ Edit.schemaEnhancer = ({ schema }) => {
         ['small', 'Small'],
         ['large', 'Large'],
         ['huge', 'Huge'],
-        ['massive', 'Masive'],
+        ['massive', 'Massive'],
       ],
     },
     menuColor: {
