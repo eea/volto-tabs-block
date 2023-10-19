@@ -1,14 +1,6 @@
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-  CarouselTabsBlock: {
-    id: 'carousel-tabs-block',
-    defaultMessage: 'Carousel block',
-  },
-  Default: {
-    id: 'default',
-    defaultMessage: 'Default',
-  },
   Theme: {
     id: 'theme',
     defaultMessage: 'Theme',
@@ -27,27 +19,25 @@ const messages = defineMessages({
   },
 });
 
-const carouselSchema = (config, props) => ({
-  title: props.intl.formatMessage(messages.CarouselTabsBlock),
-  fieldsets: [
-    {
-      id: 'default',
-      title: props.intl.formatMessage(messages.Default),
-      fields: ['theme'],
-    },
-  ],
-  properties: {
+export const carouselSchemaExtender = ({ schema, intl }) => {
+  schema.fieldsets.splice(2, 0, {
+    id: 'style',
+    title: intl.formatMessage(messages.Style),
+    fields: ['theme'],
+  });
+  schema.properties = {
+    ...schema.properties,
     theme: {
-      title: props.intl.formatMessage(messages.Theme),
+      title: intl.formatMessage(messages.Theme),
       choices: [
-        ['light', props.intl.formatMessage(messages.Light)],
-        ['dark', props.intl.formatMessage(messages.Dark)],
-        ['grey', props.intl.formatMessage(messages.Grey)],
+        ['light', intl.formatMessage(messages.Light)],
+        ['dark', intl.formatMessage(messages.Dark)],
+        ['grey', intl.formatMessage(messages.Grey)],
       ],
       default: 'light',
     },
-  },
-  required: [],
-});
+  };
+  return schema;
+};
 
-export default carouselSchema;
+export default carouselSchemaExtender;

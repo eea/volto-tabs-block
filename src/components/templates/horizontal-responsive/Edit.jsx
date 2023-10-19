@@ -10,7 +10,7 @@ import { Menu, Tab, Container, Dropdown, Input } from 'semantic-ui-react';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import { BlocksForm } from '@plone/volto/components';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
-import { defaultSchemaExtender } from '@eeacms/volto-tabs-block/components/templates/default/schema';
+import { defaultSchemaExtender } from '@eeacms/volto-tabs-block/components';
 import {
   SimpleMarkdown,
   getMenuPosition,

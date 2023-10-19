@@ -6,6 +6,7 @@ import { RenderBlocks } from '@plone/volto/components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
+import { carouselSchemaExtender } from '@eeacms/volto-tabs-block/components';
 
 const Slider = loadable(() => import('react-slick'));
 
@@ -50,27 +51,6 @@ const View = (props) => {
   );
 };
 
-View.schemaEnhancer = ({ schema }) => {
-  schema.fieldsets.splice(2, 0, {
-    id: 'style',
-    title: 'Style',
-    fields: ['theme'],
-  });
-
-  schema.properties = {
-    ...schema.properties,
-    theme: {
-      title: 'Theme',
-      type: 'array',
-      choices: [
-        ['light', 'Light'],
-        ['dark', 'Dark'],
-        ['grey', 'Grey'],
-      ],
-      defaultValue: 'light',
-    },
-  };
-  return schema;
-};
+View.schemaEnhancer = carouselSchemaExtender;
 
 export default withRouter(View);

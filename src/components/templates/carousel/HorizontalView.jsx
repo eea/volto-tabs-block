@@ -6,6 +6,7 @@ import { Icon, RenderBlocks } from '@plone/volto/components';
 
 import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-key.svg';
 import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-key.svg';
+import { carouselSchemaExtender } from '@eeacms/volto-tabs-block/components';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -189,26 +190,6 @@ const View = (props) => {
   );
 };
 
-View.schemaEnhancer = ({ schema }) => {
-  schema.fieldsets.splice(2, 0, {
-    id: 'style',
-    title: 'Style',
-    fields: ['theme'],
-  });
-
-  schema.properties = {
-    ...schema.properties,
-    theme: {
-      title: 'Theme',
-      choices: [
-        ['light', 'Light'],
-        ['dark', 'Dark'],
-        ['grey', 'Grey'],
-      ],
-      defaultValue: 'light',
-    },
-  };
-  return schema;
-};
+View.schemaEnhancer = carouselSchemaExtender;
 
 export default withRouter(View);
