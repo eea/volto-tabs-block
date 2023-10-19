@@ -196,15 +196,15 @@ const View = (props) => {
     align,
     menuBorderless,
     menuColor,
-    menuCompact = true,
-    menuFluid = true,
+    menuCompact,
+    menuFluid,
     menuInverted,
     menuPointing,
     menuSecondary,
     menuSize,
     menuStackable,
     menuTabular,
-    menuText = true,
+    menuText,
     menuAlign,
   } = data;
   const isContainer = align === 'full';
