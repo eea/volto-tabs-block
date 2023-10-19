@@ -179,127 +179,117 @@ const messages = defineMessages({
   },
 });
 
-const defaultSchema = (config, props) => ({
-  title: props.intl.formatMessage(messages.DefaultTabsBlock),
-  fieldsets: [
-    {
-      id: 'default',
-      title: props.intl.formatMessage(messages.Default),
-      fields: ['description'],
-    },
-    {
-      id: 'menu',
-      title: props.intl.formatMessage(messages.Menu),
-      fields: [
-        'menuAlign',
-        'menuPosition',
-        'menuSize',
-        'menuColor',
-        'menuBorderless',
-        'menuCompact',
-        'menuFluid',
-        'menuInverted',
-        'menuPointing',
-        'menuSecondary',
-        'menuStackable',
-        'menuTabular',
-        'menuText',
-      ],
-    },
-  ],
-  properties: {
+export const defaultSchemaExtender = ({ schema, intl }) => {
+  schema.fieldsets.splice(1, 0, {
+    id: 'menu',
+    title: intl.formatMessage(messages.Menu),
+    fields: [
+      'menuAlign',
+      'menuPosition',
+      'menuSize',
+      'menuColor',
+      'menuBorderless',
+      'menuCompact',
+      'menuFluid',
+      'menuInverted',
+      'menuPointing',
+      'menuSecondary',
+      'menuStackable',
+      'menuTabular',
+      'menuText',
+    ],
+  });
+  schema.properties = {
+    ...schema.properties,
     description: {
-      title: props.intl.formatMessage(messages.Description),
+      title: intl.formatMessage(messages.Description),
     },
     menuPosition: {
-      title: props.intl.formatMessage(messages.Position),
+      title: intl.formatMessage(messages.Position),
       choices: [
-        ['top', props.intl.formatMessage(messages.Top)],
-        ['bottom', props.intl.formatMessage(messages.Bottom)],
-        ['left side', props.intl.formatMessage(messages.LeftSide)],
-        ['right side', props.intl.formatMessage(messages.RightSide)],
+        ['top', intl.formatMessage(messages.Top)],
+        ['bottom', intl.formatMessage(messages.Bottom)],
+        ['left side', intl.formatMessage(messages.LeftSide)],
+        ['right side', intl.formatMessage(messages.RightSide)],
       ],
     },
     menuAlign: {
-      title: props.intl.formatMessage(messages.Alignment),
+      title: intl.formatMessage(messages.Alignment),
       choices: [
-        ['left', props.intl.formatMessage(messages.Left)],
-        ['center', props.intl.formatMessage(messages.Center)],
-        ['right', props.intl.formatMessage(messages.Right)],
-        ['space-between', props.intl.formatMessage(messages.SpaceBetween)],
+        ['left', intl.formatMessage(messages.Left)],
+        ['center', intl.formatMessage(messages.Center)],
+        ['right', intl.formatMessage(messages.Right)],
+        ['space-between', intl.formatMessage(messages.SpaceBetween)],
       ],
     },
     menuSize: {
-      title: props.intl.formatMessage(messages.Size),
+      title: intl.formatMessage(messages.Size),
       choices: [
-        ['mini', props.intl.formatMessage(messages.Mini)],
-        ['tiny', props.intl.formatMessage(messages.Tiny)],
-        ['small', props.intl.formatMessage(messages.Small)],
-        ['large', props.intl.formatMessage(messages.Large)],
-        ['huge', props.intl.formatMessage(messages.Huge)],
-        ['massive', props.intl.formatMessage(messages.Massive)],
+        ['mini', intl.formatMessage(messages.Mini)],
+        ['tiny', intl.formatMessage(messages.Tiny)],
+        ['small', intl.formatMessage(messages.Small)],
+        ['large', intl.formatMessage(messages.Large)],
+        ['huge', intl.formatMessage(messages.Huge)],
+        ['massive', intl.formatMessage(messages.Massive)],
       ],
     },
     menuColor: {
-      title: props.intl.formatMessage(messages.Color),
-      defaultValue: 'green',
+      title: intl.formatMessage(messages.Color),
       choices: [
-        ['red', props.intl.formatMessage(messages.Red)],
-        ['orange', props.intl.formatMessage(messages.Orange)],
-        ['yellow', props.intl.formatMessage(messages.Yellow)],
-        ['olive', props.intl.formatMessage(messages.Olive)],
-        ['green', props.intl.formatMessage(messages.Green)],
-        ['teal', props.intl.formatMessage(messages.Teal)],
-        ['blue', props.intl.formatMessage(messages.Blue)],
-        ['violet', props.intl.formatMessage(messages.Violet)],
-        ['purple', props.intl.formatMessage(messages.Purple)],
-        ['pink', props.intl.formatMessage(messages.Pink)],
-        ['brown', props.intl.formatMessage(messages.Brown)],
-        ['grey', props.intl.formatMessage(messages.Grey)],
-        ['black', props.intl.formatMessage(messages.Black)],
+        ['red', intl.formatMessage(messages.Red)],
+        ['orange', intl.formatMessage(messages.Orange)],
+        ['yellow', intl.formatMessage(messages.Yellow)],
+        ['olive', intl.formatMessage(messages.Olive)],
+        ['green', intl.formatMessage(messages.Green)],
+        ['teal', intl.formatMessage(messages.Teal)],
+        ['blue', intl.formatMessage(messages.Blue)],
+        ['violet', intl.formatMessage(messages.Violet)],
+        ['purple', intl.formatMessage(messages.Purple)],
+        ['pink', intl.formatMessage(messages.Pink)],
+        ['brown', intl.formatMessage(messages.Brown)],
+        ['grey', intl.formatMessage(messages.Grey)],
+        ['black', intl.formatMessage(messages.Black)],
       ],
     },
     menuBorderless: {
-      title: props.intl.formatMessage(messages.MenuBorderless),
+      title: intl.formatMessage(messages.MenuBorderless),
       type: 'boolean',
     },
     menuCompact: {
-      title: props.intl.formatMessage(messages.MenuCompact),
+      title: intl.formatMessage(messages.MenuCompact),
       type: 'boolean',
       defaultValue: true,
     },
     menuFluid: {
-      title: props.intl.formatMessage(messages.MenuFluid),
+      title: intl.formatMessage(messages.MenuFluid),
       type: 'boolean',
       defaultValue: true,
     },
     menuInverted: {
-      title: props.intl.formatMessage(messages.MenuInverted),
+      title: intl.formatMessage(messages.MenuInverted),
       type: 'boolean',
     },
     menuPointing: {
-      title: props.intl.formatMessage(messages.MenuPointing),
+      title: intl.formatMessage(messages.MenuPointing),
       type: 'boolean',
     },
     menuSecondary: {
-      title: props.intl.formatMessage(messages.MenuSecondary),
+      title: intl.formatMessage(messages.MenuSecondary),
       type: 'boolean',
     },
     menuStackable: {
-      title: props.intl.formatMessage(messages.MenuStackable),
+      title: intl.formatMessage(messages.MenuStackable),
       type: 'boolean',
     },
     menuTabular: {
-      title: props.intl.formatMessage(messages.MenuTabular),
+      title: intl.formatMessage(messages.MenuTabular),
       type: 'boolean',
     },
     menuText: {
-      title: props.intl.formatMessage(messages.MenuText),
+      title: intl.formatMessage(messages.MenuText),
       type: 'boolean',
       defaultValue: true,
     },
-  },
-  required: [],
-});
-
-export default defaultSchema;
+  };
+  return schema;
+};

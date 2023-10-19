@@ -7,6 +7,7 @@ import { Menu, Tab, Input, Container } from 'semantic-ui-react';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
+import { defaultSchemaExtender } from '@eeacms/volto-tabs-block/components/templates/default/schema';
 import { AssetTab } from '@eeacms/volto-tabs-block/components';
 import {
   SimpleMarkdown,
@@ -93,7 +94,7 @@ export const MenuItem = (props) => {
         tabIndex={0}
         role={'tab'}
         onKeyDown={(e) => {
-          if (e.keyCode === 32) {
+          if (e.code === 'Space') {
             e.preventDefault();
             setActiveTab(tab);
           }
@@ -156,7 +157,7 @@ export const MenuItem = (props) => {
             role="tab"
             name="addition"
             onKeyDown={(e) => {
-              if (e.keyCode === 32) {
+              if (e.code === 'Space') {
                 e.preventDefault();
                 const newTab = addNewTab();
                 setActiveTab(newTab);
@@ -343,119 +344,6 @@ const Edit = (props) => {
   );
 };
 
-Edit.schemaEnhancer = ({ schema }) => {
-  schema.fieldsets.splice(1, 0, {
-    id: 'menu',
-    title: 'Menu',
-    fields: [
-      'menuAlign',
-      'menuPosition',
-      'menuSize',
-      'menuColor',
-      'menuBorderless',
-      'menuCompact',
-      'menuFluid',
-      'menuInverted',
-      'menuPointing',
-      'menuSecondary',
-      'menuStackable',
-      'menuTabular',
-      'menuText',
-    ],
-  });
-
-  schema.properties = {
-    ...schema.properties,
-    menuPosition: {
-      title: 'Position',
-      choices: [
-        ['top', 'Top'],
-        ['bottom', 'Bottom'],
-        ['left side', 'Left side'],
-        ['right side', 'Right side'],
-      ],
-    },
-    menuAlign: {
-      title: 'Alignment',
-      type: 'array',
-      choices: [
-        ['left', 'Left'],
-        ['center', 'Center'],
-        ['right', 'Right'],
-        ['space-between', 'Space between'],
-      ],
-    },
-    menuSize: {
-      title: 'Size',
-      choices: [
-        ['mini', 'Mini'],
-        ['tiny', 'Tiny'],
-        ['small', 'Small'],
-        ['large', 'Large'],
-        ['huge', 'Huge'],
-        ['massive', 'Massive'],
-      ],
-    },
-    menuColor: {
-      title: 'Colors',
-      choices: [
-        ['red', 'Red'],
-        ['orange', 'Orange'],
-        ['yellow', 'Yellow'],
-        ['olive', 'Olive'],
-        ['green', 'Green'],
-        ['teal', 'Teal'],
-        ['blue', 'Blue'],
-        ['violet', 'Violet'],
-        ['purple', 'Purple'],
-        ['pink', 'Pink'],
-        ['brown', 'Brown'],
-        ['grey', 'Grey'],
-        ['black', 'Black'],
-      ],
-      default: 'green',
-    },
-    menuBorderless: {
-      title: 'Borderless',
-      type: 'boolean',
-    },
-    menuCompact: {
-      title: 'Compact',
-      type: 'boolean',
-      defaultValue: true,
-    },
-    menuFluid: {
-      title: 'Fluid',
-      type: 'boolean',
-      defaultValue: true,
-    },
-    menuInverted: {
-      title: 'Inverted',
-      type: 'boolean',
-    },
-    menuPointing: {
-      title: 'Pointing',
-      type: 'boolean',
-    },
-    menuSecondary: {
-      title: 'Secondary',
-      type: 'boolean',
-    },
-    menuStackable: {
-      title: 'Stackable',
-      type: 'boolean',
-    },
-    menuTabular: {
-      title: 'Tabular',
-      type: 'boolean',
-    },
-    menuText: {
-      title: 'Text',
-      type: 'boolean',
-      defaultValue: true,
-    },
-  };
-  return schema;
-};
+Edit.schemaEnhancer = defaultSchemaExtender;
 
 export default Edit;
