@@ -30,21 +30,17 @@ defineMessages({
     id: 'Accordion responsive',
     defaultMessage: 'Accordion responsive',
   },
-  accordionResponsive: {
-    defaultMessage: 'Accordion responsive',
-    id: 'accordionResponsive',
-  },
   carouselHorizontal: {
     defaultMessage: 'Carousel horizontal',
-    id: 'carouselHorizontal',
+    id: 'Carousel horizontal',
   },
   carouselVerticalPrototype: {
     defaultMessage: 'Carousel vertical (prototype)',
-    id: 'carouselVerticalPrototype',
+    id: 'Carousel vertical (prototype)',
   },
   horizontalResponsive: {
     defaultMessage: 'Horizontal responsive',
-    id: 'horizontalResponsive',
+    id: 'Horizontal responsive',
   },
 });
 
@@ -89,21 +85,21 @@ const applyConfig = (config) => {
         },
       },
       {
-        id: 'horizontalResponsive',
+        id: 'horizontal-responsive',
         title: 'Horizontal responsive',
         edit: HorizontalResponsiveEdit,
         view: HorizontalResponsiveView,
         schemaEnhancer: HorizontalResponsiveEdit.schemaEnhancer,
       },
       {
-        id: 'carouselHorizontal',
+        id: 'carousel-horizontal',
         title: 'Carousel horizontal',
         edit: DefaultEdit,
         view: HorizontalCarouselView,
         schemaEnhancer: HorizontalCarouselView.schemaEnhancer,
       },
       {
-        id: 'carouselVerticalPrototype',
+        id: 'carousel-vertical',
         title: 'Carousel vertical (prototype)',
         edit: DefaultEdit,
         view: VerticalCarouselView,
