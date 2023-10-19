@@ -14,6 +14,7 @@ import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
+import { accordionSchemaEnhancer } from '@eeacms/volto-tabs-block/components/templates/accordion/schema';
 
 class Tab extends React.Component {
   render() {
@@ -207,60 +208,6 @@ const Edit = (props) => {
   );
 };
 
-Edit.schemaEnhancer = ({ schema }) => {
-  schema.fieldsets.splice(1, 0, {
-    id: 'menu',
-    title: 'Menu',
-    fields: [
-      'menuInverted',
-      'menuSecondary',
-      'menuPointing',
-      'accordionIconRight',
-    ],
-  });
-
-  schema.fieldsets.splice(2, 0, {
-    id: 'style',
-    title: 'Style',
-    fields: ['theme'],
-  });
-
-  schema.properties = {
-    ...schema.properties,
-    accordionIconRight: {
-      title: 'Icon position on the right',
-      description: 'Position left/right of the icon in the accordion tab',
-      type: 'boolean',
-    },
-    menuInverted: {
-      title: 'Inverted',
-      type: 'boolean',
-    },
-    menuSecondary: {
-      title: 'Secondary',
-      type: 'boolean',
-      default: true,
-    },
-    menuPointing: {
-      title: 'Pointing',
-      type: 'boolean',
-      default: true,
-    },
-    theme: {
-      title: 'Theme',
-      description: 'Set the theme for the accordion tabs block',
-      widget: 'theme_picker',
-      colors: [
-        ...(config.settings && config.settings.themeColors
-          ? config.settings.themeColors.map(({ value, title }) => ({
-              name: value,
-              label: title,
-            }))
-          : []),
-      ],
-    },
-  };
-  return schema;
-};
+Edit.schemaEnhancer = accordionSchemaEnhancer;
 
 export default Edit;
