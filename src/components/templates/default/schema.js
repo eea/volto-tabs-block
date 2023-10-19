@@ -258,7 +258,6 @@ export const defaultSchemaEnhancer = ({ schema, intl }) => {
     menuCompact: {
       title: intl.formatMessage(messages.MenuCompact),
       type: 'boolean',
-      default: true,
     },
     menuFluid: {
       title: intl.formatMessage(messages.MenuFluid),
@@ -272,10 +271,12 @@ export const defaultSchemaEnhancer = ({ schema, intl }) => {
     menuPointing: {
       title: intl.formatMessage(messages.MenuPointing),
       type: 'boolean',
+      default: true,
     },
     menuSecondary: {
       title: intl.formatMessage(messages.MenuSecondary),
       type: 'boolean',
+      default: true,
     },
     menuStackable: {
       title: intl.formatMessage(messages.MenuStackable),
@@ -288,7 +289,6 @@ export const defaultSchemaEnhancer = ({ schema, intl }) => {
     menuText: {
       title: intl.formatMessage(messages.MenuText),
       type: 'boolean',
-      default: true,
     },
   };
   return schema;

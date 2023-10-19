@@ -242,7 +242,6 @@ const horizontalSchema = (config, props) => ({
     },
     menuColor: {
       title: props.intl.formatMessage(messages.Color),
-      default: 'green',
       choices: [
         ['red', props.intl.formatMessage(messages.Red)],
         ['orange', props.intl.formatMessage(messages.Orange)],
@@ -266,7 +265,6 @@ const horizontalSchema = (config, props) => ({
     menuCompact: {
       title: props.intl.formatMessage(messages.MenuCompact),
       type: 'boolean',
-      default: true,
     },
     menuFluid: {
       title: props.intl.formatMessage(messages.MenuFluid),
@@ -280,10 +278,12 @@ const horizontalSchema = (config, props) => ({
     menuPointing: {
       title: props.intl.formatMessage(messages.MenuPointing),
       type: 'boolean',
+      default: true,
     },
     menuSecondary: {
       title: props.intl.formatMessage(messages.MenuSecondary),
       type: 'boolean',
+      default: true,
     },
     menuStackable: {
       title: props.intl.formatMessage(messages.MenuStackable),
@@ -296,7 +296,6 @@ const horizontalSchema = (config, props) => ({
     menuText: {
       title: props.intl.formatMessage(messages.MenuText),
       type: 'boolean',
-      default: true,
     },
   },
   required: [],
