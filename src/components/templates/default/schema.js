@@ -258,12 +258,12 @@ export const defaultSchemaEnhancer = ({ schema, intl }) => {
     menuCompact: {
       title: intl.formatMessage(messages.MenuCompact),
       type: 'boolean',
-      defaultValue: true,
+      default: true,
     },
     menuFluid: {
       title: intl.formatMessage(messages.MenuFluid),
       type: 'boolean',
-      defaultValue: true,
+      default: true,
     },
     menuInverted: {
       title: intl.formatMessage(messages.MenuInverted),
@@ -288,7 +288,7 @@ export const defaultSchemaEnhancer = ({ schema, intl }) => {
     menuText: {
       title: intl.formatMessage(messages.MenuText),
       type: 'boolean',
-      defaultValue: true,
+      default: true,
     },
   };
   return schema;

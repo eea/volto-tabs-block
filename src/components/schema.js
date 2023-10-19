@@ -160,7 +160,6 @@ const tabSchema = (props) => {
       hideTitle: {
         title: intl.formatMessage(messages.HideTitle),
         type: 'boolean',
-        defaultValue: false,
       },
     },
 

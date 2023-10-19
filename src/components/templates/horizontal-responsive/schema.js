@@ -242,7 +242,7 @@ const horizontalSchema = (config, props) => ({
     },
     menuColor: {
       title: props.intl.formatMessage(messages.Color),
-      defaultValue: 'green',
+      default: 'green',
       choices: [
         ['red', props.intl.formatMessage(messages.Red)],
         ['orange', props.intl.formatMessage(messages.Orange)],
@@ -266,12 +266,12 @@ const horizontalSchema = (config, props) => ({
     menuCompact: {
       title: props.intl.formatMessage(messages.MenuCompact),
       type: 'boolean',
-      defaultValue: true,
+      default: true,
     },
     menuFluid: {
       title: props.intl.formatMessage(messages.MenuFluid),
       type: 'boolean',
-      defaultValue: true,
+      default: true,
     },
     menuInverted: {
       title: props.intl.formatMessage(messages.MenuInverted),
@@ -296,7 +296,7 @@ const horizontalSchema = (config, props) => ({
     menuText: {
       title: props.intl.formatMessage(messages.MenuText),
       type: 'boolean',
-      defaultValue: true,
+      default: true,
     },
   },
   required: [],
