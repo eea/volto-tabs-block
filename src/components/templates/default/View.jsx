@@ -88,7 +88,6 @@ const MenuItem = (props) => {
   const [tabChanged, setTabChanged] = useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
   const tabSettings = tabs[tab];
-  // console.log('menu props', props);
   const { title, assetType } = tabSettings;
   const tabTitle = title || defaultTitle;
 

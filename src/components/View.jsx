@@ -29,7 +29,7 @@ const View = (props) => {
 
   const activeTemplate = config.blocks.blocksConfig[
     TABS_BLOCK
-  ].variations.filter((v, i) => v.id === template);
+  ].variations.filter((v, _i) => v.id === template);
 
   const TabsView = activeTemplate?.[0]?.view || DefaultView;
 

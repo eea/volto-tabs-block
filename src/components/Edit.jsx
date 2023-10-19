@@ -40,7 +40,7 @@ const Edit = (props) => {
 
   const activeTemplate = config.blocks.blocksConfig[
     TABS_BLOCK
-  ].variations.filter((v, i) => v.id === template);
+  ].variations.filter((v, _i) => v.id === template);
 
   const TabsEdit = activeTemplate?.[0]?.edit || DefaultEdit;
 
@@ -121,9 +121,9 @@ const Edit = (props) => {
 
     if (isMultipleSelection) {
       selected = null;
-      const blocksLayoutFieldname = getBlocksLayoutFieldname(tabData);
+      const blocksLayoutFieldName = getBlocksLayoutFieldname(tabData);
 
-      const blocks_layout = tabData[blocksLayoutFieldname].items;
+      const blocks_layout = tabData[blocksLayoutFieldName].items;
 
       if (event.shiftKey) {
         const anchor =

@@ -38,7 +38,7 @@ const MenuItem = (props) => {
     tabsDescription,
     tabsList = [],
     tabsTitle,
-    emptyTab = noop,
+    emptyTab = () => {},
     setActiveBlock = noop,
     setActiveTab = noop,
     setEditingTab = noop,
@@ -172,7 +172,7 @@ const MenuWrapper = (props) => {
     tabs = {},
     tabsList = [],
     block = null,
-    emptyTab = noop,
+    emptyTab = () => {},
     setEditingTab = noop,
     tabsData = {},
     onChangeBlock = noop,
@@ -203,7 +203,7 @@ const MenuWrapper = (props) => {
     });
   };
   React.useEffect(() => {
-    if (false || !node?.current) return;
+    if (!node?.current) return;
     const items = node.current.querySelectorAll(
       '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
     );
@@ -296,7 +296,7 @@ const Edit = (props) => {
     multiSelected = [],
     screen,
     tabsData = {},
-    emptyTab = noop,
+    emptyTab = () => {},
     onChangeBlock = noop,
     onChangeTabData = noop,
     onSelectBlock = noop,

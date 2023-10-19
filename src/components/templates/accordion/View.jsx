@@ -18,8 +18,8 @@ import { withResizeDetector } from 'react-resize-detector';
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 class Tab extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.animateId = null;
     this.state = {
       height: 0,
@@ -66,7 +66,7 @@ const View = (props) => {
 
   const accordionConfig = config.blocks.blocksConfig[
     TABS_BLOCK
-  ].variations.filter((v, i) => v.id === data.variation);
+  ].variations.filter((v, _i) => v.id === data.variation);
   const { icons, semanticIcon, transformWidth = 800 } = accordionConfig?.[0];
 
   const tabsContainer = React.useRef();

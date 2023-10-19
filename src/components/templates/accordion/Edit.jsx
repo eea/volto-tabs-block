@@ -175,7 +175,7 @@ const Edit = (props) => {
       selectedTabKey={tabsList[activeTabIndex]}
       unmountOnExit={false}
       items={items}
-      onChange={(tab) => {
+      onChange={() => {
         const { blockWidth } = tabsContainer.current?.state || {};
         const tabWithHash = getParentTabFromHash(
           data,
