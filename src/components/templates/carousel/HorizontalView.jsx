@@ -6,7 +6,7 @@ import { Icon, RenderBlocks } from '@plone/volto/components';
 
 import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-key.svg';
 import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-key.svg';
-import { carouselSchemaExtender } from '@eeacms/volto-tabs-block/components';
+import { carouselSchemaEnhancer } from '@eeacms/volto-tabs-block/components/templates/carousel/schema';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -190,6 +190,6 @@ const View = (props) => {
   );
 };
 
-View.schemaEnhancer = carouselSchemaExtender;
+View.schemaEnhancer = carouselSchemaEnhancer;
 
 export default withRouter(View);

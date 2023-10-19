@@ -179,7 +179,7 @@ const messages = defineMessages({
   },
 });
 
-export const defaultSchemaExtender = ({ schema, intl }) => {
+export const defaultSchemaEnhancer = ({ schema, intl }) => {
   schema.fieldsets.splice(1, 0, {
     id: 'menu',
     title: intl.formatMessage(messages.Menu),

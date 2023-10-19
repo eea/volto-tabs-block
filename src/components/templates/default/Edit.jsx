@@ -7,7 +7,7 @@ import { Menu, Tab, Input, Container } from 'semantic-ui-react';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
-import { defaultSchemaExtender } from '@eeacms/volto-tabs-block/components';
+import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/templates/default/schema';
 import { AssetTab } from '@eeacms/volto-tabs-block/components';
 import {
   SimpleMarkdown,
@@ -344,6 +344,6 @@ const Edit = (props) => {
   );
 };
 
-Edit.schemaEnhancer = defaultSchemaExtender;
+Edit.schemaEnhancer = defaultSchemaEnhancer;
 
 export default Edit;

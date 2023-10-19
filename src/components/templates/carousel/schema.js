@@ -17,10 +17,14 @@ const messages = defineMessages({
     id: 'grey',
     defaultMessage: 'Grey',
   },
+  Style: {
+    id: 'style',
+    defaultMessage: 'Style',
+  },
 });
 
-export const carouselSchemaExtender = ({ schema, intl }) => {
-  schema.fieldsets.splice(2, 0, {
+export const carouselSchemaEnhancer = ({ schema, intl }) => {
+  schema.fieldsets.splice(1, 0, {
     id: 'style',
     title: intl.formatMessage(messages.Style),
     fields: ['theme'],
@@ -39,5 +43,3 @@ export const carouselSchemaExtender = ({ schema, intl }) => {
   };
   return schema;
 };
-
-export default carouselSchemaExtender;
