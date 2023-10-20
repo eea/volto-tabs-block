@@ -22,7 +22,7 @@
 
 ###
 
-![Tabs](https://github.com/eea/volto-tabs-block/raw/master/docs/volto-tabs-block.gif)
+![Tabs Block](https://raw.githubusercontent.com/eea/volto-tabs-block/master/docs/volto-tabs-block.gif "Tabs Block")
 
 ## Getting started
 
