@@ -1,111 +1,211 @@
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
+import { cloneDeepSchema } from '@plone/volto/helpers/Utils/Utils';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-  TabsBlock: {
-    id: 'tabs-block',
-    defaultMessage: 'Tabs block',
+  AssetPosition: {
+    defaultMessage: 'Asset position',
+    id: 'assetPosition',
   },
-  Default: {
-    id: 'default',
-    defaultMessage: 'Default',
+  AssetSize: {
+    defaultMessage: 'Asset size',
+    id: 'assetSize',
   },
-  Tabs: {
-    id: 'tabs',
-    defaultMessage: 'Tabs',
-  },
-  Title: {
-    id: 'title',
-    defaultMessage: 'Title',
-  },
-  Template: {
-    id: 'template',
-    defaultMessage: 'Template',
-  },
-  VerticalAlign: {
-    id: 'vertical-align',
-    defaultMessage: 'Vertical align',
-  },
-  Top: {
-    id: 'top',
-    defaultMessage: 'Top',
-  },
-  Middle: {
-    id: 'middle',
-    defaultMessage: 'Middle',
+  AssetType: {
+    defaultMessage: 'Asset type',
+    id: 'assetType',
   },
   Bottom: {
-    id: 'bottom',
     defaultMessage: 'Bottom',
+    id: 'bottom',
   },
-  default: {
-    id: 'default',
+  Default: {
     defaultMessage: 'Default',
+    id: 'default',
   },
-  accordionResponsive: {
-    id: 'accordionResponsive',
-    defaultMessage: 'Accordion responsive',
+  Image: {
+    defaultMessage: 'Image',
+    id: 'image',
   },
-  horizontalResponsive: {
-    id: 'horizontalResponsive',
-    defaultMessage: 'Horizontal responsive',
+  Icon: {
+    defaultMessage: 'Icon',
+    id: 'icon',
   },
-  carouselHorizontal: {
-    id: 'carouselHorizontal',
-    defaultMessage: 'Carousel horizontal',
+  IconName: {
+    defaultMessage: 'Icon name',
+    id: 'iconName',
   },
-  carouselVerticalPrototype: {
-    id: 'carouselVerticalPrototype',
-    defaultMessage: 'Carousel vertical (prototype)',
+  LeftSide: {
+    id: 'left-side',
+    defaultMessage: 'Left side',
+  },
+  RightSide: {
+    id: 'right-side',
+    defaultMessage: 'Right side',
+  },
+  Medium: {
+    defaultMessage: 'Medium',
+    id: 'Medium',
+  },
+  Middle: {
+    defaultMessage: 'Middle',
+    id: 'middle',
+  },
+  Small: {
+    id: 'small',
+    defaultMessage: 'Small',
+  },
+  Tabs: {
+    defaultMessage: 'Tabs',
+    id: 'tabs',
+  },
+  TabsBlock: {
+    defaultMessage: 'Tabs block',
+    id: 'tabs-block',
+  },
+  TabTitle: {
+    defaultMessage: 'Tab title',
+    id: 'tabTitle',
+  },
+  Title: {
+    defaultMessage: 'Title',
+    id: 'title',
+  },
+  Top: {
+    defaultMessage: 'Top',
+    id: 'top',
+  },
+  VerticalAlign: {
+    defaultMessage: 'Vertical align',
+    id: 'vertical-align',
+  },
+  Tab: {
+    id: 'tab',
+    defaultMessage: 'Tab',
+  },
+  HideTitle: {
+    id: 'hideTitle',
+    defaultMessage: 'Hide tab title?',
+  },
+  Large: {
+    id: 'large',
+    defaultMessage: 'Large',
+  },
+  Description: {
+    id: 'description',
+    defaultMessage: 'Description',
   },
 });
 
-export const schema = (config, templateSchema = {}, props) => {
-  const { intl } = props;
-  const templatesConfig = config.blocks.blocksConfig[TABS_BLOCK].templates;
-  const templates = Object.keys(templatesConfig).map((template) => {
-    let templateTitle = templatesConfig[template].title || template;
-    let templateId = templatesConfig[template].id;
-    if (templateId && messages[`${templateId}`]) {
-      templateTitle = intl.formatMessage(messages[`${templateId}`]);
-    }
-    return [template, templateTitle];
-  });
-
-  const defaultFieldset = templateSchema?.fieldsets?.filter(
-    (fieldset) => fieldset.id === 'default',
-  )[0];
-
+const tabSchema = (props) => {
+  const intl = props.intl;
   return {
-    title: templateSchema?.title || intl.formatMessage(messages.TabsBlock),
+    title: intl.formatMessage(messages.Tab),
+
     fieldsets: [
       {
         id: 'default',
         title: intl.formatMessage(messages.Default),
-        fields: [
-          'data',
-          'title',
-          'template',
-          'verticalAlign',
-          ...(defaultFieldset?.fields || []),
+        fields: ['title', 'assetType'],
+      },
+    ],
+
+    properties: {
+      title: {
+        title: intl.formatMessage(messages.TabTitle),
+      },
+      assetType: {
+        title: intl.formatMessage(messages.AssetType),
+        choices: [
+          ['image', intl.formatMessage(messages.Image)],
+          ['icon', intl.formatMessage(messages.Icon)],
         ],
       },
-      ...(templateSchema?.fieldsets?.filter(
-        (fieldset) => fieldset.id !== 'default',
-      ) || []),
+      assetPosition: {
+        title: intl.formatMessage(messages.AssetPosition),
+        choices: [
+          ['top', intl.formatMessage(messages.Top)],
+          ['left', intl.formatMessage(messages.LeftSide)],
+          ['right', intl.formatMessage(messages.RightSide)],
+        ],
+        default: 'top',
+      },
+      image: {
+        title: intl.formatMessage(messages.Image),
+        widget: 'object_browser',
+        mode: 'image',
+        allowExternals: true,
+        selectedItemAttrs: ['image_field', 'image_scales'],
+      },
+      imageSize: {
+        title: intl.formatMessage(messages.AssetSize),
+        choices: [
+          ['icon', intl.formatMessage(messages.Small)],
+          ['tile', intl.formatMessage(messages.Medium)],
+          ['thumb', intl.formatMessage(messages.Large)],
+        ],
+        default: 'icon',
+      },
+      iconSize: {
+        title: intl.formatMessage(messages.AssetSize),
+        choices: [
+          ['small', intl.formatMessage(messages.Small)],
+          ['medium', intl.formatMessage(messages.Medium)],
+          ['large', intl.formatMessage(messages.Large)],
+        ],
+        default: 'small',
+      },
+      icon: {
+        title: intl.formatMessage(messages.IconName),
+      },
+      hideTitle: {
+        title: intl.formatMessage(messages.HideTitle),
+        type: 'boolean',
+      },
+    },
+
+    required: [],
+  };
+};
+
+const toggleIconField = (schema, child) => {
+  const cloned = cloneDeepSchema(schema);
+
+  cloned.fieldsets[0].fields = [
+    ...cloned.fieldsets[0].fields,
+    ...(child.assetType === 'icon'
+      ? ['icon', 'iconSize', 'assetPosition', 'hideTitle']
+      : []),
+    ...(child.assetType === 'image'
+      ? ['image', 'imageSize', 'assetPosition', 'hideTitle']
+      : []),
+  ];
+
+  return cloned;
+};
+
+export const blockSchema = (props) => {
+  const intl = props.intl;
+  return {
+    title: intl.formatMessage(messages.TabsBlock),
+    fieldsets: [
+      {
+        id: 'default',
+        title: intl.formatMessage(messages.Default),
+        fields: ['title', 'description', 'verticalAlign', 'data'],
+      },
     ],
     properties: {
       data: {
         title: intl.formatMessage(messages.Tabs),
         type: 'tabs',
+        schema: tabSchema(props),
+        schemaExtender: toggleIconField,
       },
       title: {
         title: intl.formatMessage(messages.Title),
       },
-      template: {
-        title: intl.formatMessage(messages.Template),
-        choices: [...templates],
-        default: 'default',
+      description: {
+        title: intl.formatMessage(messages.Description),
       },
       verticalAlign: {
         title: intl.formatMessage(messages.VerticalAlign),
@@ -116,8 +216,7 @@ export const schema = (config, templateSchema = {}, props) => {
         ],
         default: 'flex-start',
       },
-      ...(templateSchema?.properties || {}),
     },
-    required: [...(templateSchema?.required || [])],
+    required: [],
   };
 };

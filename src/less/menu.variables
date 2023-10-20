@@ -11,6 +11,14 @@
 @menuTitleHoverColor: #013C60;
 @menuTitleHoverBackground: none;
 
+/* Tab Icons */
+@tabImageSmallSize:  48px;
+@tabImageMediumSize: 64px;
+@tabImageLargeSize: 80px;
+@tabIconSmallSize:  48px;
+@tabIconMediumSize: 64px;
+@tabIconLargeSize: 80px;
+
 /* Menu description */
 @menuDescriptionColor: #636363;
 

@@ -7,6 +7,15 @@
 .loadAddonVariables();
 
 .tabs-block {
+  // ensure only active slide is selectable
+  .slick-slide {
+    visibility: hidden;
+  }
+
+  .slick-active {
+    visibility: visible;
+  }
+
   .slick-slider {
     z-index: 2;
     display: flex !important;

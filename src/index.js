@@ -9,13 +9,10 @@ import {
   HorizontalResponsiveView,
   HorizontalCarouselView,
   VerticalCarouselView,
-  defaultSchema,
-  accordionSchema,
-  horizontalResponsiveSchema,
-  carouselSchema,
   layoutSchema,
   TabsEdit,
   TabsView,
+  blockSchema,
 } from '@eeacms/volto-tabs-block/components';
 import { TABS_BLOCK } from './constants';
 import { TabsWidget } from './widgets';
@@ -33,9 +30,21 @@ defineMessages({
     id: 'Accordion responsive',
     defaultMessage: 'Accordion responsive',
   },
+  carouselHorizontal: {
+    defaultMessage: 'Carousel horizontal',
+    id: 'Carousel horizontal',
+  },
+  carouselVerticalPrototype: {
+    defaultMessage: 'Carousel vertical (prototype)',
+    id: 'Carousel vertical (prototype)',
+  },
+  horizontalResponsive: {
+    defaultMessage: 'Horizontal responsive',
+    id: 'Horizontal responsive',
+  },
 });
 
-export default (config) => {
+const applyConfig = (config) => {
   config.blocks.blocksConfig[TABS_BLOCK] = {
     id: TABS_BLOCK,
     title: 'Tabs',
@@ -51,21 +60,23 @@ export default (config) => {
       view: [],
     },
     blockHasOwnFocusManagement: true,
+    blockSchema: blockSchema,
     schema: layoutSchema(config),
-    templates: {
-      default: {
+    variations: [
+      {
         id: 'default',
         title: 'Default',
+        isDefault: true,
         edit: DefaultEdit,
         view: DefaultView,
-        schema: defaultSchema,
+        schemaEnhancer: DefaultEdit.schemaEnhancer,
       },
-      accordion: {
-        id: 'accordionResponsive',
+      {
+        id: 'accordion',
         title: 'Accordion responsive',
         edit: AccordionEdit,
         view: AccordionView,
-        schema: accordionSchema,
+        schemaEnhancer: AccordionEdit.schemaEnhancer,
         transformWidth: 800,
         icons: {
           closed: rightSVG,
@@ -73,29 +84,28 @@ export default (config) => {
           size: '24px',
         },
       },
-      'horizontal-responsive': {
-        id: 'horizontalResponsive',
+      {
+        id: 'horizontal-responsive',
         title: 'Horizontal responsive',
         edit: HorizontalResponsiveEdit,
         view: HorizontalResponsiveView,
-        schema: horizontalResponsiveSchema,
+        schemaEnhancer: HorizontalResponsiveEdit.schemaEnhancer,
       },
-      carousel: {
-        id: 'carouselHorizontal',
+      {
+        id: 'carousel-horizontal',
         title: 'Carousel horizontal',
         edit: DefaultEdit,
         view: HorizontalCarouselView,
-        schema: carouselSchema,
+        schemaEnhancer: HorizontalCarouselView.schemaEnhancer,
       },
-      carousel_vertical: {
-        id: 'carouselVerticalPrototype',
+      {
+        id: 'carousel-vertical',
         title: 'Carousel vertical (prototype)',
         edit: DefaultEdit,
         view: VerticalCarouselView,
-        schema: carouselSchema,
+        schemaEnhancer: VerticalCarouselView.schemaEnhancer,
       },
-      ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
-    },
+    ],
     getBlocks: (data) => {
       const { blocks = {}, blocks_layout = {} } = data?.data;
       if (blocks_layout?.items?.length) {
@@ -116,3 +126,5 @@ export default (config) => {
 
   return config;
 };
+
+export default applyConfig;

@@ -27,6 +27,87 @@
     margin-bottom: @menuMarginButton;
   }
 
+  .tab-icon {
+    display: block !important;
+  }
+
+  .asset-position {
+    .image {
+      &.icon {
+        width: @tabImageSmallSize;
+      }
+
+      &.tile {
+        width: @tabImageMediumSize;
+      }
+
+      &.thumb {
+        width: @tabImageLargeSize;
+      }
+    }
+
+    .icon {
+      &.small {
+        font-size: @tabIconSmallSize;
+      }
+
+      &.medium {
+        font-size: @tabIconMediumSize;
+      }
+
+      &.large {
+        font-size: @tabIconLargeSize;
+      }
+    }
+  }
+
+  .RRT__accordion .tab-with-icon {
+    flex-direction: row-reverse;
+    gap: 0.25rem;
+
+    .icon {
+      font-size: 1.25rem;
+      --accordion-title-icon-order: 0;
+    }
+  }
+
+  .accordion-title {
+    display: flex;
+  }
+
+  .asset-top,
+  .asset-left,
+  .asset-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+
+    .menu-item-text {
+      margin: 0;
+    }
+  }
+
+  .asset-top {
+    flex-direction: column;
+    text-align: center;
+
+    .icon {
+      display: block !important;
+    }
+  }
+
+  .asset-left {
+    flex-direction: row;
+  }
+
+  .asset-right {
+    flex-direction: row-reverse;
+  }
+
+  .menu-item-count {
+    display: @menuItemCountDisplay;
+  }
+
   > .styled > .tabs > .ui.menu,
   > .styled > .tabs > .ui.grid > .column > .ui.menu,
   > .tabs > .ui.menu,
@@ -86,10 +167,6 @@
           margin: 0;
           color: inherit;
         }
-      }
-
-      .menu-item-count {
-        display: @menuItemCountDisplay;
       }
 
       &.active {

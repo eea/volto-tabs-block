@@ -11,14 +11,15 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
+import { AssetTab } from '@eeacms/volto-tabs-block/components';
 
 import { withResizeDetector } from 'react-resize-detector';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 class Tab extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.animateId = null;
     this.state = {
       height: 0,
@@ -62,9 +63,11 @@ const View = (props) => {
     width,
     id,
   } = props;
-  const accordionConfig =
-    config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
-  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
+
+  const accordionConfig = config.blocks.blocksConfig[
+    TABS_BLOCK
+  ].variations.filter((v, _i) => v.id === data.variation);
+  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig?.[0];
 
   const tabsContainer = React.useRef();
   const [mounted, setMounted] = React.useState(false);
@@ -75,29 +78,13 @@ const View = (props) => {
     tabs_width < initialWidth,
   );
 
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
-
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
-
   const items = tabsList.map((tab, index) => {
-    const title = tabs[tab].title;
     const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
+    const tabSettings = tabs[tab];
+    const { title, assetType } = tabSettings;
+    const tabIndex = index + 1;
+    const tabTitle = title || defaultTitle;
 
     return {
       title: (
@@ -112,7 +99,15 @@ const View = (props) => {
               size={icons.size}
             />
           )}
-          <span>{title || defaultTitle} </span>
+          {assetType ? (
+            <AssetTab
+              props={tabSettings}
+              tabTitle={tabTitle}
+              tabIndex={tabIndex}
+            />
+          ) : (
+            <span>{title || defaultTitle}</span>
+          )}
         </>
       ),
       content: (
@@ -170,7 +165,7 @@ const View = (props) => {
 
   return (
     <div
-      tabIndex="0"
+      className={'tab-accordion-container'}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
@@ -178,7 +173,8 @@ const View = (props) => {
           if (focusedElement) focusedElement.click();
         }
       }}
-      role="tab"
+      role={'presentation'}
+      tabIndex={-1}
     >
       <Tabs
         ref={tabsContainer}
@@ -209,13 +205,13 @@ const View = (props) => {
             : 'ui menu tabs-accessibility tabs-secondary-variant',
           data?.theme ? `${data?.theme}` : '',
           {
-            inverted: getDataValue('menuInverted'),
+            inverted: data.menuInverted,
           },
           {
-            pointing: getDataValue('menuPointing'),
+            pointing: data.menuPointing,
           },
           {
-            secondary: getDataValue('menuSecondary'),
+            secondary: data.menuSecondary,
           },
         )}
         showMore={false}

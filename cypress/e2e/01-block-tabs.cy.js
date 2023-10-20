@@ -19,7 +19,7 @@ describe('Blocks Tests', () => {
       .click({ force: true });
 
     cy.get('.field-wrapper-title input').last().type('Tab 1');
-    cy.get('.field-wrapper-template #field-template').click();
+    cy.get('.field-wrapper-variation #field-variation').click();
     cy.get('.react-select__menu').contains('Default').click();
     cy.get('.field-wrapper-verticalAlign #field-verticalAlign').click();
     cy.get('.react-select__menu').contains('Middle').click();
@@ -29,10 +29,22 @@ describe('Blocks Tests', () => {
     cy.get('.field-wrapper-menuPosition #field-menuPosition').first().click();
     cy.get('.react-select__menu').contains('Top').click();
 
+    cy.get('.field-wrapper-menuPosition #field-menuPosition').first().click();
+    cy.get('.react-select__menu').contains('Left').click();
+
+    cy.get('.field-wrapper-menuPosition #field-menuPosition').first().click();
+    cy.get('.react-select__menu').contains('Right').click();
+
+    cy.get('.field-wrapper-menuPosition #field-menuPosition').first().click();
+    cy.get('.react-select__menu').contains('Bottom').click();
+
+    cy.get('.field-wrapper-menuPosition #field-menuPosition').first().click();
+    cy.get('.react-select__menu').contains('Top').click();
+
     cy.get('.tabs-block [contenteditable=true]').first().type('Hydrogen');
     cy.get('.tabs-block .ui.left.menu .item').last().click();
-    cy.get('.tabs-block').contains('Tab 2').click();
     cy.get('.tabs-block.edit [contenteditable=true]').first().type('Oxygen');
+    cy.get('.tabs-block a.item').first().type(" ");
 
     cy.get('#toolbar-save').click();
     cy.url().should('eq', Cypress.config().baseUrl + '/cypress/my-page');
@@ -43,6 +55,10 @@ describe('Blocks Tests', () => {
     cy.get('.tabs-block p').contains('Tab 2').parent().focus().type('{enter}');
 
     cy.contains('Oxygen');
+
+    cy.get('.tabs-block p').contains('Tab 1').click();
+
+    cy.contains('Hydrogen');
   });
 
   it('Add Tabs carousel template', () => {
@@ -60,7 +76,7 @@ describe('Blocks Tests', () => {
       .contains('Tabs')
       .click({ force: true });
 
-    cy.get('.field-wrapper-template #field-template').click();
+    cy.get('.field-wrapper-variation #field-variation').click();
     cy.get('.react-select__menu').contains('Carousel horizontal').click();
     cy.get('.field-wrapper-verticalAlign #field-verticalAlign').click();
     cy.get('.react-select__menu').contains('Top').click();
@@ -78,6 +94,7 @@ describe('Blocks Tests', () => {
 
     // then the page view should contain our changes
     cy.contains('Tabs block carousel template');
+    cy.wait(500);
     cy.contains('Hydrogen');
 
     cy.get('.slick-arrow').click();
@@ -99,13 +116,15 @@ describe('Blocks Tests', () => {
       .click({ force: true });
 
     cy.get('.field-wrapper-title input').last().type('Tab 1');
-    cy.get('.field-wrapper-template #field-template').click();
+    cy.get('.field-wrapper-variation #field-variation').click();
     cy.get('.react-select__menu').contains('Horizontal responsive').click();
 
     cy.get('.tabs-block [contenteditable=true]').first().type('Horizontal First Item');
-    cy.get('.tabs-block .horizontal-responsive .ui.text.menu .item').last().click({force: true});
+    cy.get('.tabs-block .horizontal-responsive .ui.menu .item').last().click({force: true});
     cy.get('.tabs-block').contains('Tab 2').click();
     cy.get('.tabs-block.edit [contenteditable=true]').first().type('Horizontal Second Item');
+    cy.get('.tabs-block .horizontal-responsive .ui.menu .item').last().click({force: true});
+    cy.get('.tabs-block').contains('Tab 3').dblclick().type('Tab 3 edited');
 
     // Save
     cy.get('#toolbar-save').click();
@@ -116,8 +135,11 @@ describe('Blocks Tests', () => {
     cy.get('.tabs-block .horizontal-responsive.tabs').should('exist');
     cy.contains('Horizontal First Item');
 
-    cy.get('.tabs-block p').contains('Tab 2').click();
+    cy.get('.tabs-block p').contains('Tab 2').parent().focus().type('{enter}');
     cy.contains('Horizontal Second Item');
+
+    cy.get('.tabs-block p').contains('Tab 1').click();
+    cy.contains('Horizontal First Item');
   });
 
   it('Add Tabs Block Accordion', () => {
@@ -135,7 +157,7 @@ describe('Blocks Tests', () => {
       .click({ force: true });
 
     cy.get('.field-wrapper-title input').last().type('Tab 1');
-    cy.get('.field-wrapper-template #field-template').click();
+    cy.get('.field-wrapper-variation #field-variation').click();
     cy.get('.react-select__menu').contains('Accordion responsive').click();
 
     cy.get('.tabs-block [contenteditable=true]').first().type('Accordion First Item');

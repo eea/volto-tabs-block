@@ -4,9 +4,7 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
 import { Menu, Tab, Container, Dropdown, Button } from 'semantic-ui-react';
-import config from '@plone/volto/registry';
 import { RenderBlocks } from '@plone/volto/components';
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import {
   SimpleMarkdown,
   getMenuPosition,
@@ -110,7 +108,7 @@ const MenuWrapper = (props) => {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    if (false || !node?.current) return;
+    if (!node?.current) return;
     const items = node.current.querySelectorAll(
       '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
     );
@@ -191,27 +189,25 @@ const View = (props) => {
     screen,
   } = props;
   const menuPosition = getMenuPosition(data);
-  const isContainer = data.align === 'full';
-  const tabsTitle = data.title;
-  const tabsDescription = data.description;
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
 
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
+  const {
+    title,
+    description,
+    align,
+    menuBorderless,
+    menuColor,
+    menuCompact,
+    menuFluid,
+    menuInverted,
+    menuPointing,
+    menuSecondary,
+    menuSize,
+    menuStackable,
+    menuTabular,
+    menuText,
+    menuAlign,
+  } = data;
+  const isContainer = align === 'full';
 
   const panes = tabsList.map((tab, index) => {
     return {
@@ -225,8 +221,8 @@ const View = (props) => {
           blockId={props.id}
           index={index}
           lastIndex={tabsList.length - 1}
-          tabsTitle={tabsTitle}
-          tabsDescription={tabsDescription}
+          tabsTitle={title}
+          tabsDescription={description}
         />
       ),
       pane: (
@@ -256,19 +252,19 @@ const View = (props) => {
         renderActiveOnly={false}
         menu={{
           attached: menuPosition.attached,
-          borderless: getDataValue('menuBorderless'),
-          color: getDataValue('menuColor'),
-          compact: getDataValue('menuCompact'),
-          fluid: getDataValue('menuFluid'),
-          inverted: getDataValue('menuInverted'),
-          pointing: getDataValue('menuPointing'),
-          secondary: getDataValue('menuSecondary'),
-          size: getDataValue('menuSize'),
-          stackable: getDataValue('menuStackable'),
-          tabular: getDataValue('menuTabular'),
-          text: getDataValue('menuText'),
+          borderless: menuBorderless,
+          color: menuColor,
+          compact: menuCompact,
+          fluid: menuFluid,
+          inverted: menuInverted,
+          pointing: menuPointing,
+          secondary: menuSecondary,
+          size: menuSize,
+          stackable: menuStackable,
+          tabular: menuTabular,
+          text: menuText,
           vertical: menuPosition.vertical,
-          className: cx(data.menuAlign, { container: isContainer }),
+          className: cx(menuAlign, { container: isContainer }),
           children: (
             <MenuWrapper
               {...props}

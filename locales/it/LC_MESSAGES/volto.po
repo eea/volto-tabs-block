@@ -17,8 +17,28 @@ msgid "Accordion responsive"
 msgstr ""
 
 #: index
+# defaultMessage: Carousel horizontal
+msgid "Carousel horizontal"
+msgstr ""
+
+#: index
+# defaultMessage: Carousel vertical (prototype)
+msgid "Carousel vertical (prototype)"
+msgstr ""
+
+#: index
 # defaultMessage: Default
 msgid "Default"
+msgstr ""
+
+#: index
+# defaultMessage: Horizontal responsive
+msgid "Horizontal responsive"
+msgstr ""
+
+#: components/schema
+# defaultMessage: Medium
+msgid "Medium"
 msgstr ""
 
 #: components/EditBlockWrapper
@@ -31,15 +51,30 @@ msgstr ""
 msgid "accordion-tabs-block"
 msgstr ""
 
-#: components/schema
-# defaultMessage: Accordion responsive
-msgid "accordionResponsive"
+#: widgets/TabsWidget
+# defaultMessage: Add Tab
+msgid "addTab"
 msgstr ""
 
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Alignment
 msgid "alignment"
+msgstr ""
+
+#: components/schema
+# defaultMessage: Asset position
+msgid "assetPosition"
+msgstr ""
+
+#: components/schema
+# defaultMessage: Asset size
+msgid "assetSize"
+msgstr ""
+
+#: components/schema
+# defaultMessage: Asset type
+msgid "assetType"
 msgstr ""
 
 #: components/templates/default/schema
@@ -67,21 +102,6 @@ msgstr ""
 msgid "brown"
 msgstr ""
 
-#: components/templates/carousel/schema
-# defaultMessage: Carousel block
-msgid "carousel-tabs-block"
-msgstr ""
-
-#: components/schema
-# defaultMessage: Carousel horizontal
-msgid "carouselHorizontal"
-msgstr ""
-
-#: components/schema
-# defaultMessage: Carousel vertical (prototype)
-msgid "carouselVerticalPrototype"
-msgstr ""
-
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Center
@@ -101,7 +121,6 @@ msgstr ""
 
 #: components/schema
 #: components/templates/accordion/schema
-#: components/templates/carousel/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Default
@@ -118,6 +137,7 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
+#: components/schema
 #: components/templates/accordion/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
@@ -138,14 +158,14 @@ msgstr ""
 msgid "grey"
 msgstr ""
 
+#: components/schema
+# defaultMessage: Hide tab title?
+msgid "hideTitle"
+msgstr ""
+
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Horizontal tabs block
 msgid "horizontal-tabs-block"
-msgstr ""
-
-#: components/schema
-# defaultMessage: Horizontal responsive
-msgid "horizontalResponsive"
 msgstr ""
 
 #: components/templates/default/schema
@@ -154,9 +174,24 @@ msgstr ""
 msgid "huge"
 msgstr ""
 
+#: components/schema
+# defaultMessage: Icon
+msgid "icon"
+msgstr ""
+
 #: components/templates/accordion/schema
 # defaultMessage: Icon position on the right
 msgid "icon-position-on-the-right"
+msgstr ""
+
+#: components/schema
+# defaultMessage: Icon name
+msgid "iconName"
+msgstr ""
+
+#: components/schema
+# defaultMessage: Image
+msgid "image"
 msgstr ""
 
 #: components/templates/accordion/schema
@@ -164,6 +199,7 @@ msgstr ""
 msgid "inverted"
 msgstr ""
 
+#: components/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Large
@@ -176,6 +212,7 @@ msgstr ""
 msgid "left"
 msgstr ""
 
+#: components/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Left side
@@ -224,12 +261,14 @@ msgstr ""
 msgid "menu-inverted"
 msgstr ""
 
+#: components/templates/accordion/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Pointing
 msgid "menu-pointing"
 msgstr ""
 
+#: components/templates/accordion/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Secondary
@@ -312,6 +351,7 @@ msgstr ""
 msgid "right"
 msgstr ""
 
+#: components/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Right side
@@ -329,6 +369,7 @@ msgstr ""
 msgid "size"
 msgstr ""
 
+#: components/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Small
@@ -342,8 +383,19 @@ msgid "space-between"
 msgstr ""
 
 #: components/templates/accordion/schema
+#: components/templates/carousel/schema
 # defaultMessage: Style
 msgid "style"
+msgstr ""
+
+#: components/schema
+# defaultMessage: Tab
+msgid "tab"
+msgstr ""
+
+#: components/schema
+# defaultMessage: Tab title
+msgid "tabTitle"
 msgstr ""
 
 #: components/schema
@@ -360,11 +412,6 @@ msgstr ""
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Teal
 msgid "teal"
-msgstr ""
-
-#: components/schema
-# defaultMessage: Template
-msgid "template"
 msgstr ""
 
 #: components/templates/accordion/schema

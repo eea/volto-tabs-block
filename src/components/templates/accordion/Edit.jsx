@@ -1,183 +1,29 @@
 import React from 'react';
 import cx from 'classnames';
-import { compose } from 'redux';
 import { isEmpty } from 'lodash';
-import { v4 as uuid } from 'uuid';
-import { withRouter } from 'react-router';
+import { useIntl } from 'react-intl';
 import Tabs from 'react-responsive-tabs';
-import AnimateHeight from 'react-animate-height';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
+import { MenuItem } from '@eeacms/volto-tabs-block/components/templates/default/Edit';
 import { emptyBlocksForm } from '@plone/volto/helpers';
-import { Menu, Input, Icon } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 import { Icon as VoltoIcon, BlocksForm } from '@plone/volto/components';
 import config from '@plone/volto/registry';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import noop from 'lodash/noop';
+
 import '@eeacms/volto-tabs-block/less/menu.less';
-
-const MenuItem = (props) => {
-  const inputRef = React.useRef(null);
-  const {
-    activeTab = null,
-    activeBlock = null,
-    block = null,
-    data = {},
-    editingTab = null,
-    selected = false,
-    tabData = {},
-    tabs = {},
-
-    tabsData = {},
-    tabsDescription,
-    tabsList = [],
-    tabsTitle,
-    emptyTab = noop,
-    setActiveBlock = noop,
-    setActiveTab = noop,
-    setEditingTab = noop,
-    onChangeBlock = noop,
-  } = props;
-  const { tab, index } = props;
-  const tabIndex = index + 1;
-  const defaultTitle = `Tab ${tabIndex}`;
-  const title = tabs[tab]?.title;
-  const addNewTab = () => {
-    const tabId = uuid();
-
-    onChangeBlock(block, {
-      ...data,
-      data: {
-        ...tabsData,
-        blocks: {
-          ...tabsData.blocks,
-          [tabId]: {
-            ...emptyTab(),
-          },
-        },
-        blocks_layout: {
-          items: [...tabsData.blocks_layout.items, tabId],
-        },
-      },
-    });
-  };
-
-  React.useEffect(() => {
-    if (editingTab === tab && inputRef.current) {
-      inputRef.current.focus();
-    }
-    /* eslint-disable-next-line */
-  }, [editingTab]);
-
-  return (
-    <>
-      {index === 0 && (tabsTitle || tabsDescription) && (
-        <div className="menu-title"></div>
-      )}
-
-      <Menu.Item
-        role="tab"
-        aria-hidden="true"
-        name={defaultTitle}
-        active={tab === activeTab}
-        onClick={() => {
-          if (activeTab !== tab) {
-            setActiveTab(tab);
-          }
-          if (activeBlock) {
-            setActiveBlock(null);
-          }
-          if (editingTab !== tab) {
-            setEditingTab(null);
-          }
-        }}
-        onDoubleClick={() => {
-          setEditingTab(tab);
-        }}
-        className="remove-margin"
-      >
-        {editingTab === tab && selected ? (
-          <Input
-            placeholder={defaultTitle}
-            ref={inputRef}
-            transparent
-            value={title}
-            onChange={(e) => {
-              onChangeBlock(block, {
-                ...data,
-                data: {
-                  ...tabsData,
-                  blocks: {
-                    ...tabsData.blocks,
-                    [tab]: {
-                      ...(tabData || {}),
-                      title: e.target.value,
-                    },
-                  },
-                },
-              });
-            }}
-          />
-        ) : (
-          <>
-            <p className={'menu-item-text'}>{title || defaultTitle}</p>
-          </>
-        )}
-      </Menu.Item>
-      {index === tabsList.length - 1 ? (
-        <>
-          <Menu.Item
-            role="tab"
-            aria-hidden="true"
-            name="addition"
-            onClick={() => {
-              addNewTab();
-              setEditingTab(null);
-            }}
-            className="remove-margin addition-button"
-          >
-            <p className={'menu-item-text'}>+</p>
-          </Menu.Item>
-        </>
-      ) : (
-        ''
-      )}
-    </>
-  );
-};
+import { accordionSchemaEnhancer } from '@eeacms/volto-tabs-block/components/templates/accordion/schema';
 
 class Tab extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      height: 0,
-    };
-  }
-
-  componentDidMount() {
-    if (this.state.height === 0) {
-      requestAnimationFrame(() => {
-        this.setState({ height: 'auto' });
-      });
-    }
-  }
-
   render() {
-    return (
-      <AnimateHeight
-        animateOpacity
-        duration={500}
-        height={this.state.height}
-        aria-hidden={false}
-      >
-        {this.props.children}
-      </AnimateHeight>
-    );
+    return this.props.children;
   }
 }
 
 const Edit = (props) => {
+  const intl = useIntl();
   const {
     data = {},
     tabsList = [],
@@ -198,41 +44,22 @@ const Edit = (props) => {
     onSelectBlock = noop,
     emptyTab = noop,
     tabsData = {},
+    schema,
   } = props;
 
-  const accordionConfig =
-    config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
-  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
+  const { menuInverted, menuSecondary, menuPointing } = data;
+  const accordionConfig = config.blocks.blocksConfig[
+    TABS_BLOCK
+  ].variations.filter((v, _i) => v.id === data.variation);
+  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig?.[0];
 
   const tabsContainer = React.useRef();
   const [mounted, setMounted] = React.useState(false);
   const [hashTab, setHashTab] = React.useState(false);
   const [initialWidth, setInitialWidth] = React.useState(transformWidth);
 
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
-
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
-
   const items = tabsList.map((tab, index) => {
-    const title = tabs[tab]?.title;
-    const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
-    const tabsDescription = data.description;
 
     return {
       title: (
@@ -259,8 +86,7 @@ const Edit = (props) => {
             index={index}
             setEditingTab={setEditingTab}
             tab={tab}
-            tabsTitle={title || defaultTitle}
-            tabsDescription={tabsDescription}
+            schema={schema}
           />
         </>
       ),
@@ -268,7 +94,7 @@ const Edit = (props) => {
         <Tab {...props} tab={tab} content={tabs[tab]} aria-hidden={false}>
           <BlocksForm
             allowedBlocks={data?.allowedBlocks}
-            description={data?.instrunctions?.data}
+            description={data?.instructions?.data}
             manage={manage}
             metadata={metadata}
             pathname={props.pathname}
@@ -289,7 +115,10 @@ const Edit = (props) => {
                     [activeTab]: {
                       ...(newFormData.blocks_layout.items.length > 0
                         ? newFormData
-                        : emptyTab()),
+                        : emptyTab({
+                            schema: schema.properties.data.schema,
+                            intl,
+                          })),
                     },
                   },
                 },
@@ -347,16 +176,14 @@ const Edit = (props) => {
       selectedTabKey={tabsList[activeTabIndex]}
       unmountOnExit={false}
       items={items}
-      onChange={(tab) => {
+      onChange={() => {
         const { blockWidth } = tabsContainer.current?.state || {};
         const tabWithHash = getParentTabFromHash(
           data,
-          props.location.hash.substring(1),
+          props?.location?.hash.substring(1),
         );
-        if (tabWithHash === tabsList[activeTabIndex] && !hashTab)
+        if (tabWithHash === tabsList[activeTabIndex] && !hashTab) {
           setHashTab(true);
-        else if (tab !== tabsList[activeTabIndex]) {
-          setActiveTab(tab);
         } else if (blockWidth <= initialWidth) {
           setActiveTab(null);
         }
@@ -367,13 +194,13 @@ const Edit = (props) => {
         'tabs-accessibility',
         data?.theme ? `${data?.theme}` : '',
         {
-          inverted: getDataValue('menuInverted'),
+          inverted: menuInverted,
         },
         {
-          pointing: getDataValue('menuPointing'),
+          pointing: menuPointing,
         },
         {
-          secondary: getDataValue('menuSecondary'),
+          secondary: menuSecondary,
         },
       )}
       showMore={false}
@@ -381,4 +208,6 @@ const Edit = (props) => {
   );
 };
 
-export default compose(withScrollToTarget, withRouter)(Edit);
+Edit.schemaEnhancer = accordionSchemaEnhancer;
+
+export default Edit;

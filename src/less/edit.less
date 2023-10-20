@@ -138,3 +138,29 @@
     }
   }
 }
+
+.block-editor-tabs_block {
+  .block.tabs_block.selected::before,
+  .block.tabs_block:hover::before {
+    border-style: dashed;
+  }
+
+  fieldset {
+    border: none;
+
+    legend {
+      position: absolute;
+      z-index: 3;
+      top: -1.3em;
+      left: 0;
+      width: fit-content;
+      padding: 0 1rem;
+      margin-right: auto;
+      margin-left: auto;
+      background-color: @pageBackground;
+      color: @borderColor;
+      cursor: pointer;
+      text-align: center;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import DefaultEdit from './Edit';
 import DefaultView from './View';
-import defaultSchema from './schema';
+import { AssetTab } from './View';
 
-export { DefaultEdit, DefaultView, defaultSchema };
+export { DefaultEdit, DefaultView, AssetTab };
