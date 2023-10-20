@@ -108,10 +108,10 @@ describe('Blocks Tests', () => {
     cy.get('.react-select__menu').contains('Horizontal responsive').click();
 
     cy.get('.tabs-block [contenteditable=true]').first().type('Horizontal First Item');
-    cy.get('.tabs-block .horizontal-responsive .ui.text.menu .item').last().click({force: true});
+    cy.get('.tabs-block .horizontal-responsive .ui.menu .item').last().click({force: true});
     cy.get('.tabs-block').contains('Tab 2').click();
     cy.get('.tabs-block.edit [contenteditable=true]').first().type('Horizontal Second Item');
-    cy.get('.tabs-block .horizontal-responsive .ui.text.menu .item').last().click({force: true});
+    cy.get('.tabs-block .horizontal-responsive .ui.menu .item').last().click({force: true});
     cy.get('.tabs-block').contains('Tab 3').dblclick().type('Tab 3 edited');
 
     // Save
