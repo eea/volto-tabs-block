@@ -3,7 +3,6 @@
 *******************************/
 
 @tabsBlockColor: var(--text-color, #000);
-@tabFocusColor: var(--focus-color, blue);
 @verticalPadding: 1rem;
 @horizontalPadding: 1rem;
 
