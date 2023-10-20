@@ -165,7 +165,7 @@ const View = (props) => {
 
   return (
     <div
-      tabIndex="0"
+      className={'tab-accordion-container'}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
@@ -173,7 +173,8 @@ const View = (props) => {
           if (focusedElement) focusedElement.click();
         }
       }}
-      role="tab"
+      role={'tab'}
+      tabIndex={-1}
     >
       <Tabs
         ref={tabsContainer}
