@@ -173,7 +173,7 @@ const View = (props) => {
           if (focusedElement) focusedElement.click();
         }
       }}
-      role={'tab'}
+      role={'presentation'}
       tabIndex={-1}
     >
       <Tabs
