@@ -94,7 +94,7 @@ export const MenuItem = (props) => {
         tabIndex={0}
         role={'tab'}
         onKeyDown={(e) => {
-          if (e.code === 'Space') {
+          if (e.target.tagName === 'A' && e.code === 'Space') {
             e.preventDefault();
             setActiveTab(tab);
           }

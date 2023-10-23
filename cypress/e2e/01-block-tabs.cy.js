@@ -44,7 +44,7 @@ describe('Blocks Tests', () => {
     cy.get('.tabs-block [contenteditable=true]').first().type('Hydrogen');
     cy.get('.tabs-block .ui.left.menu .item').last().click();
     cy.get('.tabs-block.edit [contenteditable=true]').first().type('Oxygen');
-    cy.get('.tabs-block a.item').first().type(" ");
+    cy.get('.tabs-block a.item').first().type(' ');
 
     cy.get('#toolbar-save').click();
     cy.url().should('eq', Cypress.config().baseUrl + '/cypress/my-page');
@@ -119,11 +119,19 @@ describe('Blocks Tests', () => {
     cy.get('.field-wrapper-variation #field-variation').click();
     cy.get('.react-select__menu').contains('Horizontal responsive').click();
 
-    cy.get('.tabs-block [contenteditable=true]').first().type('Horizontal First Item');
-    cy.get('.tabs-block .horizontal-responsive .ui.menu .item').last().click({force: true});
+    cy.get('.tabs-block [contenteditable=true]')
+      .first()
+      .type('Horizontal First Item');
+    cy.get('.tabs-block .horizontal-responsive .ui.menu .item')
+      .last()
+      .click({ force: true });
     cy.get('.tabs-block').contains('Tab 2').click();
-    cy.get('.tabs-block.edit [contenteditable=true]').first().type('Horizontal Second Item');
-    cy.get('.tabs-block .horizontal-responsive .ui.menu .item').last().click({force: true});
+    cy.get('.tabs-block.edit [contenteditable=true]')
+      .first()
+      .type('Horizontal Second Item');
+    cy.get('.tabs-block .horizontal-responsive .ui.menu .item')
+      .last()
+      .click({ force: true });
     cy.get('.tabs-block').contains('Tab 3').dblclick().type('Tab 3 edited');
 
     // Save
@@ -160,14 +168,33 @@ describe('Blocks Tests', () => {
     cy.get('.field-wrapper-variation #field-variation').click();
     cy.get('.react-select__menu').contains('Accordion responsive').click();
 
-    cy.get('.tabs-block [contenteditable=true]').first().type('Accordion First Item');
-    cy.get('.tabs-block .menu-item-text').last().click({force: true});
+    cy.get('.tabs-block [contenteditable=true]')
+      .first()
+      .type('Accordion First Item');
+    cy.get('.tabs-block .menu-item-text').last().click({ force: true });
     cy.get('.tabs-block').contains('Tab 2').click();
-    cy.get('.tabs-block.edit [contenteditable=true]').first().type('Accordion Second Item');
-    cy.get('.block-editor-tabs_block + .block-editor-slate .block.slate:not(.ui)').click();
-    // cy.get('.block-editor-slate .block.slate').click();
-    cy.get('.tabs-block').contains('Tab 1').click();
+    cy.get('.tabs-block.edit [contenteditable=true]')
+      .first()
+      .type('Accordion Second Item');
+    cy.get(
+      '.block-editor-tabs_block + .block-editor-slate .block.slate:not(.ui)',
+    ).click();
+
+    cy.get('.tabs-block').contains('Tab 1').dblclick().type('Tab 1 edited');
+
     cy.get('.field-wrapper-accordionIconRight .checkbox').click();
+
+    // Add new tab
+    cy.get('.tabs-block .addition-button').click();
+    cy.get('.tabs-block').contains('Tab 3').dblclick().type('Tab 3 edited');
+
+    // Add new tab
+    cy.get('.tabs-block .addition-button').click();
+    cy.get('.tabs-block').contains('Tab 4').dblclick().type('Tab 4 edited');
+
+    // Add new tab
+    cy.get('.tabs-block .addition-button').click();
+    cy.get('.tabs-block').contains('Tab 5').dblclick().type('Tab 5 edited');
 
     // Save
     cy.get('#toolbar-save').click();
@@ -180,7 +207,12 @@ describe('Blocks Tests', () => {
 
     cy.get('.tabs-block').contains('Tab 2').click();
     cy.contains('Accordion Second Item');
-    cy.get('.tabs-block .RRT__tab:not(.RRT__tab--selected').focus().type('{enter}');
+    cy.get('.tabs-block .RRT__tab--first').focus().type('{enter}');
+    cy.contains('Accordion First Item');
+
+    // switch to mobile view
+    cy.viewport('iphone-6');
+
     cy.contains('Accordion First Item');
   });
 });
