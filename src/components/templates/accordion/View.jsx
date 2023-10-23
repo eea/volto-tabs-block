@@ -1,53 +1,26 @@
-import React, { useLayoutEffect } from 'react';
-import cx from 'classnames';
-import { compose } from 'redux';
-import { withRouter } from 'react-router';
-import Tabs from 'react-responsive-tabs';
-import AnimateHeight from 'react-animate-height';
-import { Icon } from 'semantic-ui-react';
-import config from '@plone/volto/registry';
-import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
-import noop from 'lodash/noop';
 import { AssetTab } from '@eeacms/volto-tabs-block/components';
+import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
+import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import { RenderBlocks, Icon as VoltoIcon } from '@plone/volto/components';
+import config from '@plone/volto/registry';
+import cx from 'classnames';
+import noop from 'lodash/noop';
+import React, { useLayoutEffect } from 'react';
+import Tabs from 'react-responsive-tabs';
+import { withRouter } from 'react-router';
+import { compose } from 'redux';
+import { Icon } from 'semantic-ui-react';
 
 import { withResizeDetector } from 'react-resize-detector';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 class Tab extends React.Component {
-  constructor(props) {
-    super(props);
-    this.animateId = null;
-    this.state = {
-      height: 0,
-    };
-  }
-
-  componentDidMount() {
-    if (this.state.height === 0) {
-      this.animateId = requestAnimationFrame(() => {
-        this.setState({ height: 'auto' });
-      });
-    }
-  }
-  componentWillUnmount() {
-    cancelAnimationFrame(this.animateId);
-  }
-
   render() {
     return (
       <div id={this.props.title} className="tab-name">
-        <AnimateHeight
-          animateOpacity
-          duration={500}
-          height={this.state.height}
-          aria-hidden={false}
-        >
-          <RenderBlocks {...this.props} />
-        </AnimateHeight>
+        <RenderBlocks {...this.props} />
       </div>
     );
   }

@@ -6,6 +6,44 @@
 
 .loadAddonVariables();
 
+
+@keyframes slide-down {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  95% {
+    visibility: visible;
+    overflow: hidden;
+    max-height: @animationContentMaxHeight;
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+    max-height: auto;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    visibility: visible;
+    max-height: @animationContentMaxHeight;
+    overflow: hidden;
+    opacity: 1;
+  }
+
+  to {
+    visibility: hidden;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
 .tabs-block {
   .remove-menu.active {
     overflow: revert; /* needed for edit double click to modify title to remove scrollbar */
@@ -66,6 +104,24 @@
       }
     }
   }
+
+@media not (prefers-reduced-motion) {
+  .ui.accordion .title~.content.RRT__panel {
+    display: block;
+    animation: slide-up @animationDuration linear both;
+    padding: 0;
+    will-change: max-height, overflow, opacity;
+  }
+
+  .tab-name {
+    padding: @tabAccordionContentPadding;
+  }
+
+  .ui.accordion .title~.content.RRT__panel.active {
+    animation: slide-down @animationDuration linear both;
+  }
+}
+
   @media print {
     .ui.tab {
       display: block !important;
