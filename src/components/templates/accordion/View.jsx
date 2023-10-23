@@ -1,18 +1,20 @@
+import React, { useLayoutEffect } from 'react';
+import { compose } from 'redux';
+import { withRouter } from 'react-router';
+import { withResizeDetector } from 'react-resize-detector';
+import cx from 'classnames';
+import noop from 'lodash/noop';
+
+import { Icon } from 'semantic-ui-react';
+import { Icon as VoltoIcon } from '@plone/volto/components';
+import { RenderBlocks } from '@plone/volto/components';
+import config from '@plone/volto/registry';
+
+import Tabs from 'react-responsive-tabs';
 import { AssetTab } from '@eeacms/volto-tabs-block/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import { RenderBlocks, Icon as VoltoIcon } from '@plone/volto/components';
-import config from '@plone/volto/registry';
-import cx from 'classnames';
-import noop from 'lodash/noop';
-import React, { useLayoutEffect } from 'react';
-import Tabs from 'react-responsive-tabs';
-import { withRouter } from 'react-router';
-import { compose } from 'redux';
-import { Icon } from 'semantic-ui-react';
-
-import { withResizeDetector } from 'react-resize-detector';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
