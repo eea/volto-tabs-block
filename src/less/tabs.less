@@ -6,41 +6,40 @@
 
 .loadAddonVariables();
 
-
 @keyframes slide-down {
   0% {
-    visibility: hidden;
-    opacity: 0;
-    max-height: 0;
     overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
   }
 
   95% {
-    visibility: visible;
     overflow: hidden;
     max-height: @animationContentMaxHeight;
+    visibility: visible;
   }
 
   100% {
+    max-height: auto;
     opacity: 1;
     visibility: visible;
-    max-height: auto;
   }
 }
 
 @keyframes slide-up {
   from {
-    visibility: visible;
-    max-height: @animationContentMaxHeight;
     overflow: hidden;
+    max-height: @animationContentMaxHeight;
     opacity: 1;
+    visibility: visible;
   }
 
   to {
-    visibility: hidden;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
+    visibility: hidden;
   }
 }
 
@@ -105,22 +104,22 @@
     }
   }
 
-@media not (prefers-reduced-motion) {
-  .ui.accordion .title~.content.RRT__panel {
-    display: block;
-    animation: slide-up @animationDuration linear both;
-    padding: 0;
-    will-change: max-height, overflow, opacity;
-  }
+  @media not (prefers-reduced-motion) {
+    .ui.accordion .title ~ .content.RRT__panel {
+      display: block;
+      padding: 0;
+      animation: slide-up @animationDuration linear both;
+      will-change: max-height, overflow, opacity;
+    }
 
-  .tab-name {
-    padding: @tabAccordionContentPadding;
-  }
+    .tab-name {
+      padding: @tabAccordionContentPadding;
+    }
 
-  .ui.accordion .title~.content.RRT__panel.active {
-    animation: slide-down @animationDuration linear both;
+    .ui.accordion .title ~ .content.RRT__panel.active {
+      animation: slide-down @animationDuration linear both;
+    }
   }
-}
 
   @media print {
     .ui.tab {
