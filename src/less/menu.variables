@@ -24,6 +24,7 @@
 
 /* Menu item */
 @menuItemCountDisplay: none;
+@menuItemHoverColor: #FFF;
 
 @accordionMenuItemBackground: #F3F4F5;  /* not used */
 @accordionTabBackground: transparent;
