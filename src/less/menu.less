@@ -27,12 +27,22 @@
     margin-bottom: @menuMarginButton;
   }
 
-  .ui.inverted.menu {
+  .RRT__tabs.tabs-accessibility.ui.inverted.menu {
     background-color: @menuItemBackgroundColor;
-  }
 
-  .ui.inverted.menu .item:hover {
-    color: @menuItemHoverColor !important;
+    .item {
+      color: @menuItemInvertedTextColor;
+      cursor: pointer;
+    }
+
+    .item.active {
+      border-color: @secondaryPointingInvertedActiveBorderColor;
+      color: @menuItemInvertedTextColor !important;
+    }
+
+    .item:hover {
+      color: @menuItemHoverTextColor;
+    }
   }
 
   .tab-icon {

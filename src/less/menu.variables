@@ -24,8 +24,10 @@
 
 /* Menu item */
 @menuItemCountDisplay: none;
+@secondaryPointingInvertedActiveBorderColor: var(--inverted-secondary-border-color, @pink);
 @menuItemBackgroundColor: var(--inverted-bg-color, #C7D5D8);
-@menuItemHoverColor:var(--inverted-hover-text-color, @textColor);
+@menuItemInvertedTextColor:var(--inverted-text-color, @textColor);
+@menuItemHoverTextColor:var(--inverted-hover-text-color, @textColor);
 
 
 @accordionMenuItemBackground: #F3F4F5;  /* not used */
