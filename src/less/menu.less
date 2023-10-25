@@ -21,7 +21,7 @@
     border-width: 0 0 4px 0;
   }
 
-  .ui.secondary.inverted.menu .active.item {
+  .ui.secondary.inverted.menu .active.item:not(.remove-margin) {
     background-color: @menuItemInvertedActiveBackgroundColor !important;
   }
 
@@ -43,12 +43,12 @@
     cursor: pointer;
   }
 
-  .ui.menu:not(.inverted) .active.item {
-    background-color: @menuItemActiveColor;
+  .ui.menu:not(.inverted) .active.item:not(.remove-margin) {
+    background-color: @menuItemActiveBackgroundColor;
   }
 
   .RRT__tabs.tabs-accessibility.ui.inverted.menu {
-    background-color: @menuItemBackgroundColor;
+    background-color: @menuItemInvertedBackgroundColor;
 
     .item {
       color: @menuItemInvertedTextColor !important;
@@ -60,7 +60,7 @@
     }
 
     .item:hover {
-      color: @menuItemHoverTextColor !important;
+      color: @menuItemInvertedHoverTextColor !important;
     }
   }
 

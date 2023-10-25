@@ -24,13 +24,13 @@
 
 /* Menu item */
 @menuItemCountDisplay: none;
-@secondaryPointingInvertedActiveBorderColor: var(--inverted-secondary-border-color, @pink);
-@menuItemBackgroundColor: var(--inverted-bg-color, #C7D5D8);
-@menuItemActiveColor: var(--item-active-color, rgba(0, 0, 0, 0.05));
-@menuItemInvertedTextColor: var(--inverted-text-color, @textColor);
-@menuItemInvertedActiveTextColor: var(--inverted-active-text-color, @textColor);
-@menuItemInvertedActiveBackgroundColor: var(--inverted-active-bg-color, rgba(0, 0, 0, 0.1));
-@menuItemHoverTextColor:var(--inverted-hover-text-color, @textColor);
+@secondaryPointingInvertedActiveBorderColor: var(--inverted-secondary-active-border-color, @pink);
+@menuItemActiveBackgroundColor: var(--tab-active-bg-color, rgba(0, 0, 0, 0.05));
+@menuItemInvertedBackgroundColor: var(--tab-inverted-bg-color, #C7D5D8);
+@menuItemInvertedActiveBackgroundColor: var(--tab-inverted-active-bg-color, rgba(0, 0, 0, 0.1));
+@menuItemInvertedActiveTextColor: var(--tab-inverted-active-text-color, @textColor);
+@menuItemInvertedTextColor: var(--tab-inverted-text-color, @textColor);
+@menuItemInvertedHoverTextColor:var(--tab-inverted-hover-text-color, @textColor);
 
 
 @accordionMenuItemBackground: #F3F4F5;  /* not used */
