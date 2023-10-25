@@ -26,7 +26,10 @@
 @menuItemCountDisplay: none;
 @secondaryPointingInvertedActiveBorderColor: var(--inverted-secondary-border-color, @pink);
 @menuItemBackgroundColor: var(--inverted-bg-color, #C7D5D8);
-@menuItemInvertedTextColor:var(--inverted-text-color, @textColor);
+@menuItemActiveColor: var(--item-active-color, rgba(0, 0, 0, 0.05));
+@menuItemInvertedTextColor: var(--inverted-text-color, @textColor);
+@menuItemInvertedActiveTextColor: var(--inverted-active-text-color, @textColor);
+@menuItemInvertedActiveBackgroundColor: var(--inverted-active-bg-color, rgba(0, 0, 0, 0.1));
 @menuItemHoverTextColor:var(--inverted-hover-text-color, @textColor);
 
 
