@@ -7,7 +7,7 @@
 @horizontalPadding: 1rem;
 @animationDuration: 0.5s;
 @tabAccordionContentPadding: 1rem;
-@animationContentMaxHeight: 500px;
+@animationContentMaxHeight: 1000px;
 
 /* Tab pane */
 @tabPanePadding: @verticalPadding @horizontalPadding;
