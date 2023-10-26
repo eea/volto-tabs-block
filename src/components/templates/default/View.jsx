@@ -226,6 +226,7 @@ const View = (props) => {
         className="default tabs tabs-accessibility"
         renderActiveOnly={false}
         menu={{
+          role: 'tablist',
           attached: menuPosition.attached,
           borderless: menuBorderless,
           color: menuColor,

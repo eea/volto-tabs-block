@@ -113,6 +113,13 @@ const View = (props) => {
 
   React.useEffect(() => {
     if (!mounted) return;
+
+    // set role="tablist" on RRT_tabs for proper aria role accessibility
+    const tabsWrapper = tabsContainer.current?.tabsWrapper.current;
+    if (tabsWrapper) {
+      tabsWrapper.querySelector('.RRT__tabs').setAttribute('role', 'tablist');
+    }
+
     const { blockWidth, tabsTotalWidth } = tabsContainer.current?.state || {};
     setInitialWidth(
       tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1,
