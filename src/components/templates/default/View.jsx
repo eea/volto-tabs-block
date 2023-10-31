@@ -2,19 +2,76 @@ import React, { useState, useEffect } from 'react';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
-import { Menu, Tab, Container } from 'semantic-ui-react';
-import config from '@plone/volto/registry';
+import { Menu, Tab, Container, Icon, Image } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
   SimpleMarkdown,
   getMenuPosition,
 } from '@eeacms/volto-tabs-block/utils';
 
+import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers';
+
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 import noop from 'lodash/noop';
+
+export const AssetTab = ({ props, tabIndex, tabTitle }) => {
+  const {
+    icon,
+    image,
+    assetType,
+    assetPosition,
+    iconSize,
+    imageSize,
+    hideTitle,
+  } = props;
+  const imageObject = image?.[0];
+  return (
+    <div
+      className={cx('asset-position', {
+        'asset-top': assetPosition === 'top',
+        'asset-left': assetPosition === 'left',
+        'asset-right': assetPosition === 'right',
+      })}
+    >
+      {assetType === 'icon' && icon && (
+        <Icon
+          className={cx('tab-icon', icon, iconSize, 'aligned')}
+          {...{
+            ...(hideTitle && {
+              role: 'img',
+              'aria-hidden': 'false',
+              'aria-label': tabTitle,
+            }),
+          }}
+        />
+      )}
+
+      {assetType === 'image' && imageObject && (
+        <Image
+          src={
+            isInternalURL(imageObject['@id'])
+              ? `${flattenToAppURL(imageObject['@id'])}/${
+                  imageObject?.image_scales?.image?.[0].scales?.[imageSize]
+                    ?.download || imageObject?.image_scales?.image?.[0].download
+                }`
+              : imageObject['@id']
+          }
+          className={cx('ui', imageSize, 'aligned')}
+          alt={hideTitle ? tabTitle : ''}
+        />
+      )}
+
+      {!hideTitle && (
+        <div>
+          <span className="menu-item-count">{tabIndex}</span>
+          <p className="menu-item-text">{tabTitle}</p>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const MenuItem = (props) => {
   const {
@@ -27,10 +84,12 @@ const MenuItem = (props) => {
   } = props;
 
   const { tab, index } = props;
-  const title = tabs[tab].title;
   const tabIndex = index + 1;
   const [tabChanged, setTabChanged] = useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
+  const tabSettings = tabs[tab];
+  const { title, assetType } = tabSettings;
+  const tabTitle = title || defaultTitle;
 
   useEffect(() => {
     if (
@@ -56,7 +115,9 @@ const MenuItem = (props) => {
       <Menu.Item
         name={defaultTitle}
         active={tab === activeTab}
+        aria-selected={tab === activeTab}
         tabIndex={0}
+        role={'tab'}
         onClick={() => {
           if (activeTab !== tab) {
             setActiveTab(tab);
@@ -72,8 +133,20 @@ const MenuItem = (props) => {
           }
         }}
       >
-        <span className={'menu-item-count'}>{tabIndex}</span>
-        <p className={'menu-item-text'}>{title || defaultTitle}</p>
+        <>
+          {assetType ? (
+            <AssetTab
+              props={tabSettings}
+              tabTitle={tabTitle}
+              tabIndex={tabIndex}
+            />
+          ) : (
+            <>
+              <span className="menu-item-count">{tabIndex}</span>
+              <p className="menu-item-text">{tabTitle}</p>
+            </>
+          )}
+        </>
       </Menu.Item>
     </React.Fragment>
   );
@@ -94,28 +167,24 @@ const View = (props) => {
     }
   }, [data, menuPosition]);
 
-  const isContainer = data.align === 'full';
-  const tabsTitle = data.title;
-  const tabsDescription = data.description;
-
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
-
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
+  const {
+    title,
+    description,
+    align,
+    menuBorderless,
+    menuColor,
+    menuCompact,
+    menuFluid,
+    menuInverted,
+    menuPointing,
+    menuSecondary,
+    menuSize,
+    menuStackable,
+    menuTabular,
+    menuText,
+    menuAlign,
+  } = data;
+  const isContainer = align === 'full';
 
   const panes = tabsList.map((tab, index) => {
     return {
@@ -126,8 +195,8 @@ const View = (props) => {
           key={tab}
           tab={tab}
           index={index}
-          tabsTitle={tabsTitle}
-          tabsDescription={tabsDescription}
+          tabsTitle={title}
+          tabsDescription={description}
           blockId={props?.id || ''}
         />
       ),
@@ -157,22 +226,22 @@ const View = (props) => {
         className="default tabs tabs-accessibility"
         renderActiveOnly={false}
         menu={{
+          role: 'tablist',
           attached: menuPosition.attached,
-          borderless: getDataValue('menuBorderless'),
-          color: getDataValue('menuColor'),
-          compact: getDataValue('menuCompact'),
-          fluid: getDataValue('menuFluid'),
-          inverted: getDataValue('menuInverted'),
-          pointing: getDataValue('menuPointing'),
-          secondary: getDataValue('menuSecondary'),
-          size: getDataValue('menuSize'),
-          stackable: getDataValue('menuStackable'),
-          tabular: getDataValue('menuTabular'),
-          text: getDataValue('menuText'),
+          borderless: menuBorderless,
+          color: menuColor,
+          compact: menuCompact,
+          fluid: menuFluid,
+          inverted: menuInverted,
+          pointing: menuPointing,
+          secondary: menuSecondary,
+          size: menuSize,
+          stackable: menuStackable,
+          tabular: menuTabular,
+          text: menuText,
           vertical: menuPosition.vertical,
           className: cx(
-            'tabs-secondary-variant',
-            data.menuAlign,
+            menuAlign,
             menuPosition.direction === 'left' ? 'border-right' : '',
             menuPosition.direction === 'right' ? 'border-left' : '',
             menuPosition.direction === 'top' ? 'border-bottom' : '',

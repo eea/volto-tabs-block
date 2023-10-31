@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl';
+import config from '@plone/volto/registry';
 
 const messages = defineMessages({
   AccordionTabsBlock: {
@@ -51,58 +52,50 @@ const messages = defineMessages({
   },
 });
 
-export default (config, props) => ({
-  title: props.intl.formatMessage(messages.AccordionTabsBlock),
-  fieldsets: [
-    {
-      id: 'default',
-      title: props.intl.formatMessage(messages.Default),
-      fields: ['description'],
-    },
-    {
-      id: 'menu',
-      title: props.intl.formatMessage(messages.Menu),
-      fields: [
-        'menuInverted',
-        'menuSecondary',
-        'menuPointing',
-        'accordionIconRight',
-      ],
-    },
-    {
-      id: 'style',
-      title: props.intl.formatMessage(messages.Style),
-      fields: ['theme'],
-    },
-  ],
-  properties: {
-    description: {
-      title: props.intl.formatMessage(messages.Description),
-    },
+export const accordionSchemaEnhancer = ({ schema, intl }) => {
+  schema.fieldsets.splice(1, 0, {
+    id: 'menu',
+    title: intl.formatMessage(messages.Menu),
+    fields: [
+      'menuInverted',
+      'menuSecondary',
+      'menuPointing',
+      'accordionIconRight',
+    ],
+  });
+
+  schema.fieldsets.splice(2, 0, {
+    id: 'style',
+    title: intl.formatMessage(messages.Style),
+    fields: ['theme'],
+  });
+
+  schema.properties = {
+    ...schema.properties,
     accordionIconRight: {
-      title: props.intl.formatMessage(messages.IconPositionOnTheRight),
-      description: props.intl.formatMessage(
+      title: intl.formatMessage(messages.IconPositionOnTheRight),
+      description: intl.formatMessage(
         messages.PositionLeftRightIconAccordionTab,
       ),
       type: 'boolean',
     },
     menuInverted: {
-      title: props.intl.formatMessage(messages.Inverted),
+      title: intl.formatMessage(messages.Inverted),
       type: 'boolean',
     },
     menuPointing: {
-      title: props.intl.formatMessage(messages.MenuPointing),
+      title: intl.formatMessage(messages.MenuPointing),
       type: 'boolean',
+      default: true,
     },
     menuSecondary: {
-      title: props.intl.formatMessage(messages.MenuSecondary),
+      title: intl.formatMessage(messages.MenuSecondary),
       type: 'boolean',
+      default: true,
     },
     theme: {
-      title: props.intl.formatMessage(messages.Theme),
-      description: props.intl.formatMessage(
-        messages.SetThemeAccordionTabsBlock,
-      ),
+      title: intl.formatMessage(messages.Theme),
+      description: intl.formatMessage(messages.SetThemeAccordionTabsBlock),
       widget: 'theme_picker',
       colors: [
         ...(config.settings && config.settings.themeColors
@@ -113,6 +106,6 @@ export default (config, props) => ({
           : []),
       ],
     },
-  },
-  required: [],
-});
+  };
+  return schema;
+};

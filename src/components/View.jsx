@@ -17,7 +17,7 @@ const View = (props) => {
   const view = React.useRef(null);
   const { data = {}, uiContainer = '', location, history } = props;
   const metadata = props.metadata || props.properties;
-  const template = data.template || 'default';
+  const template = data.variation || 'default';
   const tabsData = data.data || {};
   const tabsList = tabsData.blocks_layout?.items || [];
   const tabs = tabsData.blocks || {};
@@ -27,9 +27,11 @@ const View = (props) => {
   const theme = data.theme || 'light';
   const verticalAlign = data.verticalAlign || 'flex-start';
 
-  const TabsView =
-    config.blocks.blocksConfig[TABS_BLOCK].templates?.[template]?.view ||
-    DefaultView;
+  const activeTemplate = config.blocks.blocksConfig[
+    TABS_BLOCK
+  ].variations.filter((v, _i) => v.id === template);
+
+  const TabsView = activeTemplate?.[0]?.view || DefaultView;
 
   const useQuery = () => {
     const { search } = location;

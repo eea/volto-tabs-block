@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { useIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import { v4 as uuid } from 'uuid';
 import { isEmpty } from 'lodash';
 import cx from 'classnames';
 import { Menu, Tab, Container, Dropdown, Input } from 'semantic-ui-react';
-import config from '@plone/volto/registry';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import { BlocksForm } from '@plone/volto/components';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
+import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/templates/default/schema';
 import {
   SimpleMarkdown,
   getMenuPosition,
@@ -23,7 +23,9 @@ import '@eeacms/volto-tabs-block/less/menu.less';
 import noop from 'lodash/noop';
 const MenuItem = (props) => {
   const inputRef = React.useRef(null);
+  const intl = useIntl();
   const {
+    schema,
     activeTab = null,
     activeBlock = null,
     block = null,
@@ -36,7 +38,7 @@ const MenuItem = (props) => {
     tabsDescription,
     tabsList = [],
     tabsTitle,
-    emptyTab = noop,
+    emptyTab = () => {},
     setActiveBlock = noop,
     setActiveTab = noop,
     setEditingTab = noop,
@@ -57,7 +59,10 @@ const MenuItem = (props) => {
         blocks: {
           ...tabsData.blocks,
           [tabId]: {
-            ...emptyTab(),
+            ...emptyTab({
+              schema: schema.properties.data.schema,
+              intl,
+            }),
           },
         },
         blocks_layout: {
@@ -157,6 +162,7 @@ const MenuItem = (props) => {
 };
 
 const MenuWrapper = (props) => {
+  const intl = useIntl();
   const {
     data = {},
     panes = [],
@@ -166,11 +172,12 @@ const MenuWrapper = (props) => {
     tabs = {},
     tabsList = [],
     block = null,
-    emptyTab = noop,
+    emptyTab = () => {},
     setEditingTab = noop,
     tabsData = {},
     onChangeBlock = noop,
     setActiveTab = noop,
+    schema,
   } = props;
   const [open, setOpen] = React.useState(false);
   const addNewTab = () => {
@@ -183,7 +190,10 @@ const MenuWrapper = (props) => {
         blocks: {
           ...tabsData.blocks,
           [tabId]: {
-            ...emptyTab(),
+            ...emptyTab({
+              schema: schema.properties.data.schema,
+              intl,
+            }),
           },
         },
         blocks_layout: {
@@ -193,7 +203,7 @@ const MenuWrapper = (props) => {
     });
   };
   React.useEffect(() => {
-    if (false || !node?.current) return;
+    if (!node?.current) return;
     const items = node.current.querySelectorAll(
       '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
     );
@@ -271,6 +281,7 @@ const MenuWrapper = (props) => {
 };
 
 const Edit = (props) => {
+  const intl = useIntl();
   const {
     metadata = {},
     data = {},
@@ -285,34 +296,33 @@ const Edit = (props) => {
     multiSelected = [],
     screen,
     tabsData = {},
-    emptyTab = noop,
+    emptyTab = () => {},
     onChangeBlock = noop,
     onChangeTabData = noop,
     onSelectBlock = noop,
     setEditingTab = noop,
+    schema,
   } = props;
   const menuPosition = getMenuPosition(data);
-  const isContainer = data.align === 'full';
-  const tabsTitle = data.title;
-  const tabsDescription = data.description;
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
 
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
+  const {
+    title,
+    description,
+    align,
+    menuBorderless,
+    menuColor,
+    menuCompact,
+    menuFluid,
+    menuInverted,
+    menuPointing,
+    menuSecondary,
+    menuSize,
+    menuStackable,
+    menuTabular,
+    menuText,
+    menuAlign,
+  } = data;
+  const isContainer = align === 'full';
 
   const panes = tabsList.map((tab, index) => {
     return {
@@ -326,8 +336,9 @@ const Edit = (props) => {
           blockId={props.id}
           index={index}
           lastIndex={tabsList.length - 1}
-          tabsTitle={tabsTitle}
-          tabsDescription={tabsDescription}
+          tabsTitle={title}
+          tabsDescription={description}
+          schema={schema}
         />
       ),
       pane: (
@@ -335,7 +346,7 @@ const Edit = (props) => {
           <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
             <BlocksForm
               allowedBlocks={data?.allowedBlocks}
-              description={data?.instrunctions?.data}
+              description={data?.instructions?.data}
               manage={manage}
               metadata={metadata}
               pathname={props.pathname}
@@ -358,7 +369,10 @@ const Edit = (props) => {
                       [activeTab]: {
                         ...(newFormData.blocks_layout.items.length > 0
                           ? newFormData
-                          : emptyTab()),
+                          : emptyTab({
+                              schema: schema.properties.data.schema,
+                              intl,
+                            })),
                       },
                     },
                   },
@@ -402,19 +416,19 @@ const Edit = (props) => {
         renderActiveOnly={false}
         menu={{
           attached: menuPosition.attached,
-          borderless: getDataValue('menuBorderless'),
-          color: getDataValue('menuColor'),
-          compact: getDataValue('menuCompact'),
-          fluid: getDataValue('menuFluid'),
-          inverted: getDataValue('menuInverted'),
-          pointing: getDataValue('menuPointing'),
-          secondary: getDataValue('menuSecondary'),
-          size: getDataValue('menuSize'),
-          stackable: getDataValue('menuStackable'),
-          tabular: getDataValue('menuTabular'),
-          text: getDataValue('menuText'),
+          borderless: menuBorderless,
+          color: menuColor,
+          compact: menuCompact,
+          fluid: menuFluid,
+          inverted: menuInverted,
+          pointing: menuPointing,
+          secondary: menuSecondary,
+          size: menuSize,
+          stackable: menuStackable,
+          tabular: menuTabular,
+          text: menuText,
           vertical: menuPosition.vertical,
-          className: cx(data.menuAlign, { container: isContainer }),
+          className: cx(menuAlign, { container: isContainer }),
           children: (
             <MenuWrapper
               {...props}
@@ -424,8 +438,9 @@ const Edit = (props) => {
               tabsList={tabsList}
               blockId={props.id}
               lastIndex={tabsList.length - 1}
-              tabsTitle={tabsTitle}
-              tabsDescription={tabsDescription}
+              tabsTitle={title}
+              tabsDescription={description}
+              schema={schema}
             />
           ),
         }}
@@ -436,6 +451,8 @@ const Edit = (props) => {
     </>
   );
 };
+
+Edit.schemaEnhancer = defaultSchemaEnhancer;
 
 export default compose(
   connect((state) => {

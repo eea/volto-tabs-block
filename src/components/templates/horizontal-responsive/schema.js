@@ -179,7 +179,7 @@ const messages = defineMessages({
   },
 });
 
-export default (config, props) => ({
+const horizontalSchema = (config, props) => ({
   title: props.intl.formatMessage(messages.HorizontalTabsBlock),
   fieldsets: [
     {
@@ -242,7 +242,6 @@ export default (config, props) => ({
     },
     menuColor: {
       title: props.intl.formatMessage(messages.Color),
-      defaultValue: 'green',
       choices: [
         ['red', props.intl.formatMessage(messages.Red)],
         ['orange', props.intl.formatMessage(messages.Orange)],
@@ -266,12 +265,11 @@ export default (config, props) => ({
     menuCompact: {
       title: props.intl.formatMessage(messages.MenuCompact),
       type: 'boolean',
-      defaultValue: true,
     },
     menuFluid: {
       title: props.intl.formatMessage(messages.MenuFluid),
       type: 'boolean',
-      defaultValue: true,
+      default: true,
     },
     menuInverted: {
       title: props.intl.formatMessage(messages.MenuInverted),
@@ -280,10 +278,12 @@ export default (config, props) => ({
     menuPointing: {
       title: props.intl.formatMessage(messages.MenuPointing),
       type: 'boolean',
+      default: true,
     },
     menuSecondary: {
       title: props.intl.formatMessage(messages.MenuSecondary),
       type: 'boolean',
+      default: true,
     },
     menuStackable: {
       title: props.intl.formatMessage(messages.MenuStackable),
@@ -296,8 +296,9 @@ export default (config, props) => ({
     menuText: {
       title: props.intl.formatMessage(messages.MenuText),
       type: 'boolean',
-      defaultValue: true,
     },
   },
   required: [],
 });
+
+export default horizontalSchema;

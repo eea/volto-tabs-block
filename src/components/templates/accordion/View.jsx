@@ -1,52 +1,28 @@
 import React, { useLayoutEffect } from 'react';
-import cx from 'classnames';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
-import Tabs from 'react-responsive-tabs';
-import AnimateHeight from 'react-animate-height';
-import { Icon } from 'semantic-ui-react';
-import config from '@plone/volto/registry';
-import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
-import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
+import { withResizeDetector } from 'react-resize-detector';
+import cx from 'classnames';
 import noop from 'lodash/noop';
 
-import { withResizeDetector } from 'react-resize-detector';
+import { Icon } from 'semantic-ui-react';
+import { Icon as VoltoIcon } from '@plone/volto/components';
+import { RenderBlocks } from '@plone/volto/components';
+import config from '@plone/volto/registry';
+
+import Tabs from 'react-responsive-tabs';
+import { AssetTab } from '@eeacms/volto-tabs-block/components';
+import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
+import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 class Tab extends React.Component {
-  constructor() {
-    super();
-    this.animateId = null;
-    this.state = {
-      height: 0,
-    };
-  }
-
-  componentDidMount() {
-    if (this.state.height === 0) {
-      this.animateId = requestAnimationFrame(() => {
-        this.setState({ height: 'auto' });
-      });
-    }
-  }
-  componentWillUnmount() {
-    cancelAnimationFrame(this.animateId);
-  }
-
   render() {
     return (
       <div id={this.props.title} className="tab-name">
-        <AnimateHeight
-          animateOpacity
-          duration={500}
-          height={this.state.height}
-          aria-hidden={false}
-        >
-          <RenderBlocks {...this.props} />
-        </AnimateHeight>
+        <RenderBlocks {...this.props} />
       </div>
     );
   }
@@ -62,9 +38,11 @@ const View = (props) => {
     width,
     id,
   } = props;
-  const accordionConfig =
-    config.blocks.blocksConfig[TABS_BLOCK].templates?.['accordion'] || {};
-  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig;
+
+  const accordionConfig = config.blocks.blocksConfig[
+    TABS_BLOCK
+  ].variations.filter((v, _i) => v.id === data.variation);
+  const { icons, semanticIcon, transformWidth = 800 } = accordionConfig?.[0];
 
   const tabsContainer = React.useRef();
   const [mounted, setMounted] = React.useState(false);
@@ -75,29 +53,13 @@ const View = (props) => {
     tabs_width < initialWidth,
   );
 
-  const schema = React.useMemo(
-    () =>
-      config.blocks.blocksConfig[TABS_BLOCK].templates?.['default']?.schema(
-        config,
-        props,
-      ) || {},
-    [props],
-  );
-
-  const getDataValue = React.useCallback(
-    (key) => {
-      return (
-        (schema.properties[key]?.value || data[key]) ??
-        schema.properties[key]?.defaultValue
-      );
-    },
-    [schema, data],
-  );
-
   const items = tabsList.map((tab, index) => {
-    const title = tabs[tab].title;
     const defaultTitle = `Tab ${index + 1}`;
     const active = activeTabIndex === index;
+    const tabSettings = tabs[tab];
+    const { title, assetType } = tabSettings;
+    const tabIndex = index + 1;
+    const tabTitle = title || defaultTitle;
 
     return {
       title: (
@@ -112,7 +74,15 @@ const View = (props) => {
               size={icons.size}
             />
           )}
-          <span>{title || defaultTitle} </span>
+          {assetType ? (
+            <AssetTab
+              props={tabSettings}
+              tabTitle={tabTitle}
+              tabIndex={tabIndex}
+            />
+          ) : (
+            <span>{title || defaultTitle}</span>
+          )}
         </>
       ),
       content: (
@@ -143,6 +113,13 @@ const View = (props) => {
 
   React.useEffect(() => {
     if (!mounted) return;
+
+    // set role="tablist" on RRT_tabs for proper aria role accessibility
+    const tabsWrapper = tabsContainer.current?.tabsWrapper.current;
+    if (tabsWrapper) {
+      tabsWrapper.querySelector('.RRT__tabs').setAttribute('role', 'tablist');
+    }
+
     const { blockWidth, tabsTotalWidth } = tabsContainer.current?.state || {};
     setInitialWidth(
       tabsTotalWidth < blockWidth ? tabsTotalWidth + 1 : blockWidth + 1,
@@ -170,7 +147,7 @@ const View = (props) => {
 
   return (
     <div
-      tabIndex="0"
+      className={'tab-accordion-container'}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
@@ -178,7 +155,8 @@ const View = (props) => {
           if (focusedElement) focusedElement.click();
         }
       }}
-      role="tab"
+      role={'presentation'}
+      tabIndex={-1}
     >
       <Tabs
         ref={tabsContainer}
@@ -209,13 +187,13 @@ const View = (props) => {
             : 'ui menu tabs-accessibility tabs-secondary-variant',
           data?.theme ? `${data?.theme}` : '',
           {
-            inverted: getDataValue('menuInverted'),
+            inverted: data.menuInverted,
           },
           {
-            pointing: getDataValue('menuPointing'),
+            pointing: data.menuPointing,
           },
           {
-            secondary: getDataValue('menuSecondary'),
+            secondary: data.menuSecondary,
           },
         )}
         showMore={false}

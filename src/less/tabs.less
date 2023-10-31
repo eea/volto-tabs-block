@@ -6,36 +6,48 @@
 
 .loadAddonVariables();
 
+@keyframes slide-down {
+  0% {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  95% {
+    overflow: hidden;
+    max-height: @animationContentMaxHeight;
+    visibility: visible;
+  }
+
+  100% {
+    max-height: auto;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    overflow: hidden;
+    max-height: @animationContentMaxHeight;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  to {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 .tabs-block {
   .remove-menu.active {
     overflow: revert; /* needed for edit double click to modify title to remove scrollbar */
   }
 
-  .tabs-accessibility {
-    .ui.button.item:focus-visible {
-      outline: 1px dotted #212121 !important;
-      outline: 5px auto -webkit-focus-ring-color !important;
-    }
-
-    a:focus-visible {
-      outline: 1px dotted #212121 !important;
-      outline: 5px auto -webkit-focus-ring-color !important;
-    }
-
-    .slick-current:focus-visible {
-      outline: 1px dotted #212121 !important;
-      outline: 5px auto -webkit-focus-ring-color !important;
-    }
-
-    .accessibility-accordion-tab {
-      outline: none;
-    }
-
-    .accessibility-accordion-tab:focus-visible {
-      outline: 1px dotted #212121 !important;
-      outline: 5px auto -webkit-focus-ring-color !important;
-    }
-  }
   color: @tabsBlockColor;
 
   > .styled {
@@ -91,6 +103,24 @@
       }
     }
   }
+
+  @media not (prefers-reduced-motion) {
+    .ui.accordion .title ~ .content.RRT__panel {
+      display: block;
+      padding: 0;
+      animation: slide-up @animationDuration linear both;
+      will-change: max-height, overflow, opacity;
+    }
+
+    .tab-name {
+      padding: @tabAccordionContentPadding;
+    }
+
+    .ui.accordion .title ~ .content.RRT__panel.active {
+      animation: slide-down @animationDuration linear both;
+    }
+  }
+
   @media print {
     .ui.tab {
       display: block !important;

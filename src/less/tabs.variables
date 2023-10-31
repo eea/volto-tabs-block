@@ -5,6 +5,9 @@
 @tabsBlockColor: var(--text-color, #000);
 @verticalPadding: 1rem;
 @horizontalPadding: 1rem;
+@animationDuration: 0.5s;
+@tabAccordionContentPadding: 1rem;
+@animationContentMaxHeight: 1000px;
 
 /* Tab pane */
 @tabPanePadding: @verticalPadding @horizontalPadding;

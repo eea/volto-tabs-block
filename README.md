@@ -76,6 +76,23 @@ Go to http://localhost:3000
 
 1. Happy editing!
 
+## Upgrade
+### Upgrading to 7.0.0
+Version 7 introduces the following breaking changes:
+- The templates are now `variations` of the default template, so if you have custom templates,
+  you need to update them to be variations of the default template.
+- All variations have `schema enhancers`, see https://github.com/eea/volto-eea-website-theme/blob/develop/src/index.js#L40
+  for example on how to customize the variation schema.
+- Some defaults have been changed, see the `schema.js` files for any default values.
+- Tabs now have the ability to reference an `Image` or use a `Semantic UI` icon within the tab title, even allowing the hiding
+  of the text title.
+- Responsive template no longer uses `react-responsive-tabs` styles but use `accordion` classes when it's transformed into
+  accordion.
+  Bring your own style for the accordion if you want to customize it.
+- Cleaned up styling in favor of `Semantic UI` styling and to bring your own styling.
+- Better `i18n` support for the block especially in edit mode.
+
+
 ## Release
 
 See [RELEASE.md](https://github.com/eea/volto-tabs-block/blob/master/RELEASE.md).

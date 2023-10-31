@@ -23,9 +23,29 @@ msgid "Accordion responsive"
 msgstr "Acordeão responsivo"
 
 #: index
+# defaultMessage: Carousel horizontal
+msgid "Carousel horizontal"
+msgstr "Carrossel horizontal"
+
+#: index
+# defaultMessage: Carousel vertical (prototype)
+msgid "Carousel vertical (prototype)"
+msgstr "Carrossel vertical (Prototype)"
+
+#: index
 # defaultMessage: Default
 msgid "Default"
 msgstr "Padrão"
+
+#: index
+# defaultMessage: Horizontal responsive
+msgid "Horizontal responsive"
+msgstr "Horizontal responsivo"
+
+#: components/schema
+# defaultMessage: Medium
+msgid "Medium"
+msgstr "Médio"
 
 #: components/EditBlockWrapper
 # defaultMessage: Unknown Block {block}
@@ -37,16 +57,31 @@ msgstr "Bloco desconhecido"
 msgid "accordion-tabs-block"
 msgstr "Bloco Tabs Acordeão"
 
-#: components/schema
-# defaultMessage: Accordion responsive
-msgid "accordionResponsive"
-msgstr "Acordeão responsivo"
+#: widgets/TabsWidget
+# defaultMessage: Add Tab
+msgid "addTab"
+msgstr "Adicionar Tab"
 
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Alignment
 msgid "alignment"
 msgstr "Alinhamento"
+
+#: components/schema
+# defaultMessage: Asset position
+msgid "assetPosition"
+msgstr "Posição do ativo"
+
+#: components/schema
+# defaultMessage: Asset size
+msgid "assetSize"
+msgstr "Tamanho do ativo"
+
+#: components/schema
+# defaultMessage: Asset type
+msgid "assetType"
+msgstr "Tipo de ativo"
 
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
@@ -73,21 +108,6 @@ msgstr "Inferior"
 msgid "brown"
 msgstr "Marrom"
 
-#: components/templates/carousel/schema
-# defaultMessage: Carousel block
-msgid "carousel-tabs-block"
-msgstr "Bloco Tabs Carrossel"
-
-#: components/schema
-# defaultMessage: Carousel horizontal
-msgid "carouselHorizontal"
-msgstr "Carrossel horizontal"
-
-#: components/schema
-# defaultMessage: Carousel vertical (prototype)
-msgid "carouselVerticalPrototype"
-msgstr "Carrossel vertical (Prototype)"
-
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Center
@@ -107,7 +127,6 @@ msgstr "Escuro"
 
 #: components/schema
 #: components/templates/accordion/schema
-#: components/templates/carousel/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Default
@@ -124,6 +143,7 @@ msgstr "Bloco Tabs"
 msgid "delete"
 msgstr "excluir"
 
+#: components/schema
 #: components/templates/accordion/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
@@ -144,15 +164,15 @@ msgstr "Verde"
 msgid "grey"
 msgstr "Cinza"
 
+#: components/schema
+# defaultMessage: Hide tab title?
+msgid "hideTitle"
+msgstr "Ocultar o título da tab?"
+
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Horizontal tabs block
 msgid "horizontal-tabs-block"
 msgstr "Bloco Tabs Horizontal"
-
-#: components/schema
-# defaultMessage: Horizontal responsive
-msgid "horizontalResponsive"
-msgstr "Horizontal responsivo"
 
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
@@ -160,16 +180,32 @@ msgstr "Horizontal responsivo"
 msgid "huge"
 msgstr "Enorme"
 
+#: components/schema
+# defaultMessage: Icon
+msgid "icon"
+msgstr "Ícone"
+
 #: components/templates/accordion/schema
 # defaultMessage: Icon position on the right
 msgid "icon-position-on-the-right"
 msgstr "Ícone do título à direita"
+
+#: components/schema
+# defaultMessage: Icon name
+msgid "iconName"
+msgstr ""
+
+#: components/schema
+# defaultMessage: Image
+msgid "image"
+msgstr ""
 
 #: components/templates/accordion/schema
 # defaultMessage: Inverted
 msgid "inverted"
 msgstr "Invertido"
 
+#: components/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Large
@@ -182,6 +218,7 @@ msgstr "Grande"
 msgid "left"
 msgstr "Esquerda"
 
+#: components/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Left side
@@ -230,12 +267,14 @@ msgstr "Fluido"
 msgid "menu-inverted"
 msgstr "Invertido"
 
+#: components/templates/accordion/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Pointing
 msgid "menu-pointing"
 msgstr "Apontando"
 
+#: components/templates/accordion/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Secondary
@@ -318,6 +357,7 @@ msgstr "Vermelha"
 msgid "right"
 msgstr "Direita"
 
+#: components/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Right side
@@ -335,6 +375,7 @@ msgstr "Defina o tema para o bloco do acordeão (tabs)"
 msgid "size"
 msgstr "Tamanho"
 
+#: components/schema
 #: components/templates/default/schema
 #: components/templates/horizontal-responsive/schema
 # defaultMessage: Small
@@ -348,9 +389,20 @@ msgid "space-between"
 msgstr "Espaço entre"
 
 #: components/templates/accordion/schema
+#: components/templates/carousel/schema
 # defaultMessage: Style
 msgid "style"
 msgstr "Estilo"
+
+#: components/schema
+# defaultMessage: Tab
+msgid "tab"
+msgstr "Tab"
+
+#: components/schema
+# defaultMessage: Tab title
+msgid "tabTitle"
+msgstr "Título da tab"
 
 #: components/schema
 # defaultMessage: Tabs
@@ -367,11 +419,6 @@ msgstr "Bloco Tabs"
 # defaultMessage: Teal
 msgid "teal"
 msgstr "Verde-azulado"
-
-#: components/schema
-# defaultMessage: Template
-msgid "template"
-msgstr "Template"
 
 #: components/templates/accordion/schema
 #: components/templates/carousel/schema

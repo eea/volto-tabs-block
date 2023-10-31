@@ -17,6 +17,18 @@
     overflow-y: hidden;
   }
 
+  .ui.secondary.inverted.pointing.menu {
+    border-width: 0 0 4px 0;
+  }
+
+  .ui.secondary.inverted.menu .active.item:not(.remove-margin) {
+    background-color: @menuItemInvertedActiveBackgroundColor !important;
+  }
+
+  .ui.menu .addition-button .menu-item-text {
+    line-height: 1;
+  }
+
   .remove-menu :not(.RRT__tab--collapsed) {
     padding-top: 0 !important;
     padding-left: 0 !important;
@@ -25,6 +37,112 @@
 
   .ui.menu {
     margin-bottom: @menuMarginButton;
+  }
+
+  .ui.item {
+    cursor: pointer;
+  }
+
+  .ui.menu:not(.inverted, .pointing) .active.item:not(.remove-margin) {
+    background-color: @menuItemActiveBackgroundColor;
+  }
+
+  .RRT__tabs.tabs-accessibility.ui.inverted.menu {
+    background-color: @menuItemInvertedBackgroundColor;
+
+    .item {
+      color: @menuItemInvertedTextColor !important;
+    }
+
+    .item.active {
+      border-color: @secondaryPointingInvertedActiveBorderColor;
+      color: @menuItemInvertedActiveTextColor !important;
+    }
+
+    .item:hover {
+      color: @menuItemInvertedHoverTextColor !important;
+    }
+  }
+
+  .tab-icon {
+    display: block !important;
+  }
+
+  .asset-position {
+    .image {
+      &.icon {
+        width: @tabImageSmallSize;
+      }
+
+      &.tile {
+        width: @tabImageMediumSize;
+      }
+
+      &.thumb {
+        width: @tabImageLargeSize;
+      }
+    }
+
+    .icon {
+      &.small {
+        font-size: @tabIconSmallSize;
+      }
+
+      &.medium {
+        font-size: @tabIconMediumSize;
+      }
+
+      &.large {
+        font-size: @tabIconLargeSize;
+      }
+    }
+  }
+
+  .RRT__accordion .tab-with-icon {
+    flex-direction: row-reverse;
+    gap: 0.25rem;
+
+    .icon {
+      font-size: 1.25rem;
+      --accordion-title-icon-order: 0;
+    }
+  }
+
+  .accordion-title {
+    display: flex;
+  }
+
+  .asset-top,
+  .asset-left,
+  .asset-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+
+    .menu-item-text {
+      margin: 0;
+    }
+  }
+
+  .asset-top {
+    flex-direction: column;
+    text-align: center;
+
+    .icon {
+      display: block !important;
+    }
+  }
+
+  .asset-left {
+    flex-direction: row;
+  }
+
+  .asset-right {
+    flex-direction: row-reverse;
+  }
+
+  .menu-item-count {
+    display: @menuItemCountDisplay;
   }
 
   > .styled > .tabs > .ui.menu,
@@ -86,10 +204,6 @@
           margin: 0;
           color: inherit;
         }
-      }
-
-      .menu-item-count {
-        display: @menuItemCountDisplay;
       }
 
       &.active {

@@ -1,16 +1,17 @@
 import { v4 as uuid } from 'uuid';
-import { emptyBlocksForm } from '@plone/volto/helpers';
+import { emptyBlocksForm, applySchemaDefaults } from '@plone/volto/helpers';
 import { visitBlocks, toSlug } from '@eeacms/volto-anchors/helpers';
 
-export const empty = () => {
+export const empty = ({ schema, intl }) => {
   const tabId = uuid();
+  const data = {
+    '@type': 'tab',
+    ...emptyBlocksForm(),
+  };
 
   return {
     blocks: {
-      [tabId]: {
-        '@type': 'tab',
-        ...emptyBlocksForm(),
-      },
+      [tabId]: applySchemaDefaults({ data, schema, intl }),
     },
     blocks_layout: {
       items: [tabId],
@@ -18,10 +19,13 @@ export const empty = () => {
   };
 };
 
-export const emptyTab = () => ({
-  '@type': 'tab',
-  ...emptyBlocksForm(),
-});
+export const emptyTab = ({ schema, intl }) => {
+  const data = {
+    '@type': 'tab',
+    ...emptyBlocksForm(),
+  };
+  return applySchemaDefaults({ data, schema, intl });
+};
 
 export const scrollToTarget = (target, offsetHeight = 0) => {
   const bodyRect = document.body.getBoundingClientRect().top;
