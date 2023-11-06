@@ -104,16 +104,16 @@
     }
   }
 
+  .ui.accordion .title ~ .content.RRT__panel .tab-name {
+    padding: @tabAccordionContentPadding;
+  }
+
   @media not (prefers-reduced-motion) {
     .ui.accordion .title ~ .content.RRT__panel {
       display: block;
       padding: 0;
       animation: slide-up @animationDuration linear both;
       will-change: max-height, overflow, opacity;
-    }
-
-    .tab-name {
-      padding: @tabAccordionContentPadding;
     }
 
     .ui.accordion .title ~ .content.RRT__panel.active {
