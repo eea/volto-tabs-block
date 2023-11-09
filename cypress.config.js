@@ -5,9 +5,9 @@ module.exports = defineConfig({
   defaultCommandTimeout: 10000,
   chromeWebSecurity: false,
   reporter: 'junit',
-  video: true,
+  video: false,
   retries: {
-    runMode: 1,
+    runMode: 2,
     openMode: 0,
   },
   reporterOptions: {
