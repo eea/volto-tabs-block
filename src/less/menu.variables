@@ -24,7 +24,7 @@
 
 /* Menu item */
 @menuItemCountDisplay: none;
-@secondaryPointingInvertedActiveBorderColor: var(--inverted-secondary-active-border-color, @pink);
+@secondaryPointingInvertedActiveBorderColor: var(--tab-inverted-secondary-active-border-color, @pink);
 @menuItemActiveBackgroundColor: var(--tab-active-bg-color, rgba(0, 0, 0, 0.05));
 @menuItemInvertedBackgroundColor: var(--tab-inverted-bg-color, #C7D5D8);
 @menuItemInvertedActiveBackgroundColor: var(--tab-inverted-active-bg-color, rgba(0, 0, 0, 0.1));
