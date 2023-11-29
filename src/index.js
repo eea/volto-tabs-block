@@ -107,7 +107,7 @@ const applyConfig = (config) => {
       },
     ],
     getBlocks: (data) => {
-      const { blocks = {}, blocks_layout = {} } = data?.data;
+      const { blocks = {}, blocks_layout = {} } = data?.data || {};
       if (blocks_layout?.items?.length) {
         return {
           blocks: blocks_layout.items.map((block, index) => ({

@@ -101,7 +101,7 @@ const TabsWidget = (props) => {
                 },
                 blocks_layout: {
                   ...value.blocks_layout,
-                  items: [...value.blocks_layout?.items, newId],
+                  items: [...(value.blocks_layout?.items || []), newId],
                 },
               });
             }}
@@ -170,7 +170,7 @@ const TabsWidget = (props) => {
                               blocks_layout: {
                                 ...value.blocks_layout,
                                 items: without(
-                                  [...value.blocks_layout?.items],
+                                  [...(value.blocks_layout?.items || [])],
                                   childId,
                                 ),
                               },
@@ -227,6 +227,7 @@ const TabsWidget = (props) => {
       <StyleWrapperEdit
         {...props}
         selected={activeTabId}
+        blockData={activeTabData}
         isVisible={blockStyleVisible}
         setIsVisible={(value) => {
           setActiveTabId(null);
@@ -238,6 +239,17 @@ const TabsWidget = (props) => {
           ...(activeTabData.size ? { size: activeTabData.size } : {}),
         }}
         choices={[]}
+        onChangeBlock={(block, newData) => {
+          onChange(id, {
+            ...value,
+            blocks: {
+              ...value.blocks,
+              [activeTabId]: {
+                ...newData,
+              },
+            },
+          });
+        }}
         onChangeValue={(styleId, styleValue) =>
           onChange(id, {
             ...value,
