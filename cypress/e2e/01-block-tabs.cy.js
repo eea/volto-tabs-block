@@ -4,6 +4,28 @@ describe('Blocks Tests', () => {
   beforeEach(slateBeforeEach);
   afterEach(slateAfterEach);
 
+  it('Check tabs widget', () => {
+    cy.clearSlateTitle();
+    cy.getSlateTitle().type('Tabs widget');
+
+    cy.get('.documentFirstHeading').contains('Tabs widget');
+
+    cy.getSlate().click();
+
+    cy.get('.ui.basic.icon.button.block-add-button').first().click();
+    cy.get('.blocks-chooser .title').contains('Common').click();
+    cy.get('.content.active.common .button.tabs_block')
+      .contains('Tabs')
+      .click({ force: true });
+
+    cy.get('.field-wrapper-title input').last().type('Tab 1');
+    cy.get('.tabs-area .accordion.ui').first().click();
+    cy.get('#field-assetType-1-data-0').click();
+    cy.contains('Icon').click();
+    cy.get('#field-icon-2-data-0').type('delete');
+    cy.get('#toolbar-save').click();
+  });
+
   it('Add Tabs default template', () => {
     cy.clearSlateTitle();
     cy.getSlateTitle().type('Tabs block default template');
