@@ -45,7 +45,6 @@ const empty = ({ schema, intl }) => {
 };
 
 const TabsWidget = (props) => {
-  console.log({ props });
   const [blockStyleVisible, setBlockStyleVisible] = React.useState(false);
   const [activeTabId, setActiveTabId] = React.useState(0);
   const { value = {}, id, onChange, schema, schemaExtender } = props;
