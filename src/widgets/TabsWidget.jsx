@@ -45,6 +45,7 @@ const empty = ({ schema, intl }) => {
 };
 
 const TabsWidget = (props) => {
+  console.log({ props });
   const [blockStyleVisible, setBlockStyleVisible] = React.useState(false);
   const [activeTabId, setActiveTabId] = React.useState(0);
   const { value = {}, id, onChange, schema, schemaExtender } = props;
@@ -227,6 +228,7 @@ const TabsWidget = (props) => {
       <StyleWrapperEdit
         {...props}
         selected={activeTabId}
+        blockData={activeTabData}
         isVisible={blockStyleVisible}
         setIsVisible={(value) => {
           setActiveTabId(null);
@@ -238,6 +240,17 @@ const TabsWidget = (props) => {
           ...(activeTabData.size ? { size: activeTabData.size } : {}),
         }}
         choices={[]}
+        onChangeBlock={(block, newData) => {
+          onChange(id, {
+            ...value,
+            blocks: {
+              ...value.blocks,
+              [activeTabId]: {
+                ...newData,
+              },
+            },
+          });
+        }}
         onChangeValue={(styleId, styleValue) =>
           onChange(id, {
             ...value,
