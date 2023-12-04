@@ -59,7 +59,7 @@ export const MenuItem = (props) => {
           ...tabsData.blocks,
           [tabId]: {
             ...emptyTab({
-              schema: schema.properties.data.schema,
+              schema: schema?.properties?.data?.schema || {},
               intl,
             }),
           },
@@ -267,7 +267,7 @@ const Edit = (props) => {
                         ...(newFormData.blocks_layout.items.length > 0
                           ? newFormData
                           : emptyTab({
-                              schema: schema.properties.data.schema,
+                              schema: schema?.properties?.data?.schema || {},
                               intl,
                             })),
                       },
