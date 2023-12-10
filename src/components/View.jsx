@@ -33,12 +33,11 @@ const View = (props) => {
 
   const TabsView = activeTemplate?.[0]?.view || DefaultView;
 
-  const useQuery = () => {
+  const query = React.useMemo(() => {
     const { search } = location;
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-  };
 
-  const query = useQuery();
+    return new URLSearchParams(search);
+  }, [location]);
   const activeTabId = query.get('activeTab');
 
   const addQueryParam = (key, value) => {
