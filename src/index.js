@@ -74,7 +74,7 @@ const applyConfig = (config) => {
       {
         id: 'accordion',
         title: 'Accordion responsive',
-        edit: AccordionEdit,
+        edit: DefaultEdit,
         view: AccordionView,
         schemaEnhancer: AccordionEdit.schemaEnhancer,
         transformWidth: 800,
