@@ -3,6 +3,7 @@ import { defineMessages } from 'react-intl';
 import {
   DefaultEdit,
   DefaultView,
+  AccordionEdit,
   AccordionView,
   HorizontalResponsiveEdit,
   HorizontalResponsiveView,
@@ -13,8 +14,6 @@ import {
   TabsView,
   blockSchema,
 } from '@eeacms/volto-tabs-block/components';
-import { accordionSchemaEnhancer } from '@eeacms/volto-tabs-block/components/templates/accordion/schema';
-
 import { TABS_BLOCK } from './constants';
 import { TabsWidget } from './widgets';
 
@@ -77,7 +76,7 @@ const applyConfig = (config) => {
         title: 'Accordion responsive',
         edit: DefaultEdit,
         view: AccordionView,
-        schemaEnhancer: accordionSchemaEnhancer,
+        schemaEnhancer: AccordionEdit.schemaEnhancer,
         transformWidth: 800,
         icons: {
           closed: rightSVG,
