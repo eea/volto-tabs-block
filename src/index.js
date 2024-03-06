@@ -14,6 +14,7 @@ import {
   TabsView,
   blockSchema,
 } from '@eeacms/volto-tabs-block/components';
+
 import { TABS_BLOCK } from './constants';
 import { TabsWidget } from './widgets';
 
@@ -74,7 +75,7 @@ const applyConfig = (config) => {
       {
         id: 'accordion',
         title: 'Accordion responsive',
-        edit: DefaultEdit,
+        edit: AccordionEdit,
         view: AccordionView,
         schemaEnhancer: AccordionEdit.schemaEnhancer,
         transformWidth: 800,

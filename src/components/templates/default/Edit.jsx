@@ -202,6 +202,8 @@ const Edit = (props) => {
     onSelectBlock = noop,
     setEditingTab = noop,
     schema,
+    skipColorOption = false,
+    customTabsClass = '',
   } = props;
   const menuPosition = getMenuPosition(data);
   const {
@@ -304,16 +306,15 @@ const Edit = (props) => {
       },
     };
   });
-
   return (
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className="default tabs"
+        className={cx('default tabs', customTabsClass)}
         menu={{
           attached: menuPosition.attached,
           borderless: menuBorderless,
-          color: menuColor,
+          color: !skipColorOption && menuColor,
           compact: menuCompact,
           fluid: menuFluid,
           inverted: menuInverted,
@@ -333,6 +334,7 @@ const Edit = (props) => {
             menuPosition.direction === 'top' ? 'border-bottom' : '',
             menuPosition.direction === 'bottom' ? 'border-top' : '',
             { container: isContainer },
+            props.addTabsOptions ? props.addTabsOptions(data) : '',
           ),
         }}
         menuPosition={menuPosition.direction}

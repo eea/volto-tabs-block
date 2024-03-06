@@ -143,7 +143,7 @@ const MenuItem = (props) => {
           ) : (
             <>
               <span className="menu-item-count">{tabIndex}</span>
-              <p className="menu-item-text">{tabTitle}</p>
+              <span className="menu-item-text">{tabTitle}</span>
             </>
           )}
         </>
