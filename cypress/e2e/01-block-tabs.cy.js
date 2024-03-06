@@ -204,8 +204,6 @@ describe('Blocks Tests', () => {
 
     cy.get('.tabs-block').contains('Tab 1').dblclick().type('Tab 1 edited');
 
-    cy.get('.field-wrapper-accordionIconRight .checkbox').click();
-
     // Add new tab
     cy.get('.tabs-block .addition-button').click();
     cy.get('.tabs-block').contains('Tab 3').dblclick().type('Tab 3 edited');
