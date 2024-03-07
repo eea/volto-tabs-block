@@ -170,7 +170,7 @@ export const MenuItem = (props) => {
             }}
             className="remove-margin addition-button"
           >
-            <p className="menu-item-text">+</p>
+            <span className="menu-item-text">+</span>
           </Menu.Item>
         </>
       ) : (

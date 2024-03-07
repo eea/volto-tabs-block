@@ -88,7 +88,7 @@ const MenuItem = (props) => {
         }}
       >
         <span className={'menu-item-count'}>{tabIndex}</span>
-        <p className={'menu-item-text'}>{title || defaultTitle}</p>
+        <span className={'menu-item-text'}>{title || defaultTitle}</span>
       </Button>
     </React.Fragment>
   );
@@ -169,7 +169,9 @@ const MenuWrapper = (props) => {
                 }}
               >
                 <span className={'menu-item-count'}>{underlineIndex + 1}</span>
-                <p className={'menu-item-text'}>{title || defaultTitle}</p>
+                <span className={'menu-item-text'}>
+                  {title || defaultTitle}
+                </span>
               </Dropdown.Item>
             );
           })}

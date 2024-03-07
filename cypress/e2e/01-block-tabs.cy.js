@@ -74,7 +74,7 @@ describe('Blocks Tests', () => {
     // then the page view should contain our changes
     cy.contains('Tabs block default template');
 
-    cy.get('.tabs-block span.menu-item-text')
+    cy.get('.tabs-block .menu-item-text')
       .contains('Tab 2')
       .parent()
       .focus()
@@ -82,7 +82,7 @@ describe('Blocks Tests', () => {
 
     cy.contains('Oxygen');
 
-    cy.get('.tabs-block span.menu-item-text').contains('Tab 1').click();
+    cy.get('.tabs-block .menu-item-text').contains('Tab 1').click();
 
     cy.contains('Hydrogen');
   });
