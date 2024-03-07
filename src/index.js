@@ -14,6 +14,7 @@ import {
   TabsView,
   blockSchema,
 } from '@eeacms/volto-tabs-block/components';
+
 import { TABS_BLOCK } from './constants';
 import { TabsWidget } from './widgets';
 

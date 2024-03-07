@@ -1,4 +1,4 @@
-import AccordionEdit from './Edit';
 import AccordionView from './View';
+import AccordionEdit from './Edit';
 
-export { AccordionEdit, AccordionView };
+export { AccordionView, AccordionEdit };

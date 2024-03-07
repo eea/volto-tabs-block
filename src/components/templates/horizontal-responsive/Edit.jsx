@@ -134,9 +134,9 @@ const MenuItem = (props) => {
             <span className={'menu-item-count'} item-data={tab}>
               {tabIndex}
             </span>
-            <p className={'menu-item-text'} item-data={tab}>
+            <span className={'menu-item-text'} item-data={tab}>
               {title || defaultTitle}
-            </p>
+            </span>
           </>
         )}
       </Menu.Item>
@@ -270,7 +270,9 @@ const MenuWrapper = (props) => {
                 }}
               >
                 <span className={'menu-item-count'}>{underlineIndex + 1}</span>
-                <p className={'menu-item-text'}>{title || defaultTitle}</p>
+                <span className={'menu-item-text'}>
+                  {title || defaultTitle}
+                </span>
               </Dropdown.Item>
             );
           })}
