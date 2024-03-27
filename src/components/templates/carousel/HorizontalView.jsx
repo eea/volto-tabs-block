@@ -135,9 +135,8 @@ const View = (props) => {
   }, [activeTab]);
   React.useEffect(() => {
     if (!slider.current?.innerSlider?.list) return;
-    let inaccessibleElements = slider.current.innerSlider.list.querySelectorAll(
-      '.slick-slide',
-    );
+    let inaccessibleElements =
+      slider.current.innerSlider.list.querySelectorAll('.slick-slide');
     for (let element of inaccessibleElements) {
       element.setAttribute('tabindex', '0');
       element.setAttribute('aria-hidden', 'false');
