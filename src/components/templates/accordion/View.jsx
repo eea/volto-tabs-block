@@ -82,7 +82,7 @@ const View = (props) => {
               tabIndex={tabIndex}
             />
           ) : (
-            <span>{title || defaultTitle}</span>
+            <span className="menu-item-text">{title || defaultTitle}</span>
           )}
         </>
       ),
