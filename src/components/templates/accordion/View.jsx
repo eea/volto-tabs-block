@@ -42,8 +42,11 @@ const View = (props) => {
   const accordionConfig = config.blocks.blocksConfig[
     TABS_BLOCK
   ].variations.filter((v, _i) => v.id === data.variation);
-  const { icons, semanticIcon, transformWidth = 800 } =
-    accordionConfig?.[0] || {};
+  const {
+    icons,
+    semanticIcon,
+    transformWidth = 800,
+  } = accordionConfig?.[0] || {};
 
   const tabsContainer = React.useRef();
   const [mounted, setMounted] = React.useState(false);
