@@ -94,6 +94,10 @@ const messages = defineMessages({
     id: 'description',
     defaultMessage: 'Description',
   },
+  linkToPage: {
+    id: 'linkToPage',
+    defaultMessage: 'Link to page',
+  },
 });
 
 const tabSchema = (props) => {
@@ -105,13 +109,17 @@ const tabSchema = (props) => {
       {
         id: 'default',
         title: intl.formatMessage(messages.Default),
-        fields: ['title', 'assetType'],
+        fields: ['title', 'assetType', 'linkToPage'],
       },
     ],
 
     properties: {
       title: {
         title: intl.formatMessage(messages.TabTitle),
+      },
+      linkToPage: {
+        title: 'Link page',
+        widget: 'url',
       },
       assetType: {
         title: intl.formatMessage(messages.AssetType),

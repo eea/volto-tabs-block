@@ -166,7 +166,6 @@ export const MenuItem = (props) => {
             onClick={() => {
               const newTab = addNewTab();
               setActiveTab(newTab);
-              setEditingTab(null);
             }}
             className="remove-margin addition-button"
           >
@@ -181,25 +180,9 @@ export const MenuItem = (props) => {
 };
 
 const Edit = (props) => {
-  const intl = useIntl();
   const {
-    activeBlock = null,
-    activeTab = null,
-    activeTabIndex = 0,
-    block = null,
     data = {},
-    selected = false,
-    editingTab = null,
-    manage = false,
-    metadata = null,
-    multiSelected = [],
-    tabs = {},
-    tabsData = {},
     tabsList = [],
-    emptyTab = () => {},
-    onChangeBlock = noop,
-    onChangeTabData = noop,
-    onSelectBlock = noop,
     setEditingTab = noop,
     schema,
     skipColorOption = false,
@@ -231,7 +214,6 @@ const Edit = (props) => {
         <MenuItem
           {...props}
           key={tab}
-          editingTab={editingTab}
           index={index}
           setEditingTab={setEditingTab}
           tab={tab}
@@ -240,76 +222,11 @@ const Edit = (props) => {
           schema={schema}
         />
       ),
-      render: () => {
-        return (
-          <Tab.Pane as={isContainer ? Container : undefined}>
-            <BlocksForm
-              allowedBlocks={data?.allowedBlocks}
-              description={data?.instructions?.data}
-              manage={manage}
-              metadata={metadata}
-              pathname={props.pathname}
-              properties={isEmpty(tabs[tab]) ? emptyBlocksForm() : tabs[tab]}
-              selected={selected && activeTab === tab && activeBlock}
-              selectedBlock={
-                selected && activeTab === tab && activeBlock
-                  ? activeBlock
-                  : null
-              }
-              title={data?.placeholder}
-              onChangeField={onChangeTabData}
-              onChangeFormData={(newFormData) => {
-                onChangeBlock(block, {
-                  ...data,
-                  data: {
-                    ...tabsData,
-                    blocks: {
-                      ...tabsData.blocks,
-                      [activeTab]: {
-                        ...(newFormData.blocks_layout.items.length > 0
-                          ? newFormData
-                          : emptyTab({
-                              schema: schema?.properties?.data?.schema || {},
-                              intl,
-                            })),
-                      },
-                    },
-                  },
-                });
-              }}
-              onSelectBlock={(id, selected, e) => {
-                const isMultipleSelection = e
-                  ? e.shiftKey || e.ctrlKey || e.metaKey
-                  : false;
-                onSelectBlock(
-                  id,
-                  activeBlock === id ? false : isMultipleSelection,
-                  e,
-                );
-                setEditingTab(null);
-              }}
-            >
-              {({ draginfo }, editBlock, blockProps) => {
-                return (
-                  <EditBlockWrapper
-                    blockProps={blockProps}
-                    draginfo={draginfo}
-                    multiSelected={multiSelected.includes(blockProps.block)}
-                  >
-                    {editBlock}
-                  </EditBlockWrapper>
-                );
-              }}
-            </BlocksForm>
-          </Tab.Pane>
-        );
-      },
     };
   });
   return (
     <>
       <Tab
-        activeIndex={activeTabIndex}
         className={cx('default tabs', customTabsClass)}
         menu={{
           attached: menuPosition.attached,

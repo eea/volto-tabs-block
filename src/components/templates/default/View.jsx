@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
-import { Menu, Tab, Container, Icon, Image } from 'semantic-ui-react';
-import { RenderBlocks } from '@plone/volto/components';
+import { Menu, Tab, Icon, Image } from 'semantic-ui-react';
+import { ConditionalLink } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
   SimpleMarkdown,
@@ -91,18 +91,18 @@ const MenuItem = (props) => {
   const { title, assetType } = tabSettings;
   const tabTitle = title || defaultTitle;
 
-  useEffect(() => {
-    if (
-      tabChanged === true &&
-      document?.getElementById(blockId)?.querySelector('#tab-pane-' + tab)
-    ) {
-      document
-        .getElementById(blockId)
-        .querySelector('#tab-pane-' + tab)
-        .focus();
-      setTabChanged(false);
-    }
-  }, [tabChanged, tab, blockId]);
+  // useEffect(() => {
+  //   if (
+  //     tabChanged === true &&
+  //     document?.getElementById(blockId)?.querySelector('#tab-pane-' + tab)
+  //   ) {
+  //     document
+  //       .getElementById(blockId)
+  //       .querySelector('#tab-pane-' + tab)
+  //       .focus();
+  //     setTabChanged(false);
+  //   }
+  // }, [tabChanged, tab, blockId]);
 
   return (
     <React.Fragment>
@@ -114,24 +114,24 @@ const MenuItem = (props) => {
       )}
       <Menu.Item
         name={defaultTitle}
-        active={tab === activeTab}
+        // active={tab === activeTab}
         aria-selected={tab === activeTab}
         tabIndex={0}
         role={'tab'}
-        onClick={() => {
-          if (activeTab !== tab) {
-            setActiveTab(tab);
-          }
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            if (activeTab !== tab) {
-              setActiveTab(tab);
-            }
-            setTabChanged(true);
-          }
-        }}
+        // onClick={() => {
+        //   if (activeTab !== tab) {
+        //     setActiveTab(tab);
+        //   }
+        // }}
+        // onKeyDown={(e) => {
+        //   if (e.key === 'Enter') {
+        //     e.preventDefault();
+        //     if (activeTab !== tab) {
+        //       setActiveTab(tab);
+        //     }
+        //     setTabChanged(true);
+        //   }
+        // }}
       >
         <>
           {assetType ? (
@@ -153,13 +153,7 @@ const MenuItem = (props) => {
 };
 
 const View = (props) => {
-  const {
-    metadata = {},
-    data = {},
-    tabsList = [],
-    tabs = {},
-    activeTabIndex = 0,
-  } = props;
+  const { data = {}, tabsList = [], tabs = {}, activeTabIndex = 0 } = props;
   const [menuPosition, setMenuPosition] = React.useState({});
   React.useEffect(() => {
     if (Object.keys(menuPosition).length === 0) {
@@ -187,35 +181,27 @@ const View = (props) => {
   const isContainer = align === 'full';
 
   const panes = tabsList.map((tab, index) => {
+    const hasLink = !!tabs[tab].linkToPage;
     return {
       id: tab,
       menuItem: (
-        <MenuItem
-          {...props}
-          key={tab}
-          tab={tab}
-          index={index}
-          tabsTitle={title}
-          tabsDescription={description}
-          blockId={props?.id || ''}
-        />
+        <ConditionalLink
+          condition={hasLink}
+          to={hasLink ? tabs[tab]?.linkToPage : null}
+          openLinkInNewTab={false}
+        >
+          <MenuItem
+            {...props}
+            key={tab}
+            tab={tab}
+            index={index}
+            tabsTitle={title}
+            tabsDescription={description}
+            blockId={props?.id || ''}
+          />
+        </ConditionalLink>
       ),
-      pane: (
-        <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
-          <div
-            id={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
-            className="tab-name"
-          >
-            <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
-              <RenderBlocks
-                {...props}
-                metadata={metadata}
-                content={tabs[tab]}
-              />
-            </div>
-          </div>
-        </Tab.Pane>
-      ),
+      pane: '',
     };
   });
 

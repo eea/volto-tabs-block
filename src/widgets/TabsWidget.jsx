@@ -19,9 +19,9 @@ import downSVG from '@plone/volto/icons/down-key.svg';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-  AddTab: {
-    defaultMessage: 'Add Tab',
-    id: 'addTab',
+  AddItem: {
+    defaultMessage: 'Add Item',
+    id: 'addItem',
   },
 });
 
@@ -107,7 +107,7 @@ const TabsWidget = (props) => {
             }}
           >
             <Icon name={plusSVG} size="18px" />
-            &nbsp; {intl.formatMessage(messages.AddTab)}
+            &nbsp; {intl.formatMessage(messages.AddItem)}
           </Button>
         </div>
       </FormFieldWrapper>
@@ -149,7 +149,7 @@ const TabsWidget = (props) => {
                     >
                       <Icon name={dragSVG} size="18px" />
                     </div>
-                    <div className="label">{`Tab #${index + 1}`}</div>
+                    <div className="label">{`Item #${index + 1}`}</div>
 
                     <div className="accordion-tools">
                       <button
@@ -177,7 +177,7 @@ const TabsWidget = (props) => {
                             };
                             onChange(id, newFormData);
                           }}
-                          title="Delete tab"
+                          title="Delete item"
                         >
                           <Icon name={trashSVG} size="20px" color="#e40166" />
                         </button>
