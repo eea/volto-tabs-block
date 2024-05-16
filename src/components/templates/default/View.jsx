@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
 import { Menu, Tab, Icon, Image } from 'semantic-ui-react';
 import { ConditionalLink } from '@plone/volto/components';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
   SimpleMarkdown,
   getMenuPosition,
@@ -13,8 +12,6 @@ import {
 import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
-
-import noop from 'lodash/noop';
 
 export const AssetTab = ({ props, tabIndex, tabTitle }) => {
   const {
@@ -74,35 +71,13 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
 };
 
 const MenuItem = (props) => {
-  const {
-    activeTab = null,
-    tabs = {},
-    setActiveTab = noop,
-    tabsTitle,
-    tabsDescription,
-    blockId,
-  } = props;
-
+  const { activeTab = null, tabs = {}, tabsTitle, tabsDescription } = props;
   const { tab, index } = props;
   const tabIndex = index + 1;
-  const [tabChanged, setTabChanged] = useState(false);
   const defaultTitle = `Tab ${tabIndex}`;
   const tabSettings = tabs[tab];
   const { title, assetType } = tabSettings;
   const tabTitle = title || defaultTitle;
-
-  // useEffect(() => {
-  //   if (
-  //     tabChanged === true &&
-  //     document?.getElementById(blockId)?.querySelector('#tab-pane-' + tab)
-  //   ) {
-  //     document
-  //       .getElementById(blockId)
-  //       .querySelector('#tab-pane-' + tab)
-  //       .focus();
-  //     setTabChanged(false);
-  //   }
-  // }, [tabChanged, tab, blockId]);
 
   return (
     <React.Fragment>
@@ -114,24 +89,9 @@ const MenuItem = (props) => {
       )}
       <Menu.Item
         name={defaultTitle}
-        // active={tab === activeTab}
         aria-selected={tab === activeTab}
         tabIndex={0}
         role={'tab'}
-        // onClick={() => {
-        //   if (activeTab !== tab) {
-        //     setActiveTab(tab);
-        //   }
-        // }}
-        // onKeyDown={(e) => {
-        //   if (e.key === 'Enter') {
-        //     e.preventDefault();
-        //     if (activeTab !== tab) {
-        //       setActiveTab(tab);
-        //     }
-        //     setTabChanged(true);
-        //   }
-        // }}
       >
         <>
           {assetType ? (
@@ -244,4 +204,4 @@ const View = (props) => {
   );
 };
 
-export default compose(withScrollToTarget)(withRouter(View));
+export default compose(withRouter(View));

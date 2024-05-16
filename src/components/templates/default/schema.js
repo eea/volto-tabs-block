@@ -13,10 +13,6 @@ const messages = defineMessages({
     id: 'menu',
     defaultMessage: 'Menu',
   },
-  Description: {
-    id: 'description',
-    defaultMessage: 'Description',
-  },
   Position: {
     id: 'position',
     defaultMessage: 'Position',
@@ -182,7 +178,6 @@ const messages = defineMessages({
 export const defaultSchemaEnhancer = ({ schema, intl }) => {
   schema.fieldsets.splice(1, 0, {
     id: 'menu',
-    title: intl.formatMessage(messages.Menu),
     fields: [
       'menuAlign',
       'menuPosition',
@@ -201,11 +196,7 @@ export const defaultSchemaEnhancer = ({ schema, intl }) => {
   });
   schema.properties = {
     ...schema.properties,
-    description: {
-      title: intl.formatMessage(messages.Description),
-    },
     menuPosition: {
-      title: intl.formatMessage(messages.Position),
       choices: [
         ['top', intl.formatMessage(messages.Top)],
         ['bottom', intl.formatMessage(messages.Bottom)],
