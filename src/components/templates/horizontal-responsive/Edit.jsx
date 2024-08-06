@@ -347,6 +347,7 @@ const Edit = (props) => {
         <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
           <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
             <BlocksForm
+              errors={props.errors}
               allowedBlocks={data?.allowedBlocks}
               description={data?.instructions?.data}
               manage={manage}
