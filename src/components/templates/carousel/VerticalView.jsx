@@ -3,6 +3,8 @@ import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
 import { RenderBlocks } from '@plone/volto/components';
+import { isTabEmpty } from '@eeacms/volto-tabs-block/helpers';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
@@ -28,19 +30,23 @@ const View = (props) => {
     verticalSwiping: true,
   };
 
-  const panes = tabsList.map((tab, _index) => {
-    return {
-      id: tab,
-      renderItem: (
-        <RenderBlocks
-          {...props}
-          metadata={metadata}
-          content={tabs[tab]}
-          key={`slide-${tab}`}
-        />
-      ),
-    };
-  });
+  const panes = tabsList
+    .filter((tab) => {
+      return data.hideEmptyTabs ? isTabEmpty(tabs[tab]) : true;
+    })
+    .map((tab, _index) => {
+      return {
+        id: tab,
+        renderItem: (
+          <RenderBlocks
+            {...props}
+            metadata={metadata}
+            content={tabs[tab]}
+            key={`slide-${tab}`}
+          />
+        ),
+      };
+    });
 
   return (
     <>

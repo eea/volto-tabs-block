@@ -86,6 +86,10 @@ const messages = defineMessages({
     id: 'hideTitle',
     defaultMessage: 'Hide tab title?',
   },
+  HideEmptyTabs: {
+    id: 'hideEmptyTabs',
+    defaultMessage: 'Hide empty tabs in view?',
+  },
   Large: {
     id: 'large',
     defaultMessage: 'Large',
@@ -191,7 +195,13 @@ export const blockSchema = (props) => {
       {
         id: 'default',
         title: intl.formatMessage(messages.Default),
-        fields: ['title', 'description', 'verticalAlign', 'data'],
+        fields: [
+          'title',
+          'description',
+          'verticalAlign',
+          'hideEmptyTabs',
+          'data',
+        ],
       },
     ],
     properties: {
@@ -215,6 +225,10 @@ export const blockSchema = (props) => {
           ['flex-end', intl.formatMessage(messages.Bottom)],
         ],
         default: 'flex-start',
+      },
+      hideEmptyTabs: {
+        title: intl.formatMessage(messages.HideEmptyTabs),
+        type: 'boolean',
       },
     },
     required: [],

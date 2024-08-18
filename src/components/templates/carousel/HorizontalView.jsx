@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
 import { Icon, RenderBlocks } from '@plone/volto/components';
+import { isTabEmpty } from '@eeacms/volto-tabs-block/helpers';
 
 import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-key.svg';
 import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-key.svg';
@@ -147,19 +148,23 @@ const View = (props) => {
         carouselDiv.setAttribute('tabindex', '0');
   }, []);
 
-  const panes = tabsList.map((tab, _index) => {
-    return {
-      id: tab,
-      renderItem: (
-        <RenderBlocks
-          key={`slide-${tab}`}
-          {...props}
-          metadata={metadata}
-          content={tabs[tab]}
-        />
-      ),
-    };
-  });
+  const panes = tabsList
+    .filter((tab) => {
+      return data.hideEmptyTabs ? isTabEmpty(tabs[tab]) : true;
+    })
+    .map((tab, _index) => {
+      return {
+        id: tab,
+        renderItem: (
+          <RenderBlocks
+            key={`slide-${tab}`}
+            {...props}
+            metadata={metadata}
+            content={tabs[tab]}
+          />
+        ),
+      };
+    });
 
   return (
     <>

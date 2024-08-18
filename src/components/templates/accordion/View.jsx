@@ -13,7 +13,10 @@ import config from '@plone/volto/registry';
 import Tabs from 'react-responsive-tabs';
 import { AssetTab } from '@eeacms/volto-tabs-block/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
+import {
+  getParentTabFromHash,
+  isTabEmpty,
+} from '@eeacms/volto-tabs-block/helpers';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
@@ -57,59 +60,63 @@ const View = (props) => {
     tabs_width < initialWidth,
   );
 
-  const items = tabsList.map((tab, index) => {
-    const defaultTitle = `Tab ${index + 1}`;
-    const active = activeTabIndex === index;
-    const tabSettings = tabs[tab];
-    const { title, assetType } = tabSettings;
-    const tabIndex = index + 1;
-    const tabTitle = title || defaultTitle;
+  const items = tabsList
+    .filter((tab) => {
+      return data.hideEmptyTabs ? isTabEmpty(tabs[tab]) : true;
+    })
+    .map((tab, index) => {
+      const defaultTitle = `Tab ${index + 1}`;
+      const active = activeTabIndex === index;
+      const tabSettings = tabs[tab];
+      const { title, assetType } = tabSettings;
+      const tabIndex = index + 1;
+      const tabTitle = title || defaultTitle;
 
-    return {
-      title: (
-        <>
-          {semanticIcon ? (
-            <Icon
-              className={active ? semanticIcon.opened : semanticIcon.closed}
-            />
-          ) : (
-            <VoltoIcon
-              name={active ? icons.opened : icons.closed}
-              size={icons.size}
-            />
-          )}
-          {assetType ? (
-            <AssetTab
-              props={tabSettings}
-              tabTitle={tabTitle}
-              tabIndex={tabIndex}
-            />
-          ) : (
-            <span className="menu-item-text">{title || defaultTitle}</span>
-          )}
-        </>
-      ),
-      content: (
-        <Tab
-          {...props}
-          tab={tab}
-          content={tabs[tab]}
-          aria-hidden={false}
-          title={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
-        />
-      ),
-      key: tab,
-      tabClassName: cx(
-        {
+      return {
+        title: (
+          <>
+            {semanticIcon ? (
+              <Icon
+                className={active ? semanticIcon.opened : semanticIcon.closed}
+              />
+            ) : (
+              <VoltoIcon
+                name={active ? icons.opened : icons.closed}
+                size={icons.size}
+              />
+            )}
+            {assetType ? (
+              <AssetTab
+                props={tabSettings}
+                tabTitle={tabTitle}
+                tabIndex={tabIndex}
+              />
+            ) : (
+              <span className="menu-item-text">{title || defaultTitle}</span>
+            )}
+          </>
+        ),
+        content: (
+          <Tab
+            {...props}
+            tab={tab}
+            content={tabs[tab]}
+            aria-hidden={false}
+            title={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
+          />
+        ),
+        key: tab,
+        tabClassName: cx(
+          {
+            active,
+          },
+          isAccordion ? 'title accordion-title' : 'ui item title',
+        ),
+        panelClassName: cx('ui attached segment tab content', {
           active,
-        },
-        isAccordion ? 'title accordion-title' : 'ui item title',
-      ),
-      panelClassName: cx('ui attached segment tab content', {
-        active,
-      }),
-    };
-  });
+        }),
+      };
+    });
 
   React.useEffect(() => {
     setMounted(true);
