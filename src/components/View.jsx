@@ -4,7 +4,10 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
+import {
+  isTabEmpty,
+  getParentTabFromHash,
+} from '@eeacms/volto-tabs-block/helpers';
 import { DefaultView } from './templates/default';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
@@ -19,8 +22,10 @@ const View = (props) => {
   const metadata = props.metadata || props.properties;
   const template = data.variation || 'default';
   const tabsData = data.data || {};
-  const tabsList = tabsData.blocks_layout?.items || [];
   const tabs = tabsData.blocks || {};
+  const tabsList = (tabsData.blocks_layout?.items || []).filter((tab) => {
+    return data.hideEmptyTabs ? !isTabEmpty(tabs[tab]) : true;
+  });
   const [activeTab, setActiveTab] = React.useState(tabsList?.[0]);
   const activeTabIndex = tabsList.indexOf(activeTab);
   const tabData = tabs[activeTab] || {};
