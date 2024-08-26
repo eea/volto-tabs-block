@@ -3,7 +3,6 @@ import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
 import { RenderBlocks } from '@plone/volto/components';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';

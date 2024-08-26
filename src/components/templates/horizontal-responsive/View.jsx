@@ -208,7 +208,6 @@ const View = (props) => {
     menuTabular,
     menuText,
     menuAlign,
-    hideEmptyTabs,
   } = data;
   const isContainer = align === 'full';
 

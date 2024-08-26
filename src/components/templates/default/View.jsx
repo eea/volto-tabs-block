@@ -202,7 +202,10 @@ const View = (props) => {
       ),
       pane: (
         <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
-          <div id={tabs[tab]?.title || `Tab ${index + 1}`} className="tab-name">
+          <div
+            id={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
+            className="tab-name"
+          >
             <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
               <RenderBlocks
                 {...props}
@@ -215,7 +218,6 @@ const View = (props) => {
       ),
     };
   });
-  console.log('HERE ==>', activeTabIndex);
 
   return (
     <>
