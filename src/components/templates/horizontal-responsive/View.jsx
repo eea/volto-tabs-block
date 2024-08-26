@@ -5,7 +5,6 @@ import { withRouter } from 'react-router';
 import cx from 'classnames';
 import { Menu, Tab, Container, Dropdown, Button } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
-import { isTabEmpty } from '@eeacms/volto-tabs-block/helpers';
 import {
   SimpleMarkdown,
   getMenuPosition,
@@ -213,44 +212,40 @@ const View = (props) => {
   } = data;
   const isContainer = align === 'full';
 
-  const panes = tabsList
-    .filter((tab) => {
-      return hideEmptyTabs ? isTabEmpty(tabs[tab]) : true;
-    })
-    .map((tab, index) => {
-      return {
-        id: tab,
-        menuItem: (
-          <MenuItem
-            {...props}
-            key={tab}
-            tab={tab}
-            tabsList={tabsList}
-            blockId={props.id}
-            index={index}
-            lastIndex={tabsList.length - 1}
-            tabsTitle={title}
-            tabsDescription={description}
-          />
-        ),
-        pane: (
-          <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
-            <div
-              id={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
-              className="tab-name"
-            >
-              <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
-                <RenderBlocks
-                  {...props}
-                  metadata={metadata}
-                  content={tabs[tab]}
-                />
-              </div>
+  const panes = tabsList.map((tab, index) => {
+    return {
+      id: tab,
+      menuItem: (
+        <MenuItem
+          {...props}
+          key={tab}
+          tab={tab}
+          tabsList={tabsList}
+          blockId={props.id}
+          index={index}
+          lastIndex={tabsList.length - 1}
+          tabsTitle={title}
+          tabsDescription={description}
+        />
+      ),
+      pane: (
+        <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
+          <div
+            id={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
+            className="tab-name"
+          >
+            <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
+              <RenderBlocks
+                {...props}
+                metadata={metadata}
+                content={tabs[tab]}
+              />
             </div>
-          </Tab.Pane>
-        ),
-      };
-    });
+          </div>
+        </Tab.Pane>
+      ),
+    };
+  });
 
   return (
     <>

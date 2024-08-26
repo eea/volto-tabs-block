@@ -67,10 +67,11 @@ export const isTabEmpty = (content) => {
   const blocks_layout_field = getBlocksLayoutFieldname(content);
   const blocks = content[blocks_field] || {};
   const blocksNo = content[blocks_layout_field]?.items?.length || 0;
+
   if (blocksNo === 1) {
     const blockId = content[blocks_layout_field].items[0];
     const block = blocks[blockId];
-    if (block['@type'] !== 'slate' || !!block['plaintext']) {
+    if (block['@type'] === 'slate' && !block['plaintext']) {
       return true;
     }
   }
