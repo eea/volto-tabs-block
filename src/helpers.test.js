@@ -3,6 +3,7 @@ import {
   emptyTab,
   scrollToTarget,
   getParentTabFromHash,
+  isTabEmpty,
 } from './helpers';
 // import { emptyBlocksForm } from '@plone/volto/helpers';
 import { visitBlocks, toSlug } from '@eeacms/volto-anchors/helpers';
@@ -39,6 +40,19 @@ describe('emptyTab function', () => {
     // emptyBlocksForm.mockReturnValue({});
     const result = emptyTab({ schema });
     expect(result['@type']).toEqual('tab');
+  });
+});
+
+describe('isTabEmpty function', () => {
+  it('returns if a tab is empty', () => {
+    // emptyBlocksForm.mockReturnValue({});
+    const result = isTabEmpty({
+      blocks: {},
+      blocks_layout: {
+        items: [],
+      },
+    });
+    expect(result).toEqual(true);
   });
 });
 
