@@ -16,11 +16,16 @@ import config from '@plone/volto/registry';
 import '@eeacms/volto-tabs-block/less/edit.less';
 import '@eeacms/volto-tabs-block/less/tabs.less';
 
+const templateMapping = {
+  carousel: 'carousel-horizontal',
+  carousel_vertical: 'carousel-vertical',
+};
+
 const View = (props) => {
   const view = React.useRef(null);
   const { data = {}, uiContainer = '', location, history } = props;
   const metadata = props.metadata || props.properties;
-  const template = data.variation || 'default';
+  let template = data.variation || data.template || 'default';
   const tabsData = data.data || {};
   const tabs = tabsData.blocks || {};
   const tabsList = (tabsData.blocks_layout?.items || []).filter((tab) => {
@@ -31,6 +36,9 @@ const View = (props) => {
   const tabData = tabs[activeTab] || {};
   const theme = data.theme || 'light';
   const verticalAlign = data.verticalAlign || 'flex-start';
+
+  // Needed for backwards compatibility
+  template = templateMapping[template] || template;
 
   const activeTemplate = config.blocks.blocksConfig[
     TABS_BLOCK
