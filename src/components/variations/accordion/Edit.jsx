@@ -1,5 +1,5 @@
-import Edit from '@eeacms/volto-tabs-block/components/templates/default/Edit';
-import { accordionSchemaEnhancer } from '@eeacms/volto-tabs-block/components/templates/accordion/schema';
+import Edit from '@eeacms/volto-tabs-block/components/variations/default/Edit';
+import { accordionSchemaEnhancer } from '@eeacms/volto-tabs-block/components/variations/accordion/schema';
 import cx from 'classnames';
 
 const AccordionEdit = (props) => {

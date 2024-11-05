@@ -7,7 +7,7 @@ export { TabsEdit, TabsView };
 export { layoutSchema };
 
 export * from './schema';
-export * from './templates/default';
-export * from './templates/accordion';
-export * from './templates/horizontal-responsive';
-export * from './templates/carousel';
+export * from './variations/default';
+export * from './variations/accordion';
+export * from './variations/horizontal-responsive';
+export * from './variations/carousel';

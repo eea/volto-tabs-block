@@ -5,10 +5,11 @@ import { withRouter } from 'react-router';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import {
+  getVariation,
   isTabEmpty,
   getParentTabFromHash,
 } from '@eeacms/volto-tabs-block/helpers';
-import { DefaultView } from './templates/default';
+import { DefaultView } from './variations/default';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import config from '@plone/volto/registry';
@@ -16,16 +17,11 @@ import config from '@plone/volto/registry';
 import '@eeacms/volto-tabs-block/less/edit.less';
 import '@eeacms/volto-tabs-block/less/tabs.less';
 
-const templateMapping = {
-  carousel: 'carousel-horizontal',
-  carousel_vertical: 'carousel-vertical',
-};
-
 const View = (props) => {
   const view = React.useRef(null);
   const { data = {}, uiContainer = '', location, history } = props;
   const metadata = props.metadata || props.properties;
-  let template = data.variation || data.template || 'default';
+  const variation = getVariation(data);
   const tabsData = data.data || {};
   const tabs = tabsData.blocks || {};
   const tabsList = (tabsData.blocks_layout?.items || []).filter((tab) => {
@@ -37,14 +33,11 @@ const View = (props) => {
   const theme = data.theme || 'light';
   const verticalAlign = data.verticalAlign || 'flex-start';
 
-  // Needed for backwards compatibility
-  template = templateMapping[template] || template;
-
-  const activeTemplate = config.blocks.blocksConfig[
+  const activeVariation = config.blocks.blocksConfig[
     TABS_BLOCK
-  ].variations.filter((v, _i) => v.id === template);
+  ].variations.filter((v, _i) => v.id === variation);
 
-  const TabsView = activeTemplate?.[0]?.view || DefaultView;
+  const TabsView = activeVariation?.[0]?.view || DefaultView;
 
   const query = React.useMemo(() => {
     const { search } = location;
@@ -103,7 +96,7 @@ const View = (props) => {
       styled={true}
     >
       <div
-        className={cx('tabs-block', template, theme, verticalAlign)}
+        className={cx('tabs-block', variation, theme, verticalAlign)}
         id={props.id}
         ref={view}
       >
@@ -125,7 +118,7 @@ const View = (props) => {
             tabData={tabData}
             tabsData={tabsData}
             tabsList={tabsList}
-            template={template}
+            variation={variation}
             uiContainer={uiContainer}
             setActiveTab={handleActiveTabChange}
           />

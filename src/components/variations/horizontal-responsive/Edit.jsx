@@ -1,24 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { useIntl } from 'react-intl';
-import { isEmpty } from 'lodash';
+import { withRouter } from 'react-router';
 import { v4 as uuid } from 'uuid';
+import { isEmpty } from 'lodash';
 import cx from 'classnames';
-import { Menu, Tab, Input, Container } from 'semantic-ui-react';
-import { BlocksForm } from '@plone/volto/components';
+import { Menu, Tab, Container, Dropdown, Input } from 'semantic-ui-react';
 import { emptyBlocksForm } from '@plone/volto/helpers';
+import { BlocksForm } from '@plone/volto/components';
 import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
-import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/templates/default/schema';
-import { AssetTab } from '@eeacms/volto-tabs-block/components';
+import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/variations/default/schema';
 import {
   SimpleMarkdown,
   getMenuPosition,
+  positionedOffset,
+  toggleItem,
 } from '@eeacms/volto-tabs-block/utils';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 
 import noop from 'lodash/noop';
-
-export const MenuItem = (props) => {
+const MenuItem = (props) => {
   const inputRef = React.useRef(null);
   const intl = useIntl();
   const {
@@ -31,10 +34,10 @@ export const MenuItem = (props) => {
     selected = false,
     tabData = {},
     tabs = {},
-    tabsDescription,
-    tabsTitle,
     tabsData = {},
+    tabsDescription,
     tabsList = [],
+    tabsTitle,
     emptyTab = () => {},
     setActiveBlock = noop,
     setActiveTab = noop,
@@ -42,11 +45,9 @@ export const MenuItem = (props) => {
     onChangeBlock = noop,
   } = props;
   const { tab, index } = props;
+  const title = tabs[tab].title;
   const tabIndex = index + 1;
   const defaultTitle = `Tab ${tabIndex}`;
-  const tabSettings = tabs[tab];
-  const { title, assetType } = tabSettings;
-  const tabTitle = title || defaultTitle;
 
   const addNewTab = () => {
     const tabId = uuid();
@@ -59,7 +60,7 @@ export const MenuItem = (props) => {
           ...tabsData.blocks,
           [tabId]: {
             ...emptyTab({
-              schema: schema?.properties?.data?.schema || {},
+              schema: schema.properties.data.schema,
               intl,
             }),
           },
@@ -69,7 +70,6 @@ export const MenuItem = (props) => {
         },
       },
     });
-    return tabId;
   };
 
   React.useEffect(() => {
@@ -88,17 +88,9 @@ export const MenuItem = (props) => {
         </Menu.Item>
       )}
       <Menu.Item
+        item-data={tab}
         name={defaultTitle}
         active={tab === activeTab}
-        className="remove-margin"
-        tabIndex={0}
-        role={'tab'}
-        onKeyDown={(e) => {
-          if (e.target.tagName === 'A' && e.code === 'Space') {
-            e.preventDefault();
-            setActiveTab(tab);
-          }
-        }}
         onClick={() => {
           if (activeTab !== tab) {
             setActiveTab(tab);
@@ -116,6 +108,7 @@ export const MenuItem = (props) => {
       >
         {editingTab === tab && selected ? (
           <Input
+            item-data={tab}
             placeholder={defaultTitle}
             ref={inputRef}
             transparent
@@ -138,39 +131,27 @@ export const MenuItem = (props) => {
           />
         ) : (
           <>
-            {assetType ? (
-              <AssetTab
-                props={tabSettings}
-                tabTitle={tabTitle}
-                tabIndex={tabIndex}
-              />
-            ) : (
-              <span>{tabTitle}</span>
-            )}
+            <span className={'menu-item-count'} item-data={tab}>
+              {tabIndex}
+            </span>
+            <span className={'menu-item-text'} item-data={tab}>
+              {title || defaultTitle}
+            </span>
           </>
         )}
       </Menu.Item>
       {index === tabsList.length - 1 ? (
         <>
           <Menu.Item
-            tabIndex={0}
-            role="tab"
             name="addition"
-            onKeyDown={(e) => {
-              if (e.code === 'Space') {
-                e.preventDefault();
-                const newTab = addNewTab();
-                setActiveTab(newTab);
-              }
-            }}
-            onClick={() => {
-              const newTab = addNewTab();
-              setActiveTab(newTab);
+            onClick={(e) => {
+              addNewTab();
               setEditingTab(null);
+              e.preventDefault();
             }}
-            className="remove-margin addition-button"
+            item-data={'addition'}
           >
-            <span className="menu-item-text">+</span>
+            +
           </Menu.Item>
         </>
       ) : (
@@ -180,32 +161,152 @@ export const MenuItem = (props) => {
   );
 };
 
+const MenuWrapper = (props) => {
+  const intl = useIntl();
+  const {
+    data = {},
+    panes = [],
+    activeTab = null,
+    node = null,
+    screen = {},
+    tabs = {},
+    tabsList = [],
+    block = null,
+    emptyTab = () => {},
+    setEditingTab = noop,
+    tabsData = {},
+    onChangeBlock = noop,
+    setActiveTab = noop,
+    schema,
+  } = props;
+  const [open, setOpen] = React.useState(false);
+  const addNewTab = () => {
+    const tabId = uuid();
+
+    onChangeBlock(block, {
+      ...data,
+      data: {
+        ...tabsData,
+        blocks: {
+          ...tabsData.blocks,
+          [tabId]: {
+            ...emptyTab({
+              schema: schema.properties.data.schema,
+              intl,
+            }),
+          },
+        },
+        blocks_layout: {
+          items: [...tabsData.blocks_layout.items, tabId],
+        },
+      },
+    });
+  };
+  React.useEffect(() => {
+    if (!node?.current) return;
+    const items = node.current.querySelectorAll(
+      '.ui.menu > .menu-wrapper > .item:not(.menu-title)',
+    );
+    const underlineDropdown = node.current.querySelector('.ui.dropdown');
+    if (!underlineDropdown) return;
+    const overflowOffset = positionedOffset(underlineDropdown, node.current);
+    if (!overflowOffset) {
+      return;
+    }
+    let anyHidden = false;
+    for (const item of items) {
+      const itemOffset = positionedOffset(item, node.current);
+      if (itemOffset) {
+        const hidden =
+          itemOffset.left + item.offsetWidth >= overflowOffset.left;
+        toggleItem(node.current, item, hidden);
+        anyHidden = anyHidden || hidden;
+      }
+    }
+    underlineDropdown.style.visibility = anyHidden ? '' : 'hidden';
+    if (!anyHidden && open) {
+      setOpen(false);
+    }
+  }, [screen, node, open, data.isResponsive]);
+
+  return (
+    <React.Fragment>
+      <div className="menu-wrapper tabs-accessibility">
+        {panes.map((pane, index) => (
+          <React.Fragment key={`menu-item-${index}-${pane.id}`}>
+            {pane.menuItem}
+          </React.Fragment>
+        ))}
+      </div>
+      <Dropdown
+        icon="ellipsis horizontal"
+        className="item"
+        pointing="top right"
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+      >
+        <Dropdown.Menu>
+          {[...tabsList, 'addition'].map((underlineTab, underlineIndex) => {
+            const title =
+              underlineTab === 'addition' ? '+' : tabs[underlineTab]?.title;
+            const defaultTitle = `Tab ${underlineIndex + 1}`;
+
+            return (
+              <Dropdown.Item
+                hidden
+                key={`underline-tab-${underlineIndex}-${underlineTab}`}
+                underline-item-data={underlineTab}
+                active={underlineTab === activeTab}
+                onClick={(e) => {
+                  if (underlineTab === 'addition') {
+                    addNewTab();
+                    setEditingTab(null);
+                    e.preventDefault();
+                  } else if (activeTab !== underlineTab) {
+                    setActiveTab(underlineTab);
+                  }
+                  e.preventDefault();
+                }}
+              >
+                <span className={'menu-item-count'}>{underlineIndex + 1}</span>
+                <span className={'menu-item-text'}>
+                  {title || defaultTitle}
+                </span>
+              </Dropdown.Item>
+            );
+          })}
+        </Dropdown.Menu>
+      </Dropdown>
+    </React.Fragment>
+  );
+};
+
 const Edit = (props) => {
   const intl = useIntl();
   const {
-    activeBlock = null,
+    metadata = {},
+    data = {},
+    tabsList = [],
+    tabs = {},
     activeTab = null,
+    selected = false,
+    manage = false,
     activeTabIndex = 0,
     block = null,
-    data = {},
-    selected = false,
-    editingTab = null,
-    manage = false,
-    metadata = null,
+    activeBlock = null,
     multiSelected = [],
-    tabs = {},
+    screen,
     tabsData = {},
-    tabsList = [],
     emptyTab = () => {},
     onChangeBlock = noop,
     onChangeTabData = noop,
     onSelectBlock = noop,
     setEditingTab = noop,
     schema,
-    skipColorOption = false,
-    customTabsClass = '',
   } = props;
   const menuPosition = getMenuPosition(data);
+
   const {
     title,
     description,
@@ -224,6 +325,7 @@ const Edit = (props) => {
     menuAlign,
   } = data;
   const isContainer = align === 'full';
+
   const panes = tabsList.map((tab, index) => {
     return {
       id: tab,
@@ -231,18 +333,19 @@ const Edit = (props) => {
         <MenuItem
           {...props}
           key={tab}
-          editingTab={editingTab}
-          index={index}
-          setEditingTab={setEditingTab}
           tab={tab}
+          tabsList={tabsList}
+          blockId={props.id}
+          index={index}
+          lastIndex={tabsList.length - 1}
           tabsTitle={title}
           tabsDescription={description}
           schema={schema}
         />
       ),
-      render: () => {
-        return (
-          <Tab.Pane as={isContainer ? Container : undefined}>
+      pane: (
+        <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
+          <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
             <BlocksForm
               errors={props.errors}
               allowedBlocks={data?.allowedBlocks}
@@ -270,7 +373,7 @@ const Edit = (props) => {
                         ...(newFormData.blocks_layout.items.length > 0
                           ? newFormData
                           : emptyTab({
-                              schema: schema?.properties?.data?.schema || {},
+                              schema: schema.properties.data.schema,
                               intl,
                             })),
                       },
@@ -302,20 +405,22 @@ const Edit = (props) => {
                 );
               }}
             </BlocksForm>
-          </Tab.Pane>
-        );
-      },
+          </div>
+        </Tab.Pane>
+      ),
     };
   });
+
   return (
     <>
       <Tab
         activeIndex={activeTabIndex}
-        className={cx('default tabs', customTabsClass)}
+        className="horizontal-responsive tabs"
+        renderActiveOnly={false}
         menu={{
           attached: menuPosition.attached,
           borderless: menuBorderless,
-          color: !skipColorOption && menuColor,
+          color: menuColor,
           compact: menuCompact,
           fluid: menuFluid,
           inverted: menuInverted,
@@ -326,16 +431,20 @@ const Edit = (props) => {
           tabular: menuTabular,
           text: menuText,
           vertical: menuPosition.vertical,
-          className: cx(
-            'tabs-secondary-variant',
-            data.menuAlign,
-            menuAlign,
-            menuPosition.direction === 'left' ? 'border-right' : '',
-            menuPosition.direction === 'right' ? 'border-left' : '',
-            menuPosition.direction === 'top' ? 'border-bottom' : '',
-            menuPosition.direction === 'bottom' ? 'border-top' : '',
-            { container: isContainer },
-            props.addTabsOptions ? props.addTabsOptions(data) : '',
+          className: cx(menuAlign, { container: isContainer }),
+          children: (
+            <MenuWrapper
+              {...props}
+              panes={panes}
+              menuPosition={menuPosition}
+              screen={screen}
+              tabsList={tabsList}
+              blockId={props.id}
+              lastIndex={tabsList.length - 1}
+              tabsTitle={title}
+              tabsDescription={description}
+              schema={schema}
+            />
           ),
         }}
         menuPosition={menuPosition.direction}
@@ -348,4 +457,10 @@ const Edit = (props) => {
 
 Edit.schemaEnhancer = defaultSchemaEnhancer;
 
-export default Edit;
+export default compose(
+  connect((state) => {
+    return {
+      screen: state.screen,
+    };
+  }),
+)(withRouter(Edit));
