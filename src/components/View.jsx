@@ -118,7 +118,6 @@ const View = (props) => {
             tabData={tabData}
             tabsData={tabsData}
             tabsList={tabsList}
-            variation={variation}
             uiContainer={uiContainer}
             setActiveTab={handleActiveTabChange}
           />

@@ -201,7 +201,6 @@ const Edit = (props) => {
               tabsData={tabsData}
               tabsList={tabsList}
               node={view}
-              variation={variation}
               onChangeTabData={onChangeTabData}
               onSelectBlock={onSelectBlock}
               setActiveBlock={setActiveBlock}
