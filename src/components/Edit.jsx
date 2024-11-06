@@ -12,7 +12,8 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { empty, emptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { BlockStyleWrapperEdit } from '@eeacms/volto-block-style/BlockStyleWrapper';
-import { DefaultEdit } from './templates/default';
+import { getVariation } from '@eeacms/volto-tabs-block/helpers';
+import { DefaultEdit } from './variations/default';
 import { useIntl } from 'react-intl';
 
 import '@eeacms/volto-tabs-block/less/edit.less';
@@ -23,7 +24,7 @@ const Edit = (props) => {
   const intl = useIntl();
   const { onChangeBlock, onChangeField } = props;
   const { data = {}, block = null } = props;
-  const template = data.variation || 'default';
+  const variation = getVariation(data);
   const tabsData = data.data || {};
   const tabsList = tabsData.blocks_layout?.items || [];
   const tabs = tabsData.blocks || {};
@@ -38,11 +39,11 @@ const Edit = (props) => {
   const verticalAlign = data.verticalAlign || 'flex-start';
   const tabsBlockConfig = config.blocks.blocksConfig[TABS_BLOCK];
 
-  const activeTemplate = config.blocks.blocksConfig[
+  const activeVariation = config.blocks.blocksConfig[
     TABS_BLOCK
-  ].variations.filter((v, _i) => v.id === template);
+  ].variations.filter((v, _i) => v.id === variation);
 
-  const TabsEdit = activeTemplate?.[0]?.edit || DefaultEdit;
+  const TabsEdit = activeVariation?.[0]?.edit || DefaultEdit;
 
   const schemaObject = tabsBlockConfig.blockSchema(props);
 
@@ -168,7 +169,7 @@ const Edit = (props) => {
           Tabs
         </legend>
         <div
-          className={cx('tabs-block edit', theme, verticalAlign, template)}
+          className={cx('tabs-block edit', theme, verticalAlign, variation)}
           ref={view}
           role="presentation"
           onKeyDown={(e) => {
@@ -200,7 +201,6 @@ const Edit = (props) => {
               tabsData={tabsData}
               tabsList={tabsList}
               node={view}
-              template={template}
               onChangeTabData={onChangeTabData}
               onSelectBlock={onSelectBlock}
               setActiveBlock={setActiveBlock}

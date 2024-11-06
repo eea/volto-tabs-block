@@ -17,6 +17,7 @@ import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
+import { getVariation } from '../../../helpers';
 
 class Tab extends React.Component {
   render() {
@@ -39,9 +40,11 @@ const View = (props) => {
     id,
   } = props;
 
+  const variation = getVariation(data);
+
   const accordionConfig = config.blocks.blocksConfig[
     TABS_BLOCK
-  ].variations.filter((v, _i) => v.id === data.variation);
+  ].variations.filter((v, _i) => v.id === variation);
   const {
     icons,
     semanticIcon,

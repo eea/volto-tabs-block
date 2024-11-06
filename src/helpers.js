@@ -7,6 +7,21 @@ import {
 } from '@plone/volto/helpers';
 import { visitBlocks, toSlug } from '@eeacms/volto-anchors/helpers';
 
+const variationsMapping = {
+  carousel: 'carousel-horizontal',
+  carousel_vertical: 'carousel-vertical',
+};
+
+export const getVariation = (data) => {
+  const { variation, template } = data;
+  return (
+    variationsMapping[variation || template] ||
+    variation ||
+    template ||
+    'default'
+  );
+};
+
 export const empty = ({ schema, intl }) => {
   const tabId = uuid();
   const data = {

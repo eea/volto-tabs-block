@@ -1,5 +1,5 @@
-# Translation of volto.pot to Spanish
-# Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2023.
+#. Translation of volto.pot to Spanish
+#. Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
@@ -20,446 +20,451 @@ msgstr ""
 "X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
 "X-Generator: Poedit 3.0.1\n"
 
+#. Default: "Accordion responsive"
 #: index
-# defaultMessage: Accordion responsive
 msgid "Accordion responsive"
 msgstr ""
 
+#. Default: "Carousel horizontal"
 #: index
-# defaultMessage: Carousel horizontal
 msgid "Carousel horizontal"
 msgstr ""
 
+#. Default: "Carousel vertical (prototype)"
 #: index
-# defaultMessage: Carousel vertical (prototype)
 msgid "Carousel vertical (prototype)"
 msgstr ""
 
+#. Default: "Default"
 #: index
-# defaultMessage: Default
 msgid "Default"
 msgstr ""
 
+#. Default: "Horizontal responsive"
 #: index
-# defaultMessage: Horizontal responsive
 msgid "Horizontal responsive"
 msgstr ""
 
+#. Default: "Medium"
 #: components/schema
-# defaultMessage: Medium
 msgid "Medium"
 msgstr ""
 
+#. Default: "Unknown Block {block}"
 #: components/EditBlockWrapper
-# defaultMessage: Unknown Block {block}
 msgid "Unknown Block"
 msgstr "Bloque desconocido"
 
-#: components/templates/accordion/schema
-# defaultMessage: Accordion tabs block
+#. Default: "Accordion tabs block"
+#: components/variations/accordion/schema
 msgid "accordion-tabs-block"
 msgstr ""
 
+#. Default: "Add Tab"
 #: widgets/TabsWidget
-# defaultMessage: Add Tab
 msgid "addTab"
 msgstr ""
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Alignment
+#. Default: "Alignment"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "alignment"
 msgstr "Alineación"
 
+#. Default: "Asset position"
 #: components/schema
-# defaultMessage: Asset position
 msgid "assetPosition"
 msgstr ""
 
+#. Default: "Asset size"
 #: components/schema
-# defaultMessage: Asset size
 msgid "assetSize"
 msgstr ""
 
+#. Default: "Asset type"
 #: components/schema
-# defaultMessage: Asset type
 msgid "assetType"
 msgstr ""
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Black
+#. Default: "Black"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "black"
 msgstr "Negro"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Blue
+#. Default: "Blue"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "blue"
 msgstr "Azul"
 
+#. Default: "Bottom"
 #: components/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Bottom
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "bottom"
 msgstr "abajo"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Brown
+#. Default: "Brown"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "brown"
 msgstr "Marrón"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Center
+#. Default: "Center"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "center"
 msgstr "Centro"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Color
+#. Default: "Color"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "color"
 msgstr "Color"
 
-#: components/templates/carousel/schema
-# defaultMessage: Dark
+#. Default: "Dark"
+#: components/variations/carousel/schema
 msgid "dark"
 msgstr "Oscuro"
 
+#. Default: "Default"
 #: components/schema
-#: components/templates/accordion/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Default
+#: components/variations/accordion/schema
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "default"
 msgstr "Por defecto"
 
-#: components/templates/default/schema
-# defaultMessage: Default tabs block
+#. Default: "Default tabs block"
+#: components/variations/default/schema
 msgid "default-tabs-block"
 msgstr "Bloque de pestañas predeterminado"
 
+#. Default: "delete"
 #: components/EditBlockWrapper
-# defaultMessage: delete
 msgid "delete"
 msgstr "eliminar"
 
+#. Default: "Description"
 #: components/schema
-#: components/templates/accordion/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Description
+#: components/variations/accordion/schema
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "description"
 msgstr "descripción"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Green
+#. Default: "Green"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "green"
 msgstr "Verde"
 
-#: components/templates/carousel/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Grey
+#. Default: "Grey"
+#: components/variations/carousel/schema
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "grey"
 msgstr "Gris"
 
+#. Default: "Hide empty tabs in view?"
 #: components/schema
-# defaultMessage: Hide tab title?
+msgid "hideEmptyTabs"
+msgstr ""
+
+#. Default: "Hide tab title?"
+#: components/schema
 msgid "hideTitle"
 msgstr ""
 
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Horizontal tabs block
+#. Default: "Horizontal tabs block"
+#: components/variations/horizontal-responsive/schema
 msgid "horizontal-tabs-block"
 msgstr ""
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Huge
+#. Default: "Huge"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "huge"
 msgstr "Enorme"
 
+#. Default: "Icon"
 #: components/schema
-# defaultMessage: Icon
 msgid "icon"
 msgstr ""
 
-#: components/templates/accordion/schema
-# defaultMessage: Icon position on the right
+#. Default: "Icon position on the right"
+#: components/variations/accordion/schema
 msgid "icon-position-on-the-right"
 msgstr "Posición del icono a la derecha"
 
+#. Default: "Icon name"
 #: components/schema
-# defaultMessage: Icon name
 msgid "iconName"
 msgstr ""
 
+#. Default: "Image"
 #: components/schema
-# defaultMessage: Image
 msgid "image"
 msgstr ""
 
-#: components/templates/accordion/schema
-# defaultMessage: Inverted
+#. Default: "Inverted"
+#: components/variations/accordion/schema
 msgid "inverted"
 msgstr "Invertido"
 
+#. Default: "Large"
 #: components/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Large
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "large"
 msgstr "Grande"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Left
+#. Default: "Left"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "left"
 msgstr "izquierda"
 
+#. Default: "Left side"
 #: components/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Left side
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "left-side"
 msgstr "Lado izquierdo"
 
-#: components/templates/carousel/schema
-# defaultMessage: Light
+#. Default: "Light"
+#: components/variations/carousel/schema
 msgid "light"
 msgstr "Claro"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Massive
+#. Default: "Massive"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "massive"
 msgstr "Masivo"
 
-#: components/templates/accordion/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Menu
+#. Default: "Menu"
+#: components/variations/accordion/schema
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "menu"
 msgstr "Menú"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Borderless
+#. Default: "Borderless"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "menu-border-less"
 msgstr "Sin bordes"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Compact
+#. Default: "Compact"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "menu-compact"
 msgstr "Compacto"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Fluid
+#. Default: "Fluid"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "menu-fluid"
 msgstr "Líquido"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Inverted
+#. Default: "Inverted"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "menu-inverted"
 msgstr "Invertido"
 
-#: components/templates/accordion/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Pointing
+#. Default: "Pointing"
+#: components/variations/accordion/schema
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "menu-pointing"
 msgstr "Señalando"
 
-#: components/templates/accordion/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Secondary
+#. Default: "Secondary"
+#: components/variations/accordion/schema
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "menu-secondary"
 msgstr "Secundario"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Stackable
+#. Default: "Stackable"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "menu-stackable"
 msgstr "Apilable"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Tabular
+#. Default: "Tabular"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "menu-tabular"
 msgstr "Tabular"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Text
+#. Default: "Text"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "menu-text"
 msgstr "Texto"
 
+#. Default: "Middle"
 #: components/schema
-# defaultMessage: Middle
 msgid "middle"
 msgstr "Medio"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Mini
+#. Default: "Mini"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "mini"
 msgstr "Mini"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Olive
+#. Default: "Olive"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "olive"
 msgstr "Oliva"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Orange
+#. Default: "Orange"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "orange"
 msgstr "Naranja"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Pink
+#. Default: "Pink"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "pink"
 msgstr "Rosado"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Position
+#. Default: "Position"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "position"
 msgstr "Posición"
 
-#: components/templates/accordion/schema
-# defaultMessage: Position left/right of the icon in the accordion tab
+#. Default: "Position left/right of the icon in the accordion tab"
+#: components/variations/accordion/schema
 msgid "position-left-right-of-the-icon-in-the-accordion-tab"
 msgstr "Posición izquierda/derecha del icono en la pestaña de acordeón"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Purple
+#. Default: "Purple"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "purple"
 msgstr "Morado"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Red
+#. Default: "Red"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "red"
 msgstr "Rojo"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Right
+#. Default: "Right"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "right"
 msgstr "derecha"
 
+#. Default: "Right side"
 #: components/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Right side
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "right-side"
 msgstr "Lado derecho"
 
-#: components/templates/accordion/schema
-# defaultMessage: Set the theme for the accordion tabs block
+#. Default: "Set the theme for the accordion tabs block"
+#: components/variations/accordion/schema
 msgid "set-the-theme-for-the-accordion-tabs-block"
 msgstr "Establecer el tema para el bloque de pestañas de acordeón"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Size
+#. Default: "Size"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "size"
 msgstr "Tamaño"
 
+#. Default: "Small"
 #: components/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Small
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "small"
 msgstr "Pequeño"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Space between
+#. Default: "Space between"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "space-between"
 msgstr "Espacio entre"
 
-#: components/templates/accordion/schema
-#: components/templates/carousel/schema
-# defaultMessage: Style
+#. Default: "Style"
+#: components/variations/accordion/schema
+#: components/variations/carousel/schema
 msgid "style"
 msgstr "Estilo"
 
+#. Default: "Tab"
 #: components/schema
-# defaultMessage: Tab
 msgid "tab"
 msgstr ""
 
+#. Default: "Tab title"
 #: components/schema
-# defaultMessage: Tab title
 msgid "tabTitle"
 msgstr ""
 
+#. Default: "Tabs"
 #: components/schema
-# defaultMessage: Tabs
 msgid "tabs"
 msgstr "Pestañas"
 
+#. Default: "Tabs block"
 #: components/schema
-# defaultMessage: Tabs block
 msgid "tabs-block"
 msgstr "Bloque Pestañas"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Teal
+#. Default: "Teal"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "teal"
 msgstr "Verde azulado"
 
-#: components/templates/accordion/schema
-#: components/templates/carousel/schema
-# defaultMessage: Theme
+#. Default: "Theme"
+#: components/variations/accordion/schema
+#: components/variations/carousel/schema
 msgid "theme"
 msgstr "tema"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Tiny
+#. Default: "Tiny"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "tiny"
 msgstr "Diminuto"
 
+#. Default: "Title"
 #: components/schema
-# defaultMessage: Title
 msgid "title"
 msgstr "título"
 
+#. Default: "Top"
 #: components/schema
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Top
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "top"
 msgstr "arriba"
 
+#. Default: "Vertical align"
 #: components/schema
-# defaultMessage: Vertical align
 msgid "vertical-align"
 msgstr "Alineación vertical"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Violet
+#. Default: "Violet"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "violet"
 msgstr "Violeta"
 
-#: components/templates/default/schema
-#: components/templates/horizontal-responsive/schema
-# defaultMessage: Yellow
+#. Default: "Yellow"
+#: components/variations/default/schema
+#: components/variations/horizontal-responsive/schema
 msgid "yellow"
 msgstr "Amarillo"
