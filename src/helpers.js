@@ -4,6 +4,7 @@ import {
   applySchemaDefaults,
   getBlocksFieldname,
   getBlocksLayoutFieldname,
+  blockHasValue,
 } from '@plone/volto/helpers';
 import { visitBlocks, toSlug } from '@eeacms/volto-anchors/helpers';
 
@@ -86,7 +87,7 @@ export const isTabEmpty = (content) => {
   if (blocksNo === 1) {
     const blockId = content[blocks_layout_field].items[0];
     const block = blocks[blockId];
-    if (block['@type'] === 'slate' && !block['plaintext']) {
+    if (!blockHasValue(block)) {
       return true;
     }
   }
