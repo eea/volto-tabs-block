@@ -14,22 +14,22 @@ msgstr ""
 #. Default: "Accordion responsive"
 #: index
 msgid "Accordion responsive"
-msgstr ""
+msgstr "Akkordeon responsive"
 
 #. Default: "Carousel horizontal"
 #: index
 msgid "Carousel horizontal"
-msgstr ""
+msgstr "Karussell horizontal"
 
 #. Default: "Carousel vertical (prototype)"
 #: index
 msgid "Carousel vertical (prototype)"
-msgstr ""
+msgstr "Karussell vertikal (Prototyp)"
 
 #. Default: "Default"
 #: index
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #. Default: "Horizontal responsive"
 #: index
@@ -44,33 +44,33 @@ msgstr ""
 #. Default: "Unknown Block {block}"
 #: components/EditBlockWrapper
 msgid "Unknown Block"
-msgstr ""
+msgstr "Unbekannter Block {block}"
 
 #. Default: "Accordion tabs block"
 #: components/variations/accordion/schema
 msgid "accordion-tabs-block"
-msgstr ""
+msgstr "Akkoredeon Tabs Block"
 
 #. Default: "Add Tab"
 #: widgets/TabsWidget
 msgid "addTab"
-msgstr ""
+msgstr "Tab hinzufügen"
 
 #. Default: "Alignment"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "alignment"
-msgstr ""
+msgstr "Ausrichtung"
 
 #. Default: "Asset position"
 #: components/schema
 msgid "assetPosition"
-msgstr ""
+msgstr "Position"
 
 #. Default: "Asset size"
 #: components/schema
 msgid "assetSize"
-msgstr ""
+msgstr "Größe"
 
 #. Default: "Asset type"
 #: components/schema
@@ -81,43 +81,43 @@ msgstr ""
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "black"
-msgstr ""
+msgstr "Schwarz"
 
 #. Default: "Blue"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "blue"
-msgstr ""
+msgstr "Blau"
 
 #. Default: "Bottom"
 #: components/schema
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "bottom"
-msgstr ""
+msgstr "Unten"
 
 #. Default: "Brown"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "brown"
-msgstr ""
+msgstr "Braun"
 
 #. Default: "Center"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "center"
-msgstr ""
+msgstr "Mitte"
 
 #. Default: "Color"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "color"
-msgstr ""
+msgstr "Farbe"
 
 #. Default: "Dark"
 #: components/variations/carousel/schema
 msgid "dark"
-msgstr ""
+msgstr "Dunkel"
 
 #. Default: "Default"
 #: components/schema
@@ -125,17 +125,17 @@ msgstr ""
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "default"
-msgstr ""
+msgstr "Standard"
 
 #. Default: "Default tabs block"
 #: components/variations/default/schema
 msgid "default-tabs-block"
-msgstr ""
+msgstr "Standard Tabs block"
 
 #. Default: "delete"
 #: components/EditBlockWrapper
 msgid "delete"
-msgstr ""
+msgstr "Löschen"
 
 #. Default: "Description"
 #: components/schema
@@ -143,41 +143,41 @@ msgstr ""
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "description"
-msgstr ""
+msgstr "Beschreibung"
 
 #. Default: "Green"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "green"
-msgstr ""
+msgstr "Grün"
 
 #. Default: "Grey"
 #: components/variations/carousel/schema
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "grey"
-msgstr ""
+msgstr "Grau"
 
 #. Default: "Hide empty tabs in view?"
 #: components/schema
 msgid "hideEmptyTabs"
-msgstr ""
+msgstr "Leere Tabs in der Ansicht ausblenden?"
 
 #. Default: "Hide tab title?"
 #: components/schema
 msgid "hideTitle"
-msgstr ""
+msgstr "Tab Titel ausblenden"
 
 #. Default: "Horizontal tabs block"
 #: components/variations/horizontal-responsive/schema
 msgid "horizontal-tabs-block"
-msgstr ""
+msgstr "Horizontaler tabs block"
 
 #. Default: "Huge"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "huge"
-msgstr ""
+msgstr "Riesig"
 
 #. Default: "Icon"
 #: components/schema
@@ -187,7 +187,7 @@ msgstr ""
 #. Default: "Icon position on the right"
 #: components/variations/accordion/schema
 msgid "icon-position-on-the-right"
-msgstr ""
+msgstr "Position des Icons auf der rechten Seite"
 
 #. Default: "Icon name"
 #: components/schema
@@ -197,43 +197,43 @@ msgstr ""
 #. Default: "Image"
 #: components/schema
 msgid "image"
-msgstr ""
+msgstr "Bild"
 
 #. Default: "Inverted"
 #: components/variations/accordion/schema
 msgid "inverted"
-msgstr ""
+msgstr "umgekehrt"
 
 #. Default: "Large"
 #: components/schema
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "large"
-msgstr ""
+msgstr "Groß"
 
 #. Default: "Left"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "left"
-msgstr ""
+msgstr "Links"
 
 #. Default: "Left side"
 #: components/schema
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "left-side"
-msgstr ""
+msgstr "Linke Seite"
 
 #. Default: "Light"
 #: components/variations/carousel/schema
 msgid "light"
-msgstr ""
+msgstr "Hell"
 
 #. Default: "Massive"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "massive"
-msgstr ""
+msgstr "massiv"
 
 #. Default: "Menu"
 #: components/variations/accordion/schema
@@ -246,13 +246,13 @@ msgstr ""
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "menu-border-less"
-msgstr ""
+msgstr "Rahmenlos"
 
 #. Default: "Compact"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "menu-compact"
-msgstr ""
+msgstr "Kompakt"
 
 #. Default: "Fluid"
 #: components/variations/default/schema
@@ -264,7 +264,7 @@ msgstr ""
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "menu-inverted"
-msgstr ""
+msgstr "Umgekehrt"
 
 #. Default: "Pointing"
 #: components/variations/accordion/schema
@@ -278,19 +278,19 @@ msgstr ""
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "menu-secondary"
-msgstr ""
+msgstr "Sekundär"
 
 #. Default: "Stackable"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "menu-stackable"
-msgstr ""
+msgstr "Stapelbar"
 
 #. Default: "Tabular"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "menu-tabular"
-msgstr ""
+msgstr "Tabellarisch"
 
 #. Default: "Text"
 #: components/variations/default/schema
@@ -301,7 +301,7 @@ msgstr ""
 #. Default: "Middle"
 #: components/schema
 msgid "middle"
-msgstr ""
+msgstr "Mitte"
 
 #. Default: "Mini"
 #: components/variations/default/schema
@@ -336,56 +336,56 @@ msgstr ""
 #. Default: "Position left/right of the icon in the accordion tab"
 #: components/variations/accordion/schema
 msgid "position-left-right-of-the-icon-in-the-accordion-tab"
-msgstr ""
+msgstr "Position links/rechts des Icons in dem Akkordeon Tab"
 
 #. Default: "Purple"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "purple"
-msgstr ""
+msgstr "Lila"
 
 #. Default: "Red"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "red"
-msgstr ""
+msgstr "Rot"
 
 #. Default: "Right"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "right"
-msgstr ""
+msgstr "Rechts"
 
 #. Default: "Right side"
 #: components/schema
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "right-side"
-msgstr ""
+msgstr "Rechte Seite"
 
 #. Default: "Set the theme for the accordion tabs block"
 #: components/variations/accordion/schema
 msgid "set-the-theme-for-the-accordion-tabs-block"
-msgstr ""
+msgstr "Einstellen des Themas für den Akkordeon tabs block"
 
 #. Default: "Size"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "size"
-msgstr ""
+msgstr "Größe"
 
 #. Default: "Small"
 #: components/schema
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "small"
-msgstr ""
+msgstr "Klein"
 
 #. Default: "Space between"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "space-between"
-msgstr ""
+msgstr "Abstand zwischen"
 
 #. Default: "Style"
 #: components/variations/accordion/schema
@@ -401,7 +401,7 @@ msgstr ""
 #. Default: "Tab title"
 #: components/schema
 msgid "tabTitle"
-msgstr ""
+msgstr "Tab titel"
 
 #. Default: "Tabs"
 #: components/schema
@@ -417,7 +417,7 @@ msgstr ""
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "teal"
-msgstr ""
+msgstr "Türkisblau"
 
 #. Default: "Theme"
 #: components/variations/accordion/schema
@@ -429,33 +429,33 @@ msgstr ""
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "tiny"
-msgstr ""
+msgstr "Winzig klein"
 
 #. Default: "Title"
 #: components/schema
 msgid "title"
-msgstr ""
+msgstr "Titel"
 
 #. Default: "Top"
 #: components/schema
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "top"
-msgstr ""
+msgstr "Oben"
 
 #. Default: "Vertical align"
 #: components/schema
 msgid "vertical-align"
-msgstr ""
+msgstr "Vertikal ausrichten"
 
 #. Default: "Violet"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "violet"
-msgstr ""
+msgstr "Violett"
 
 #. Default: "Yellow"
 #: components/variations/default/schema
 #: components/variations/horizontal-responsive/schema
 msgid "yellow"
-msgstr ""
+msgstr "Gelb"
