@@ -82,17 +82,10 @@ export const isTabEmpty = (content) => {
   const blocks_field = getBlocksFieldname(content);
   const blocks_layout_field = getBlocksLayoutFieldname(content);
   const blocks = content[blocks_field] || {};
-  const blocksNo = content[blocks_layout_field]?.items?.length || 0;
+  const blocksLayout = content[blocks_layout_field]?.items || [];
 
-  if (blocksNo === 1) {
-    const blockId = content[blocks_layout_field].items[0];
+  return blocksLayout.every((blockId) => {
     const block = blocks[blockId];
-    if (!blockHasValue(block)) {
-      return true;
-    }
-  }
-  if (blocksNo === 0) {
-    return true;
-  }
-  return false;
+    return !blockHasValue(block);
+  });
 };
