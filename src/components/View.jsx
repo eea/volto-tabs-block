@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import cx from 'classnames';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
@@ -39,12 +39,12 @@ const View = (props) => {
 
   const TabsView = activeVariation?.[0]?.view || DefaultView;
 
-  const query = React.useMemo(() => {
+  const query = useMemo(() => {
     const { search } = location;
 
     return new URLSearchParams(search);
   }, [location]);
-  const activeTabId = query.get('activeTab');
+  const activeTabId = useMemo(() => query.get('activeTab'), [query]);
 
   const handleActiveTabChange = useCallback(
     (id) => {
@@ -60,10 +60,13 @@ const View = (props) => {
     [history, location],
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (tabsList.includes(activeTabId)) {
       setActiveTab(activeTabId);
     }
+  }, [activeTabId, tabsList]);
+
+  useEffect(() => {
     const urlHash = props.location.hash.substring(1) || '';
     const parentTabId = getParentTabFromHash(data, urlHash);
     const id = parentTabId;
@@ -85,7 +88,7 @@ const View = (props) => {
       props.scrollToTarget(parent, offsetHeight);
     }
     /* eslint-disable-next-line */
-  }, [activeTabId]);
+  }, []);
 
   return (
     <StyleWrapperView

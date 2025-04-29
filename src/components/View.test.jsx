@@ -34,6 +34,11 @@ jest.mock('react-router', () => ({
   },
 }));
 
+// ENOENT: no such file or directory, open 'node:crypto'
+jest.mock('uuid', () => ({
+  v4: () => 'test-uuid-1234',
+}));
+
 jest.mock('@eeacms/volto-block-style/StyleWrapper', () => ({
   StyleWrapperView: (props) => {
     return <div className="mocked-style-wrapper">{props.children}</div>;
@@ -51,14 +56,14 @@ describe('View Component', () => {
   it('Should render and switch Tabs', () => {
     const customTabsData = {
       blocks_layout: {
-        items: ['tab1', 'tab2', 'tab3'],
+        items: ['test-uuid-1234', 'test-uuid-5678', 'tab3'],
       },
       blocks: {
-        tab1: {
+        'test-uuid-1234': {
           title: 'Tab 1 Title',
           content: 'Tab 1 Content',
         },
-        tab2: {
+        'test-uuid-5678': {
           title: 'Tab 2 Title',
           content: 'Tab 2 Content',
         },
