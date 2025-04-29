@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import View from './View';
 import config from '@plone/volto/registry';
@@ -48,7 +48,7 @@ const store = mockStore({
 });
 
 describe('View Component', () => {
-  it('Should render and switch Tabs', () => {
+  it('Should render and switch Tabs', async () => {
     const customTabsData = {
       blocks_layout: {
         items: ['tab1', 'tab2', 'tab3'],
@@ -95,10 +95,16 @@ describe('View Component', () => {
     expect(getByText('Tab 1 Title')).toBeInTheDocument();
 
     fireEvent.click(getByText('Tab 2 Title'));
-    cy.wait(10);
+
     expect(tabItemsMenu).toHaveLength(3);
     expect(tabItemsMenu[0].classList.contains('item'));
-    expect(tabItemsMenu[0].classList).not.toContain('active');
+
+    await waitFor(
+      () => {
+        expect(tabItemsMenu[0].classList).not.toContain('active');
+      },
+      { timeout: 100 },
+    );
     expect(tabItemsMenu[1].classList.contains('active'));
 
     fireEvent.click(getByText('Tab 1 Title'));
