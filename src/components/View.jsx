@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import cx from 'classnames';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
@@ -46,20 +46,19 @@ const View = (props) => {
   }, [location]);
   const activeTabId = query.get('activeTab');
 
-  const addQueryParam = (key, value) => {
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set(key, value);
+  const handleActiveTabChange = useCallback(
+    (id) => {
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set('activeTab', id);
 
-    history.push({
-      pathname: location.pathname,
-      search: searchParams.toString(),
-    });
-  };
-
-  const handleActiveTabChange = (id) => {
-    setActiveTab(id);
-    addQueryParam('activeTab', id);
-  };
+      history.push({
+        pathname: location.pathname,
+        search: searchParams.toString(),
+      });
+      setActiveTab(id);
+    },
+    [history, location],
+  );
 
   React.useEffect(() => {
     if (tabsList.includes(activeTabId)) {
@@ -86,7 +85,7 @@ const View = (props) => {
       props.scrollToTarget(parent, offsetHeight);
     }
     /* eslint-disable-next-line */
-  }, []);
+  }, [activeTabId]);
 
   return (
     <StyleWrapperView
