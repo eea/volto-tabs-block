@@ -95,6 +95,7 @@ describe('View Component', () => {
     expect(getByText('Tab 1 Title')).toBeInTheDocument();
 
     fireEvent.click(getByText('Tab 2 Title'));
+    cy.wait(10);
     expect(tabItemsMenu).toHaveLength(3);
     expect(tabItemsMenu[0].classList.contains('item'));
     expect(tabItemsMenu[0].classList).not.toContain('active');
