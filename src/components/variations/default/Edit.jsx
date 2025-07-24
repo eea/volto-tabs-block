@@ -248,6 +248,7 @@ const Edit = (props) => {
               allowedBlocks={data?.allowedBlocks}
               description={data?.instructions?.data}
               manage={manage}
+              isMainForm={false}
               metadata={metadata}
               pathname={props.pathname}
               properties={isEmpty(tabs[tab]) ? emptyBlocksForm() : tabs[tab]}
