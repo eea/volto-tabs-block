@@ -57,19 +57,32 @@ Go to http://localhost:3000
    }
    ```
 
-* If not, create one:
+* If not, create one with Cookieplone, which is the recommended setup for Volto 18+:
 
    ```
-   npm install -g yo @plone/generator-volto
-   yo @plone/volto my-volto-project --canary --addon @eeacms/volto-tabs-block
+   pipx run cookieplone project
    cd my-volto-project
+   make install
    ```
 
-1. Install new add-ons and restart Volto:
+   Then install the add-on in your frontend project following the official Plone documentation for Volto add-ons:
+
+   - Install an add-on in Volto: https://6.docs.plone.org/volto/development/add-ons/install-an-add-on.html
+   - Install an add-on in development mode in Volto 18 and 19: https://6.docs.plone.org/volto/development/add-ons/install-an-add-on-dev-18.html
+
+   For Cookieplone-based Volto 18 and 19 projects, Plone documents `pnpm` usage:
 
    ```
-   yarn
-   yarn start
+   pnpm --filter <name-of-your-policy-add-on> add @eeacms/volto-tabs-block
+   ```
+
+   Then add `@eeacms/volto-tabs-block` to the `addons` key in your project's `package.json` or declare it in `volto.config.js`.
+
+1. Start Plone:
+
+   ```
+   make backend-start
+   make frontend-start
    ```
 
 1. Go to http://localhost:3000

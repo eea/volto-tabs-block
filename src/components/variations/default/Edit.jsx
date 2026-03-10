@@ -6,7 +6,6 @@ import cx from 'classnames';
 import { Menu, Tab, Input, Container } from 'semantic-ui-react';
 import { BlocksForm } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
-import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
 import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/variations/default/schema';
 import { AssetTab } from '@eeacms/volto-tabs-block/components';
 import {
@@ -192,7 +191,6 @@ const Edit = (props) => {
     editingTab = null,
     manage = false,
     metadata = null,
-    multiSelected = [],
     tabs = {},
     tabsData = {},
     tabsList = [],
@@ -290,19 +288,7 @@ const Edit = (props) => {
                 );
                 setEditingTab(null);
               }}
-            >
-              {({ draginfo }, editBlock, blockProps) => {
-                return (
-                  <EditBlockWrapper
-                    blockProps={blockProps}
-                    draginfo={draginfo}
-                    multiSelected={multiSelected.includes(blockProps.block)}
-                  >
-                    {editBlock}
-                  </EditBlockWrapper>
-                );
-              }}
-            </BlocksForm>
+            />
           </Tab.Pane>
         );
       },

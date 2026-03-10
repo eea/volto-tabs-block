@@ -9,7 +9,6 @@ import cx from 'classnames';
 import { Menu, Tab, Container, Dropdown, Input } from 'semantic-ui-react';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import { BlocksForm } from '@plone/volto/components';
-import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
 import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/variations/default/schema';
 import {
   SimpleMarkdown,
@@ -295,7 +294,6 @@ const Edit = (props) => {
     activeTabIndex = 0,
     block = null,
     activeBlock = null,
-    multiSelected = [],
     screen,
     tabsData = {},
     emptyTab = () => {},
@@ -393,19 +391,7 @@ const Edit = (props) => {
                 );
                 setEditingTab(null);
               }}
-            >
-              {({ draginfo }, editBlock, blockProps) => {
-                return (
-                  <EditBlockWrapper
-                    blockProps={blockProps}
-                    draginfo={draginfo}
-                    multiSelected={multiSelected.includes(blockProps.block)}
-                  >
-                    {editBlock}
-                  </EditBlockWrapper>
-                );
-              }}
-            </BlocksForm>
+            />
           </div>
         </Tab.Pane>
       ),

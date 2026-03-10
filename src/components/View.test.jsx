@@ -1,11 +1,10 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import View from './View';
 import config from '@plone/volto/registry';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 config.blocks.blocksConfig = {
   tabs_block: {
@@ -76,9 +75,7 @@ describe('View Component', () => {
 
     const { container, getByText } = render(
       <Provider store={store}>
-        <Router>
-          <View data={{ variation: 'default', data: customTabsData }} />
-        </Router>
+        <View data={{ variation: 'default', data: customTabsData }} />
       </Provider>,
     );
     const tabItemsMenu = container.querySelectorAll(

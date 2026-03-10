@@ -26,21 +26,27 @@
 
 ### Or add @eeacms/volto-tabs-block to your Volto project
 
-Before starting make sure your development environment is properly set. See [Volto Developer Documentation](https://docs.voltocms.com/getting-started/install/)
+These instructions assume a Cookieplone-based Volto 18+ project. The old `yo @plone/volto` generator is deprecated in Volto 18.
 
-1.  Make sure you have installed `yo`, `@plone/generator-volto` and `mrs-developer`
+See the official Plone documentation:
 
-        npm install -g yo @plone/generator-volto mrs-developer
+- Create an add-on for Volto 18 and 19: https://6.docs.plone.org/volto/development/add-ons/create-an-add-on-18.html
+- Install an add-on in development mode in Volto 18 and 19: https://6.docs.plone.org/volto/development/add-ons/install-an-add-on-dev-18.html
+- Cookieplone make commands: https://6.docs.plone.org/reference-guide/cookieplone-make-commands.html
 
-1.  Create new volto app
+1.  Create a new Cookieplone project
 
-        yo @plone/volto my-volto-project --addon @eeacms/volto-tabs-block --skip-install
+        pipx run cookieplone project
         cd my-volto-project
+        make install
 
-1.  Add the following to `mrs.developer.json`:
+1.  Add `@eeacms/volto-tabs-block` to the `addons` key in your frontend project's `package.json`, or declare it in `volto.config.js`
+
+1.  Add the following to `frontend/mrs.developer.json`:
 
         {
             "volto-tabs-block": {
+                "output": "packages",
                 "url": "https://github.com/eea/volto-tabs-block.git",
                 "package": "@eeacms/volto-tabs-block",
                 "branch": "develop",
@@ -48,28 +54,23 @@ Before starting make sure your development environment is properly set. See [Vol
             }
         }
 
-1.  Install
+1.  Install the development checkout
 
-        make develop
-        yarn
+        make install
 
 1.  Start backend
 
-        docker run --pull always -it --rm --name plone -p 8080:8080 -e SITE=Plone plone/plone-backend
-
-    ...wait for backend to setup and start - `Ready to handle requests`:
-
-    ...you can also check http://localhost:8080/Plone
+        make backend-start
 
 1.  Start frontend
 
-        yarn start
+        make frontend-start
 
 1.  Go to http://localhost:3000
 
 1.  Happy hacking!
 
-        cd src/addons/volto-tabs-block/
+        cd frontend/packages/volto-tabs-block
 
 ## Cypress
 
