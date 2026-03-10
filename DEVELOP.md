@@ -26,23 +26,16 @@
 
 ### Or add @eeacms/volto-tabs-block to your Volto project
 
-These instructions assume a Cookieplone-based Volto 18+ project. The old `yo @plone/volto` generator is deprecated in Volto 18.
+Before starting make sure your development environment is properly set. See the official Plone documentation for [creating a project with Cookieplone](https://6.docs.plone.org/install/create-project-cookieplone.html) and [installing an add-on in development mode in Volto 18 and 19](https://6.docs.plone.org/volto/development/add-ons/install-an-add-on-dev-18.html).
 
-See the official Plone documentation:
+For new Volto 18+ projects, use Cookieplone. It includes `mrs-developer` by default.
 
-- Create an add-on for Volto 18 and 19: https://6.docs.plone.org/volto/development/add-ons/create-an-add-on-18.html
-- Install an add-on in development mode in Volto 18 and 19: https://6.docs.plone.org/volto/development/add-ons/install-an-add-on-dev-18.html
-- Cookieplone make commands: https://6.docs.plone.org/reference-guide/cookieplone-make-commands.html
+1.  Create a new Volto project with Cookieplone
 
-1.  Create a new Cookieplone project
+        uvx cookieplone project
+        cd project-title
 
-        pipx run cookieplone project
-        cd my-volto-project
-        make install
-
-1.  Add `@eeacms/volto-tabs-block` to the `addons` key in your frontend project's `package.json`, or declare it in `volto.config.js`
-
-1.  Add the following to `frontend/mrs.developer.json`:
+1.  Add the following to `mrs.developer.json`:
 
         {
             "volto-tabs-block": {
@@ -54,15 +47,21 @@ See the official Plone documentation:
             }
         }
 
-1.  Install the development checkout
+1.  Add `@eeacms/volto-tabs-block` to the `addons` key in your project `package.json`
+
+1.  Install or refresh the project setup
 
         make install
 
-1.  Start backend
+1.  Start backend in one terminal
 
         make backend-start
 
-1.  Start frontend
+    ...wait for backend to setup and start, ending with `Ready to handle requests`
+
+    ...you can also check http://localhost:8080/Plone
+
+1.  Start frontend in a second terminal
 
         make frontend-start
 
@@ -70,7 +69,9 @@ See the official Plone documentation:
 
 1.  Happy hacking!
 
-        cd frontend/packages/volto-tabs-block
+        cd packages/volto-tabs-block
+
+For legacy Volto 17 projects, keep using the yarn-based workflow from the Volto 17 documentation.
 
 ## Cypress
 
@@ -82,7 +83,7 @@ project where you added `volto-tabs-block` to `mrs.developer.json`
 Go to:
 
   ```BASH
-  cd src/addons/volto-tabs-block/
+  cd packages/volto-tabs-block/
   ```
 
 Start:

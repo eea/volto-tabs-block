@@ -35,6 +35,11 @@
 
 Go to http://localhost:3000
 
+`make start` now defaults to Volto 18. To run the same setup against Volto 17, use:
+
+      VOLTO_VERSION=17 make
+      VOLTO_VERSION=17 make start
+
 ### Add volto-tabs-block to your Volto project
 
 1. Make sure you have a [Plone backend](https://plone.org/download) up-and-running at http://localhost:8080/Plone
@@ -57,20 +62,14 @@ Go to http://localhost:3000
    }
    ```
 
-* If not, create one with Cookieplone, which is the recommended setup for Volto 18+:
+* If not, create one with Cookieplone, as recommended by the official Plone documentation for Volto 18+:
 
    ```
-   pipx run cookieplone project
-   cd my-volto-project
-   make install
+   uvx cookieplone project
+   cd project-title
    ```
 
-   Then install the add-on in your frontend project following the official Plone documentation for Volto add-ons:
-
-   - Install an add-on in Volto: https://6.docs.plone.org/volto/development/add-ons/install-an-add-on.html
-   - Install an add-on in development mode in Volto 18 and 19: https://6.docs.plone.org/volto/development/add-ons/install-an-add-on-dev-18.html
-
-   For Cookieplone-based Volto 18 and 19 projects, Plone documents `pnpm` usage:
+   Then install the add-on in your frontend project. For Cookieplone-based Volto 18 and 19 projects, Plone documents `pnpm` usage:
 
    ```
    pnpm --filter <name-of-your-policy-add-on> add @eeacms/volto-tabs-block
@@ -78,12 +77,20 @@ Go to http://localhost:3000
 
    Then add `@eeacms/volto-tabs-block` to the `addons` key in your project's `package.json` or declare it in `volto.config.js`.
 
-1. Start Plone:
+1. Install or update dependencies, then start the project:
+
+   ```
+   make install
+   ```
+
+   For a Cookieplone project, start the backend and frontend in separate terminals:
 
    ```
    make backend-start
    make frontend-start
    ```
+
+   For a legacy Volto 17 project, install the package with `yarn` and restart the frontend as usual.
 
 1. Go to http://localhost:3000
 
