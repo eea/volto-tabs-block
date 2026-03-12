@@ -396,7 +396,10 @@ Cypress.Commands.add(
 Cypress.Commands.add('getSlate', (createNewSlate = false) => {
   let slate;
   if (createNewSlate) {
-    cy.get('.block.inner').last().type('{moveToEnd}{enter}');
+    cy.get(SLATE_TITLE_SELECTOR)
+      .focus()
+      .click()
+      .type('{moveToEnd}{enter}');
   }
   cy.getIfExists(
     SLATE_SELECTOR,
