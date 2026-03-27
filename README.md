@@ -99,6 +99,16 @@ Go to http://localhost:3000
 1. Happy editing!
 
 ## Upgrade
+
+### Upgrading to 10.x
+
+> This version requires `Volto >= 17.18` or `Volto 18+`. It removes the custom `EditBlockWrapper` and uses Volto's built-in block chrome provided by `BlocksForm`.
+
+#### Breaking changes
+
+- **Removed `EditBlockWrapper.jsx`.** Any code importing `EditBlockWrapper` from `@eeacms/volto-tabs-block` will break. Use Volto's built-in `EditBlockWrapper` from `@plone/volto/components/manage/Blocks/Block/EditBlockWrapper` if you need a custom wrapper.
+- **Removed custom edit toolbar styles.** The `edit.less` styles that powered the custom inner block toolbar have been removed. Inner blocks now use Volto's default block chrome.
+
 ### Upgrading to 7.0.0
 Version 7 introduces the following breaking changes:
 - The templates are now `variations` of the default template, so if you have custom templates,
