@@ -302,6 +302,7 @@ const Edit = (props) => {
     onSelectBlock = noop,
     setEditingTab = noop,
     schema,
+    multiSelected = [],
   } = props;
   const menuPosition = getMenuPosition(data);
 
@@ -353,6 +354,7 @@ const Edit = (props) => {
               metadata={metadata}
               pathname={props.pathname}
               properties={isEmpty(tabs[tab]) ? emptyBlocksForm() : tabs[tab]}
+              multiSelected={selected && activeTab === tab ? multiSelected : []}
               selected={selected && activeTab === tab && activeBlock}
               selectedBlock={
                 selected && activeTab === tab && activeBlock

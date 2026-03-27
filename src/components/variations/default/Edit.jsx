@@ -191,6 +191,7 @@ const Edit = (props) => {
     editingTab = null,
     manage = false,
     metadata = null,
+    multiSelected = [],
     tabs = {},
     tabsData = {},
     tabsList = [],
@@ -250,6 +251,7 @@ const Edit = (props) => {
               metadata={metadata}
               pathname={props.pathname}
               properties={isEmpty(tabs[tab]) ? emptyBlocksForm() : tabs[tab]}
+              multiSelected={selected && activeTab === tab ? multiSelected : []}
               selected={selected && activeTab === tab && activeBlock}
               selectedBlock={
                 selected && activeTab === tab && activeBlock
