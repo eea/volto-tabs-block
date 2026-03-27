@@ -1,23 +1,25 @@
-jest.mock('@eeacms/volto-tabs-block/components', () => ({
-  DefaultEdit: () => null,
-  DefaultView: () => null,
-  AccordionEdit: () => null,
-  AccordionView: () => null,
-  HorizontalResponsiveEdit: () => null,
-  HorizontalResponsiveView: () => null,
-  HorizontalCarouselView: () => null,
-  VerticalCarouselView: () => null,
-  layoutSchema: require('./components/layoutSchema').default,
-  TabsEdit: () => null,
-  TabsView: () => null,
-  blockSchema: jest.fn(),
-}), { virtual: true });
-
 jest.mock(
-  '@eeacms/volto-tabs-block//icons/tabs.svg',
-  () => 'tabs.svg',
+  '@eeacms/volto-tabs-block/components',
+  () => ({
+    DefaultEdit: () => null,
+    DefaultView: () => null,
+    AccordionEdit: () => null,
+    AccordionView: () => null,
+    HorizontalResponsiveEdit: () => null,
+    HorizontalResponsiveView: () => null,
+    HorizontalCarouselView: () => null,
+    VerticalCarouselView: () => null,
+    layoutSchema: require('./components/layoutSchema').default,
+    TabsEdit: () => null,
+    TabsView: () => null,
+    blockSchema: jest.fn(),
+  }),
   { virtual: true },
 );
+
+jest.mock('@eeacms/volto-tabs-block//icons/tabs.svg', () => 'tabs.svg', {
+  virtual: true,
+});
 
 jest.mock('./widgets', () => ({
   TabsWidget: () => null,
