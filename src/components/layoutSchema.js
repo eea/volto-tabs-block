@@ -1,5 +1,7 @@
+import { TABS_BLOCK } from '../constants';
+
 const blocksArray = (config) => {
-  return Object.keys(config.blocks.blocksConfig)
+  const choices = Object.keys(config.blocks.blocksConfig)
     .map((key) => {
       if (config.blocks.blocksConfig[key]?.restricted) {
         return false;
@@ -9,6 +11,12 @@ const blocksArray = (config) => {
       }
     })
     .filter((val) => !!val);
+
+  if (!choices.some(([id]) => id === TABS_BLOCK)) {
+    choices.push([TABS_BLOCK, 'Tabs']);
+  }
+
+  return choices;
 };
 
 const layoutSchema = (config) => ({
@@ -72,7 +80,7 @@ const layoutSchema = (config) => ({
     },
     readOnlySettings: {
       title: 'Read-only settings',
-      description: 'Disable editing on columns block settings',
+      description: 'Disable editing on tabs block settings',
       type: 'boolean',
     },
   },

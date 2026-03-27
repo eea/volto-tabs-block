@@ -46,18 +46,7 @@
     // padding-bottom: 0.1rem;
   }
 
-  .block-wrapper {
-    &:not(:last-child) {
-      margin-bottom: 2rem;
-    }
-  }
-
   .block {
-    .block-add-button,
-    .delete-button {
-      display: none;
-    }
-
     .block.selected::before {
       border-top-left-radius: 0;
     }
@@ -68,43 +57,8 @@
     pointer-events: none;
   }
 
-  .block.wrapper.multiSelected {
-    .block .block::before {
-      z-index: 1;
-      background-color: rgba(120, 192, 215, 0.375);
-    }
-  }
-
   .blocks-form {
     margin-top: 0.5rem;
-  }
-
-  .blocks-chooser {
-    right: 0;
-    left: auto;
-    margin-top: 3rem;
-  }
-
-  .block-toolbar {
-    position: absolute;
-    z-index: 3;
-    right: -9px;
-    display: flex;
-    border: none;
-    border: 1px solid @borderColor;
-    border-bottom: 1px solid @pageBackground;
-    margin-top: -45px;
-    background-color: @pageBackground;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-
-    .ui.basic.button {
-      padding: 8px 5px;
-    }
-
-    .ui.basic.button:hover {
-      background: transparent !important;
-    }
   }
 }
 

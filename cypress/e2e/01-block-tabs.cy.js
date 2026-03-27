@@ -206,9 +206,7 @@ describe('Blocks Tests', () => {
     cy.get('.tabs-block.edit [contenteditable=true]')
       .first()
       .type('Accordion Second Item');
-    cy.get(
-      '.block-editor-tabs_block + .block-editor-slate .block.slate:not(.ui)',
-    ).click();
+    cy.get('.block.tabs_block legend').click();
 
     cy.get('.tabs-block').contains('Tab 1').dblclick().type('Tab 1 edited');
 
