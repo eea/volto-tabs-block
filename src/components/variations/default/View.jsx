@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
-import { Menu, Tab, Container, Icon, Image } from 'semantic-ui-react';
+import { Container, Icon, Image } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
@@ -27,6 +27,8 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
     hideTitle,
   } = props;
   const imageObject = image?.[0];
+  const isDecorative = !hideTitle; // if title is visible, asset should be decorative
+
   return (
     <div
       className={cx('asset-position', {
@@ -38,13 +40,9 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
       {assetType === 'icon' && icon && (
         <Icon
           className={cx('tab-icon', icon, iconSize, 'aligned')}
-          {...{
-            ...(hideTitle && {
-              role: 'img',
-              'aria-hidden': 'false',
-              'aria-label': tabTitle,
-            }),
-          }}
+          {...(hideTitle
+            ? { role: 'img', 'aria-hidden': 'false', 'aria-label': tabTitle }
+            : { 'aria-hidden': 'true' })}
         />
       )}
 
@@ -52,14 +50,15 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
         <Image
           src={
             isInternalURL(imageObject['@id'])
-              ? `${flattenToAppURL(imageObject['@id'])}/${
-                  imageObject?.image_scales?.image?.[0].scales?.[imageSize]
-                    ?.download || imageObject?.image_scales?.image?.[0].download
-                }`
+              ? `${flattenToAppURL(imageObject['@id'])
+              }/${imageObject?.image_scales?.image?.[0].scales?.[imageSize]?.download ||
+              imageObject?.image_scales?.image?.[0].download
+              }`
               : imageObject['@id']
           }
           className={cx('ui', imageSize, 'aligned')}
-          alt={hideTitle ? tabTitle : ''}
+          alt={hideTitle ? tabTitle : ''} // empty alt when decorative
+          aria-hidden={isDecorative ? 'true' : 'false'}
         />
       )}
 
@@ -81,73 +80,118 @@ const MenuItem = (props) => {
     tabsTitle,
     tabsDescription,
     blockId,
+    tabOrderRefs, // array of refs from parent for roving focus
+    vertical = false, // whether the tablist is vertical
   } = props;
 
   const { tab, index } = props;
-  const tabIndex = index + 1;
+  const tabIndexNum = index + 1;
   const [tabChanged, setTabChanged] = useState(false);
-  const defaultTitle = `Tab ${tabIndex}`;
+  const defaultTitle = `Tab ${tabIndexNum}`;
   const tabSettings = tabs[tab];
   const { title, assetType } = tabSettings;
   const tabTitle = title || defaultTitle;
 
+  const isSelected = tab === activeTab;
+  const tabId = `tab-${tab}`;
+  const panelId = `tab-panel-${tab}`;
+
   useEffect(() => {
     if (
       tabChanged === true &&
-      document?.getElementById(blockId)?.querySelector('#tab-pane-' + tab)
+      document?.getElementById(blockId)?.querySelector('#' + panelId)
     ) {
-      document
-        .getElementById(blockId)
-        .querySelector('#tab-pane-' + tab)
-        .focus();
+      document.getElementById(blockId).querySelector('#' + panelId).focus();
       setTabChanged(false);
     }
-  }, [tabChanged, tab, blockId]);
+  }, [tabChanged, panelId, blockId]);
+
+  const focusTabByIndex = (i) => {
+    const ref = tabOrderRefs?.current?.[i];
+    if (ref?.current) ref.current.focus();
+  };
+
+  const onKeyDown = (e) => {
+    const key = e.key;
+    const isHorizontal = !vertical;
+
+    // Navigate among tabs WITHOUT activation
+    if (
+      (isHorizontal && (key === 'ArrowRight' || key === 'ArrowLeft')) ||
+      (!isHorizontal && (key === 'ArrowDown' || key === 'ArrowUp')) ||
+      key === 'Home' ||
+      key === 'End'
+    ) {
+      e.preventDefault();
+      const lastIndex = tabOrderRefs.current.length - 1;
+
+      if (key === 'Home') return focusTabByIndex(0);
+      if (key === 'End') return focusTabByIndex(lastIndex);
+
+      let next = index;
+      if (isHorizontal) {
+        next = key === 'ArrowRight' ? index + 1 : index - 1;
+      } else {
+        next = key === 'ArrowDown' ? index + 1 : index - 1;
+      }
+      if (next < 0) next = lastIndex;
+      if (next > lastIndex) next = 0;
+      focusTabByIndex(next);
+      return;
+    }
+
+    // Activate current tab
+    if (key === 'Enter' || key === ' ') {
+      e.preventDefault();
+      if (!isSelected) setActiveTab(tab);
+      setTabChanged(true);
+    }
+  };
 
   return (
     <React.Fragment>
       {index === 0 && (tabsTitle || tabsDescription) && (
-        <Menu.Item className="menu-title">
+        <li className="menu-title" role="presentation">
           <SimpleMarkdown md={tabsTitle} defaultTag="##" className="title" />
           <SimpleMarkdown md={tabsDescription} className="description" />
-        </Menu.Item>
+        </li>
       )}
-      <Menu.Item
-        name={defaultTitle}
-        active={tab === activeTab}
-        aria-selected={tab === activeTab}
-        tabIndex={0}
-        role={'tab'}
-        onClick={() => {
-          if (activeTab !== tab) {
-            setActiveTab(tab);
-          }
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
+
+      <li className={cx('item', { active: isSelected })} role="presentation">
+        <button
+          id={tabId}
+          type="button"
+          className={cx({ active: isSelected })}
+          role="tab"
+          aria-selected={isSelected}
+          aria-controls={panelId}
+          tabIndex={isSelected ? 0 : -1} // roving tabindex
+          ref={tabOrderRefs.current?.[index]}
+          onClick={(e) => {
             e.preventDefault();
-            if (activeTab !== tab) {
+            if (!isSelected) {
               setActiveTab(tab);
+              setTabChanged(true);
             }
-            setTabChanged(true);
-          }
-        }}
-      >
-        <>
-          {assetType ? (
-            <AssetTab
-              props={tabSettings}
-              tabTitle={tabTitle}
-              tabIndex={tabIndex}
-            />
-          ) : (
-            <>
-              <span className="menu-item-count">{tabIndex}</span>
-              <span className="menu-item-text">{tabTitle}</span>
-            </>
-          )}
-        </>
-      </Menu.Item>
+          }}
+          onKeyDown={onKeyDown}
+        >
+          <>
+            {assetType ? (
+              <AssetTab
+                props={tabSettings}
+                tabTitle={tabTitle}
+                tabIndex={tabIndexNum}
+              />
+            ) : (
+              <>
+                <span className="menu-item-count">{tabIndexNum}</span>
+                <span className="menu-item-text">{tabTitle}</span>
+              </>
+            )}
+          </>
+        </button>
+      </li>
     </React.Fragment>
   );
 };
@@ -158,8 +202,9 @@ const View = (props) => {
     data = {},
     tabsList = [],
     tabs = {},
-    activeTabIndex = 0,
+    activeTab,
   } = props;
+
   const [menuPosition, setMenuPosition] = React.useState({});
   React.useEffect(() => {
     if (Object.keys(menuPosition).length === 0) {
@@ -185,28 +230,84 @@ const View = (props) => {
     menuAlign,
   } = data;
   const isContainer = align === 'full';
+  const vertical = !!menuPosition.vertical;
 
-  const panes = tabsList.map((tab, index) => {
-    return {
-      id: tab,
-      menuItem: (
-        <MenuItem
-          {...props}
-          key={tab}
-          tab={tab}
-          index={index}
-          tabsTitle={title}
-          tabsDescription={description}
-          blockId={props?.id || ''}
-        />
-      ),
-      pane: (
-        <Tab.Pane key={tab} as={isContainer ? Container : undefined}>
+  // Refs for roving tabindex; keep refs stable per index across renders
+  const tabOrderRefs = React.useRef([]);
+  useEffect(() => {
+    tabOrderRefs.current = tabsList.map(
+      (_, i) => tabOrderRefs.current[i] || React.createRef(),
+    );
+  }, [tabsList]);
+
+  return (
+    <>
+      <ul
+        role="tablist"
+        aria-label={title || 'Tabs'}
+        {...(vertical ? { 'aria-orientation': 'vertical' } : {})}
+        className={cx(
+          'ui menu',
+          'tabs-secondary-variant',
+          menuAlign,
+          {
+            [menuPosition.direction === 'left' ? 'border-right' : '']:
+              menuPosition.direction === 'left',
+            [menuPosition.direction === 'right' ? 'border-left' : '']:
+              menuPosition.direction === 'right',
+            [menuPosition.direction === 'top' ? 'border-bottom' : '']:
+              menuPosition.direction === 'top',
+            [menuPosition.direction === 'bottom' ? 'border-top' : '']:
+              menuPosition.direction === 'bottom',
+            secondary: menuSecondary,
+            pointing: menuPointing,
+            fluid: menuFluid,
+            stackable: menuStackable,
+            tabular: menuTabular,
+            text: menuText,
+            inverted: menuInverted,
+            borderless: menuBorderless,
+            [menuColor]: !!menuColor,
+            [menuSize]: !!menuSize,
+            container: isContainer,
+            [menuPosition.attached ? `${menuPosition.attached} attached` : '']:
+              !!menuPosition.attached,
+            vertical: menuPosition.vertical,
+          },
+        )}
+      >
+        {tabsList.map((tab, index) => (
+          <MenuItem
+            {...props}
+            key={tab}
+            tab={tab}
+            index={index}
+            tabsTitle={title}
+            tabsDescription={description}
+            blockId={props?.id || ''}
+            activeTab={activeTab}
+            tabOrderRefs={tabOrderRefs}
+            vertical={vertical}
+          />
+        ))}
+      </ul>
+
+      {tabsList.map((tab) => {
+        const isActive = tab === activeTab;
+        const panelId = `tab-panel-${tab}`;
+        const tabId = `tab-${tab}`;
+
+        const content = (
           <div
             id={tabs[tab]?.title || `Tab ${tabsList.indexOf(tab) + 1}`}
             className="tab-name"
           >
-            <div tabIndex={0} role="tabpanel" id={'tab-pane-' + tab}>
+            <div
+              role="tabpanel"
+              id={panelId}
+              aria-labelledby={tabId}
+              tabIndex={isActive ? 0 : -1}
+            >
               <RenderBlocks
                 {...props}
                 metadata={metadata}
@@ -214,46 +315,25 @@ const View = (props) => {
               />
             </div>
           </div>
-        </Tab.Pane>
-      ),
-    };
-  });
+        );
 
-  return (
-    <>
-      <Tab
-        activeIndex={activeTabIndex}
-        className="default tabs tabs-accessibility"
-        renderActiveOnly={false}
-        menu={{
-          role: 'tablist',
-          attached: menuPosition.attached,
-          borderless: menuBorderless,
-          color: menuColor,
-          compact: menuCompact,
-          fluid: menuFluid,
-          inverted: menuInverted,
-          pointing: menuPointing,
-          secondary: menuSecondary,
-          size: menuSize,
-          stackable: menuStackable,
-          tabular: menuTabular,
-          text: menuText,
-          vertical: menuPosition.vertical,
-          className: cx(
-            'tabs-secondary-variant',
-            menuAlign,
-            menuPosition.direction === 'left' ? 'border-right' : '',
-            menuPosition.direction === 'right' ? 'border-left' : '',
-            menuPosition.direction === 'top' ? 'border-bottom' : '',
-            menuPosition.direction === 'bottom' ? 'border-top' : '',
-            { container: isContainer },
-          ),
-        }}
-        menuPosition={menuPosition.direction}
-        panes={panes}
-        grid={{ paneWidth: 9, tabWidth: 3 }}
-      />
+        return (
+          <div
+            key={tab}
+            className={cx('ui tab', {
+              active: isActive,
+              // Mimic Semantic UI default tab segment behavior
+              segment: true,
+              bottom: true,
+              attached: true,
+              container: isContainer,
+            })}
+            style={{ display: isActive ? 'block' : 'none' }}
+          >
+            {isContainer ? <Container>{content}</Container> : content}
+          </div>
+        );
+      })}
     </>
   );
 };
