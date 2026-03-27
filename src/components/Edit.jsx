@@ -212,7 +212,7 @@ const Edit = (props) => {
           {props.selected ? (
             <BlocksToolbar
               formData={tabData}
-              selectedBlock={activeTab}
+              selectedBlock={activeBlock}
               selectedBlocks={multiSelected}
               onChangeBlocks={(newBlockData) => {
                 onChangeBlock(block, {

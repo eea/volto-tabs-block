@@ -9,7 +9,6 @@ import cx from 'classnames';
 import { Menu, Tab, Container, Dropdown, Input } from 'semantic-ui-react';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import { BlocksForm } from '@plone/volto/components';
-import EditBlockWrapper from '@eeacms/volto-tabs-block/components/EditBlockWrapper';
 import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/variations/default/schema';
 import {
   SimpleMarkdown,
@@ -295,7 +294,6 @@ const Edit = (props) => {
     activeTabIndex = 0,
     block = null,
     activeBlock = null,
-    multiSelected = [],
     screen,
     tabsData = {},
     emptyTab = () => {},
@@ -304,6 +302,7 @@ const Edit = (props) => {
     onSelectBlock = noop,
     setEditingTab = noop,
     schema,
+    multiSelected = [],
   } = props;
   const menuPosition = getMenuPosition(data);
 
@@ -355,6 +354,7 @@ const Edit = (props) => {
               metadata={metadata}
               pathname={props.pathname}
               properties={isEmpty(tabs[tab]) ? emptyBlocksForm() : tabs[tab]}
+              multiSelected={selected && activeTab === tab ? multiSelected : []}
               selected={selected && activeTab === tab && activeBlock}
               selectedBlock={
                 selected && activeTab === tab && activeBlock
@@ -393,19 +393,7 @@ const Edit = (props) => {
                 );
                 setEditingTab(null);
               }}
-            >
-              {({ draginfo }, editBlock, blockProps) => {
-                return (
-                  <EditBlockWrapper
-                    blockProps={blockProps}
-                    draginfo={draginfo}
-                    multiSelected={multiSelected.includes(blockProps.block)}
-                  >
-                    {editBlock}
-                  </EditBlockWrapper>
-                );
-              }}
-            </BlocksForm>
+            />
           </div>
         </Tab.Pane>
       ),

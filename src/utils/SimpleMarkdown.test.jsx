@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import SimpleMarkdown from './SimpleMarkdown';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 describe('SimpleMarkdown', () => {
   it('renders empty when no markdown is provided', () => {

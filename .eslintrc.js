@@ -16,7 +16,27 @@ if (configFile) {
     voltoPath = `./${jsConfig.baseUrl}/${pathsConfig['@plone/volto'][0]}`;
 }
 
-const AddonConfigurationRegistry = require(`${voltoPath}/addon-registry.js`);
+const registryDistPath = path.join(
+  projectRootPath,
+  'node_modules/@plone/registry/dist/addon-registry/addon-registry.cjs',
+);
+const registrySrcPath = path.join(
+  projectRootPath,
+  'node_modules/@plone/registry/src/addon-registry',
+);
+
+let AddonConfigurationRegistry;
+if (fs.existsSync(registryDistPath)) {
+  AddonConfigurationRegistry = require(registryDistPath).AddonRegistry;
+} else if (
+  fs.existsSync(registrySrcPath) ||
+  fs.existsSync(`${registrySrcPath}.js`)
+) {
+  AddonConfigurationRegistry = require(registrySrcPath);
+} else {
+  AddonConfigurationRegistry = require(`${voltoPath}/addon-registry.js`);
+}
+
 const reg = new AddonConfigurationRegistry(projectRootPath);
 
 // Extends ESlint configuration for adding the aliases to `src` directories in Volto addons
@@ -26,6 +46,11 @@ const addonAliases = Object.keys(reg.packages).map((o) => [
 ]);
 
 const addonExtenders = reg.getEslintExtenders().map((m) => require(m));
+const voltoSlatePath = fs.existsSync(
+  path.join(projectRootPath, 'node_modules/@plone/volto-slate/src'),
+)
+  ? '@plone/volto-slate/src'
+  : '@plone/volto/packages/volto-slate/src';
 
 const defaultConfig = {
   extends: `${voltoPath}/.eslintrc`,
@@ -34,7 +59,7 @@ const defaultConfig = {
       alias: {
         map: [
           ['@plone/volto', '@plone/volto/src'],
-          ['@plone/volto-slate', '@plone/volto/packages/volto-slate/src'],
+          ['@plone/volto-slate', voltoSlatePath],
           ...addonAliases,
           ['@package', `${__dirname}/src`],
           ['@root', `${__dirname}/src`],
