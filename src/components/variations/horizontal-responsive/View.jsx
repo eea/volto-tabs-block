@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
 import { Menu, Tab, Container, Dropdown, Button } from 'semantic-ui-react';
-import { RenderBlocks } from '@plone/volto/components';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import {
   SimpleMarkdown,
   getMenuPosition,

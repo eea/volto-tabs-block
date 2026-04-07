@@ -1,13 +1,13 @@
 import React from 'react';
-import { without } from 'lodash';
+import without from 'lodash/without';
 import cx from 'classnames';
 import config from '@plone/volto/registry';
+import SidebarPortal from '@plone/volto/components/manage/Sidebar/SidebarPortal';
 import {
-  SidebarPortal,
   BlocksToolbar,
   BlockDataForm,
-} from '@plone/volto/components';
-import { getBlocksLayoutFieldname } from '@plone/volto/helpers';
+} from '@plone/volto/components/manage/Form';
+import { getBlocksLayoutFieldname } from '@plone/volto/helpers/Blocks/Blocks';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { empty, emptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
