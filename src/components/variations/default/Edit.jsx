@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import { v4 as uuid } from 'uuid';
 import cx from 'classnames';
 import { Menu, Tab, Input, Container } from 'semantic-ui-react';
-import { BlocksForm } from '@plone/volto/components/manage/Form';
+import BlocksForm from '@plone/volto/components/manage/Blocks/Block/BlocksForm';
 import { emptyBlocksForm } from '@plone/volto/helpers/Blocks/Blocks';
 import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/variations/default/schema';
 import { AssetTab } from '@eeacms/volto-tabs-block/components';

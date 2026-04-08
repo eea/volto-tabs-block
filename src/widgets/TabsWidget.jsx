@@ -5,7 +5,7 @@ import without from 'lodash/without';
 import move from 'lodash-move';
 import Icon from '@plone/volto/components/theme/Icon/Icon';
 import DragDropList from '@plone/volto/components/manage/DragDropList/DragDropList';
-import { FormFieldWrapper } from '@plone/volto/components/manage/Widgets';
+import FormFieldWrapper from '@plone/volto/components/manage/Widgets/FormFieldWrapper';
 import { emptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { StyleWrapperEdit } from '@eeacms/volto-block-style/StyleWrapper';
 import ObjectWidget from '@plone/volto/components/manage/Widgets/ObjectWidget';

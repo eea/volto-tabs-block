@@ -1,12 +1,6 @@
-import React from 'react';
-import without from 'lodash/without';
-import cx from 'classnames';
-import config from '@plone/volto/registry';
+import BlocksToolbar from '@plone/volto/components/manage/Form/BlocksToolbar';
+import BlockDataForm from '@plone/volto/components/manage/Form/BlockDataForm';
 import SidebarPortal from '@plone/volto/components/manage/Sidebar/SidebarPortal';
-import {
-  BlocksToolbar,
-  BlockDataForm,
-} from '@plone/volto/components/manage/Form';
 import { getBlocksLayoutFieldname } from '@plone/volto/helpers/Blocks/Blocks';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { empty, emptyTab } from '@eeacms/volto-tabs-block/helpers';
@@ -14,6 +8,10 @@ import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { BlockStyleWrapperEdit } from '@eeacms/volto-block-style/BlockStyleWrapper';
 import { getVariation } from '@eeacms/volto-tabs-block/helpers';
 import { DefaultEdit } from './variations/default';
+import config from '@plone/volto/registry';
+import cx from 'classnames';
+import without from 'lodash/without';
+import React from 'react';
 import { useIntl } from 'react-intl';
 
 import '@eeacms/volto-tabs-block/less/edit.less';

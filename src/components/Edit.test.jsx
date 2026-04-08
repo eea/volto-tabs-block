@@ -73,8 +73,14 @@ jest.mock('./variations/default', () => ({
   DefaultEdit: jest.requireActual('./variations/default/Edit').default,
 }));
 
-jest.mock('@plone/volto/components', () => ({
-  BlocksForm: jest.fn(
+jest.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
+  __esModule: true,
+  default: ({ children }) => <div>{children}</div>,
+}));
+
+jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
+  __esModule: true,
+  default: jest.fn(
     ({ multiSelected, onSelectBlock, properties, selectedBlock }) => {
       const blockList = properties.blocks
         ? Object.entries(properties.blocks)
@@ -100,15 +106,22 @@ jest.mock('@plone/volto/components', () => ({
       );
     },
   ),
-  SidebarPortal: ({ children }) => <div>{children}</div>,
-  BlocksToolbar: ({ selectedBlock, selectedBlocks }) => (
+}));
+
+jest.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
+  __esModule: true,
+  default: ({ selectedBlock, selectedBlocks }) => (
     <div
       data-testid="blocks-toolbar"
       data-selected-block={selectedBlock || ''}
       data-selected-blocks={(selectedBlocks || []).join(',')}
     />
   ),
-  BlockDataForm: () => <div>BlockDataForm</div>,
+}));
+
+jest.mock('@plone/volto/components/manage/Form/BlockDataForm', () => ({
+  __esModule: true,
+  default: () => <div>BlockDataForm</div>,
 }));
 
 jest.mock(
