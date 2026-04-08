@@ -3,14 +3,14 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
 import { Menu, Tab, Container, Icon, Image } from 'semantic-ui-react';
-import { RenderBlocks } from '@plone/volto/components';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
   SimpleMarkdown,
   getMenuPosition,
 } from '@eeacms/volto-tabs-block/utils';
 
-import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers';
+import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
 

@@ -4,11 +4,11 @@ import { compose } from 'redux';
 import { useIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import { v4 as uuid } from 'uuid';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import cx from 'classnames';
 import { Menu, Tab, Container, Dropdown, Input } from 'semantic-ui-react';
-import { emptyBlocksForm } from '@plone/volto/helpers';
-import { BlocksForm } from '@plone/volto/components';
+import { emptyBlocksForm } from '@plone/volto/helpers/Blocks/Blocks';
+import BlocksForm from '@plone/volto/components/manage/Blocks/Block/BlocksForm';
 import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/variations/default/schema';
 import {
   SimpleMarkdown,

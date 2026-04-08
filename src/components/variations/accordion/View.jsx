@@ -6,8 +6,8 @@ import cx from 'classnames';
 import noop from 'lodash/noop';
 
 import { Icon } from 'semantic-ui-react';
-import { Icon as VoltoIcon } from '@plone/volto/components';
-import { RenderBlocks } from '@plone/volto/components';
+import VoltoIcon from '@plone/volto/components/theme/Icon/Icon';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import config from '@plone/volto/registry';
 
 import Tabs from 'react-responsive-tabs';
@@ -17,7 +17,7 @@ import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
-import { getVariation } from '../../../helpers';
+import { getVariation } from '@eeacms/volto-tabs-block/helpers';
 
 class Tab extends React.Component {
   render() {

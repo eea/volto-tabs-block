@@ -1,4 +1,4 @@
-import { TABS_BLOCK } from '../constants';
+import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 
 const blocksArray = (config) => {
   const choices = Object.keys(config.blocks.blocksConfig)
