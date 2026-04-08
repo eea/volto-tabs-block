@@ -6,7 +6,7 @@ import { Provider } from 'react-intl-redux';
 import { MemoryRouter } from 'react-router-dom';
 import config from '@plone/volto/registry';
 import Edit from './Edit';
-import { TABS_BLOCK } from '../constants';
+import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 
 jest.mock('uuid', () => ({
   v4: () => 'test-uuid-1234',

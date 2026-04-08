@@ -17,7 +17,7 @@ import { getParentTabFromHash } from '@eeacms/volto-tabs-block/helpers';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 import '@eeacms/volto-tabs-block/less/menu.less';
-import { getVariation } from '../../../helpers';
+import { getVariation } from '@eeacms/volto-tabs-block/helpers';
 
 class Tab extends React.Component {
   render() {
