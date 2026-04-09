@@ -5,7 +5,7 @@ import {
   getBlocksFieldname,
   getBlocksLayoutFieldname,
   blockHasValue,
-} from '@plone/volto/helpers';
+} from '@plone/volto/helpers/Blocks/Blocks';
 import { visitBlocks, toSlug } from '@eeacms/volto-anchors/helpers';
 
 const variationsMapping = {

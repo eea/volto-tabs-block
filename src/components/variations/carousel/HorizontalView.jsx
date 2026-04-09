@@ -2,7 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import cx from 'classnames';
-import { Icon, RenderBlocks } from '@plone/volto/components';
+import Icon from '@plone/volto/components/theme/Icon/Icon';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 
 import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-key.svg';
 import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-key.svg';
