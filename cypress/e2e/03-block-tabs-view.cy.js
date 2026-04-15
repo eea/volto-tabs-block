@@ -67,10 +67,9 @@ describe('Tabs Block: View Mode Tests', () => {
     saveAndAssertViewUrl();
 
     getViewTabItem('Tab 2').click();
-    cy.get('#page-document .tabs-block').should(
-      'contain',
-      'Second tab content updated',
-    );
+    cy.get('#page-document .tabs-block')
+      .invoke('text')
+      .should('match', /Second tab content\s*updated/);
   });
 
   it('restores selected tab from activeTab query param after reload', () => {
