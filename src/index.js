@@ -21,6 +21,7 @@ import { TabsWidget } from './widgets';
 import tabsSVG from '@eeacms/volto-tabs-block//icons/tabs.svg';
 import rightSVG from '@plone/volto/icons/right-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
+import { cloneData } from './utils';
 
 defineMessages({
   default: {
@@ -55,6 +56,7 @@ const applyConfig = (config) => {
     view: TabsView,
     restricted: false,
     mostUsed: false,
+    cloneData,
     sidebarTab: 1,
     security: {
       addPermission: [],

@@ -44,3 +44,4 @@ const toggleItem = (container, item, hidden) => {
 
 export { SimpleMarkdown, getMenuPosition, toggleItem };
 export * from './dimensions';
+export { cloneData } from './cloneData';
