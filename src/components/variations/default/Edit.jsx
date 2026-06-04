@@ -268,7 +268,7 @@ const Edit = (props) => {
                     blocks: {
                       ...tabsData.blocks,
                       [activeTab]: {
-                        ...(newFormData.blocks_layout.items.length > 0
+                        ...(newFormData.blocks_layout?.items.length > 0
                           ? newFormData
                           : emptyTab({
                               schema: schema?.properties?.data?.schema || {},
