@@ -8,13 +8,13 @@ import {
 // import { emptyBlocksForm } from '@plone/volto/helpers';
 import { visitBlocks, toSlug } from '@eeacms/volto-anchors/helpers';
 
-// jest.mock('@plone/volto/helpers', () => ({
-//   emptyBlocksForm: jest.fn(),
+// vi.mock('@plone/volto/helpers', () => ({
+//   emptyBlocksForm: vi.fn(),
 // }));
 
-jest.mock('@eeacms/volto-anchors/helpers', () => ({
-  visitBlocks: jest.fn(),
-  toSlug: jest.fn(),
+vi.mock('@eeacms/volto-anchors/helpers', () => ({
+  visitBlocks: vi.fn(),
+  toSlug: vi.fn(),
 }));
 
 const schema = {
@@ -58,13 +58,13 @@ describe('isTabEmpty function', () => {
 
 describe('scrollToTarget', () => {
   it('should call window.scrollTo with the correct arguments', () => {
-    window.scrollTo = jest.fn();
+    window.scrollTo = vi.fn();
 
     const mockElement = {
-      getBoundingClientRect: jest.fn(),
+      getBoundingClientRect: vi.fn(),
     };
 
-    document.body.getBoundingClientRect = jest.fn(() => ({ top: 100 }));
+    document.body.getBoundingClientRect = vi.fn(() => ({ top: 100 }));
     mockElement.getBoundingClientRect.mockReturnValue({ top: 200 });
 
     scrollToTarget(mockElement, 50);
@@ -76,13 +76,13 @@ describe('scrollToTarget', () => {
   });
 
   it('should call window.scrollTo with the correct arguments with offsetHeight not provided', () => {
-    window.scrollTo = jest.fn();
+    window.scrollTo = vi.fn();
 
     const mockElement = {
-      getBoundingClientRect: jest.fn(),
+      getBoundingClientRect: vi.fn(),
     };
 
-    document.body.getBoundingClientRect = jest.fn(() => ({ top: 100 }));
+    document.body.getBoundingClientRect = vi.fn(() => ({ top: 100 }));
     mockElement.getBoundingClientRect.mockReturnValue({ top: 200 });
 
     scrollToTarget(mockElement);

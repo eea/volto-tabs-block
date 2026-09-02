@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { AddonRegistry } = require('@plone/registry/addon-registry');
-const projectRootPath = fs.realpathSync(__dirname + '/../../../');
+const projectRootPath = fs.realpathSync(__dirname + '/../..');
 
 let voltoPath = path.join(projectRootPath, 'node_modules/@plone/volto');
 let configFile;

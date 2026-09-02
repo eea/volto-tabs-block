@@ -8,79 +8,54 @@ import config from '@plone/volto/registry';
 import Edit from './Edit';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 
-jest.mock('uuid', () => ({
+vi.mock('uuid', () => ({
   v4: () => 'test-uuid-1234',
 }));
 
-jest.mock(
-  '@eeacms/volto-tabs-block/constants',
-  () => ({
-    TABS_BLOCK: 'tabs_block',
-  }),
-  { virtual: true },
-);
-
-jest.mock(
-  '@eeacms/volto-tabs-block/helpers',
-  () => ({
-    empty: jest.fn(),
-    emptyTab: jest.fn(() => ({})),
-    getVariation: jest.fn(() => 'default'),
-  }),
-  { virtual: true },
-);
-
-jest.mock(
-  '@eeacms/volto-tabs-block/components',
-  () => ({
-    AssetTab: ({ tabTitle }) => <span>{tabTitle}</span>,
-  }),
-  { virtual: true },
-);
-
-jest.mock(
-  '@eeacms/volto-tabs-block/components/variations/default/schema',
-  () => ({
-    defaultSchemaEnhancer: jest.fn(({ schema }) => schema),
-  }),
-  { virtual: true },
-);
-
-jest.mock(
-  '@eeacms/volto-tabs-block/utils',
-  () => ({
-    SimpleMarkdown: ({ md, className }) => (
-      <div className={className}>{md}</div>
-    ),
-    getMenuPosition: () => ({}),
-  }),
-  { virtual: true },
-);
-
-jest.mock('@eeacms/volto-tabs-block/less/edit.less', () => ({}), {
-  virtual: true,
-});
-
-jest.mock('@eeacms/volto-tabs-block/less/tabs.less', () => ({}), {
-  virtual: true,
-});
-
-jest.mock('@eeacms/volto-tabs-block/less/menu.less', () => ({}), {
-  virtual: true,
-});
-
-jest.mock('./variations/default', () => ({
-  DefaultEdit: jest.requireActual('./variations/default/Edit').default,
+vi.mock('@eeacms/volto-tabs-block/constants', () => ({
+  TABS_BLOCK: 'tabs_block',
 }));
 
-jest.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
+vi.mock('@eeacms/volto-tabs-block/helpers', () => ({
+  empty: vi.fn(),
+  emptyTab: vi.fn(() => ({})),
+  getVariation: vi.fn(() => 'default'),
+}));
+
+vi.mock('@eeacms/volto-tabs-block/components', () => ({
+  AssetTab: ({ tabTitle }) => <span>{tabTitle}</span>,
+}));
+
+vi.mock(
+  '@eeacms/volto-tabs-block/components/variations/default/schema',
+  () => ({
+    defaultSchemaEnhancer: vi.fn(({ schema }) => schema),
+  }),
+);
+
+vi.mock('@eeacms/volto-tabs-block/utils', () => ({
+  SimpleMarkdown: ({ md, className }) => <div className={className}>{md}</div>,
+  getMenuPosition: () => ({}),
+}));
+
+vi.mock('@eeacms/volto-tabs-block/less/edit.less', () => ({}));
+
+vi.mock('@eeacms/volto-tabs-block/less/tabs.less', () => ({}));
+
+vi.mock('@eeacms/volto-tabs-block/less/menu.less', () => ({}));
+
+vi.mock('./variations/default', async () => ({
+  DefaultEdit: (await vi.importActual('./variations/default/Edit')).default,
+}));
+
+vi.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
   __esModule: true,
   default: ({ children }) => <div>{children}</div>,
 }));
 
-jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
+vi.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
   __esModule: true,
-  default: jest.fn(
+  default: vi.fn(
     ({ multiSelected, onSelectBlock, properties, selectedBlock }) => {
       const blockList = properties.blocks
         ? Object.entries(properties.blocks)
@@ -108,7 +83,7 @@ jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
   ),
 }));
 
-jest.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
+vi.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
   __esModule: true,
   default: ({ selectedBlock, selectedBlocks }) => (
     <div
@@ -119,26 +94,18 @@ jest.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
   ),
 }));
 
-jest.mock('@plone/volto/components/manage/Form/BlockDataForm', () => ({
+vi.mock('@plone/volto/components/manage/Form/BlockDataForm', () => ({
   __esModule: true,
   default: () => <div>BlockDataForm</div>,
 }));
 
-jest.mock(
-  '@eeacms/volto-block-style/StyleWrapper',
-  () => ({
-    StyleWrapperView: ({ children }) => <>{children}</>,
-  }),
-  { virtual: true },
-);
+vi.mock('@eeacms/volto-block-style/StyleWrapper', () => ({
+  StyleWrapperView: ({ children }) => <>{children}</>,
+}));
 
-jest.mock(
-  '@eeacms/volto-block-style/BlockStyleWrapper',
-  () => ({
-    BlockStyleWrapperEdit: ({ children }) => <>{children}</>,
-  }),
-  { virtual: true },
-);
+vi.mock('@eeacms/volto-block-style/BlockStyleWrapper', () => ({
+  BlockStyleWrapperEdit: ({ children }) => <>{children}</>,
+}));
 
 const mockStore = configureStore();
 const store = mockStore({
@@ -206,10 +173,10 @@ describe('Tabs Edit', () => {
           <Edit
             block="tabs-block"
             data={mockData}
-            onChangeBlock={jest.fn()}
-            onChangeField={jest.fn()}
+            onChangeBlock={vi.fn()}
+            onChangeField={vi.fn()}
             selected={true}
-            setSidebarTab={jest.fn()}
+            setSidebarTab={vi.fn()}
             blockNode={{ current: document.createElement('div') }}
           />
         </MemoryRouter>

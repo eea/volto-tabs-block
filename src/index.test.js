@@ -1,32 +1,24 @@
-jest.mock(
-  '@eeacms/volto-tabs-block/components',
-  () => ({
-    DefaultEdit: () => null,
-    DefaultView: () => null,
-    AccordionEdit: () => null,
-    AccordionView: () => null,
-    HorizontalResponsiveEdit: () => null,
-    HorizontalResponsiveView: () => null,
-    HorizontalCarouselView: () => null,
-    VerticalCarouselView: () => null,
-    layoutSchema: require('./components/layoutSchema').default,
-    TabsEdit: () => null,
-    TabsView: () => null,
-    blockSchema: jest.fn(),
-  }),
-  { virtual: true },
-);
+import applyConfig from './index';
+import { TABS_BLOCK } from './constants';
 
-jest.mock('@eeacms/volto-tabs-block//icons/tabs.svg', () => 'tabs.svg', {
-  virtual: true,
-});
-
-jest.mock('./widgets', () => ({
-  TabsWidget: () => null,
+vi.mock('./components', async () => ({
+  DefaultEdit: () => null,
+  DefaultView: () => null,
+  AccordionEdit: () => null,
+  AccordionView: () => null,
+  HorizontalResponsiveEdit: () => null,
+  HorizontalResponsiveView: () => null,
+  HorizontalCarouselView: () => null,
+  VerticalCarouselView: () => null,
+  layoutSchema: (await vi.importActual('./components/layoutSchema')).default,
+  TabsEdit: () => null,
+  TabsView: () => null,
+  blockSchema: vi.fn(),
 }));
 
-const applyConfig = require('./index').default;
-const { TABS_BLOCK } = require('./constants');
+vi.mock('./widgets', () => ({
+  TabsWidget: () => null,
+}));
 
 describe('applyConfig', () => {
   it('should include tabs in allowed blocks schema choices', () => {

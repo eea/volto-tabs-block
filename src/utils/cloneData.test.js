@@ -3,11 +3,11 @@ import { getBlocks } from '@plone/volto/helpers/Blocks/Blocks';
 import config from '@plone/volto/registry';
 import { cloneData } from './cloneData';
 
-jest.mock('@plone/volto/helpers/Blocks/Blocks', () => ({
-  getBlocks: jest.fn(),
-  getBlocksFieldname: jest.fn(() => 'blocks'),
-  getBlocksLayoutFieldname: jest.fn(() => 'blocks_layout'),
-  hasBlocksData: jest.fn((block) => !!block.blocks),
+vi.mock('@plone/volto/helpers/Blocks/Blocks', () => ({
+  getBlocks: vi.fn(),
+  getBlocksFieldname: vi.fn(() => 'blocks'),
+  getBlocksLayoutFieldname: vi.fn(() => 'blocks_layout'),
+  hasBlocksData: vi.fn((block) => !!block.blocks),
 }));
 
 describe('cloneData', () => {
@@ -59,7 +59,7 @@ describe('cloneData', () => {
 
     config.blocks.blocksConfig = {
       test: {
-        cloneData: jest.fn(() => [
+        cloneData: vi.fn(() => [
           'test_uuid',
           mockBlockData.data.blocks[blockId],
         ]),

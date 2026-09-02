@@ -14,7 +14,7 @@ config.blocks.blocksConfig = {
 config.settings = {
   integratesBlockStyles: [],
 };
-jest.mock('react-router', () => ({
+vi.mock('react-router', () => ({
   withRouter: (WrapperComponent) => (props) => {
     return (
       <WrapperComponent
@@ -26,7 +26,7 @@ jest.mock('react-router', () => ({
           key: 'qruhb8',
         }}
         history={{
-          push: jest.fn(),
+          push: vi.fn(),
         }}
       />
     );
@@ -34,11 +34,11 @@ jest.mock('react-router', () => ({
 }));
 
 // ENOENT: no such file or directory, open 'node:crypto'
-jest.mock('uuid', () => ({
+vi.mock('uuid', () => ({
   v4: () => 'test-uuid-1234',
 }));
 
-jest.mock('@eeacms/volto-block-style/StyleWrapper', () => ({
+vi.mock('@eeacms/volto-block-style/StyleWrapper', () => ({
   StyleWrapperView: (props) => {
     return <div className="mocked-style-wrapper">{props.children}</div>;
   },

@@ -12,21 +12,21 @@ describe('positionedOffset', () => {
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it('returns correct offset position', () => {
     const element = document.querySelector('#element');
     const container = document.querySelector('#container');
 
-    jest.spyOn(element, 'offsetTop', 'get').mockReturnValue(100);
-    jest.spyOn(element, 'offsetLeft', 'get').mockReturnValue(200);
-    jest.spyOn(element, 'offsetHeight', 'get').mockReturnValue(50);
-    jest.spyOn(element, 'offsetWidth', 'get').mockReturnValue(50);
-    jest.spyOn(element, 'offsetParent', 'get').mockReturnValue(container);
+    vi.spyOn(element, 'offsetTop', 'get').mockReturnValue(100);
+    vi.spyOn(element, 'offsetLeft', 'get').mockReturnValue(200);
+    vi.spyOn(element, 'offsetHeight', 'get').mockReturnValue(50);
+    vi.spyOn(element, 'offsetWidth', 'get').mockReturnValue(50);
+    vi.spyOn(element, 'offsetParent', 'get').mockReturnValue(container);
 
-    jest.spyOn(container, 'scrollHeight', 'get').mockReturnValue(500);
-    jest.spyOn(container, 'scrollWidth', 'get').mockReturnValue(500);
+    vi.spyOn(container, 'scrollHeight', 'get').mockReturnValue(500);
+    vi.spyOn(container, 'scrollWidth', 'get').mockReturnValue(500);
 
     const result = positionedOffset(element, container);
 
@@ -45,14 +45,14 @@ describe('positionedOffset', () => {
     `;
     const element = document.getElementById('element');
 
-    jest.spyOn(element, 'offsetTop', 'get').mockReturnValue(100);
-    jest.spyOn(element, 'offsetLeft', 'get').mockReturnValue(200);
-    jest.spyOn(element, 'offsetHeight', 'get').mockReturnValue(50);
-    jest.spyOn(element, 'offsetWidth', 'get').mockReturnValue(50);
-    jest.spyOn(element, 'offsetParent', 'get').mockReturnValue(document.body);
+    vi.spyOn(element, 'offsetTop', 'get').mockReturnValue(100);
+    vi.spyOn(element, 'offsetLeft', 'get').mockReturnValue(200);
+    vi.spyOn(element, 'offsetHeight', 'get').mockReturnValue(50);
+    vi.spyOn(element, 'offsetWidth', 'get').mockReturnValue(50);
+    vi.spyOn(element, 'offsetParent', 'get').mockReturnValue(document.body);
 
-    jest.spyOn(document.body, 'scrollHeight', 'get').mockReturnValue(500);
-    jest.spyOn(document.body, 'scrollWidth', 'get').mockReturnValue(500);
+    vi.spyOn(document.body, 'scrollHeight', 'get').mockReturnValue(500);
+    vi.spyOn(document.body, 'scrollWidth', 'get').mockReturnValue(500);
 
     const result = positionedOffset(element, undefined);
     expect(result).toEqual({
@@ -70,14 +70,14 @@ describe('positionedOffset', () => {
     `;
     const element = document.getElementById('element');
 
-    jest.spyOn(element, 'offsetTop', 'get').mockReturnValue(100);
-    jest.spyOn(element, 'offsetLeft', 'get').mockReturnValue(200);
-    jest.spyOn(element, 'offsetHeight', 'get').mockReturnValue(50);
-    jest.spyOn(element, 'offsetWidth', 'get').mockReturnValue(50);
-    jest.spyOn(element, 'offsetParent', 'get').mockReturnValue(document.body);
+    vi.spyOn(element, 'offsetTop', 'get').mockReturnValue(100);
+    vi.spyOn(element, 'offsetLeft', 'get').mockReturnValue(200);
+    vi.spyOn(element, 'offsetHeight', 'get').mockReturnValue(50);
+    vi.spyOn(element, 'offsetWidth', 'get').mockReturnValue(50);
+    vi.spyOn(element, 'offsetParent', 'get').mockReturnValue(document.body);
 
-    jest.spyOn(document.body, 'scrollHeight', 'get').mockReturnValue(500);
-    jest.spyOn(document.body, 'scrollWidth', 'get').mockReturnValue(500);
+    vi.spyOn(document.body, 'scrollHeight', 'get').mockReturnValue(500);
+    vi.spyOn(document.body, 'scrollWidth', 'get').mockReturnValue(500);
 
     const result = positionedOffset(element, 'not an HTML element');
     expect(result).toBeUndefined();
@@ -95,7 +95,7 @@ describe('positionedOffset', () => {
     `;
     const element = document.getElementById('element');
 
-    jest.spyOn(document, 'documentElement', 'get').mockReturnValue(null);
+    vi.spyOn(document, 'documentElement', 'get').mockReturnValue(null);
 
     const result = positionedOffset(element, null);
     expect(result).toBeUndefined();
@@ -108,7 +108,7 @@ describe('positionedOffset', () => {
 
     const element = document.getElementById('element');
 
-    jest.spyOn(element, 'ownerDocument', 'get').mockReturnValue(null);
+    vi.spyOn(element, 'ownerDocument', 'get').mockReturnValue(null);
 
     const result = positionedOffset(element, null);
     expect(result).toBeUndefined();
