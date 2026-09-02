@@ -1,5 +1,3 @@
-#. Translation of volto.pot to Spanish
-#. Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
@@ -49,11 +47,6 @@ msgstr ""
 #: components/schema
 msgid "Medium"
 msgstr ""
-
-#. Default: "Unknown Block {block}"
-#: components/EditBlockWrapper
-msgid "Unknown Block"
-msgstr "Bloque desconocido"
 
 #. Default: "Accordion tabs block"
 #: components/variations/accordion/schema
@@ -140,11 +133,6 @@ msgstr "Por defecto"
 #: components/variations/default/schema
 msgid "default-tabs-block"
 msgstr "Bloque de pestañas predeterminado"
-
-#. Default: "delete"
-#: components/EditBlockWrapper
-msgid "delete"
-msgstr "eliminar"
 
 #. Default: "Description"
 #: components/schema

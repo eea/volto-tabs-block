@@ -41,11 +41,6 @@ msgstr ""
 msgid "Medium"
 msgstr ""
 
-#. Default: "Unknown Block {block}"
-#: components/EditBlockWrapper
-msgid "Unknown Block"
-msgstr "Unbekannter Block {block}"
-
 #. Default: "Accordion tabs block"
 #: components/variations/accordion/schema
 msgid "accordion-tabs-block"
@@ -131,11 +126,6 @@ msgstr "Standard"
 #: components/variations/default/schema
 msgid "default-tabs-block"
 msgstr "Standard Tabs block"
-
-#. Default: "delete"
-#: components/EditBlockWrapper
-msgid "delete"
-msgstr "Löschen"
 
 #. Default: "Description"
 #: components/schema
