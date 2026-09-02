@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import cx from 'classnames';
-import { Menu, Tab, Container, Icon, Image } from 'semantic-ui-react';
+import { Menu, Tab, Container, Icon } from 'semantic-ui-react';
+import Image from '@plone/volto/components/theme/Image/Image';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import {
@@ -58,7 +59,7 @@ export const AssetTab = ({ props, tabIndex, tabTitle }) => {
                 }`
               : imageObject['@id']
           }
-          className={cx('ui', imageSize, 'aligned')}
+          className={cx('ui', 'image', imageSize, 'aligned')}
           alt={hideTitle ? tabTitle : ''}
         />
       )}
