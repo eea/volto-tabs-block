@@ -43,11 +43,11 @@ endif
 
 ##############################################################################
 # SETTINGS AND VARIABLE
-DIR=$(shell basename $$(pwd))
+DIR=$(shell basename "$$(pwd)")
 PLONE_VERSION?=6
-VOLTO_VERSION?=18-yarn
-ADDON_PATH="${DIR}"
-ADDON_NAME="@eeacms/${ADDON_PATH}"
+VOLTO_VERSION?=19
+ADDON_PATH?=${DIR}
+ADDON_NAME?=$(shell node -p "require('./package.json').name")
 DOCKER_COMPOSE=PLONE_VERSION=${PLONE_VERSION} VOLTO_VERSION=${VOLTO_VERSION} ADDON_NAME=${ADDON_NAME} ADDON_PATH=${ADDON_PATH} docker compose
 RAZZLE_INTERNAL_API_PATH?="http://localhost:8080/Plone"
 RAZZLE_DEV_PROXY_API_PATH?="${RAZZLE_INTERNAL_API_PATH}"
@@ -145,8 +145,7 @@ ci-fix:
 
 .PHONY: test-ci
 test-ci:
-	cd /app
-	RAZZLE_JEST_CONFIG=src/addons/${ADDON_PATH}/jest-addon.config.js CI=true yarn test src/addons/${ADDON_PATH}/src --watchAll=false --reporters=default --reporters=jest-junit --collectCoverage --coverageReporters lcov cobertura text
+	CI=true pnpm --dir /app --filter ${ADDON_NAME} run test --coverage --coverage.reportsDirectory=/app/coverage --reporter=default --reporter=junit --outputFile.junit=/app/junit.xml
 
 .PHONY: start-ci
 start-ci:
