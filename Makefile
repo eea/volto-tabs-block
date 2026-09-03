@@ -154,9 +154,9 @@ start-ci:
 
 .PHONY: check-ci
 check-ci:
-	pnpm exec wait-on -t 240000  http://localhost:3000
+	pnpm --dir /app --filter @plone/volto exec wait-on -t 240000 http://localhost:3000
 
 .PHONY: cypress-ci
 cypress-ci:
-	pnpm exec wait-on -t 240000  http://localhost:3000
+	pnpm --dir /app --filter @plone/volto exec wait-on -t 240000 http://localhost:3000
 	CYPRESS_API_PATH="${RAZZLE_DEV_PROXY_API_PATH}" NODE_ENV=development  pnpm exec cypress run --browser chromium
