@@ -150,8 +150,7 @@ test-ci:
 .PHONY: start-ci
 start-ci:
 	cp .coverage.babel.config.js /app/babel.config.js
-	cd ../..
-	yarn start
+	pnpm --dir /app start
 
 .PHONY: check-ci
 check-ci:
