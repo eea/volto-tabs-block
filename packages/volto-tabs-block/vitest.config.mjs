@@ -6,6 +6,7 @@ import { defineConfig } from 'vitest/config';
 import { transformWithEsbuild } from 'vite';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+process.env.TZ = 'UTC';
 const workspaceCandidate = path.resolve(__dirname, '../..');
 const projectRoot = fs.existsSync(
   path.join(workspaceCandidate, 'core/packages/volto'),
@@ -36,6 +37,13 @@ const componentsRoot = fs.existsSync(
       fileURLToPath(
         import.meta.resolve('@plone/components/package.json'),
       ),
+    );
+const registryRoot = fs.existsSync(
+  path.join(projectRoot, 'core/packages/registry'),
+)
+  ? path.join(projectRoot, 'core/packages/registry')
+  : path.dirname(
+      fileURLToPath(import.meta.resolve('@plone/registry/package.json')),
     );
 
 const requireFromVolto = createRequire(path.join(voltoRoot, 'package.json'));
@@ -102,6 +110,7 @@ const aliases = {
   '@plone/volto': path.join(voltoRoot, 'src'),
   '@plone/volto-slate': path.join(voltoSlateRoot, 'src'),
   '@plone/components': path.join(componentsRoot, 'src'),
+  '@plone/registry': path.join(registryRoot, 'src'),
   '@root': path.join(voltoRoot, 'src'),
   '@package': path.join(__dirname, 'src'),
   '~': path.join(voltoRoot, 'src'),
@@ -217,6 +226,9 @@ export default defineConfig({
   },
   resolve: { alias: aliases },
   server: {
+    fs: {
+      allow: [projectRoot, __dirname],
+    },
     deps: {
       inline: [/@eeacms/, /@plone/, /query-string/],
     },
@@ -228,7 +240,6 @@ export default defineConfig({
     environment: 'jsdom',
     css: false,
     setupFiles,
-    globalSetup: path.join(voltoRoot, 'global-test-setup.js'),
     include: [
       'src/**/*.{test,spec}.{js,jsx,ts,tsx}',
       'searchlib/**/*.{test,spec}.{js,jsx,ts,tsx}',

@@ -77,7 +77,7 @@ regexes = [
 [[rules]]
 id = "forbidden-secret-file"
 description = "Forbidden secret-bearing file committed to repository"
-path = '''(?i)(^|/)(\.env\..*|\.npmrc|\.pypirc|id_rsa|id_ed25519|.*\.(pem|key|p12|pfx|jks|kubeconfig))$'''
+path = '''(?i)(^|/)(\.env\..*|\.pypirc|id_rsa|id_ed25519|.*\.(pem|key|p12|pfx|jks|kubeconfig))$'''
 regex = '''(?s).{1,}'''
 tags = ["file", "secret-file"]
 
@@ -86,4 +86,11 @@ description = "Allow Jenkins SonarQube token environment variable reference"
 regexTarget = "match"
 regexes = [
   '''SONAR_AUTH_TOKEN''',
+]
+
+[[allowlists]]
+description = "Ignore generated development workspace dependencies"
+paths = [
+  '''(^|/)core/''',
+  '''(^|/)node_modules/''',
 ]

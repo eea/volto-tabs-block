@@ -1,0 +1,7 @@
+{
+    "title": "Tabs Block",
+    "frontend_addon_name": "volto-tabs-block",
+    "description": "This add-on enables ad-hoc grouping of Volto blocks under sections and tabs",
+    "volto_version": "19.3.0",
+    "__template__": "frontend_addon"
+}
