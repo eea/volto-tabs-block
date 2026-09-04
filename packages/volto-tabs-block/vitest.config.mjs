@@ -47,6 +47,7 @@ const registryRoot = fs.existsSync(
     );
 
 const requireFromVolto = createRequire(path.join(voltoRoot, 'package.json'));
+const requireFromAddon = createRequire(path.join(__dirname, 'package.json'));
 const voltoPackage = JSON.parse(
   fs.readFileSync(path.join(voltoRoot, 'package.json'), 'utf8'),
 );
@@ -82,21 +83,23 @@ const addonSetup = path.join(__dirname, 'vitest.setup.jsx');
 if (useAddonSetup && fs.existsSync(addonSetup)) setupFiles.push(addonSetup);
 
 function resolvePackageRoot(packageName) {
-  try {
-    return path.dirname(requireFromVolto.resolve(`${packageName}/package.json`));
-  } catch {
+  for (const packageRequire of [requireFromAddon, requireFromVolto]) {
     try {
-      let current = path.dirname(requireFromVolto.resolve(packageName));
-      while (current !== path.dirname(current)) {
-        const manifest = path.join(current, 'package.json');
-        if (fs.existsSync(manifest)) {
-          const candidate = JSON.parse(fs.readFileSync(manifest, 'utf8'));
-          if (candidate.name === packageName) return current;
-        }
-        current = path.dirname(current);
-      }
+      return path.dirname(packageRequire.resolve(`${packageName}/package.json`));
     } catch {
-      return null;
+      try {
+        let current = path.dirname(packageRequire.resolve(packageName));
+        while (current !== path.dirname(current)) {
+          const manifest = path.join(current, 'package.json');
+          if (fs.existsSync(manifest)) {
+            const candidate = JSON.parse(fs.readFileSync(manifest, 'utf8'));
+            if (candidate.name === packageName) return current;
+          }
+          current = path.dirname(current);
+        }
+      } catch {
+        // Try the next package resolution context.
+      }
     }
   }
   return null;
@@ -170,11 +173,18 @@ for (const dependency of Object.keys({
   const dependencyRoot = resolvePackageRoot(dependency);
   if (dependencyRoot) aliases[dependency] = dependencyRoot;
 }
-const searchlibPath = fs.existsSync(
-  path.join(projectRoot, 'packages/volto-searchlib/searchlib'),
-)
-  ? path.join(projectRoot, 'packages/volto-searchlib/searchlib')
-  : path.join(__dirname, 'searchlib');
+const workspaceSearchlib = path.join(
+  projectRoot,
+  'packages/volto-searchlib/searchlib',
+);
+const installedSearchlib = resolvePackageRoot('@eeacms/volto-searchlib');
+const searchlibPath = fs.existsSync(workspaceSearchlib)
+  ? workspaceSearchlib
+  : fs.existsSync(path.join(__dirname, 'searchlib'))
+    ? path.join(__dirname, 'searchlib')
+    : installedSearchlib
+      ? path.join(installedSearchlib, 'searchlib')
+      : '';
 if (fs.existsSync(searchlibPath)) aliases['@eeacms/search'] = searchlibPath;
 const subsitesMock = path.join(
   __dirname,

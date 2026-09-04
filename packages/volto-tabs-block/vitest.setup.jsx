@@ -4,6 +4,8 @@ import thunk from 'redux-thunk';
 import { blocksConfig } from '@plone/volto/config/Blocks';
 import installSlate from '@plone/volto-slate/index';
 
+global.jest = vi;
+
 const mockSemanticComponents = await vi.importActual('semantic-ui-react');
 const mockComponents = await vi.importActual('@plone/volto/components');
 const config = (await vi.importActual('@plone/volto/registry')).default;
