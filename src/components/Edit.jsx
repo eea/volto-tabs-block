@@ -141,12 +141,13 @@ const Edit = (props) => {
       }
 
       if ((event.ctrlKey || event.metaKey) && !event.shiftKey) {
-        if (multiSelected.includes(id)) {
-          selected = null;
-          newMultiSelected = without(multiSelected, id);
-        } else {
-          newMultiSelected = [...(multiSelected || []), id];
+        const selection = [...multiSelected];
+        if (activeBlock && !selection.includes(activeBlock)) {
+          selection.push(activeBlock);
         }
+        newMultiSelected = selection.includes(id)
+          ? without(selection, id)
+          : [...selection, id];
       }
     }
 
