@@ -6,6 +6,7 @@ import cx from 'classnames';
 import { Menu, Tab, Input, Container } from 'semantic-ui-react';
 import BlocksForm from '@plone/volto/components/manage/Blocks/Block/BlocksForm';
 import { emptyBlocksForm } from '@plone/volto/helpers/Blocks/Blocks';
+import { fillEmptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/variations/default/schema';
 import { AssetTab } from '@eeacms/volto-tabs-block/components';
 import {
@@ -267,14 +268,7 @@ const Edit = (props) => {
                     ...tabsData,
                     blocks: {
                       ...tabsData.blocks,
-                      [activeTab]: {
-                        ...(newFormData.blocks_layout?.items.length > 0
-                          ? newFormData
-                          : emptyTab({
-                              schema: schema?.properties?.data?.schema || {},
-                              intl,
-                            })),
-                      },
+                      [activeTab]: fillEmptyTab(newFormData),
                     },
                   },
                 });

@@ -8,6 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import cx from 'classnames';
 import { Menu, Tab, Container, Dropdown, Input } from 'semantic-ui-react';
 import { emptyBlocksForm } from '@plone/volto/helpers/Blocks/Blocks';
+import { fillEmptyTab } from '@eeacms/volto-tabs-block/helpers';
 import BlocksForm from '@plone/volto/components/manage/Blocks/Block/BlocksForm';
 import { defaultSchemaEnhancer } from '@eeacms/volto-tabs-block/components/variations/default/schema';
 import {
@@ -370,14 +371,7 @@ const Edit = (props) => {
                     ...tabsData,
                     blocks: {
                       ...tabsData.blocks,
-                      [activeTab]: {
-                        ...(newFormData.blocks_layout.items.length > 0
-                          ? newFormData
-                          : emptyTab({
-                              schema: schema.properties.data.schema,
-                              intl,
-                            })),
-                      },
+                      [activeTab]: fillEmptyTab(newFormData),
                     },
                   },
                 });
