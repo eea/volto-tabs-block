@@ -40,6 +40,14 @@ export const empty = ({ schema, intl }) => {
   };
 };
 
+// Fill an emptied tab right away, keeping its own fields (title, settings).
+// Otherwise the tab is left with no block to type in, and filling it later
+// would add an undo history entry that every undo lands on and refills.
+export const fillEmptyTab = (tab) =>
+  tab?.blocks_layout?.items?.length > 0
+    ? tab
+    : { ...tab, ...emptyBlocksForm() };
+
 export const emptyTab = ({ schema, intl }) => {
   const data = {
     '@type': 'tab',
