@@ -283,7 +283,6 @@ const MenuWrapper = (props) => {
 };
 
 const Edit = (props) => {
-  const intl = useIntl();
   const {
     metadata = {},
     data = {},
@@ -297,7 +296,6 @@ const Edit = (props) => {
     activeBlock = null,
     screen,
     tabsData = {},
-    emptyTab = () => {},
     onChangeBlock = noop,
     onChangeTabData = noop,
     onSelectBlock = noop,

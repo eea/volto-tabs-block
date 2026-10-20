@@ -181,7 +181,6 @@ export const MenuItem = (props) => {
 };
 
 const Edit = (props) => {
-  const intl = useIntl();
   const {
     activeBlock = null,
     activeTab = null,
@@ -196,7 +195,6 @@ const Edit = (props) => {
     tabs = {},
     tabsData = {},
     tabsList = [],
-    emptyTab = () => {},
     onChangeBlock = noop,
     onChangeTabData = noop,
     onSelectBlock = noop,
