@@ -21,7 +21,7 @@ You need to first install the [release-it](https://github.com/release-it/release
    npm install -g release-it
    ```
 
-Release-it uses the configuration written in the [`.release-it.json`](./.release-it.json) file located in the root of the repository.
+Release-it uses the configuration written in [`.release-it.json`](./packages/volto-tabs-block/.release-it.json) from the add-on package.
 
 Release-it is a tool that automates 4 important steps in the release process:
 
@@ -71,4 +71,3 @@ Generic command, does not automatically add the `beta` to version, but you can s
 > Do not use release-it tool on master branch, the commit on CHANGELOG.md file and the version increase in the package.json file can't be done without a PULL REQUEST.
 
 > Do not keep Pull Requests from develop to master branches open when you are doing beta releases from the develop branch. As long as a PR to master is open, an automatic script will run on every commit and will update both the version and the changelog to a production-ready state - ( MAJOR.MINOR.PATCH mandatory format for version).
-
