@@ -3,7 +3,11 @@ import BlockDataForm from '@plone/volto/components/manage/Form/BlockDataForm';
 import SidebarPortal from '@plone/volto/components/manage/Sidebar/SidebarPortal';
 import { getBlocksLayoutFieldname } from '@plone/volto/helpers/Blocks/Blocks';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
-import { empty, emptyTab } from '@eeacms/volto-tabs-block/helpers';
+import {
+  empty,
+  emptyTab,
+  fillEmptyTab,
+} from '@eeacms/volto-tabs-block/helpers';
 import { StyleWrapperView } from '@eeacms/volto-block-style/StyleWrapper';
 import { BlockStyleWrapperEdit } from '@eeacms/volto-block-style/BlockStyleWrapper';
 import { getVariation } from '@eeacms/volto-tabs-block/helpers';
@@ -102,10 +106,10 @@ const Edit = (props) => {
           ...tabsData,
           blocks: {
             ...tabsData.blocks,
-            [activeTab]: {
+            [activeTab]: fillEmptyTab({
               ...tabData,
               ...blocksState.current,
-            },
+            }),
           },
         },
       });
@@ -219,10 +223,10 @@ const Edit = (props) => {
                     ...tabsData,
                     blocks: {
                       ...tabsData.blocks,
-                      [activeTab]: {
+                      [activeTab]: fillEmptyTab({
                         ...tabData,
                         ...newBlockData,
-                      },
+                      }),
                     },
                   },
                 });
