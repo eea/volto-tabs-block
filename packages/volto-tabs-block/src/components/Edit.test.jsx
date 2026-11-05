@@ -19,6 +19,15 @@ vi.mock('@eeacms/volto-tabs-block/constants', () => ({
 vi.mock('@eeacms/volto-tabs-block/helpers', () => ({
   empty: vi.fn(),
   emptyTab: vi.fn(() => ({})),
+  fillEmptyTab: vi.fn((tab) =>
+    tab?.blocks_layout?.items?.length > 0
+      ? tab
+      : {
+          ...tab,
+          blocks: { filled: { '@type': 'text' } },
+          blocks_layout: { items: ['filled'] },
+        },
+  ),
   getVariation: vi.fn(() => 'default'),
 }));
 
@@ -53,10 +62,13 @@ vi.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
   default: ({ children }) => <div>{children}</div>,
 }));
 
+const mockBlocksFormProps = vi.fn();
+
 vi.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
   __esModule: true,
   default: vi.fn(
-    ({ multiSelected, onSelectBlock, properties, selectedBlock }) => {
+    ({ multiSelected, onSelectBlock, properties, selectedBlock, ...rest }) => {
+      mockBlocksFormProps({ properties, ...rest });
       const blockList = properties.blocks
         ? Object.entries(properties.blocks)
         : [];
@@ -85,12 +97,21 @@ vi.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
 
 vi.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
   __esModule: true,
-  default: ({ selectedBlock, selectedBlocks }) => (
+  default: ({ onChangeBlocks, selectedBlock, selectedBlocks }) => (
     <div
       data-testid="blocks-toolbar"
       data-selected-block={selectedBlock || ''}
       data-selected-blocks={(selectedBlocks || []).join(',')}
-    />
+    >
+      <button
+        type="button"
+        onClick={() =>
+          onChangeBlocks({ blocks: {}, blocks_layout: { items: [] } })
+        }
+      >
+        Delete all
+      </button>
+    </div>
   ),
 }));
 
@@ -202,5 +223,53 @@ describe('Tabs Edit', () => {
       'data-selected-blocks',
       'block1,block2',
     );
+  });
+
+  const renderEdit = (onChangeBlock) =>
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit
+            block="tabs-block"
+            data={mockData}
+            onChangeBlock={onChangeBlock}
+            onChangeField={vi.fn()}
+            selected={true}
+            setSidebarTab={vi.fn()}
+            blockNode={{ current: document.createElement('div') }}
+          />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+  it('adds a new block to a tab emptied from the toolbar', () => {
+    const onChangeBlock = vi.fn();
+    renderEdit(onChangeBlock);
+    onChangeBlock.mockClear();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Delete all' }));
+
+    const tab = onChangeBlock.mock.calls[0][1].data.blocks.tab1;
+    expect(onChangeBlock).toHaveBeenCalledTimes(1);
+    expect(tab.title).toBe('Tab 1');
+    expect(tab.blocks_layout.items).toEqual(['filled']);
+  });
+
+  it('keeps the tab title when the nested form empties it', () => {
+    const onChangeBlock = vi.fn();
+    renderEdit(onChangeBlock);
+    onChangeBlock.mockClear();
+
+    const { properties, onChangeFormData } =
+      mockBlocksFormProps.mock.calls.at(-1)[0];
+    onChangeFormData({
+      ...properties,
+      blocks: {},
+      blocks_layout: { items: [] },
+    });
+
+    const tab = onChangeBlock.mock.calls[0][1].data.blocks.tab1;
+    expect(tab.title).toBe('Tab 1');
+    expect(tab.blocks_layout.items).toEqual(['filled']);
   });
 });

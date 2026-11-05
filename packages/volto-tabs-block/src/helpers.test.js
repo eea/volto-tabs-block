@@ -1,6 +1,7 @@
 import {
   empty,
   emptyTab,
+  fillEmptyTab,
   scrollToTarget,
   getParentTabFromHash,
   isTabEmpty,
@@ -134,5 +135,25 @@ describe('getParentTabFromHash function', () => {
     const tabsBlockData = { data: 'test' };
     const result = getParentTabFromHash(tabsBlockData, null);
     expect(result).toEqual(null);
+  });
+});
+
+describe('fillEmptyTab function', () => {
+  it('fills an emptied tab and keeps its title', () => {
+    const result = fillEmptyTab({
+      '@type': 'tab',
+      title: 'Tab 1',
+      blocks: {},
+      blocks_layout: { items: [] },
+    });
+    expect(result.title).toBe('Tab 1');
+    expect(result['@type']).toBe('tab');
+    expect(result.blocks_layout.items).toHaveLength(1);
+    expect(Object.keys(result.blocks)).toEqual(result.blocks_layout.items);
+  });
+
+  it('returns a tab with blocks unchanged', () => {
+    const tab = { blocks: { a: {} }, blocks_layout: { items: ['a'] } };
+    expect(fillEmptyTab(tab)).toBe(tab);
   });
 });
