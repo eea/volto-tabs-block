@@ -8,19 +8,13 @@
     git clone https://github.com/eea/volto-tabs-block.git
     cd volto-tabs-block
     git checkout -b bugfix-123456 develop
-    make
+    make install
     make start
     ```
 
 1. Wait for `Volto started at 0.0.0.0:3000` meesage
 
 1. Go to http://localhost:3000
-
-1. Initialize git hooks
-
-    ```Bash
-    yarn prepare
-    ```
 
 1. Happy hacking!
 
@@ -71,7 +65,7 @@ For new Volto 18+ projects, use Cookieplone. It includes `mrs-developer` by defa
 
         cd packages/volto-tabs-block
 
-For legacy Volto 17 projects, keep using the yarn-based workflow from the Volto 17 documentation.
+For legacy Volto 18 projects, keep using the yarn-based workflow from the Volto 18 documentation.
 
 ## Cypress
 
@@ -89,7 +83,7 @@ Go to:
 Start:
 
   ```Bash
-  make
+  make install
   make start
   ```
 
