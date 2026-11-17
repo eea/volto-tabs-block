@@ -1,6 +1,7 @@
 {
   "name": "@eeacms/volto-tabs-block-dev",
-  "version": "1.0.0-alpha.0",
+  "private": true,
+  "version": "11.0.0",
   "description": "This add-on enables ad-hoc grouping of Volto blocks under sections and tabs",
   "author": "European Environment Agency: IDM2 A-Team",
   "homepage": "https://github.com/eea/volto-tabs-block",
