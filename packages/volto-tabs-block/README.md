@@ -83,6 +83,20 @@
 
 ## Upgrade
 
+### Upgrading to 11.x
+
+> This version requires `Volto 18` or `Volto 19` and Node.js 22.
+
+The block, its variations and its schema keep the same API, so upgrading from 10.x on Volto 18 needs no content changes. The release adds Volto 19 support and moves the repository to the Volto 19 layout, where the published package lives in `packages/volto-tabs-block`.
+
+#### Breaking changes
+
+- **Node.js 22 or newer is required** (`engines.node >= 22`), 10.x declared no engine.
+- **React 18 is required.** The package declares `react` and `react-dom` as `^18.2.0` peers, 10.x declared no peers.
+- **The package no longer ships the Jest setup.** `jest-addon.config.js` and `jest.setup.js` were removed in favour of Vitest, so a Volto 18 project that still runs the Jest harness has to keep its own copy.
+
+The asset image is now rendered with Volto's `Image` component instead of the `semantic-ui-react` one, and `react-resize-detector` is declared as a dependency; the add-on imported it before without declaring it.
+
 ### Upgrading to 10.x
 
 > This version requires `Volto >= 17.18` or `Volto 18+`. It removes the custom `EditBlockWrapper` and uses Volto's built-in block chrome provided by `BlocksForm`.
